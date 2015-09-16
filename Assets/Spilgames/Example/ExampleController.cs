@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ExampleController : MonoBehaviour {
-	
+
+
+
 	//track a simple event with no parameters
 	public void TrackEventSimple(){
 		//just pass a string to the spil server
@@ -31,5 +33,5 @@ public class ExampleController : MonoBehaviour {
 		Spil.ShowSpilMoreApps ();
 	}
 	
-	
+
 }

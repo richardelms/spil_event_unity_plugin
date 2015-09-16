@@ -11,15 +11,25 @@ using NotificationType = UnityEngine.iOS.NotificationType;
 public class Spil : MonoBehaviour {
 	
 	void Awake () {	
-		#if UNITY_ANDROID || UNITY_IOS
+		#if UNITY_ANDROID || UNITY_IOS 
 		SpilInit ();
 		#endif
 		DontDestroyOnLoad (gameObject);
 	}
+
+	#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+	public static void TrackEvent(string eventName){
+		Debug.Log ("SPIL TRACK EVENT: " + eventName);
+	}
+	public static void TrackEvent(string eventName, Dictionary<string,string> eventParams){
+		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
+	}
+	void SpilInit(){
+		
+	}
+	#elif UNITY_ANDROID 
 	
-	#if UNITY_ANDROID
-	
-	public string androidPackageID = "com.spilgames.exampleapp";
+//	public string androidPackageID = "com.spilgames.exampleapp";
 	
 	void SpilInit(){
 		string project_ID = "127433475057";
@@ -121,10 +131,9 @@ public class Spil : MonoBehaviour {
 			TrackEvent("special_game_start");
 		}
 	}
+
 	
-	#endif
-	
-	#if UNITY_IOS
+#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent
 	bool tokenSent;
@@ -277,16 +286,7 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("Event data: " + eventData.ToString());
 		//TODO parse the json for the reward (coins for example) and reward the player
 	}
-	
-	
-	#if !UNITY_ANDROID && !UNITY_IOS
-	public static void TrackEvent(string eventName){
-		Debug.Log ("SPIL TRACK EVENT: " + eventName);
-	}
-	public static void TrackEvent(string eventName, Dictionary<string,string> eventParams){
-		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
-	}
-	#endif
+
 	
 }
 

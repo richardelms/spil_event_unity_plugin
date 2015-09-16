@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Martijn van der Gun. All rights reserved.
 //
 
+#ifdef __cplusplus
 
 extern "C" {
     
@@ -15,8 +16,13 @@ extern "C" {
     
     void trackEventWithParamsNative(const char* eventName, const char* jsonStringParams);
     
+    void handlePushNotification(const char* notificationStringParams);
+    
     void SendUnityBridgeMessage(const char* objectName,const char* messageName,const char* parameterString);
     
     void UnitySendMessage(const char* obj, const char* method, const char* msg);
 
+    void registerForPushNotifications(const char* obj);
 }
+
+#endif

@@ -15,6 +15,7 @@ public class Spil : MonoBehaviour {
 		SpilInit ();
 		#endif
 		DontDestroyOnLoad (gameObject);
+
 	}
 
 	#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
@@ -25,7 +26,6 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
 	}
 	void SpilInit(){
-		
 	}
 	#elif UNITY_ANDROID 
 	
@@ -34,7 +34,6 @@ public class Spil : MonoBehaviour {
 	void SpilInit(){
 		string project_ID = "127433475057";
 		RegisterDevice (project_ID);
-		TrackEvent ("special_game_start");
 		Debug.Log ("SPIL SDK INIT FROM UNITY");
 	}
 	

@@ -261,6 +261,28 @@ public class Spil : MonoBehaviour {
 	#endif
 	
 	//recive responces from the SDK
+
+	/* Use cases for processing advertising responses from Spil SDK
+		 * adFailedToLoadBanner
+		 * adClosedBanner
+		 * adLoadedBanner
+		 * adOpenedBanner
+		 * adFailedToLoadInterstitial
+		 * adNotAvailableInterstitial
+		 * adClosedInterstitial
+		 * adLoadedInterstitial
+		 * adOpenedInterstitial
+		 * adDismissInterstitial
+		 * adClickedInterstitial
+		 * adFailedToLoadRewardVideo
+		 * adNotAvailableRewardVideo
+		 * adDismissRewardVideo
+		 * adClosedRewardVideo
+		 * adClickedRewardVideo
+		 * adCompleteRewardVideo
+		 * adOpenedRewardVideo
+		 */
+
 	public void OnResponseReceived(string response){
 		Debug.Log ("RESPONSE RECIVED: \n" + response);
 		
@@ -271,7 +293,42 @@ public class Spil : MonoBehaviour {
 		case "reward":
 			OnReward(responseData.GetField("data"));
 			break;
-			
+		case "adFailedToLoadBanner":
+			break;
+		case "adClosedBanner":
+			break;
+		case "adLoadedBanner":
+			break;
+		case "adOpenedBanner":
+			break;
+		case "adFailedToLoadInterstitial":
+			break;
+		case "adNotAvailableInterstitial":
+			break;
+		case "adClosedInterstitial":
+			break;
+		case "adLoadedInterstitial":
+			break;
+		case "adOpenedInterstitial":
+			break;
+		case "adDismissInterstitial":
+			break;
+		case "adClickedInterstitial":
+			break;
+		case "adFailedToLoadRewardVideo":
+			break;
+		case "adNotAvailableRewardVideo":
+			break;
+		case "adDismissRewardVideo":
+			break;
+		case "adClosedRewardVideo":
+			break;
+		case "adClickedRewardVideo":
+			break;
+		case "adCompleteRewardVideo":
+			break;
+		case "adOpenedRewardVideo":
+			break;
 		}
 		
 	}

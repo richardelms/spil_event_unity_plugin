@@ -2,16 +2,22 @@
 //  Spil.h
 //  Spil
 //
-//  Created by Martijn van der Gun on 6/25/15.
-//  Copyright (c) 2015 Spil Games. All rights reserved.
+//  Created by Martijn van der Gun on 10/1/15.
+//  Copyright © 2015 Spil Games. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "SpilEventTracker.h"
-#import "SpilNotificationHelper.h"
-#import "SpilActionHandler.h"
-#import "SpilWebViewController.h"
+//#import <Spil/PublicHeader.h>
+
+
+//! Project version number for Spil.
+FOUNDATION_EXPORT double SpilVersionNumber;
+
+//! Project version string for Spil.
+FOUNDATION_EXPORT const unsigned char SpilVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <Spil/PublicHeader.h>
+
 
 
 @interface Spil : NSObject {
@@ -109,3 +115,4 @@ void UnitySendMessage(const char* obj, const char* method, const char* msg);
 
 
 @end
+

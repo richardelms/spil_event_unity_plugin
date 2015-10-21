@@ -99,7 +99,6 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  *  @param method Name of the message, should match the function in the iOS SDK
  *  @param msg    A json string holding the data being send
  */
-
 void UnitySendMessage(const char* obj, const char* method, const char* msg);
 
 

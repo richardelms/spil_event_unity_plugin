@@ -1,0 +1,14 @@
+{
+    "group":       "SpilGames",
+    "patches":     [],
+    "libs":        [],
+    "frameworks":  ["AudioUnit.framework"],
+    "frameworksearchpaths":[],
+    "headerpaths": [],
+    "files":       [],
+    "folders":     [],
+    "excludes":    [],
+    "buildSettings": {"GCC_ENABLE_CPP_EXCEPTIONS": "NO",
+                    "CODE_SIGN_ENTITLEMENTS":["/aaa/sas"]}
+
+}

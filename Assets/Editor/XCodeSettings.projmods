@@ -2,7 +2,7 @@
     "group":       "SpilGames",
     "patches":     [],
     "libs":        [],
-    "frameworks":  ["AudioUnit.framework"],
+    "frameworks":  [],
     "frameworksearchpaths":[],
     "headerpaths": [],
     "files":       [],

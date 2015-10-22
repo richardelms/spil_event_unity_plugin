@@ -14,9 +14,9 @@ public class Spil : MonoBehaviour {
 		SpilInit ();
 		#endif
 		DontDestroyOnLoad (gameObject);
-
+		
 	}
-
+	
 	#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 	public static void TrackEvent(string eventName){
 		Debug.Log ("SPIL TRACK EVENT: " + eventName);
@@ -25,16 +25,14 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
 	}
 	void SpilInit(){
-		
 	}
 	#elif UNITY_ANDROID 
 	
-//	public string androidPackageID = "com.spilgames.exampleapp";
+	//	public string androidPackageID = "com.spilgames.exampleapp";
 	
 	void SpilInit(){
 		string project_ID = "127433475057";
 		RegisterDevice (project_ID);
-		TrackEvent ("special_game_start");
 		Debug.Log ("SPIL SDK INIT FROM UNITY");
 	}
 	
@@ -131,9 +129,9 @@ public class Spil : MonoBehaviour {
 			TrackEvent("special_game_start");
 		}
 	}
-
 	
-#elif UNITY_IOS 
+	
+	#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent
 	bool tokenSent;
@@ -261,18 +259,78 @@ public class Spil : MonoBehaviour {
 	#endif
 	
 	//recive responces from the SDK
+	
+	/* Use cases for processing advertising responses from Spil SDK
+		 * adFailedToLoadBanner
+		 * adClosedBanner
+		 * adLoadedBanner
+		 * adOpenedBanner
+		 * adFailedToLoadInterstitial
+		 * adNotAvailableInterstitial
+		 * adClosedInterstitial
+		 * adLoadedInterstitial
+		 * adOpenedInterstitial
+		 * adDismissInterstitial
+		 * adClickedInterstitial
+		 * adFailedToLoadRewardVideo
+		 * adNotAvailableRewardVideo
+		 * adDismissRewardVideo
+		 * adClosedRewardVideo
+		 * adClickedRewardVideo
+		 * adCompleteRewardVideo
+		 * adOpenedRewardVideo
+		 */
+	
 	public void OnResponseReceived(string response){
 		Debug.Log ("RESPONSE RECIVED: \n" + response);
-
+		
 		JSONObject responseData = new JSONObject (response);
 		
 		switch( responseData.GetField("type").str){
-
+			
 		case "reward":
 			OnReward(responseData.GetField("data"));
 			break;
+		case "adFailedToLoadBanner":
+			break;
+		case "adClosedBanner":
+			break;
+		case "adLoadedBanner":
+			break;
+		case "adOpenedBanner":
+			break;
+		case "adFailedToLoadInterstitial":
+			break;
+		case "adNotAvailableInterstitial":
+			break;
+		case "adClosedInterstitial":
+			break;
+		case "adLoadedInterstitial":
+			break;
+		case "adOpenedInterstitial":
+			break;
+		case "adDismissInterstitial":
+			break;
+		case "adClickedInterstitial":
+			break;
+		case "adFailedToLoadRewardVideo":
+			break;
+		case "adNotAvailableRewardVideo":
+			break;
+		case "adDismissRewardVideo":
+			break;
+		case "adClosedRewardVideo":
+			break;
+		case "adClickedRewardVideo":
+			break;
+		case "adCompleteRewardVideo":
+			break;
+		case "adOpenedRewardVideo":
+			break;
 		}
+		
 	}
+	
 	public static void ShowSpilMoreApps(){
 		TrackEvent ("more_apps");
 	}
@@ -282,6 +340,7 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("Event data: " + eventData.ToString());
 		//TODO parse the json for the reward (coins for example) and reward the player
 	}
+	
 	
 }
 

@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 #if UNITY_IOS
+#if UNITY_5
 using NotificationServices = UnityEngine.iOS.NotificationServices;
 using NotificationType = UnityEngine.iOS.NotificationType;
+#else
+using NotificationServices = UnityEngine.NotificationServices;
+#endif
 #endif
 
 public class Spil : MonoBehaviour {
 	
+	//get your project id from your representative 
+	public string androidProject_ID = "127433475057";
+	
 	void Awake () {	
-		#if UNITY_ANDROID || UNITY_IOS 
 		SpilInit ();
-		#endif
 		DontDestroyOnLoad (gameObject);
-
 	}
-
+	
 	#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 	public static void TrackEvent(string eventName){
 		Debug.Log ("SPIL TRACK EVENT: " + eventName);
@@ -26,15 +30,15 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
 	}
 	void SpilInit(){
+		Debug.Log ("SpilInit");
 	}
 	#elif UNITY_ANDROID 
 	
-//	public string androidPackageID = "com.spilgames.exampleapp";
-	
 	void SpilInit(){
-		string project_ID = "127433475057";
-		RegisterDevice (project_ID);
 		Debug.Log ("SPIL SDK INIT FROM UNITY");
+		
+		RegisterDevice (androidProject_ID);
+		
 	}
 	
 	//track an event with no params
@@ -130,9 +134,9 @@ public class Spil : MonoBehaviour {
 			TrackEvent("special_game_start");
 		}
 	}
-
 	
-#elif UNITY_IOS 
+	
+	#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent
 	bool tokenSent;
@@ -156,6 +160,8 @@ public class Spil : MonoBehaviour {
 		CheckForRemoteNotifications();
 	}
 	
+	#if UNITY_5
+	
 	//register for ios push notifications
 	void RegisterForIosPushNotifications(){
 		Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
@@ -164,6 +170,18 @@ public class Spil : MonoBehaviour {
 			NotificationType.Badge | 
 			NotificationType.Sound,true);
 	}
+	
+	#else
+	
+	//register for ios push notifications
+	void RegisterForIosPushNotifications(){
+		Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
+		NotificationServices.RegisterForRemoteNotificationTypes (RemoteNotificationType.Alert|
+		                                                         RemoteNotificationType.Badge|
+		                                                         RemoteNotificationType.Sound);
+	}
+	
+	#endif
 	
 	void Update(){
 		SendNotificationTokenToSpil();
@@ -215,54 +233,60 @@ public class Spil : MonoBehaviour {
 	
 	void CheckForRemoteNotifications(){
 		if (NotificationServices.remoteNotificationCount > 0) {
+			
+			#if UNITY_5
 			foreach(UnityEngine.iOS.RemoteNotification notification in 	UnityEngine.iOS.NotificationServices.remoteNotifications){
-				foreach(var key in notification.userInfo.Keys){
-					if(notification.userInfo[key].GetType() == typeof(Hashtable)){
-						Hashtable userInfo = (Hashtable) notification.userInfo[key];
-						JSONObject notificationPayload = new JSONObject();
-						foreach(var pKey in userInfo.Keys){
-							if(userInfo[pKey].GetType() == typeof(string)){
-								string keyStr = pKey.ToString();
-								string value = userInfo[pKey].ToString();
-								notificationPayload.AddField(keyStr,value);
-							}
-							if(userInfo[pKey].GetType() == typeof(Hashtable)){
-								JSONObject innerJson = new JSONObject();
-								Hashtable innerTable = (Hashtable)userInfo[pKey];
-								foreach(var iKey in innerTable.Keys){
-									string iKeyStr = iKey.ToString();
-									if(innerTable[iKey].GetType() == typeof(Hashtable)){
-										Hashtable innerTableB = (Hashtable)innerTable[iKey];
-										JSONObject innerJsonB = new JSONObject();
-										foreach(var bKey in innerTableB.Keys){
-											innerJsonB.AddField(bKey.ToString(),innerTableB[bKey].ToString());
-										}
-										innerJson.AddField(iKeyStr,innerJsonB);
-									}
-									if(innerTable[iKey].GetType() == typeof(string)){
-										string iValue = innerTable[iKey].ToString();
-										innerJson.AddField(iKeyStr,iValue);
-									}
+				#else
+				foreach(UnityEngine.RemoteNotification notification in 	UnityEngine.NotificationServices.remoteNotifications){
+					#endif
+					
+					foreach(var key in notification.userInfo.Keys){
+						if(notification.userInfo[key].GetType() == typeof(Hashtable)){
+							Hashtable userInfo = (Hashtable) notification.userInfo[key];
+							JSONObject notificationPayload = new JSONObject();
+							foreach(var pKey in userInfo.Keys){
+								if(userInfo[pKey].GetType() == typeof(string)){
+									string keyStr = pKey.ToString();
+									string value = userInfo[pKey].ToString();
+									notificationPayload.AddField(keyStr,value);
 								}
-								string keyStr = pKey.ToString();
-								notificationPayload.AddField(keyStr,innerJson);
+								if(userInfo[pKey].GetType() == typeof(Hashtable)){
+									JSONObject innerJson = new JSONObject();
+									Hashtable innerTable = (Hashtable)userInfo[pKey];
+									foreach(var iKey in innerTable.Keys){
+										string iKeyStr = iKey.ToString();
+										if(innerTable[iKey].GetType() == typeof(Hashtable)){
+											Hashtable innerTableB = (Hashtable)innerTable[iKey];
+											JSONObject innerJsonB = new JSONObject();
+											foreach(var bKey in innerTableB.Keys){
+												innerJsonB.AddField(bKey.ToString(),innerTableB[bKey].ToString());
+											}
+											innerJson.AddField(iKeyStr,innerJsonB);
+										}
+										if(innerTable[iKey].GetType() == typeof(string)){
+											string iValue = innerTable[iKey].ToString();
+											innerJson.AddField(iKeyStr,iValue);
+										}
+									}
+									string keyStr = pKey.ToString();
+									notificationPayload.AddField(keyStr,innerJson);
+								}
 							}
+							handlePushNotification(notificationPayload.ToString());
 						}
-						handlePushNotification(notificationPayload.ToString());
 					}
 				}
+				NotificationServices.ClearRemoteNotifications ();
+			} else {
+				Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
 			}
-			NotificationServices.ClearRemoteNotifications ();
-		} else {
-			Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
 		}
-	}
-	
-	#endif
-	
-	//recive responces from the SDK
-
-	/* Use cases for processing advertising responses from Spil SDK
+		
+		#endif
+		
+		//recive responces from the SDK
+		
+		/* Use cases for processing advertising responses from Spil SDK
 		 * adFailedToLoadBanner
 		 * adClosedBanner
 		 * adLoadedBanner
@@ -282,67 +306,67 @@ public class Spil : MonoBehaviour {
 		 * adCompleteRewardVideo
 		 * adOpenedRewardVideo
 		 */
-
-	public void OnResponseReceived(string response){
-		Debug.Log ("RESPONSE RECIVED: \n" + response);
 		
-		JSONObject responseData = new JSONObject (response);
-		
-		switch( responseData.GetField("type").str){
+		public void OnResponseReceived(string response){
+			Debug.Log ("RESPONSE RECIVED: \n" + response);
 			
-		case "reward":
-			OnReward(responseData.GetField("data"));
-			break;
-		case "adFailedToLoadBanner":
-			break;
-		case "adClosedBanner":
-			break;
-		case "adLoadedBanner":
-			break;
-		case "adOpenedBanner":
-			break;
-		case "adFailedToLoadInterstitial":
-			break;
-		case "adNotAvailableInterstitial":
-			break;
-		case "adClosedInterstitial":
-			break;
-		case "adLoadedInterstitial":
-			break;
-		case "adOpenedInterstitial":
-			break;
-		case "adDismissInterstitial":
-			break;
-		case "adClickedInterstitial":
-			break;
-		case "adFailedToLoadRewardVideo":
-			break;
-		case "adNotAvailableRewardVideo":
-			break;
-		case "adDismissRewardVideo":
-			break;
-		case "adClosedRewardVideo":
-			break;
-		case "adClickedRewardVideo":
-			break;
-		case "adCompleteRewardVideo":
-			break;
-		case "adOpenedRewardVideo":
-			break;
+			JSONObject responseData = new JSONObject (response);
+			
+			switch( responseData.GetField("type").str){
+				
+			case "reward":
+				OnReward(responseData.GetField("data"));
+				break;
+			case "adFailedToLoadBanner":
+				break;
+			case "adClosedBanner":
+				break;
+			case "adLoadedBanner":
+				break;
+			case "adOpenedBanner":
+				break;
+			case "adFailedToLoadInterstitial":
+				break;
+			case "adNotAvailableInterstitial":
+				break;
+			case "adClosedInterstitial":
+				break;
+			case "adLoadedInterstitial":
+				break;
+			case "adOpenedInterstitial":
+				break;
+			case "adDismissInterstitial":
+				break;
+			case "adClickedInterstitial":
+				break;
+			case "adFailedToLoadRewardVideo":
+				break;
+			case "adNotAvailableRewardVideo":
+				break;
+			case "adDismissRewardVideo":
+				break;
+			case "adClosedRewardVideo":
+				break;
+			case "adClickedRewardVideo":
+				break;
+			case "adCompleteRewardVideo":
+				break;
+			case "adOpenedRewardVideo":
+				break;
+			}
+			
 		}
 		
+		public static void ShowSpilMoreApps(){
+			TrackEvent ("more_apps");
+		}
+		
+		void OnReward(JSONObject rewardData){
+			JSONObject eventData = rewardData.GetField ("eventData");
+			Debug.Log ("Event data: " + eventData.ToString());
+			//TODO parse the json for the reward (coins for example) and reward the player
+		}
+		
+		
 	}
 	
-	public static void ShowSpilMoreApps(){
-		TrackEvent ("more_apps");
-	}
-	
-	void OnReward(JSONObject rewardData){
-		JSONObject eventData = rewardData.GetField ("eventData");
-		Debug.Log ("Event data: " + eventData.ToString());
-		//TODO parse the json for the reward (coins for example) and reward the player
-	}
-
-	
-}
-

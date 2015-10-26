@@ -15,7 +15,7 @@ using NotificationServices = UnityEngine.NotificationServices;
 public class Spil : MonoBehaviour {
 	
 	//get your project id from your representative 
-
+	
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);

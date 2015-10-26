@@ -15,8 +15,7 @@ using NotificationServices = UnityEngine.NotificationServices;
 public class Spil : MonoBehaviour {
 	
 	//get your project id from your representative 
-	public string androidProject_ID = "127433475057";
-	
+
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -33,11 +32,11 @@ public class Spil : MonoBehaviour {
 		Debug.Log ("SpilInit");
 	}
 	#elif UNITY_ANDROID 
-	
 	void SpilInit(){
 		Debug.Log ("SPIL SDK INIT FROM UNITY");
 		
-		RegisterDevice (androidProject_ID);
+		string project_ID = "127433475057";
+		RegisterDevice (project_ID);
 		
 	}
 	

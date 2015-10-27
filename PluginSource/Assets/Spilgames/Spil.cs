@@ -40,7 +40,25 @@ public class Spil : MonoBehaviour {
 		RegisterDevice (project_ID);
 		
 	}
-	
+
+	public static void ReportActivityStart(){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("reportActivityStart");
+			}
+		}
+	}
+
+	public static void ReportActivityStop(){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("reportActivityStop");
+			}
+		}
+	}
+
 	//track an event with no params
 	public static void TrackEvent(string eventName){
 		TrackEvent (eventName, null);

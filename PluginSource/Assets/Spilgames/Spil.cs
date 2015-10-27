@@ -131,7 +131,7 @@ public class Spil : MonoBehaviour {
 	
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){
-			TrackEvent("special_game_start");
+
 		}
 	}
 	

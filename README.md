@@ -27,4 +27,15 @@ To trigger the spilgames more apps page, simply call Spil.ShowSpilMoreApps();
 
 Talk with your spil contact to decide where and when to call this.
 
+<h2>IOS specific settings</h2>
 
+
+After generating a xcode project we need to make a few small changes in xcode:
+
+Since iOS 9 blocks all http requests and only allows https by default we need to add one small setting to the info.plist of the project:
+
+![alt tag](http://www.strongerthanfiction.com/img/integration.png)
+
+Make sure you enabled the spil games app group in the xcode project capabilities tab. *This might require a certificate update. 
+
+![alt tag](http://www.strongerthanfiction.com/img/integration2.png)

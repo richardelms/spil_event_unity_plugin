@@ -15,7 +15,8 @@ using NotificationServices = UnityEngine.NotificationServices;
 public class Spil : MonoBehaviour {
 	
 	//get your project id from your representative 
-	
+	public string androidProjectID;
+
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -34,8 +35,7 @@ public class Spil : MonoBehaviour {
 	}
 	#elif UNITY_ANDROID 
 	void SpilInit(){
-		string project_ID = "127433475057";
-		RegisterDevice (project_ID);
+		RegisterDevice (androidProjectID);
 	}
 	
 	//track an event with no params

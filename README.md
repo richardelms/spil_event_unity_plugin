@@ -6,7 +6,7 @@ Important note for Android: Only import the google play services folder (Plugins
 
 <h3>2: Init the SDK</h3>
 
-Create an empty game object in the first scene of your game (Splash or loading/initialisation screen) and attach the script named Spil.cs to it. The script can be found in the imported Spilgames folder. On Android, also enter your project ID to the gameobject.
+Create an empty game object in the first scene of your game (Splash or loading/initialisation screen) and attach the script named Spil.cs to it. The script can be found in the imported Spilgames folder. On Android, also enter your project ID to the gameobject. Ask your Spil contact to provide you with your project ID.
 
 <h3>3: Track events</h3>
 
@@ -16,16 +16,11 @@ To pass more information with the event, simply create a <String, String> Dictio
 
 Dictionary<String, String> eventParams = new Dictionary<String,String>();
 
-eventParams.add(“Level”,levelName);
-eventParams.add(“Coins”,playerCoins);
+eventParams.Add(“Level”,levelName);
+eventParams.Add(“Coins”,playerCoins);
 
 Spil.TrackEvent(“PlayerDeath”, eventParams);
 
-<h3>4: Setup the more apps page</h3>
-
-To trigger the spilgames more apps page, simply call Spil.ShowSpilMoreApps();
-
-Talk with your spil contact to decide where and when to call this.
 
 <h2>IOS specific settings</h2>
 

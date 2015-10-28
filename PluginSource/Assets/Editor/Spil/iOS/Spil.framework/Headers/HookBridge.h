@@ -23,6 +23,12 @@ extern "C" {
     void UnitySendMessage(const char* obj, const char* method, const char* msg);
 
     void registerForPushNotifications(const char* obj);
+    
+    void applicationDidEnterBackground();
+    
+    void applicationDidBecomeActive();
+    
+    void setPushNotificationKey(const char* pushKey);
 }
 
 #endif

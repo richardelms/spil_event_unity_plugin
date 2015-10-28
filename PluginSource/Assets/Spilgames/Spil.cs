@@ -34,31 +34,10 @@ public class Spil : MonoBehaviour {
 	}
 	#elif UNITY_ANDROID 
 	void SpilInit(){
-		Debug.Log ("SPIL SDK INIT FROM UNITY");
-		
 		string project_ID = "127433475057";
 		RegisterDevice (project_ID);
-		
 	}
-
-	public static void ReportActivityStart(){
-		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
-			if(pClass != null){
-				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-				instance.Call("reportActivityStart");
-			}
-		}
-	}
-
-	public static void ReportActivityStop(){
-		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
-			if(pClass != null){
-				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-				instance.Call("reportActivityStop");
-			}
-		}
-	}
-
+	
 	//track an event with no params
 	public static void TrackEvent(string eventName){
 		TrackEvent (eventName, null);
@@ -90,7 +69,9 @@ public class Spil : MonoBehaviour {
 			}
 		}
 	}
-	
+
+
+
 	//if android, register device
 	public void RegisterDevice(string projectID){
 		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
@@ -100,34 +81,26 @@ public class Spil : MonoBehaviour {
 			}
 		}
 	}
-	//Method that stends game data to the Spil SDK
-	public void updateGamedData(Dictionary<string, string> values){
-		using(AndroidJavaObject obj_HashMap = new AndroidJavaObject("java.util.HashMap")){
-			IntPtr method_Put = AndroidJNIHelper.GetMethodID(obj_HashMap.GetRawClass(), "put",
-			                                                 "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
-			
-			object[] args = new object[2];
-			if(values != null){
-				foreach(KeyValuePair<string, string> kvp in values){
-					using(AndroidJavaObject k = new AndroidJavaObject("java.lang.String", kvp.Key)){
-						using(AndroidJavaObject v = new AndroidJavaObject("java.lang.String", kvp.Value)){
-							args[0] = k;
-							args[1] = v;
-							AndroidJNI.CallObjectMethod(obj_HashMap.GetRawObject(),
-							                            method_Put, AndroidJNIHelper.CreateJNIArgArray(args));
-						}
+
+	public static void ReportActivityStart(){
+				using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+						if(pClass != null){
+								AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+								instance.Call("reportActivityStart");
+							}
 					}
-				}
 			}
-			using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
-				if(pClass != null){
-					AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-					instance.Call("updateGameData", obj_HashMap);
-				}
-				
+
+		public static void ReportActivityStop(){
+				using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+						if(pClass != null){
+								AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+								instance.Call("reportActivityStop");
+							}
+					}
 			}
-		}
-	}
+
+
 	//Method that enables push notifications messages
 	public void EnablePushNotifications(){
 		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
@@ -149,7 +122,10 @@ public class Spil : MonoBehaviour {
 	
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){
-
+			ReportActivityStart();
+			TrackEvent("special_game_start");
+		}else{
+			ReportActivityStop();
 		}
 	}
 	
@@ -161,9 +137,18 @@ public class Spil : MonoBehaviour {
 	
 	[DllImport("__Internal")]
 	public static extern void initEventTracker();
+
+	[DllImport("__Internal")]
+	public static extern void applicationDidEnterBackground();
+
+	[DllImport("__Internal")]
+	public static extern void applicationDidBecomeActive();
 	
 	[DllImport("__Internal")]
 	public static extern void trackEventNative(string eventName);
+
+	[DllImport("__Internal")]
+	public static extern void setPushNotificationKey(string key);
 	
 	[DllImport("__Internal")]
 	public static extern void trackEventWithParamsNative(string eventName, string jsonStringParams);
@@ -173,7 +158,6 @@ public class Spil : MonoBehaviour {
 	
 	void SpilInit(){
 		initEventTracker();
-		TrackEvent("startup");
 		RegisterForIosPushNotifications();
 		CheckForRemoteNotifications();
 	}
@@ -213,7 +197,7 @@ public class Spil : MonoBehaviour {
 				string tokenToBeSent = System.BitConverter.ToString (token).Replace ("-", "");
 				Dictionary<string,string> param = new Dictionary<string, string> ();
 				param.Add ("regId", tokenToBeSent);
-				TrackEvent ("registerPushNotifications", param);
+				setPushNotificationKey (tokenToBeSent);
 				tokenSent = true;
 			}
 		}
@@ -237,15 +221,15 @@ public class Spil : MonoBehaviour {
 			trackEventNative(eventName);
 		}
 	}
-	
-	void OnApplicationQuit() {
-		TrackEvent ("shutdown");
-	}
+
 	
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){
+			applicationDidBecomeActive();
 			TrackEvent("special_game_start");
 			CheckForRemoteNotifications();
+		}else{
+			applicationDidEnterBackground();
 		}
 	}
 	

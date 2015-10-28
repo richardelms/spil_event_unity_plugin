@@ -6,7 +6,7 @@ Important note for Android: Only import the google play services folder (Plugins
 
 <h3>2: Init the SDK</h3>
 
-Create an empty game object in the first scene of your game (Splash or loading/initialisation screen) and attach the script named Spil.cs to it. The script can be found in the imported Spilgames folder.
+Create an empty game object in the first scene of your game (Splash or loading/initialisation screen) and attach the script named Spil.cs to it. The script can be found in the imported Spilgames folder. On Android, also enter your project ID to the gameobject.
 
 <h3>3: Track events</h3>
 

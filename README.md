@@ -21,6 +21,8 @@ eventParams.Add(“Coins”,playerCoins);
 
 Spil.TrackEvent(“PlayerDeath”, eventParams);
 
+As well as any extra events you wish to track, please also track the events listed in the excel document provided by Spil.
+
 
 <h2>IOS specific settings</h2>
 

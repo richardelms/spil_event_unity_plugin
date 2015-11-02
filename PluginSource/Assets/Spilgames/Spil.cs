@@ -15,8 +15,7 @@ using NotificationServices = UnityEngine.NotificationServices;
 public class Spil : MonoBehaviour {
 	
 	//get your project id from your representative 
-	public string androidProjectID;
-
+	
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -35,7 +34,8 @@ public class Spil : MonoBehaviour {
 	}
 	#elif UNITY_ANDROID 
 	void SpilInit(){
-		RegisterDevice (androidProjectID);
+		string project_ID = "127433475057";
+		RegisterDevice (project_ID);
 	}
 	
 	//track an event with no params
@@ -82,25 +82,6 @@ public class Spil : MonoBehaviour {
 		}
 	}
 
-	public static void ReportActivityStart(){
-				using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
-						if(pClass != null){
-								AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-								instance.Call("reportActivityStart");
-							}
-					}
-			}
-
-		public static void ReportActivityStop(){
-				using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
-						if(pClass != null){
-								AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-								instance.Call("reportActivityStop");
-							}
-					}
-			}
-
-
 	//Method that enables push notifications messages
 	public void EnablePushNotifications(){
 		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
@@ -122,10 +103,7 @@ public class Spil : MonoBehaviour {
 	
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){
-			ReportActivityStart();
 			TrackEvent("special_game_start");
-		}else{
-			ReportActivityStop();
 		}
 	}
 	

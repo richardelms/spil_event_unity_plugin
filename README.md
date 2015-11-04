@@ -36,3 +36,10 @@ Since iOS 9 blocks all http requests and only allows https by default we need to
 Make sure you enabled the spil games app group in the xcode project capabilities tab. *This might require a certificate update. 
 
 ![alt tag](http://www.strongerthanfiction.com/img/integration2.png)
+
+
+| Events types                | required parameters      | Note  |
+| --------------------------  |:------------------------:| -----:|
+| didDisplayInterstitial      | right-aligned            | $1600 |
+| didDismissInterstitial      | centered                 |   $12 |
+| didCloseInterstitial        |                       $1 |

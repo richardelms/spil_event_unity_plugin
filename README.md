@@ -43,7 +43,7 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 Advertising
 
 | Events types                | required parameters                                                              | Note  |
-| --------------------------  |:--------------------------------------------------------------------------------:| ---- :|
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
 | didDisplayInterstitial      | screenType               |                                                               |
 | didDismissInterstitial      | screenType               |                                                               |
 | didCloseInterstitial        | screenType               |                                                               |
@@ -51,8 +51,6 @@ Advertising
 | didDisplayRewardedVideo     | screenType               |                                                               |
 | didDismissRewardedVideo     | screenType               |                                                               |
 | didCloseRewardedVideo       | screenType               |                                                               |
----
-
 
 
 * screenType (e.g. tutorialStart, levelComplete, gamePlayStart)

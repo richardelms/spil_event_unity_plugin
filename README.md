@@ -53,7 +53,9 @@ Advertising
 | didCloseRewardedVideo       | screenType               |                                                               |
 
 
-* screenType (e.g. tutorialStart, levelComplete, gamePlayStart)
+* screenType (String) - i.e tutorialStart, levelComplete, gamePlayStart
+
+
 
 IAP
 
@@ -62,21 +64,29 @@ IAP
 | iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
 | iapRestored                 | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate            |                                                               |
 | iapFailed                   | error, skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate               
-* skuID - The product identifier of the item that was purchased.
-* transactionId - The transaction identifier of the item that was purchased (also called orderId).
-* purchaseDate - The date and time that the item was purchased.
-* originalTransactionId - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
-* originalPurchaseDate - For a transaction that restores a previous transaction, the date of the original transaction.
-* error - Error description or error code
+* skuID (string) - The product identifier of the item that was purchased.
+* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
+* purchaseDate (string) - The date and time that the item was purchased.
+* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
+* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
+* error (string) - Error description or error code
+
+
 
 USER BEHAVIOUR
 
 | Events types                | required parameters                                                              | Note |
 | --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| walletUpdate                | walletValue, itemValue, source, item                    |                               |
-| milestoneAchieved           | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate    |      |    
-| levelStart                  | name                                                                             |    |      
+| walletUpdate                | walletValue, itemValue, source, item, category                    |                               |
+| milestoneAchieved           | name                                                                             |      |    
+| levelStart                  | level                                                                             |    |      
 
-
+* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
+* itemValue (int) - The value of the item consumed. E.g. coins.
+* source (int) - 0 == premium
+* item (string) - item id or sku
+* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
+* name (string) - name of the milestone
+* level (string) - name of the level
 
 

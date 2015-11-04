@@ -62,12 +62,8 @@ IAP
 | Events types                | required parameters                                                              | Note |
 | --------------------------  |:--------------------------------------------------------------------------------:| -----:|
 | iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
-| iapRestored                 | transactionId            |                                                               |
-| iapFailed                   | screenType               |                                                               |
-| didClickInterstitial        | screenType               |                                                               |
-| didDisplayRewardedVideo     | screenType               |                                                               |
-| didDismissRewardedVideo     | screenType               |                                                               |
-| didCloseRewardedVideo       | screenType               |                                                               |
+| iapRestored                 | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate            |                                                               |
+| iapFailed                   | error, skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate               
 
 
 

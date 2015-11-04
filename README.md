@@ -42,8 +42,8 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 
 Advertising
 
-| Events types                | required parameters      | Note  |
-| --------------------------  |:------------------------:| -----:|
+| Events types                | required parameters      |                                                         Note  |
+| --------------------------  |:------------------------:| ------------------------------------------------------------ :|
 | didDisplayInterstitial      | screenType               |                                                               |
 | didDismissInterstitial      | screenType               |                                                               |
 | didCloseInterstitial        | screenType               |                                                               |
@@ -64,6 +64,14 @@ IAP
 | iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
 | iapRestored                 | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate            |                                                               |
 | iapFailed                   | error, skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate               
+* skuID - The product identifier of the item that was purchased.
+* transactionId - The transaction identifier of the item that was purchased (also called orderId).
+* purchaseDate - The date and time that the item was purchased.
+* originalTransactionId - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
+* originalPurchaseDate - For a transaction that restores a previous transaction, the date of the original transaction.
+* error - Error description or error code
+
+
 
 
 

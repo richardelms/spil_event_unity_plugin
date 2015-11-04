@@ -69,6 +69,13 @@ IAP
 * originalPurchaseDate - For a transaction that restores a previous transaction, the date of the original transaction.
 * error - Error description or error code
 
+USER BEHAVIOUR
+
+| Events types                | required parameters                                                              | Note |
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
+| walletUpdate                | walletValue, itemValue, source, item                    |                               |
+| milestoneAchieved           | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate    |      |    
+| levelStart                  | name                                                                             |    |      
 
 
 

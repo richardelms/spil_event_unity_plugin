@@ -80,6 +80,9 @@ USER BEHAVIOUR
 | walletUpdate                | walletValue, itemValue, source, item, category                    |                               |
 | milestoneAchieved           | name                                                                             |      |    
 | levelStart                  | level                                                                             |    |      
+| levelComplete                  | level                                                                             |    |  
+| levelFailed                  | level                                                                             |    |    
+| playerDies                  | level                                                                             |    |    
 
 * walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
 * itemValue (int) - The value of the item consumed. E.g. coins.

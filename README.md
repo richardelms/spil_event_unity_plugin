@@ -51,6 +51,9 @@ Advertising
 | didDisplayRewardedVideo     | screenType               |                                                               |
 | didDismissRewardedVideo     | screenType               |                                                               |
 | didCloseRewardedVideo       | screenType               |                                                               |
+---
+
+
 
 * screenType (e.g. tutorialStart, levelComplete, gamePlayStart)
 

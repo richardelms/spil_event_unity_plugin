@@ -59,8 +59,8 @@ Advertising
 
 IAP
 
-| Events types                | required parameters      | Note                                                          |
-| --------------------------  |:------------------------:| -----                                                        :|
+| Events types                | required parameters      | Note |
+| --------------------------  |:------------------------:| -----:|
 | iapPurchased                | skuId                    |                                                               |
 | iapRestored                 | transactionId            |                                                               |
 | iapFailed                   | screenType               |                                                               |

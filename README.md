@@ -38,8 +38,33 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 ![alt tag](http://www.strongerthanfiction.com/img/integration2.png)
 
 
-| Events types                | required parameters      | Note  |
-| --------------------------  |:------------------------:| -----:|
-| didDisplayInterstitial      | right-aligned            | $1600 |
-| didDismissInterstitial      | centered                 |   $12 |
-| didCloseInterstitial        |                       $1 |
+<h2>Event types</h2>
+
+Advertising
+
+| Events types                | required parameters      | Note                                                          |
+| --------------------------  |:------------------------:| -----                                                        :|
+| didDisplayInterstitial      | screenType               |                                                               |
+| didDismissInterstitial      | screenType               |                                                               |
+| didCloseInterstitial        | screenType               |                                                               |
+| didClickInterstitial        | screenType               |                                                               |
+| didDisplayRewardedVideo     | screenType               |                                                               |
+| didDismissRewardedVideo     | screenType               |                                                               |
+| didCloseRewardedVideo       | screenType               |                                                               |
+
+* screenType (e.g. tutorialStart, levelComplete, gamePlayStart)
+
+IAP
+
+| Events types                | required parameters      | Note                                                          |
+| --------------------------  |:------------------------:| -----                                                        :|
+| iapPurchased                | skuId                    |                                                               |
+| iapRestored                 | transactionId            |                                                               |
+| iapFailed                   | screenType               |                                                               |
+| didClickInterstitial        | screenType               |                                                               |
+| didDisplayRewardedVideo     | screenType               |                                                               |
+| didDismissRewardedVideo     | screenType               |                                                               |
+| didCloseRewardedVideo       | screenType               |                                                               |
+
+
+

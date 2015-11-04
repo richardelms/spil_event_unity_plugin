@@ -42,8 +42,8 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 
 Advertising
 
-| Events types                | required parameters      | Note                                                          |
-| --------------------------  |:------------------------:| -----                                                        :|
+| Events types                | required parameters      | Note  |
+| --------------------------  |:------------------------:| -----:|
 | didDisplayInterstitial      | screenType               |                                                               |
 | didDismissInterstitial      | screenType               |                                                               |
 | didCloseInterstitial        | screenType               |                                                               |
@@ -59,9 +59,9 @@ Advertising
 
 IAP
 
-| Events types                | required parameters      | Note |
-| --------------------------  |:------------------------:| -----:|
-| iapPurchased                | skuId                    |                                                               |
+| Events types                | required parameters                                                              | Note |
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
+| iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
 | iapRestored                 | transactionId            |                                                               |
 | iapFailed                   | screenType               |                                                               |
 | didClickInterstitial        | screenType               |                                                               |

@@ -44,7 +44,7 @@ Advertising
 
 | Events types                | required parameters                                                              | Note  |
 | --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| didDisplayInterstitial      | screenType               |                                                               |
+| didDisplayInterstitial      | screenType                                                                       |       |
 | didDismissInterstitial      | screenType               |                                                               |
 | didCloseInterstitial        | screenType               |                                                               |
 | didClickInterstitial        | screenType               |                                                               |

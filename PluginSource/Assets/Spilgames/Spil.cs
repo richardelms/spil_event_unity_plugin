@@ -261,7 +261,7 @@ public class Spil : MonoBehaviour {
 				Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
 			}
 		}
-		
+	}	
 		#endif
 		
 		//recive responces from the SDK

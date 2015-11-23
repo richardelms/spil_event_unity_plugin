@@ -267,24 +267,17 @@ public class Spil : MonoBehaviour {
 		//recive responces from the SDK
 		
 		/* Use cases for processing advertising responses from Spil SDK
-		 * adFailedToLoadBanner
-		 * adClosedBanner
-		 * adLoadedBanner
-		 * adOpenedBanner
-		 * adFailedToLoadInterstitial
-		 * adNotAvailableInterstitial
-		 * adClosedInterstitial
-		 * adLoadedInterstitial
-		 * adOpenedInterstitial
-		 * adDismissInterstitial
-		 * adClickedInterstitial
-		 * adFailedToLoadRewardVideo
-		 * adNotAvailableRewardVideo
-		 * adDismissRewardVideo
-		 * adClosedRewardVideo
-		 * adClickedRewardVideo
-		 * adCompleteRewardVideo
-		 * adOpenedRewardVideo
+		 * didFailedToLoadInterstitial
+		 * didCloseInterstitial
+		 * didLoadedInterstitial
+		 * didOpenedInterstitial
+		 * didNotAvailableInterstitial
+		 * didFailedToLoadInterstitial
+		 * didDisplayRewardedVideo
+		 * didNotAvailableRewardVideo
+		 * didFailedToLoadRewardVideo
+		 * didDismissRewardedVideo
+		 * didCloseRewardedVideo
 		 */
 		
 		public void OnResponseReceived(string response){
@@ -297,41 +290,27 @@ public class Spil : MonoBehaviour {
 			case "reward":
 				OnReward(responseData.GetField("data"));
 				break;
-			case "adFailedToLoadBanner":
+			case "didFailedToLoadInterstitial":
 				break;
-			case "adClosedBanner":
+			case "didCloseInterstitial":
 				break;
-			case "adLoadedBanner":
+			case "didLoadedInterstitial":
 				break;
-			case "adOpenedBanner":
+			case "didOpenedInterstitial":
 				break;
-			case "adFailedToLoadInterstitial":
+			case "didNotAvailableInterstitial":
 				break;
-			case "adNotAvailableInterstitial":
+			case "didFailedToLoadInterstitial":
 				break;
-			case "adClosedInterstitial":
+			case "didDisplayRewardedVideo":
 				break;
-			case "adLoadedInterstitial":
+			case "didNotAvailableRewardVideo":
 				break;
-			case "adOpenedInterstitial":
+			case "didFailedToLoadRewardVideo":
 				break;
-			case "adDismissInterstitial":
+			case "didDismissRewardedVideo":
 				break;
-			case "adClickedInterstitial":
-				break;
-			case "adFailedToLoadRewardVideo":
-				break;
-			case "adNotAvailableRewardVideo":
-				break;
-			case "adDismissRewardVideo":
-				break;
-			case "adClosedRewardVideo":
-				break;
-			case "adClickedRewardVideo":
-				break;
-			case "adCompleteRewardVideo":
-				break;
-			case "adOpenedRewardVideo":
+			case "didCloseRewardedVideo":
 				break;
 			}
 			

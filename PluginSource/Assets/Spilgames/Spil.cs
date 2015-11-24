@@ -13,9 +13,10 @@ using NotificationServices = UnityEngine.NotificationServices;
 #endif
 
 public class Spil : MonoBehaviour {
-	
+
 	//get your project id from your representative 
-	
+	public string project_ID = "127433475057";
+
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -34,7 +35,6 @@ public class Spil : MonoBehaviour {
 	}
 	#elif UNITY_ANDROID 
 	void SpilInit(){
-		string project_ID = "127433475057";
 		RegisterDevice (project_ID);
 	}
 	
@@ -261,24 +261,10 @@ public class Spil : MonoBehaviour {
 				Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
 			}
 		}
-	}	
+
 		#endif
 		
-		//recive responces from the SDK
-		
-		/* Use cases for processing advertising responses from Spil SDK
-		 * didFailedToLoadInterstitial
-		 * didCloseInterstitial
-		 * didLoadedInterstitial
-		 * didOpenedInterstitial
-		 * didNotAvailableInterstitial
-		 * didFailedToLoadInterstitial
-		 * didDisplayRewardedVideo
-		 * didNotAvailableRewardVideo
-		 * didFailedToLoadRewardVideo
-		 * didDismissRewardedVideo
-		 * didCloseRewardedVideo
-		 */
+
 		
 		public void OnResponseReceived(string response){
 			Debug.Log ("RESPONSE RECIVED: \n" + response);
@@ -289,8 +275,6 @@ public class Spil : MonoBehaviour {
 				
 			case "reward":
 				OnReward(responseData.GetField("data"));
-				break;
-			case "didFailedToLoadInterstitial":
 				break;
 			case "didCloseInterstitial":
 				break;

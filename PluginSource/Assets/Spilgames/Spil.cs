@@ -101,6 +101,40 @@ public class Spil : MonoBehaviour {
 		}
 	}
 
+	//Method that requests the all configurations
+	public void GetConfigAll(){
+		using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("getConfigAll");
+			}
+		}
+	}
+
+	//Method that requests a configuration value based on key
+	public void GetConfigValue(string key){
+		using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("getConfigValue", key);
+			}
+		}
+	}
+
+	//Method that handles the get config all response
+	public void ConfigAllResponse(string response){
+		JSONObject responseData = new JSONObject (response);
+
+		//TODO send the responseData to methods that the developer needs them
+	}
+
+	//Method that handles the get config all response
+	public void ConfigValueResponse(string response){
+		String value = response;
+		
+		//TODO send the value to methods that the developer needs it
+	}
+
 	#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent

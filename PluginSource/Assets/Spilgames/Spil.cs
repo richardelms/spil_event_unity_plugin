@@ -100,14 +100,7 @@ public class Spil : MonoBehaviour {
 			}
 		}
 	}
-	
-	void OnApplicationPause(bool pauseStatus) {
-		if(!pauseStatus){
-			TrackEvent("special_game_start");
-		}
-	}
-	
-	
+
 	#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent
@@ -204,7 +197,6 @@ public class Spil : MonoBehaviour {
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){
 			applicationDidBecomeActive();
-			TrackEvent("special_game_start");
 			CheckForRemoteNotifications();
 		}else{
 			applicationDidEnterBackground();

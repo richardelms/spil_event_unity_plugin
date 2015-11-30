@@ -101,38 +101,28 @@ public class Spil : MonoBehaviour {
 		}
 	}
 
-	//Method that requests the all configurations
-	public void GetConfigAll(){
+	//Method that returns the all configurations
+	public static string GetConfigAll(){
+		string config = null;
 		using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 			if(pClass != null){
 				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-				instance.Call("getConfigAll");
+				config = instance.Call<string>("getConfigAll");
 			}
 		}
+		return config;
 	}
 
-	//Method that requests a configuration value based on key
-	public void GetConfigValue(string key){
+	//Method that returns a configuration value based on key
+	public static string GetConfigValue(string key){
+		string value = null;
 		using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 			if(pClass != null){
 				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-				instance.Call("getConfigValue", key);
+				value = instance.Call<string>("getConfigValue", key);
 			}
 		}
-	}
-
-	//Method that handles the get config all response
-	public void ConfigAllResponse(string response){
-		JSONObject responseData = new JSONObject (response);
-
-		//TODO send the responseData to methods that the developer needs them
-	}
-
-	//Method that handles the get config all response
-	public void ConfigValueResponse(string response){
-		String value = response;
-		
-		//TODO send the value to methods that the developer needs it
+		return value;
 	}
 
 	#elif UNITY_IOS 
@@ -227,6 +217,13 @@ public class Spil : MonoBehaviour {
 		}
 	}
 
+	public static string GetConfigAll(){
+		return null;
+	}
+	
+	public static string GetConfigValue(string key){
+		return null;
+	}
 	
 	void OnApplicationPause(bool pauseStatus) {
 		if(!pauseStatus){

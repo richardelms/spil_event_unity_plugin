@@ -44,9 +44,9 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 
 <h2>Android specific settings</h2>
 
-In case you are using Prime31 Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithPrime</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
+In case you are using <b>Prime31</b> Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithPrime</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
 
-In case you are using AndroidNative Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithAN</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
+In case you are using <b>AndroidNative</b> Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithAN</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
 
 <h2>Event types</h2>
 

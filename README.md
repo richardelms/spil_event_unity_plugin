@@ -2,7 +2,12 @@
 
 <h3>1: Import the Unity package into your project</h3>
 
-Important note for Android: Only import the google play services folder (Plugins/Android/google_play_services_lib) if you do not have it in your project already. Some other plugins, such as chartboost, will have imported it too.
+Important notes for Android: 
+<ul>
+  <li>Only import the google play services folder (Plugins/Android/google_play_services_lib) if you do not have it in your project already. Some other plugins, such as chartboost, will have imported it too. </li>
+  <li>Make sure that the "android-support-v4.jar" file is present in your "Plugins/Android/" folder.</li>
+  <li>If you are including the SpilSDK with Ads make sure that "mm-ad-sdk.aar" is present in your "Plugins/Android/".</li>
+</ul>
 
 <h3>2: Init the SDK</h3>
 
@@ -37,6 +42,11 @@ Make sure you enabled the spil games app group in the xcode project capabilities
 
 ![alt tag](http://www.strongerthanfiction.com/img/integration2.png)
 
+<h2>Android specific settings</h2>
+
+In case you are using Prime31 Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithPrime</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
+
+In case you are using AndroidNative Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithAN</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
 
 <h2>Event types</h2>
 

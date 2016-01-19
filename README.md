@@ -95,7 +95,7 @@ USER BEHAVIOUR
 | playerDies                  | level                                                                             |    |    
 
 * walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
-* itemValue (int) - The value of the item consumed. E.g. coins.
+* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
 * source (int) - 0 == premium
 * item (string) - item id or sku
 * category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent

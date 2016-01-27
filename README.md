@@ -51,20 +51,20 @@ In case you are using <b>AndroidNative</b> Unity plugin that extends the UnityPl
 For requesting initiating and requesting Ads implement the following code (<b>Only for Debugging!</b>):
 
 Initiation:
-
-//DFP
-Spil.StartDFP ("your Ad Unit Id");
-
-//Fyber
-Spil.StartFyber ("your AppId", "your token");
+	
+	//DFP
+	Spil.StartDFP ("your Ad Unit Id");
+        
+	//Fyber
+	Spil.StartFyber ("your AppId", "your token");
 
 Showing Ads:
-
-//DFP
-Spil.ShowDFP ("interstitialView");
-
-//Fyber
-Spil.ShowFyber("rewardVideoView");
+        
+	//DFP
+	Spil.ShowDFP ("interstitialView");
+	
+	//Fyber
+	Spil.ShowFyber ("rewardVideoView");
 
 <h2>Event types</h2>
 

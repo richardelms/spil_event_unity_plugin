@@ -125,6 +125,46 @@ public class Spil : MonoBehaviour {
 		return value;
 	}
 
+	//Method that initiaties DFP Ads (to be used only for testing purposes)
+	public static void StartDFP(String adUnitId){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("startDFP", adUnitId);
+			}
+		}
+	}
+	
+	//Method that initiaties Fyber Ads (to be used only for testing purposes)
+	public static void StartFyber(String appId, String token){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("startFyber", new object[]{appId, token});
+			}
+		}
+	}
+	
+	//Method that shows DFP Ads (to be used only for testing purposes)
+	public static void ShowDFP(String type){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("showDFP", type);
+			}
+		}
+	}
+	
+	//Method that shows Fyber Ads (to be used only for testing purposes)
+	public static void ShowFyber(String type){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("showFyber", type);
+			}
+		}
+	}
+
 	#elif UNITY_IOS 
 	
 	//is the IOS notification service token sent

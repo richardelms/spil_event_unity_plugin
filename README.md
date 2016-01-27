@@ -48,6 +48,24 @@ In case you are using <b>Prime31</b> Unity plugin that extends the UnityPlayerNa
 
 In case you are using <b>AndroidNative</b> Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithAN</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
 
+For requesting initiating and requesting Ads implement the following code (<b>Only for Debugging!</b>):
+
+Initiation:
+
+//DFP
+Spil.StartDFP ("your Ad Unit Id");
+
+//Fyber
+Spil.StartFyber ("your AppId", "your token");
+
+Showing Ads:
+
+//DFP
+Spil.ShowDFP ("interstitialView");
+
+//Fyber
+Spil.ShowFyber("rewardVideoView");
+
 <h2>Event types</h2>
 
 Advertising

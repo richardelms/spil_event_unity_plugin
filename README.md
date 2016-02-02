@@ -92,7 +92,7 @@ IAP
 | iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
 | iapRestored                 | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate            |                                                               |
 | iapFailed                   | error, skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate               
-* skuID (string) - The product identifier of the item that was purchased.
+* skuId (string) - The product identifier of the item that was purchased.
 * transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
 * purchaseDate (string) - The date and time that the item was purchased.
 * originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.

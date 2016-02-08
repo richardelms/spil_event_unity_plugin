@@ -89,9 +89,9 @@ IAP
 
 | Events types                | required parameters                                                              | Note |
 | --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| iapPurchased                | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate                    |                                                               |
-| iapRestored                 | skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate            |                                                               |
-| iapFailed                   | error, skuId, transactionId, purchaseDate, originalTransactionId,originalPurchaseDate               
+| iapPurchased                | skuId, transactionId, purchaseDate                    |                                                               |
+| iapRestored                 | skuId, originalTransactionId,originalPurchaseDate            |                                                               |
+| iapFailed                   | error, skuId               
 * skuId (string) - The product identifier of the item that was purchased.
 * transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
 * purchaseDate (string) - The date and time that the item was purchased.

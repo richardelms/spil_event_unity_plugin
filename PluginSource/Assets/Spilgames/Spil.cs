@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Collections;
@@ -29,6 +29,12 @@ public class Spil : MonoBehaviour {
 	}
 	public static void TrackEvent(string eventName, Dictionary<string,string> eventParams){
 		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
+	}
+	public static string GetConfigAll(){
+		return "";
+	}
+	public static string GetConfigValue(string m){
+		return "";
 	}
 	void SpilInit(){
 		Debug.Log ("SpilInit");
@@ -328,51 +334,55 @@ public class Spil : MonoBehaviour {
 		#endif
 		
 
+	public static void ShowRewardedVideo(){
+		TrackEvent ("requestRewardVideo");
+	}
+
+	
+	public void OnResponseReceived(string response){
+		Debug.Log ("RESPONSE RECIVED: \n" + response);
 		
-		public void OnResponseReceived(string response){
-			Debug.Log ("RESPONSE RECIVED: \n" + response);
+		JSONObject responseData = new JSONObject (response);
+		
+		switch( responseData.GetField("type").str){
 			
-			JSONObject responseData = new JSONObject (response);
-			
-			switch( responseData.GetField("type").str){
-				
-			case "reward":
-				OnReward(responseData.GetField("data"));
-				break;
-			case "didCloseInterstitial":
-				break;
-			case "didLoadedInterstitial":
-				break;
-			case "didOpenedInterstitial":
-				break;
-			case "didNotAvailableInterstitial":
-				break;
-			case "didFailedToLoadInterstitial":
-				break;
-			case "didDisplayRewardedVideo":
-				break;
-			case "didNotAvailableRewardVideo":
-				break;
-			case "didFailedToLoadRewardVideo":
-				break;
-			case "didDismissRewardedVideo":
-				break;
-			case "didCloseRewardedVideo":
-				break;
-			}
-			
+		case "reward":
+			OnReward(responseData.GetField("data"));
+			break;
+		case "didCloseInterstitial":
+			break;
+		case "didLoadedInterstitial":
+			break;
+		case "didOpenedInterstitial":
+			break;
+		case "didNotAvailableInterstitial":
+			break;
+		case "didFailedToLoadInterstitial":
+			break;
+		case "didDisplayRewardedVideo":
+			break;
+		case "didNotAvailableRewardVideo":
+			break;
+		case "didFailedToLoadRewardVideo":
+			break;
+		case "didDismissRewardedVideo":
+			break;
+		case "didCloseRewardedVideo":
+			break;
 		}
-		
-		public static void ShowSpilMoreApps(){
-			TrackEvent ("more_apps");
-		}
-		
-		void OnReward(JSONObject rewardData){
-			JSONObject eventData = rewardData.GetField ("eventData");
-			Debug.Log ("Event data: " + eventData.ToString());
-			//TODO parse the json for the reward (coins for example) and reward the player
-		}
-		
 		
 	}
+	
+	public static void ShowSpilMoreApps(){
+		TrackEvent ("more_apps");
+	}
+	
+
+	void OnReward(JSONObject rewardData){
+		PixelData.coins += int.Parse( rewardData.GetField ("eventData").str);
+		PixelData.Save ();
+	}
+	
+	
+}
 	

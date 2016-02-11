@@ -28,6 +28,53 @@ Spil.TrackEvent(“PlayerDeath”, eventParams);
 
 A list of events to track will be provided by Spil.
 
+<h3>4: Game Config Service</h3>
+
+Note: this feature is Android only for the time being.
+
+The spil sdk provides 2 methods that will allow you to pull a game config file (JSON) from our server.
+
+Please contact your Spil rep to discuss which features in your game should be changable via a config editor.
+
+2 simple methods will grant you access to the config file.
+
+It is up to you to decide which one you want to use.
+
+Spil.GetConfigAll() will return a JSON string of the entire config file.
+
+Spil.GetConfigValue(String key) will return an JSON String of an object from one layer within the config file.
+
+See examples below for more details.
+
+If there is no network connection, then the SDK will use a default config file.
+
+Please make sure to have a default version of the config file named 'defaultGameConfig' in Assets>StreamingAssets.
+
+Here is an example of a simple config file for the game Pixel Wizard:
+
+{
+	"enemyhealth":{
+		"Bat":10,
+		"Beardwoman":400,
+		"Clown":35
+	},
+	"enemycoindrop":{
+		"Bat":1,
+		"Beardwoman":7,
+		"Clown":2
+	},
+	"WizardDamage":{
+		"Wizard1":25,
+		"Wizard2":35
+	}	
+}
+
+So, with this config file, calling GetConfigAll() will return the whole object stringified.
+
+Calling GetConfigValue("enemycoindrop") will return the enemycoindrop object stringified.
+
+Please get in touch if you need help desiging your config file.
+
 
 <h2>IOS specific settings</h2>
 

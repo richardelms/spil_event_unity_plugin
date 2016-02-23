@@ -1,35 +1,50 @@
-<h1>Spilgames Event System: Unity Plugin</h1>
+<h3>1: Download and Import the Unity package into your project</h3>
+You can find the latest version of the Unity plugin here:
 
-<h3>1: Import the Unity package into your project</h3>
+Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
-Important notes for Android: 
-<ul>
-  <li>Only import the google play services folder (Plugins/Android/google_play_services_lib) if you do not have it in your project already. Some other plugins, such as chartboost, will have imported it too. </li>
-  <li>Make sure that the "android-support-v4.jar" file is present in your "Plugins/Android/" folder.</li>
-  <li>If you are including the SpilSDK with Ads make sure that "mm-ad-sdk.aar" is present in your "Plugins/Android/".</li>
-</ul>
+The package contains 2 C# scripts. Spil.cs contains all the methods and native bridges for the SDK, the other script is a helper class for handling JSON responses from the Spil servers.
 
-<h3>2: Init the SDK</h3>
+Attach the Spil.cs script to a GameObject in your SplashScreen or equivalent.
 
-Create an empty game object in the first scene of your game (Splash or loading/initialisation screen) and attach the script named Spil.cs to it. The script can be found in the imported Spilgames folder. On Android, also enter your project ID to the gameobject. Ask your Spil contact to provide you with your project ID.
+For Android, also enter your project ID to the GameObject. Ask your Spil contact to provide you with your project ID.
+<h3>2: Import appropriate platform specific components</h3>
+<strong>Android</strong>
 
-<h3>3: Track events</h3>
+Inside the downloaded Android folder you will find several java libraries, you might not need all of them in your project. Follow this guide to work out which ones you need:
 
+If you are using the version of the Spil SDK <strong>with integrated AD networks</strong>, drag the following files into Assets&gt;Plugins&gt;Android:
+
+From the 'SDK With ADs' folder: AndroidManifest.xml and spilSDK.jar.
+
+From the ExtraLibs folder: mm-ad-sdk.aar, unityads-sdk.aar, android-support-v4.jar and, if not already in your project, copy the entire google-play-services_lib folder.
+
+However, If you are using the version of the Spil SDK <strong>without AD networks</strong>, drag the following files into Assets&gt;Plugins&gt;Android:
+
+From the 'SDK Without ADs' folder: AndroidManifest.xml and spilSDK.jar.
+
+From the ExtraLibs folder: android-support-v4.jar and, if not already in your project, copy the entire google-play-services_lib folder.
+
+<strong>Note:</strong> If you are using another 3rd party plugin that might clash with the spil plugin (prime31 for example), you will find versions of the Manifest and spilSDK.jar that allow for that within the correct folders.
+
+<strong>iOS</strong>
+
+Extra components for iOS need to be added in Xcode after building from unity. See the later section regarding building for details.
+<h3>3: Tracking Events</h3>
 To track an event, simply call Spil.TrackEvent(String eventName); from anywhere in your code.
 
-To pass more information with the event, simply create a <String, String> Dictionary and pass that as the second parameter like so:
+To pass more information with the event, simply create a &lt;String, String&gt; Dictionary and pass that as the second parameter like so:
 
-Dictionary<String, String> eventParams = new Dictionary<String,String>();
+Dictionary&lt;String, String&gt; eventParams = new Dictionary&lt;String,String&gt;();
 
-eventParams.Add(“Level”,levelName);
-eventParams.Add(“Coins”,playerCoins);
+eventParams.Add(“level”,levelName);
 
 Spil.TrackEvent(“PlayerDeath”, eventParams);
 
-A list of events to track will be provided by Spil.
+A list of events to track and the parameters expected will be provided by Spil.
 
+Please pay close attention to the expected params, these will need to be correct for the game to pass QA.
 <h3>4: Game Config Service</h3>
-
 Note: this feature is Android only for the time being.
 
 The spil sdk provides 2 methods that will allow you to pull a game config file (JSON) from our server.
@@ -48,54 +63,59 @@ See examples below for more details.
 
 If there is no network connection, then the SDK will use a default config file.
 
-Please make sure to have a default version of the config file named 'defaultGameConfig' in Assets>StreamingAssets.
+Please make sure to have a default version of the config file named 'defaultGameConfig' in Assets&gt;StreamingAssets.
 
 Here is an example of a simple config file for the game Pixel Wizard:
 
 {
-	"enemyhealth":{
-		"Bat":10,
-		"Beardwoman":400,
-		"Clown":35
-	},
-	"enemycoindrop":{
-		"Bat":1,
-		"Beardwoman":7,
-		"Clown":2
-	},
-	"WizardDamage":{
-		"Wizard1":25,
-		"Wizard2":35
-	}	
+"enemyhealth":{
+"Bat":10,
+"Beardwoman":400,
+"Clown":35
+},
+"enemycoindrop":{
+"Bat":1,
+"Beardwoman":7,
+"Clown":2
+},
+"WizardDamage":{
+"Wizard1":25,
+"Wizard2":35
+}
 }
 
 So, with this config file, calling GetConfigAll() will return the whole object stringified.
 
 Calling GetConfigValue("enemycoindrop") will return the enemycoindrop object stringified.
 
-Please get in touch if you need help desiging your config file.
+Please get in touch if you need help designing your config file.
+<h3>5: AD networks</h3>
+For most AD network functionality
 
+&nbsp;
 
-<h2>IOS specific settings</h2>
+&nbsp;
+<h3>6: Building for Distribution</h3>
+<strong>Android:</strong>
 
+No special steps should be necessary for building for Android.
 
-After generating a xcode project we need to make a few small changes in xcode:
-
-Since iOS 9 blocks all http requests and only allows https by default we need to add one small setting to the info.plist of the project:
-
-![alt tag](http://www.strongerthanfiction.com/img/integration.png)
-
-Make sure you enabled the spil games app group in the xcode project capabilities tab. *This might require a certificate update. 
-
-![alt tag](http://www.strongerthanfiction.com/img/integration2.png)
-
-<h2>Android specific settings</h2>
-
-In case you are using <b>Prime31</b> Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithPrime</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
-
-In case you are using <b>AndroidNative</b> Unity plugin that extends the UnityPlayerNativeActivity use the "com.spilgames.spilsdk.<b>SpilUnityActivityWithAN</b>" in the AndroidManifest.xml file instead of the "com.spilgames.spilsdk.<b>SpilUnityActivity</b>"
-
-For initiating and requesting Ads implement the following code (<b>Only for Debugging!</b>):
+<strong>iOS:</strong>
+<p class="p1"><span class="s1">1: From the iOS folder, drag the Spil.framework and unityads.bundle into your Xcode project. Select Copy items if needed.</span></p>
+<p class="p1"><img class="aligncenter size-full wp-image-9566" src="http://www.spilgames.com/wp-content/uploads/2016/02/step1.png" alt="step1" width="1162" height="559" /></p>
+<p class="p1"><span class="s1">2: In general settings under linked frameworks and libraries, add the following frameworks</span></p>
+<p class="p1">libxml2.tbd</p>
+<p class="p1"><span class="s1">libsqlite3.tbd</span></p>
+<p class="p1"><span class="s1">WebKit.framework</span></p>
+<p class="p1"><span class="s1">3: Drag the Spil.framework in the list of frameworks </span></p>
+<p class="p1"><span class="s1">4: Open the spilframework and drag the ADNetwork frameworks into the same list</span></p>
+<p class="p1"><img class="aligncenter size-full wp-image-9571" src="http://www.spilgames.com/wp-content/uploads/2016/02/step6.png" alt="step6" width="1451" height="973" /></p>
+<p class="p1"><span class="s1">5: Add the -ObjC linker flag to build settings</span></p>
+<p class="p1"><span class="s1">6: Make sure that in the build options, Enable Bitcode is set to No</span></p>
+<p class="p1"><span class="s1">7: Manually add the app group  group.com.spilgames to your entitlements file.</span></p>
+<p class="p1"><img class="aligncenter size-full wp-image-9577" src="http://www.spilgames.com/wp-content/uploads/2016/02/sprong_entitlements_and_Unity-iPhone_xcodeproj.png" alt="sprong_entitlements_and_Unity-iPhone_xcodeproj" width="1596" height="298" /></p>
+<p class="p1"><span class="s1">8: In the info section, make sure Allow Arbitrary Loads is set to YES</span></p>
+<p class="p1"><img class="aligncenter size-full wp-image-9575" src="http://www.spilgames.com/wp-content/uploads/2016/02/step10.png" alt="step10" width="980" height="830" /></p>
 
 Initiation:
 	

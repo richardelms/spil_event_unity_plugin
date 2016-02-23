@@ -113,22 +113,10 @@ Showing Ads:
 	//Fyber
 	Spil.ShowFyber ("rewardVideoView");
 
-<h2>Event types</h2>
-
-Advertising
-
-| Events types                | required parameters                                                              | Note  |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| didDisplayInterstitial      | screenType                                                                       |       |
-| didDismissInterstitial      | screenType               |                                                               |
-| didCloseInterstitial        | screenType               |                                                               |
-| didClickInterstitial        | screenType               |                                                               |
-| didDisplayRewardedVideo     | screenType               |                                                               |
-| didDismissRewardedVideo     | screenType               |                                                               |
-| didCloseRewardedVideo       | screenType               |                                                               |
+<h2>Common Event Types and Expected Params</h2>
 
 
-* screenType (String) - i.e tutorialStart, levelComplete, gamePlayStart
+
 
 
 
@@ -167,4 +155,17 @@ USER BEHAVIOUR
 * name (string) - name of the milestone
 * level (string) - name of the level
 
+Advertising
 
+| Events types                | required parameters                                                              | Note  |
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
+| didDisplayInterstitial      | screenType                                                                       |       |
+| didDismissInterstitial      | screenType               |                                                               |
+| didCloseInterstitial        | screenType               |                                                               |
+| didClickInterstitial        | screenType               |                                                               |
+| didDisplayRewardedVideo     | screenType               |                                                               |
+| didDismissRewardedVideo     | screenType               |                                                               |
+| didCloseRewardedVideo       | screenType               |                                                               |
+
+
+* screenType (String) - i.e tutorialStart, levelComplete, gamePlayStart

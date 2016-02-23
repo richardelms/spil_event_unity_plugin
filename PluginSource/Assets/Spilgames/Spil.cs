@@ -39,6 +39,13 @@ public class Spil : MonoBehaviour {
 	void SpilInit(){
 		Debug.Log ("SpilInit");
 	}
+	//FOR DEBUG ONLY
+	public static void ShowFyber(string m){		
+
+	}		
+	public static void ShowDFP(string m){		
+
+	}
 	#elif UNITY_ANDROID 
 	void SpilInit(){
 		RegisterDevice (project_ID);
@@ -199,6 +206,7 @@ public class Spil : MonoBehaviour {
 	
 	void SpilInit(){
 		initEventTracker();
+		applicationDidBecomeActive();
 		RegisterForIosPushNotifications();
 		CheckForRemoteNotifications();
 	}
@@ -379,8 +387,13 @@ public class Spil : MonoBehaviour {
 	
 
 	void OnReward(JSONObject rewardData){
-		PixelData.coins += int.Parse( rewardData.GetField ("eventData").str);
-		PixelData.Save ();
+		
+		//Reward the player, for example:
+
+		//JSONObject eventData = rewardData.GetField ("eventData");
+
+		//playerCoins += int.Parse (eventData.GetField("reward").str);
+
 	}
 	
 	

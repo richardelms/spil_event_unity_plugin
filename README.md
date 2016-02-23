@@ -1,3 +1,5 @@
+<h1>Spilgames Event System: Unity Plugin</h1>
+
 <h3>1: Download and Import the Unity package into your project</h3>
 You can find the latest version of the Unity plugin in the package folder of this repo.
 
@@ -140,9 +142,7 @@ Spil.ShowRewardedVideo();
 Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward method.
 Add code within this method to reward the player, an example is given in the Spil.cs.
 
-&nbsp;
 
-&nbsp;
 <h3>6: Building for Distribution</h3>
 <strong>Android:</strong>
 

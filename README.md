@@ -1,5 +1,5 @@
 <h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin here:
+You can find the latest version of the Unity plugin in the package folder of this repo.
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
@@ -44,6 +44,47 @@ Spil.TrackEvent(“PlayerDeath”, eventParams);
 A list of events to track and the parameters expected will be provided by Spil.
 
 Please pay close attention to the expected params, these will need to be correct for the game to pass QA.
+
+In most cases, the following events will be needed plus a few custom ones relating to your game.
+
+
+
+
+IAP
+
+| Events types                | required parameters                                                              | Note |
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
+| iapPurchased                | skuId, transactionId, purchaseDate                    |                                                               |
+| iapRestored                 | skuId, originalTransactionId,originalPurchaseDate            |                                                               |
+| iapFailed                   | error, skuId               
+* skuId (string) - The product identifier of the item that was purchased.
+* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
+* purchaseDate (string) - The date and time that the item was purchased.
+* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
+* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
+* error (string) - Error description or error code
+
+
+
+USER BEHAVIOUR
+
+| Events types                | required parameters                                                              | Note |
+| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
+| walletUpdate                | walletValue, itemValue, source, item, category                    |                               |
+| milestoneAchieved           | name                                                                             |      |    
+| levelStart                  | level                                                                             |    |      
+| levelComplete                  | level                                                                             |    |  
+| levelFailed                  | level                                                                             |    |    
+| playerDies                  | level                                                                             |    |    
+
+* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
+* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
+* source (int) - 0 == premium
+* item (string) - item id or sku
+* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
+* name (string) - name of the milestone
+* level (string) - name of the level
+
 <h3>4: Game Config Service</h3>
 Note: this feature is Android only for the time being.
 
@@ -90,7 +131,14 @@ Calling GetConfigValue("enemycoindrop") will return the enemycoindrop object str
 
 Please get in touch if you need help designing your config file.
 <h3>5: AD networks</h3>
-For most AD network functionality
+Most AD network functionality will be handled automatically by the SDK. However you will need to handle the triggering of rewarded videos and subsiquent payout to the player on completion of the video.
+
+To request a rewarded video, simply call this method:
+
+Spil.ShowRewardedVideo();
+
+Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward method.
+Add code within this method to reward the player, an example is given in the Spil.cs.
 
 &nbsp;
 
@@ -117,75 +165,11 @@ No special steps should be necessary for building for Android.
 <p class="p1"><span class="s1">8: In the info section, make sure Allow Arbitrary Loads is set to YES</span></p>
 <p class="p1"><img class="aligncenter size-full wp-image-9575" src="http://www.spilgames.com/wp-content/uploads/2016/02/step10.png" alt="step10" width="980" height="830" /></p>
 
-Initiation:
-	
-	//DFP
-	Spil.StartDFP ("your Ad Unit Id");
-        
-	//Fyber
-	Spil.StartFyber ("your AppId", "your token");
-
-Showing Ads:
-        
-	//DFP
-	Spil.ShowDFP ("interstitialView");
-	
-	//Fyber
-	Spil.ShowFyber ("rewardVideoView");
-
-<h2>Common Event Types and Expected Params</h2>
 
 
 
 
 
 
-IAP
-
-| Events types                | required parameters                                                              | Note |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| iapPurchased                | skuId, transactionId, purchaseDate                    |                                                               |
-| iapRestored                 | skuId, originalTransactionId,originalPurchaseDate            |                                                               |
-| iapFailed                   | error, skuId               
-* skuId (string) - The product identifier of the item that was purchased.
-* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
-* purchaseDate (string) - The date and time that the item was purchased.
-* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
-* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
-* error (string) - Error description or error code
 
 
-
-USER BEHAVIOUR
-
-| Events types                | required parameters                                                              | Note |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| walletUpdate                | walletValue, itemValue, source, item, category                    |                               |
-| milestoneAchieved           | name                                                                             |      |    
-| levelStart                  | level                                                                             |    |      
-| levelComplete                  | level                                                                             |    |  
-| levelFailed                  | level                                                                             |    |    
-| playerDies                  | level                                                                             |    |    
-
-* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
-* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
-* source (int) - 0 == premium
-* item (string) - item id or sku
-* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
-* name (string) - name of the milestone
-* level (string) - name of the level
-
-Advertising
-
-| Events types                | required parameters                                                              | Note  |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| didDisplayInterstitial      | screenType                                                                       |       |
-| didDismissInterstitial      | screenType               |                                                               |
-| didCloseInterstitial        | screenType               |                                                               |
-| didClickInterstitial        | screenType               |                                                               |
-| didDisplayRewardedVideo     | screenType               |                                                               |
-| didDismissRewardedVideo     | screenType               |                                                               |
-| didCloseRewardedVideo       | screenType               |                                                               |
-
-
-* screenType (String) - i.e tutorialStart, levelComplete, gamePlayStart

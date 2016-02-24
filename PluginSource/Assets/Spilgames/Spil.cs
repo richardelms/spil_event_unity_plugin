@@ -203,6 +203,12 @@ public class Spil : MonoBehaviour {
 	
 	[DllImport("__Internal")]
 	public static extern void handlePushNotification(string notificationStringParams);
+
+	[DllImport("__Internal")]
+	public static extern string getConfigNative();
+
+	[DllImport("__Internal")]
+	public static extern string getConfigValueNative(string keyName);
 	
 	void SpilInit(){
 		initEventTracker();
@@ -272,11 +278,11 @@ public class Spil : MonoBehaviour {
 	}
 
 	public static string GetConfigAll(){
-		return null;
+		return getConfigNative();
 	}
 	
 	public static string GetConfigValue(string key){
-		return null;
+		return getConfigValueNative(key);
 	}
 	
 	void OnApplicationPause(bool pauseStatus) {

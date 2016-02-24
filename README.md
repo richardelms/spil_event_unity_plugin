@@ -1,7 +1,7 @@
 <h1>Spilgames Event System: Unity Plugin</h1>
 
 <h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/puu7d1vrt2t1gle/Spilgames_SDK_Unity_v1_3.zip?dl=0
+You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/883kjrdhvbq9qul/Spilgames_SDK_Unity_v1_4.zip?dl=0
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
@@ -88,7 +88,6 @@ USER BEHAVIOUR
 * level (string) - name of the level
 
 <h3>4: Game Config Service</h3>
-Note: this feature is Android only for the time being.
 
 The spil sdk provides 2 methods that will allow you to pull a game config file (JSON) from our server.
 
@@ -106,7 +105,7 @@ See examples below for more details.
 
 If there is no network connection, then the SDK will use a default config file.
 
-Please make sure to have a default version of the config file named 'defaultGameConfig' in Assets&gt;StreamingAssets.
+Please make sure to have a default version of the config file named 'defaultGameConfig.json' in Assets&gt;StreamingAssets.
 
 Here is an example of a simple config file for the game Pixel Wizard:
 

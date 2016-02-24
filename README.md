@@ -88,7 +88,6 @@ USER BEHAVIOUR
 * level (string) - name of the level
 
 <h3>4: Game Config Service</h3>
-Note: this feature is Android only for the time being.
 
 The spil sdk provides 2 methods that will allow you to pull a game config file (JSON) from our server.
 

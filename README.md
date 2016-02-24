@@ -106,7 +106,7 @@ See examples below for more details.
 
 If there is no network connection, then the SDK will use a default config file.
 
-Please make sure to have a default version of the config file named 'defaultGameConfig' in Assets&gt;StreamingAssets.
+Please make sure to have a default version of the config file named 'defaultGameConfig.json' in Assets&gt;StreamingAssets.
 
 Here is an example of a simple config file for the game Pixel Wizard:
 

@@ -157,7 +157,7 @@ No special steps should be necessary for building for Android.
 <p class="p1"><span class="s1">3: Drag the Spil.framework in the list of frameworks </span></p>
 <p class="p1"><span class="s1">4: Open the spilframework and drag the ADNetwork frameworks into the same list</span></p>
 <p class="p1"><img class="aligncenter size-full wp-image-9571" src="http://www.spilgames.com/wp-content/uploads/2016/02/step6.png" alt="step6" width="1451" height="973" /></p>
-<p class="p1"><span class="s1">5: Add the -ObjC linker flag to build settings</span></p>
+<p class="p1"><span class="s1">5: Add the '-ObjC' and '-undefined dynamic_lookup' linker flags to build settings</span></p>
 <p class="p1"><span class="s1">6: Make sure that in the build options, Enable Bitcode is set to No</span></p>
 <p class="p1"><span class="s1">7: Manually add the app group  group.com.spilgames to your entitlements file.</span></p>
 <p class="p1"><img class="aligncenter size-full wp-image-9577" src="http://www.spilgames.com/wp-content/uploads/2016/02/sprong_entitlements_and_Unity-iPhone_xcodeproj.png" alt="sprong_entitlements_and_Unity-iPhone_xcodeproj" width="1596" height="298" /></p>

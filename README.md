@@ -142,7 +142,9 @@ Then, if the video is completed, the SDK will send back a message to the Spil.cs
 Add code within this method to reward the player, an example is given in the Spil.cs.
 
 <strong>Android</strong>
+
 To listen to the callbacks for the ad networks the following cases are provided in the Spil.cs file:
+
 * didCloseInterstitial - The user has closed the displayed interstitial
 * didLoadInterstitial - The interstitial has been loaded
 * didOpenInterstitial - The interstitial is shown

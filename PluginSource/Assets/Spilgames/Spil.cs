@@ -365,19 +365,19 @@ public class Spil : MonoBehaviour {
 			break;
 		case "didCloseInterstitial":
 			break;
-		case "didLoadedInterstitial":
+		case "didLoadInterstitial":
 			break;
-		case "didOpenedInterstitial":
+		case "didOpenInterstitial":
 			break;
 		case "didNotAvailableInterstitial":
 			break;
-		case "didFailedToLoadInterstitial":
+		case "didFailToLoadInterstitial":
 			break;
 		case "didDisplayRewardedVideo":
 			break;
 		case "didNotAvailableRewardVideo":
 			break;
-		case "didFailedToLoadRewardVideo":
+		case "didFailToLoadRewardVideo":
 			break;
 		case "didDismissRewardedVideo":
 			break;

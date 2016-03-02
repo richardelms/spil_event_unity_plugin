@@ -141,6 +141,18 @@ Spil.ShowRewardedVideo();
 Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward method.
 Add code within this method to reward the player, an example is given in the Spil.cs.
 
+<strong>Android</strong>
+To listen to the callbacks for the ad networks the following cases are provided in the Spil.cs file:
+* didCloseInterstitial - The user has closed the displayed interstitial
+* didLoadInterstitial - The interstitial has been loaded
+* didOpenInterstitial - The interstitial is shown
+* didNotAvailableInterstitial - The interstitial is not available and will not be shown
+* didFailToLoadInterstitial - The interstitial failed to load and will not be show
+* didDisplayRewardedVideo - The reward video is shown
+* didNotAvailableRewardVideo - No reward videos are available at that certain time
+* didFailToLoadRewardVideo - The reward video failed to load and will not be show
+* didDismissRewardedVideo - The user dismissed the reward video before its completion (no reward given)
+* didCloseRewardedVideo - The user closed the reward video after it's completion and will receive the reward (taken care by the OnReward method)
 
 <h3>6: Building for Distribution</h3>
 <strong>Android:</strong>

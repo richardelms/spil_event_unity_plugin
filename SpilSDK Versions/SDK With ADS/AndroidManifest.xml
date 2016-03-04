@@ -89,6 +89,11 @@
         <!--AppLovin-->
             <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
             <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+            
+            <meta-data android:name="applovin.sdk.key"
+    					android:value="BZUN5Or6AWK0snLO4E2IVsXMD00rL9MWksuqEkwOFFP60lU5-XNTNwqbxrRG-oniefXtORFdhfkhODoNmAr84f"  />
+    		<meta-data android:name="com.google.android.gms.version"
+    				android:value="@integer/google_play_services_version" />
 
 	
 	<service android:exported="true" android:name="com.github.airk.trigger.TriggerLoop"/>

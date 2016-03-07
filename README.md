@@ -1,7 +1,7 @@
 <h1>Spilgames Event System: Unity Plugin</h1>
 
 <h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/c4gnc6cyrvqar8e/Spilgames_SDK_Unity_v1_5.zip?dl=0
+You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/nkw6fpk7ub53qhx/Spilgames_SDK_Unity_v1_6.zip?dl=0
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 

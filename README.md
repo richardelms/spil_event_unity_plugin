@@ -155,20 +155,20 @@ For example, in your music manager, you might want to extend these delegates to 
 
 void OnEnable(){
   Spil.OnAdOpened += AdOpened;
-	Spil.OnAdClosed += AdClosed;
+  Spil.OnAdClosed += AdClosed;
 }
 
 void OnDisable(){
     Spil.OnAdOpened -= AdOpened;
-		Spil.OnAdClosed -= AdClosed;
+    Spil.OnAdClosed -= AdClosed;
 }
 
 void AdOpened(){
-		muteAudio = true;
+	muteAudio = true;
 }
 
 void AdClosed(){
-  muteAudio = false;
+	muteAudio = false;
 }
 
 The events will fire for both Video ads and static fullscreen ads.

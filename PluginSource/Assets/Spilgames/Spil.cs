@@ -17,6 +17,13 @@ public class Spil : MonoBehaviour {
 	//get your project id from your representative 
 	public string project_ID = "127433475057";
 
+	//advertising events
+	public delegate void OpenAdAction();
+	public static event OpenAdAction OnAdOpened;
+
+	public delegate void CloseAdAction();
+	public static event CloseAdAction OnAdClosed;
+
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -184,7 +191,7 @@ public class Spil : MonoBehaviour {
 	bool tokenSent;
 	
 	[DllImport("__Internal")]
-	public static extern void initEventTracker();
+	public static extern void initEventTrackerWithOptions(string options);
 
 	[DllImport("__Internal")]
 	public static extern void applicationDidEnterBackground();
@@ -211,7 +218,9 @@ public class Spil : MonoBehaviour {
 	public static extern string getConfigValueNative(string keyName);
 	
 	void SpilInit(){
-		initEventTracker();
+		JSONObject options = new JSONObject();
+		options.AddField ("isUnity",true);
+		initEventTrackerWithOptions(options.ToString());
 		applicationDidBecomeActive();
 		RegisterForIosPushNotifications();
 		CheckForRemoteNotifications();
@@ -347,7 +356,7 @@ public class Spil : MonoBehaviour {
 
 		#endif
 		
-
+	//request a rewarded video
 	public static void ShowRewardedVideo(){
 		TrackEvent ("requestRewardVideo");
 	}
@@ -355,36 +364,61 @@ public class Spil : MonoBehaviour {
 	
 	public void OnResponseReceived(string response){
 		Debug.Log ("RESPONSE RECIVED: \n" + response);
-		
+
 		JSONObject responseData = new JSONObject (response);
-		
+
 		switch( responseData.GetField("type").str){
-			
-		case "reward":
-			OnReward(responseData.GetField("data"));
+
+			case "reward":
+				OnReward(responseData.GetField("data"));
+				break;
+			case "didCloseInterstitial":
+				AdClosed ();
+				break;
+			case "didLoadInterstitial":
+				break;
+			case "didOpenInterstitial":
+				AdShown ();
+				break;
+			case "didNotAvailableInterstitial":
+				break;
+			case "didFailToLoadInterstitial":
+				break;
+			case "didDisplayRewardedVideo":
+				AdShown ();
+				break;
+			case "didNotAvailableRewardVideo":
+				break;
+			case "didFailToLoadRewardVideo":
+				break;
+			case "didDismissRewardedVideo":
+				AdClosed ();
+				break;
+			case "didCloseRewardedVideo":
+				AdClosed ();
+				break;
+			case "advertisement":
+				if(responseData.GetField("action").str == "adDidShow"){
+					AdShown ();
+				}else if(responseData.GetField("action").str == "adDidClose"){
+					AdClosed ();	
+				}
 			break;
-		case "didCloseInterstitial":
-			break;
-		case "didLoadInterstitial":
-			break;
-		case "didOpenInterstitial":
-			break;
-		case "didNotAvailableInterstitial":
-			break;
-		case "didFailToLoadInterstitial":
-			break;
-		case "didDisplayRewardedVideo":
-			break;
-		case "didNotAvailableRewardVideo":
-			break;
-		case "didFailToLoadRewardVideo":
-			break;
-		case "didDismissRewardedVideo":
-			break;
-		case "didCloseRewardedVideo":
-			break;
+
 		}
-		
+
+	}
+
+	void AdShown(){
+		if (OnAdOpened != null) {
+			OnAdOpened ();
+		}
+	}
+
+	void AdClosed(){
+		if (OnAdClosed != null) {
+			OnAdClosed ();
+		}
 	}
 	
 	public static void ShowSpilMoreApps(){

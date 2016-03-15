@@ -141,20 +141,37 @@ Spil.ShowRewardedVideo();
 Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward method.
 Add code within this method to reward the player, an example is given in the Spil.cs.
 
-<strong>Android</strong>
+<strong>Open and Close events</strong>
 
-To listen to the callbacks for the ad networks the following cases are provided in the Spil.cs file:
+The Spil class contains 2 delegates that you can extend to make sure your app behaves in the correct way when ads are shown and closed.
 
-* didCloseInterstitial - The user has closed the displayed interstitial
-* didLoadInterstitial - The interstitial has been loaded
-* didOpenInterstitial - The interstitial is shown
-* didNotAvailableInterstitial - The interstitial is not available and will not be shown
-* didFailToLoadInterstitial - The interstitial failed to load and will not be show
-* didDisplayRewardedVideo - The reward video is shown
-* didNotAvailableRewardVideo - No reward videos are available at that certain time
-* didFailToLoadRewardVideo - The reward video failed to load and will not be show
-* didDismissRewardedVideo - The user dismissed the reward video before its completion (no reward given)
-* didCloseRewardedVideo - The user closed the reward video after it's completion and will receive the reward (taken care by the OnReward method)
+OnAdOpened
+
+And
+
+OnAdClosed;
+
+For example, in your music manager, you might want to extend these delegates to mute the music when an Ad is shown, and then un-mute it again once closed.
+
+void OnEnable(){
+  Spil.OnAdOpened += AdOpened;
+	Spil.OnAdClosed += AdClosed;
+}
+
+void OnDisable(){
+    Spil.OnAdOpened -= AdOpened;
+		Spil.OnAdClosed -= AdClosed;
+}
+
+void AdOpened(){
+		muteAudio = true;
+}
+
+void AdClosed(){
+  muteAudio = false;
+}
+
+The events will fire for both Video ads and static fullscreen ads.
 
 <h3>6: Building for Distribution</h3>
 <strong>Android:</strong>

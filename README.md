@@ -173,6 +173,16 @@ void AdClosed(){
 
 The events will fire for both Video ads and static fullscreen ads.
 
+<strong>Debugging ADs</strong>
+
+For debugging you can manually init the AD SDKs by calling
+
+Spil.startFyber(String appId, String token)
+
+then you can test ADs with Spil.showFyber(“rewardVideo”)
+
+pleae make sure to remove this debug code before launch.
+
 <h3>6: Building for Distribution</h3>
 <strong>Android:</strong>
 

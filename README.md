@@ -131,6 +131,11 @@ So, with this config file, calling GetConfigAll() will return the whole object s
 Calling GetConfigValue("enemycoindrop") will return the enemycoindrop object stringified.
 
 Please get in touch if you need help designing your config file.
+
+<strong>Important Note: Null return</strong>
+
+The config service should always return a value. But if for somereason it does not, please make sure you check and handle a possible null return.
+
 <h3>5: AD networks</h3>
 Most AD network functionality will be handled automatically by the SDK. However you will need to handle the triggering of rewarded videos and subsiquent payout to the player on completion of the video.
 

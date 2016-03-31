@@ -107,6 +107,8 @@ If there is no network connection, then the SDK will use a default config file.
 
 Please make sure to have a default version of the config file named 'defaultGameConfig.json' in Assets&gt;StreamingAssets.
 
+For using the config service with ios, the defaultGameConfig.json file must also be placed in the root of your Xcode project.
+
 Here is an example of a simple config file for the game Pixel Wizard:
 
 {

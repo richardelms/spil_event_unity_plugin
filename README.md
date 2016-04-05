@@ -1,7 +1,7 @@
 <h1>Spilgames Event System: Unity Plugin</h1>
 
 <h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/4suvb7qx4zpoqhs/Spilgames_SDK_Unity_v1_9_1.zip?dl=0
+You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/4d92zlyjhgyhzo6/Spilgames_SDK_Unity_v1_10.zip?dl=0
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
@@ -19,13 +19,21 @@ If you are using the version of the Spil SDK <strong>with integrated AD networks
 
 From the 'SDK With ADs' folder: AndroidManifest.xml and spilSDK.jar.
 
-From the ExtraLibs folder: mm-ad-sdk.aar, unityads-sdk.aar, android-support-v4.jar and, if not already in your project, copy the entire google-play-services_lib folder.
+From the ExtraLibs folder: mm-ad-sdk.aar, unityads-sdk.aar.
+
+<strong>Google Play Services</strong>
+
+Due to the ever growing number of methods in Google Play Services, and Unity not supporting Multi-Dex, we have provided a version of GPS that only has the bare necessary for the SpilSDK to run.
+
+Please copy the contents of the GooglePlayServices folder to Plugins>Android.
+
+If you need other parts of Google play services added please use this google dependancy manager: https://github.com/googlesamples/unity-jar-resolver.
 
 However, If you are using the version of the Spil SDK <strong>without AD networks</strong>, drag the following files into Assets&gt;Plugins&gt;Android:
 
 From the 'SDK Without ADs' folder: AndroidManifest.xml and spilSDK.jar.
 
-From the ExtraLibs folder: android-support-v4.jar and, if not already in your project, copy the entire google-play-services_lib folder.
+From the ExtraLibs folder: copy the contents of the GooglePlayServices folder to Plugins>Android.
 
 <strong>Note:</strong> If you are using another 3rd party plugin that might clash with the spil plugin (prime31 for example), you will find versions of the Manifest and spilSDK.jar that allow for that within the correct folders.
 

@@ -24,6 +24,9 @@ public class Spil : MonoBehaviour {
 	public delegate void CloseAdAction();
 	public static event CloseAdAction OnAdClosed;
 
+	public delegate void RewardAction(string jsonString);
+	public static event RewardAction OnReward;
+
 	void Awake () {	
 		SpilInit ();
 		DontDestroyOnLoad (gameObject);
@@ -370,7 +373,7 @@ public class Spil : MonoBehaviour {
 		switch( responseData.GetField("type").str){
 
 			case "reward":
-				OnReward(responseData.GetField("data"));
+				OnReward(responseData.GetField("data").ToString());
 				break;
 			case "didCloseInterstitial":
 				AdClosed ();
@@ -424,18 +427,6 @@ public class Spil : MonoBehaviour {
 	public static void ShowSpilMoreApps(){
 		TrackEvent ("more_apps");
 	}
-	
 
-	void OnReward(JSONObject rewardData){
-		
-		//Reward the player, for example:
-
-		//JSONObject eventData = rewardData.GetField ("eventData");
-
-		//playerCoins += int.Parse (eventData.GetField("reward").str);
-
-	}
-	
-	
 }
 	

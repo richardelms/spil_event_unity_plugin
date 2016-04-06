@@ -78,14 +78,14 @@ IAP
 
 USER BEHAVIOUR
 
-| Events types                | required parameters                                                              | Note |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| walletUpdate                | walletValue, itemValue, source, item, category                    |                               |
-| milestoneAchieved           | name                                                                             |      |    
-| levelStart                  | level                                                                             |    |      
-| levelComplete                  | level                                                                             |    |  
-| levelFailed                  | level                                                                             |    |    
-| playerDies                  | level                                                                             |    |    
+| Events types                | required parameters                                                              | Optional | Note | 
+| --------------------------  |:--------------------------------------------------------------------------------:| -------: | ---: |
+| walletUpdate                | walletValue, itemValue, source, item, category                    		 |          |      |
+| milestoneAchieved           | name                                                                             |          |      |
+| levelStart                  | level                                                                            |          |      |
+| levelComplete               | level                                                                            | score, stars, turns         |      |
+| levelFailed                 | level                                                                            | score, turns         |      |
+| playerDies                  | level                                                                            |          |      |
 
 * walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
 * itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
@@ -94,6 +94,9 @@ USER BEHAVIOUR
 * category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
 * name (string) - name of the milestone
 * level (string) - name of the level
+* score (int) - The final score the player achieves at the end of the level
+* stars (int) - The # of stars (or any other rating system) the player achieves at the end of the level
+* turns (int) - The # of moves/turns taken to complete the level
 
 <h3>4: Game Config Service</h3>
 

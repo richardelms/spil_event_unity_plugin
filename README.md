@@ -156,8 +156,7 @@ To request a rewarded video, simply call this method:
 
 Spil.ShowRewardedVideo();
 
-Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward method.
-Add code within this method to reward the player, an example is given in the Spil.cs.
+Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward delegate Event, passing it a JSON string containing the reward data. Extend this event and reward the player.
 
 <strong>Open and Close events</strong>
 

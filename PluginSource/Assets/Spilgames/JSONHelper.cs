@@ -27,29 +27,6 @@ public class SpilResponse
     // then deserialize the JSON string again using that type. TODO: Make that prettier?
 }
 
-#region Rewards
-
-// Example reward JSON string (contains RewardResponse object): "{ \"name\":\"reward\",\"action\":\"receive\",\"type\":\"reward\",\"data\":{ \"eventData\":{ \"currencyName\":\"Coins\",\"currencyId\":\"coins\",\"reward\":\"50\"} } }";
-
-public class RewardResponse : SpilResponse
-{
-    public RewardEventData data;
-}
-
-public class RewardEventData
-{
-    public RewardData eventData;
-}
-
-public class RewardData
-{
-    public string currencyName;
-    public string currencyId;
-    public int reward;
-}
-
-#endregion
-
 #region Packages
 
 // Example Packages JSON string (contains PackagesResponse object ) "{\"name\": \"packages\",\"type\": \"packages\",\"action\": \"\",\"message\": \"\",\"data\": [{\"packages\":[{\"packageId\":\"87596\",\"items\":[{\"id\":\"13\",\"type\":\"CURRENCY\",\"value\":\"100\"},{\"id\":\"256\",\"type\":\"ITEM\",\"value\":\"2\"}],\"discountLabel\":\"35%\",\"hasPromotion\": \"false\" },{\"packageId\":\"87600\",\"items\":[{\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"200\"}],\"discountLabel\":\"15%\",\"hasPromotion\": \"true\"}],\"promotions\":[{\"packageId\":\"87600\",\"items\":[ {\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"400\"}],\"discountLabel\":\"30%\",\"startTime\":\"2016-01-02 01:02:03\",\"endTime\":\"2016-02-03 02:03:04\"}]}]}"

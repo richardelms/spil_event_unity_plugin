@@ -198,7 +198,7 @@ public class Spil : MonoBehaviour {
 		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
 			if(pClass != null){
 				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
-				instance.Call("getSpilUID()", type);
+				instance.Call("getSpilUID", type);
 			}
 		}
 	}

@@ -19,13 +19,13 @@ public class Spil : MonoBehaviour {
 
 	//advertising events
 	public delegate void OpenAdAction();
-	public static event OpenAdAction OnAdOpened;
+	public event OpenAdAction OnAdOpened;
 
 	public delegate void CloseAdAction();
-	public static event CloseAdAction OnAdClosed;
+	public event CloseAdAction OnAdClosed;
 
-	public delegate void RewardAction(string jsonString);
-	public static event RewardAction OnReward;
+	public delegate void RewardAction(RewardData rewardResponse);
+	public event RewardAction OnReward;
 
 	void Awake () {	
 		SpilInit ();
@@ -184,6 +184,21 @@ public class Spil : MonoBehaviour {
 			if(pClass != null){
 				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
 				instance.Call("showFyber", type);
+			}
+		}
+	}
+
+    /// <summary>
+    /// Retrieves the SPIL User Id so that developers can show this in-game for users.
+    /// When users contact SPIL customer service they can supply this Id so that 
+    /// customer support can help them properly. Please make this ID available for users
+    /// in one of your game's screens.
+    /// </summary>
+	public static void getSpilUID(){
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+				instance.Call("getSpilUID()", type);
 			}
 		}
 	}
@@ -359,58 +374,160 @@ public class Spil : MonoBehaviour {
 
 		#endif
 		
-	//request a rewarded video
-	public static void ShowRewardedVideo(){
-		TrackEvent ("requestRewardVideo");
-	}
+    #region Standard SPIL events 
 
+        // TODO: Add summaries for all these methods so developers don't need additional documentation.
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendLevelStartEvent()
+        {
+            TrackEvent("advertisementInit");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendHeartBeatEvent()
+        {
+            TrackEvent("heartBeat");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendRequestConfigEvent()
+        {
+            TrackEvent("requestConfig");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="levelName"></param>
+        public static void SendLevelStartEvent(string levelName)
+        {
+            TrackEvent("levelStart", new Dictionary<string, string>() { { "level", levelName } });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="levelName"></param>
+        public static void SendLevelCompleteEvent(string levelName)
+        {
+            TrackEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="levelName"></param>
+        public static void SendPlayerDiesEvent(string levelName)
+        {
+            TrackEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendSessionStartEvent()
+        {
+            TrackEvent("sessionStart");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendSessionStopEvent()
+        {
+            TrackEvent("sessionStop");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SendRequestRewardVideoEvent()
+        {
+            TrackEvent("requestRewardVideo");
+        }
+
+        // Deprecated this old method in favor of SendRequestRewardVideoEvent() for uniformity
+        [Obsolete("ShowRewardedVideo() is deprecated, please use SendRequestRewardVideoEvent() instead.")]
+        public static void ShowRewardedVideo()
+        {
+            TrackEvent("requestRewardVideo");
+        }
+
+    #endregion
+
+    /// <summary>
+    /// Method that returns the SLOT Config as a (user-defined) object. See the example in JSONHelper.cs for
+    /// more information on how to turn JSON strings (such as the SLOT game config) into classes.
+    /// </summary>
+    /// <typeparam name="T">The user-defined class that mirrors the shape of the data in the JSON</typeparam>
+    /// <returns></returns>
+    public static T GetConfigAsObject<T>() where T : class, new()
+    {
+        // TODO: Handle exceptions gracefully
+        string config = GetConfigAll();
+        return JsonHelper.getObjectFromJson<T>(config);
+    }
 	
 	public void OnResponseReceived(string response){
-		Debug.Log ("RESPONSE RECIVED: \n" + response);
+		Debug.Log ("RESPONSE RECEIVED: \n" + response);
 
-		JSONObject responseData = new JSONObject (response);
+        SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse>(response);
 
-		switch( responseData.GetField("type").str){
+        Debug.Log("RESPONSE DESERIALIZED");
 
-			case "reward":
-				OnReward(responseData.GetField("data").ToString());
-				break;
-			case "didCloseInterstitial":
-				AdClosed ();
-				break;
-			case "didLoadInterstitial":
-				break;
-			case "didOpenInterstitial":
-				AdShown ();
-				break;
-			case "didNotAvailableInterstitial":
-				break;
-			case "didFailToLoadInterstitial":
-				break;
-			case "didDisplayRewardedVideo":
-				AdShown ();
-				break;
-			case "didNotAvailableRewardVideo":
-				break;
-			case "didFailToLoadRewardVideo":
-				break;
-			case "didDismissRewardedVideo":
-				AdClosed ();
-				break;
-			case "didCloseRewardedVideo":
-				AdClosed ();
-				break;
-			case "advertisement":
-				if(responseData.GetField("action").str == "adDidShow"){
-					AdShown ();
-				}else if(responseData.GetField("action").str == "adDidClose"){
-					AdClosed ();	
-				}
-			break;
+        switch (spilResponse.type)
+        {
+            case "reward":
+                RewardResponse rewardResponseData = JsonHelper.getObjectFromJson<RewardResponse>(response);
+                OnReward(rewardResponseData.data.eventData);
+                break;
+            case "didCloseInterstitial":
+                OnAdClosed();
+                break;
+            case "didLoadInterstitial":
+                break;
+            case "didOpenInterstitial":
+                OnAdOpened();
+                break;
+            case "didNotAvailableInterstitial":
+                break;
+            case "didFailToLoadInterstitial":
+                break;
+            case "didDisplayRewardedVideo":
+                OnAdOpened();
+                break;
+            case "didNotAvailableRewardVideo":
+                break;
+            case "didFailToLoadRewardVideo":
+                break;
+            case "didDismissRewardedVideo":
+                OnAdClosed();
+                break;
+            case "didCloseRewardedVideo":
+                OnAdClosed();
+                break;
+            case "advertisement":
+                if (spilResponse.action == "adDidShow")
+                {
+                    Debug.Log("ON AD OPENED");
+                    OnAdOpened();
+                }
+                else if (spilResponse.action == "adDidClose")
+                {
+                    Debug.Log("ON AD CLOSED");
+                    OnAdClosed();
+                }
+                break;
 
-		}
-
-	}
+        }
+    }
 
 	void AdShown(){
 		if (OnAdOpened != null) {
@@ -427,6 +544,5 @@ public class Spil : MonoBehaviour {
 	public static void ShowSpilMoreApps(){
 		TrackEvent ("more_apps");
 	}
-
 }
 	

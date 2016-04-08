@@ -78,11 +78,14 @@ public class PackagesResponse : SpilResponse
 
     public class Promotion
     {
-        public int packageId;
+        public string packageId;
         public List<Item> items;
-        public String discountLabel;
-        public DateTime startTime;
-        public DateTime endTime;
+        public string discountLabel;
+        //public DateTime startTime;
+        //public DateTime endTime;
+
+        public string startTime;
+        public string endTime;
     }
 
     // Example packages JSON string (contains List<Packages>)): "[{ \"packageId\":\"87596\",\"items\":[{\"id\":\"13\",\"type\":\"CURRENCY\",\"value\":\"100\"},{\"id\":\"256\",\"type\":\"ITEM\",\"value\":\"2\"}],\"discountLabel\":\"35%\",\"hasPromotion\":false},{\"packageId\":\"87600\",\"items\":[{\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"200\"}],\"discountLabel\":\"15%\",\"hasPromotion\":true}]"
@@ -91,7 +94,7 @@ public class PackagesResponse : SpilResponse
     {
         public int packageId;
         public List<Item> items;
-        public String discountLabel;
+        public string discountLabel;
         public bool hasPromotion;
     }
 

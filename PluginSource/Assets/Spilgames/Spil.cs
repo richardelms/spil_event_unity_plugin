@@ -12,51 +12,89 @@ using NotificationServices = UnityEngine.NotificationServices;
 #endif
 #endif
 
-public class Spil : MonoBehaviour {
+public class Spil : MonoBehaviour
+{
 
-	//get your project id from your representative 
-	public string project_ID = "127433475057";
+    //get your project id from your representative 
+    public string project_ID = "127433475057";
 
-	//advertising events
-	public delegate void OpenAdAction();
-	public static event OpenAdAction OnAdOpened;
+    //advertising events
+    public delegate void OpenAdAction();
+    public static event OpenAdAction OnAdOpened;
 
-	public delegate void CloseAdAction();
-	public static event CloseAdAction OnAdClosed;
+    public delegate void CloseAdAction();
+    public static event CloseAdAction OnAdClosed;
 
-	public delegate void RewardAction(string jsonString);
-	public static event RewardAction OnReward;
+    public delegate void RewardAction(RewardData rewardResponse);
+    public static event RewardAction OnReward;
 
-	void Awake () {	
-		SpilInit ();
-		DontDestroyOnLoad (gameObject);
-		gameObject.name = "SpilSDK";
-	}
-	
-	#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
-	public static void TrackEvent(string eventName){
-		Debug.Log ("SPIL TRACK EVENT: " + eventName);
-	}
-	public static void TrackEvent(string eventName, Dictionary<string,string> eventParams){
-		Debug.Log ("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
-	}
-	public static string GetConfigAll(){
-		return "";
-	}
-	public static string GetConfigValue(string m){
-		return "";
-	}
-	void SpilInit(){
-		Debug.Log ("SpilInit");
-	}
-	//FOR DEBUG ONLY
-	public static void ShowFyber(string m){		
+    void Awake()
+    {
+        SpilInit();
+        DontDestroyOnLoad(gameObject);
+        gameObject.name = "SpilSDK";
 
-	}		
-	public static void ShowDFP(string m){		
+        RequestPackagesAndPromotions();
 
+        //string packagesString = GetPackagesAll();
+        //List<PackagesResponse.Package> packages = JsonHelper.getObjectFromJson<List<PackagesResponse.Package>>(packagesString);       
+        //Debug.Log(JsonHelper.getJSONFromObject(packages));
+
+        //string promotionsString = GetPromotion("87600");
+        //PackagesResponse.Promotion promotion = JsonHelper.getObjectFromJson<PackagesResponse.Promotion>(promotionsString);
+        //Debug.Log(JsonHelper.getJSONFromObject(promotion));
+    }
+
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+    public static void TrackEvent(string eventName)
+    {
+        Debug.Log("SPIL TRACK EVENT: " + eventName);
+    }
+    public static void TrackEvent(string eventName, Dictionary<string, string> eventParams)
+    {
+        Debug.Log("SPIL TRACK EVENT: " + eventName + " " + eventParams.ToString());
+    }
+    public static string GetConfigAll()
+    {
+        return "";
+    }
+    public static string GetConfigValue(string m)
+    {
+        return "";
+    }
+    void SpilInit()
+    {
+        Debug.Log("SpilInit");
+    }
+    //FOR DEBUG ONLY
+    public static void ShowFyber(string m)
+    {
+
+    }
+    public static void ShowDFP(string m)
+    {
+
+    }
+
+    public static void RequestPackagesAndPromotions()
+    {
+    }
+
+    public static string GetPackagesAll()
+    {
+        return "";
+    }
+
+    public static string GetPromotion(String packageId)
+    {
+        return "";
+    }
+	public static string getSpilUID()
+	{
+		return "Only avalible on device";
 	}
-	#elif UNITY_ANDROID 
+
+#elif UNITY_ANDROID
 	void SpilInit(){
 		RegisterDevice (project_ID);
 	}
@@ -92,8 +130,6 @@ public class Spil : MonoBehaviour {
 			}
 		}
 	}
-
-
 
 	//if android, register device
 	public void RegisterDevice(string projectID){
@@ -148,6 +184,52 @@ public class Spil : MonoBehaviour {
 		return value;
 	}
 
+    //Method that request packages and promotions from the server
+    public static void RequestPackagesAndPromotions(){
+        using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+            if(pClass != null){
+                AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+                instance.Call("requestPackages");
+            }
+        }
+    }
+
+    //Method that returns the all packages
+    public static string GetPackagesAll(){
+        string packs = null;
+        using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+            if(pClass != null){
+                AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+                packs = instance.Call<string>("getAllPackages");
+            }
+        }
+        return packs;
+    }
+
+    //Method that returns a package based on key
+    public static string GetPackage(string key){
+        string pack = null;
+        using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+            if(pClass != null){
+                AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+                pack = instance.Call<string>("getPackage", key);
+            }
+        }
+        return pack;
+    }
+
+    //Method that returns a promotion based on package key
+    public static string GetPromotion(string key){
+        string promotion = null;
+        using (AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+            if(pClass != null){
+                AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+                promotion = instance.Call<string>("getPromotion", key);
+            }
+        }
+        return promotion;
+    }
+
 	//Method that initiaties DFP Ads (to be used only for testing purposes)
 	public static void StartDFP(String adUnitId){
 		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
@@ -188,7 +270,24 @@ public class Spil : MonoBehaviour {
 		}
 	}
 
-	#elif UNITY_IOS 
+    /// <summary>
+    /// Retrieves the SPIL User Id so that developers can show this in-game for users.
+    /// When users contact SPIL customer service they can supply this Id so that 
+    /// customer support can help them properly. Please make this ID available for users
+    /// in one of your game's screens.
+    /// </summary>
+	public static string getSpilUID(){
+        string UID = null;
+		using(AndroidJavaClass pClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")){
+			if(pClass != null){
+				AndroidJavaObject instance = pClass.GetStatic<AndroidJavaObject>("currentActivity");
+                UID = instance.Call<string>("getSpilUID");
+			}
+		}
+        return UID;
+	}
+
+#elif UNITY_IOS
 	
 	//is the IOS notification service token sent
 	bool tokenSent;
@@ -229,7 +328,7 @@ public class Spil : MonoBehaviour {
 		CheckForRemoteNotifications();
 	}
 	
-	#if UNITY_5
+#if UNITY_5
 	
 	//register for ios push notifications
 	void RegisterForIosPushNotifications(){
@@ -240,7 +339,7 @@ public class Spil : MonoBehaviour {
 			NotificationType.Sound,true);
 	}
 	
-	#else
+#else
 	
 	//register for ios push notifications
 	void RegisterForIosPushNotifications(){
@@ -250,7 +349,7 @@ public class Spil : MonoBehaviour {
 		                                                         RemoteNotificationType.Sound);
 	}
 	
-	#endif
+#endif
 	
 	void Update(){
 		SendNotificationTokenToSpil();
@@ -309,11 +408,11 @@ public class Spil : MonoBehaviour {
 	void CheckForRemoteNotifications(){
 		if (NotificationServices.remoteNotificationCount > 0) {
 			
-			#if UNITY_5
+#if UNITY_5
 			foreach(UnityEngine.iOS.RemoteNotification notification in 	UnityEngine.iOS.NotificationServices.remoteNotifications){
-				#else
+#else
 				foreach(UnityEngine.RemoteNotification notification in 	UnityEngine.NotificationServices.remoteNotifications){
-					#endif
+#endif
 					
 					foreach(var key in notification.userInfo.Keys){
 						if(notification.userInfo[key].GetType() == typeof(Hashtable)){
@@ -357,76 +456,212 @@ public class Spil : MonoBehaviour {
 			}
 		}
 
-		#endif
-		
-	//request a rewarded video
-	public static void ShowRewardedVideo(){
-		TrackEvent ("requestRewardVideo");
-	}
+#endif
 
-	
-	public void OnResponseReceived(string response){
-		Debug.Log ("RESPONSE RECIVED: \n" + response);
+    #region Standard SPIL events 
 
-		JSONObject responseData = new JSONObject (response);
+    // TODO: Add summaries for all these methods so developers don't need additional documentation.
 
-		switch( responseData.GetField("type").str){
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="walletValue"></param>
+    /// <param name="itemValue"></param>
+    /// <param name="source"></param>
+    /// <param name="item"></param>
+    /// <param name="category"></param>
+    public static void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
+    {
+        TrackEvent("levelStart", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item }, { "category", category } });
+    }
 
-			case "reward":
-				OnReward(responseData.GetField("data").ToString());
-				break;
-			case "didCloseInterstitial":
-				AdClosed ();
-				break;
-			case "didLoadInterstitial":
-				break;
-			case "didOpenInterstitial":
-				AdShown ();
-				break;
-			case "didNotAvailableInterstitial":
-				break;
-			case "didFailToLoadInterstitial":
-				break;
-			case "didDisplayRewardedVideo":
-				AdShown ();
-				break;
-			case "didNotAvailableRewardVideo":
-				break;
-			case "didFailToLoadRewardVideo":
-				break;
-			case "didDismissRewardedVideo":
-				AdClosed ();
-				break;
-			case "didCloseRewardedVideo":
-				AdClosed ();
-				break;
-			case "advertisement":
-				if(responseData.GetField("action").str == "adDidShow"){
-					AdShown ();
-				}else if(responseData.GetField("action").str == "adDidClose"){
-					AdClosed ();	
-				}
-			break;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    public static void SendmilestoneAchievedEvent(string name)
+    {
+        TrackEvent("levelStart", new Dictionary<string, string>() { { "name", name } });
+    }
 
-		}
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelName"></param>
+    public static void SendlevelStartEvent(string levelName)
+    {
+        TrackEvent("levelStart", new Dictionary<string, string>() { { "level", levelName } });
+    }
 
-	}
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelName"></param>
+    /// <param name="score"></param>
+    /// <param name="stars"></param>
+    /// <param name="turns"></param>
+    public static void SendlevelCompleteEvent(string levelName)
+    {
+        TrackEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
+    }
 
-	void AdShown(){
-		if (OnAdOpened != null) {
-			OnAdOpened ();
-		}
-	}
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelName"></param>
+    public static void SendlevelFailedEvent(string levelName)
+    {
+        TrackEvent("levelFailed", new Dictionary<string, string>() { { "level", levelName } });
+    }
 
-	void AdClosed(){
-		if (OnAdClosed != null) {
-			OnAdClosed ();
-		}
-	}
-	
-	public static void ShowSpilMoreApps(){
-		TrackEvent ("more_apps");
-	}
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelName"></param>
+    public static void SendplayerDiesEvent(string levelName)
+    {
+        TrackEvent("playerDies", new Dictionary<string, string>() { { "level", levelName } });
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public static void SendrequestRewardVideoEvent()
+    {
+        TrackEvent("requestRewardVideo");
+    }
+
+    // Deprecated this old method in favor of SendRequestRewardVideoEvent() for uniformity
+    [Obsolete("ShowRewardedVideo() is deprecated, please use SendRequestRewardVideoEvent() instead.")]
+    public static void ShowRewardedVideo()
+    {
+        TrackEvent("requestRewardVideo");
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="skuId"></param>
+    /// <param name="transactionId"></param>
+    /// <param name="purchaseDate">Please use a proper DateTime format!</param>
+    public static void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+    {
+        TrackEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate } });
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="skuId"></param>
+    /// <param name="originalTransactionId"></param>
+    /// <param name="originalPurchaseDate">Please use a proper DateTime format!</param>
+    public static void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
+    {
+        TrackEvent("iapRestored", new Dictionary<string, string>() { { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="error"></param>
+    /// <param name="skuId"></param>
+    public static void SendiapFailedEvent(string error, string skuId)
+    {
+        TrackEvent("iapFailed", new Dictionary<string, string>() { { "error", error }, { "skuId", skuId } });
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Method that returns the SLOT Config as a (user-defined) object. See the example in JSONHelper.cs for
+    /// more information on how to turn JSON strings (such as the SLOT game config) into classes.
+    /// This method currently does not catch and handle any exceptions and will not present the developer with
+    /// handy tips for fixing his/her JSON or class. Developers will have to make due with the standard
+    /// exceptions for now for debugging their JSON and classes. This may be improved in the future.
+    /// </summary>
+    /// <typeparam name="T">The user-defined class that mirrors the shape of the data in the JSON</typeparam>
+    /// <returns></returns>
+    public static T GetConfigAsObject<T>() where T : class, new()
+    {
+        // TODO: Handle exceptions gracefully
+        string config = GetConfigAll();
+        return JsonHelper.getObjectFromJson<T>(config);
+    }
+
+    public void OnResponseReceived(string response)
+    {
+        Debug.Log("RESPONSE RECEIVED: \n" + response);
+
+        SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse>(response);
+
+        Debug.Log("RESPONSE DESERIALIZED");
+
+        switch (spilResponse.type)
+        {
+            case "reward":
+                RewardResponse rewardResponseData = JsonHelper.getObjectFromJson<RewardResponse>(response);
+                OnReward(rewardResponseData.data.eventData);
+                break;
+            case "didCloseInterstitial":
+                OnAdClosed();
+                break;
+            case "didLoadInterstitial":
+                break;
+            case "didOpenInterstitial":
+                OnAdOpened();
+                break;
+            case "didNotAvailableInterstitial":
+                break;
+            case "didFailToLoadInterstitial":
+                break;
+            case "didDisplayRewardedVideo":
+                OnAdOpened();
+                break;
+            case "didNotAvailableRewardVideo":
+                break;
+            case "didFailToLoadRewardVideo":
+                break;
+            case "didDismissRewardedVideo":
+                OnAdClosed();
+                break;
+            case "didCloseRewardedVideo":
+                OnAdClosed();
+                break;
+            case "advertisement":
+                if (spilResponse.action == "adDidShow")
+                {
+                    Debug.Log("ON AD OPENED");
+                    OnAdOpened();
+                }
+                else if (spilResponse.action == "adDidClose")
+                {
+                    Debug.Log("ON AD CLOSED");
+                    OnAdClosed();
+                }
+                break;
+
+        }
+    }
+
+    void AdShown()
+    {
+        if (OnAdOpened != null)
+        {
+            OnAdOpened();
+        }
+    }
+
+    void AdClosed()
+    {
+        if (OnAdClosed != null)
+        {
+            OnAdClosed();
+        }
+    }
+
+    public static void ShowSpilMoreApps()
+    {
+        TrackEvent("more_apps");
+    }
 }
-	
+

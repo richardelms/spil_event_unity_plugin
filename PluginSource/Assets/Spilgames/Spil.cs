@@ -89,6 +89,10 @@ public class Spil : MonoBehaviour
     {
         return "";
     }
+	public static string getSpilUID()
+	{
+		return "Only avalible on device";
+	}
 
 #elif UNITY_ANDROID
 	void SpilInit(){
@@ -496,9 +500,9 @@ public class Spil : MonoBehaviour
     /// <param name="score"></param>
     /// <param name="stars"></param>
     /// <param name="turns"></param>
-    public static void SendlevelCompleteEvent(string levelName, string score, string stars, string turns)
+    public static void SendlevelCompleteEvent(string levelName)
     {
-        TrackEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName }, { "score", score }, { "stars", stars }, { "turns", turns } });
+        TrackEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
     }
 
     /// <summary>
@@ -508,17 +512,6 @@ public class Spil : MonoBehaviour
     public static void SendlevelFailedEvent(string levelName)
     {
         TrackEvent("levelFailed", new Dictionary<string, string>() { { "level", levelName } });
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="levelName"></param>
-    /// <param name="score"></param>
-    /// <param name="turns"></param>
-    public static void SendlevelFailedEvent(string levelName, string score, string turns)
-    {
-        TrackEvent("levelFailed", new Dictionary<string, string>() { { "level", levelName }, { "score", score }, { "turns", turns } });
     }
 
     /// <summary>

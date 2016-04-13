@@ -221,6 +221,7 @@ No special steps should be necessary for building for Android.
 <p class="p1"><img class="aligncenter size-full wp-image-9577" src="http://www.spilgames.com/wp-content/uploads/2016/02/sprong_entitlements_and_Unity-iPhone_xcodeproj.png" alt="sprong_entitlements_and_Unity-iPhone_xcodeproj" width="1596" height="298" /></p>
 <p class="p1"><span class="s1">8: In the info section, make sure Allow Arbitrary Loads is set to YES</span></p>
 <p class="p1"><img class="aligncenter size-full wp-image-9575" src="http://www.spilgames.com/wp-content/uploads/2016/02/step10.png" alt="step10" width="980" height="830" /></p>
+<p class="p1"><span class="s1">9: Set the build target to 7.1</span></p>
 
 
 

@@ -22,6 +22,7 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 -(void)adDidShow;
 -(void)adDidClose;
 -(void)videoReward:(NSDictionary*)data;
+-(void)notificationReward:(NSDictionary*)reward;
 
 @end
 
@@ -51,6 +52,11 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  *  @param debugEnabled Enables or disables the debug logs printed
  */
 +(void)debug:(BOOL)debugEnabled;
+
+/**
+ *  Show a toast when a reward is unlocked
+ */
++(void)showToastOnVideoReward:(BOOL)enabled;
 
 /**
  *  Track a basic named event
@@ -116,6 +122,14 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  *  Helper function to forward the app delegate listener on the deviceToken
  */
 +(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken;
+
+/**
+ *  Handle remote notification packages
+ *
+ *  @param Application     Reference to the UIApplication object
+ *  @param userInfo        Reference to the push notification payload
+ */
++(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 /**
  * Get the latest stored game configuration, typically a synchronized json object coming from the server.

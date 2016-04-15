@@ -1,7 +1,7 @@
 <h1>Spilgames Event System: Unity Plugin</h1>
 
 <h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin here: https://www.dropbox.com/s/wtb5fqh2fkc8f2f/Spilgames_SDK_Unity_v1_11.zip?dl=0
+You can find the latest version of the Unity plugin in the releases tab of this repo.
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
@@ -41,7 +41,51 @@ From the ExtraLibs folder: copy the contents of the GooglePlayServices folder to
 
 Extra components for iOS need to be added in Xcode after building from unity. See the later section regarding building for details.
 <h3>3: Tracking Events</h3>
-To track an event, simply call Spil.TrackEvent(String eventName); from anywhere in your code.
+
+Several events are expected in every game, the plugin has helper methods for each of these, they are:
+
+SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
+
+SendlevelStartEvent(string levelName)
+
+SendlevelCompleteEvent(string levelName)
+
+SendlevelFailedEvent(string levelName)
+
+SendplayerDiesEvent(string levelName)
+
+SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+
+SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
+
+SendiapFailedEvent(string error, string skuId)
+
+SendmilestoneAchievedEvent(string name)
+
+Just call the corresponding method at the right point in your game, and the SDK will send the evet to our servers.
+
+Please pay close attention to the expected params, these will need to be correct for the game to pass QA.
+
+
+IAP params explained:
+* skuId (string) - The product identifier of the item that was purchased.
+* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
+* purchaseDate (string) - The date and time that the item was purchased.
+* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
+* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
+* error (string) - Error description or error code
+
+Wallet Update Params explained:
+* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
+* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
+* source (int) - 0 == premium
+* item (string) - item id or sku
+* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
+
+
+Custom events may be tracked as follows:
+
+To track an simple custom event, simply call Spil.TrackEvent(String eventName); from anywhere in your code.
 
 To pass more information with the event, simply create a &lt;String, String&gt; Dictionary and pass that as the second parameter like so:
 
@@ -50,53 +94,6 @@ Dictionary&lt;String, String&gt; eventParams = new Dictionary&lt;String,String&g
 eventParams.Add(“level”,levelName);
 
 Spil.TrackEvent(“PlayerDeath”, eventParams);
-
-A list of events to track and the parameters expected will be provided by Spil.
-
-Please pay close attention to the expected params, these will need to be correct for the game to pass QA.
-
-In most cases, the following events will be needed plus a few custom ones relating to your game.
-
-
-
-
-IAP
-
-| Events types                | required parameters                                                              | Note |
-| --------------------------  |:--------------------------------------------------------------------------------:| -----:|
-| iapPurchased                | skuId, transactionId, purchaseDate                    |                                                               |
-| iapRestored                 | skuId, originalTransactionId,originalPurchaseDate            |                                                               |
-| iapFailed                   | error, skuId               
-* skuId (string) - The product identifier of the item that was purchased.
-* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
-* purchaseDate (string) - The date and time that the item was purchased.
-* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
-* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
-* error (string) - Error description or error code
-
-
-
-USER BEHAVIOUR
-
-| Events types                | required parameters                                                              | Optional | Note | 
-| --------------------------  |:--------------------------------------------------------------------------------:| -------: | ---: |
-| walletUpdate                | walletValue, itemValue, source, item, category                    		 |          |      |
-| milestoneAchieved           | name                                                                             |          |      |
-| levelStart                  | level                                                                            |          |      |
-| levelComplete               | level                                                                            | score, stars, turns         |      |
-| levelFailed                 | level                                                                            | score, turns         |      |
-| playerDies                  | level                                                                            |          |      |
-
-* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
-* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
-* source (int) - 0 == premium
-* item (string) - item id or sku
-* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
-* name (string) - name of the milestone
-* level (string) - name of the level
-* score (int) - The final score the player achieves at the end of the level
-* stars (int) - The # of stars (or any other rating system) the player achieves at the end of the level
-* turns (int) - The # of moves/turns taken to complete the level
 
 <h3>4: Game Config Service</h3>
 
@@ -156,7 +153,15 @@ To request a rewarded video, simply call this method:
 
 Spil.ShowRewardedVideo();
 
-Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward delegate Event, passing it a JSON string containing the reward data. Extend this event and reward the player.
+Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward delegate Event, passing it a RewardData Object.
+
+For example, in the game Pixel Wizard, reward data is handled like so:
+
+void OnReward(RewardData rewardData){
+		PixelData.coins += rewardData.reward;
+		PixelData.Save ();
+	}
+
 
 <strong>Open and Close events</strong>
 

@@ -5,7 +5,7 @@ You can find the latest version of the Unity plugin in the releases tab of this 
 
 Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
 
-The package contains 2 C# scripts. Spil.cs contains all the methods and native bridges for the SDK, the other script is a helper class for handling JSON responses from the Spil servers.
+The package contains 2 C# scripts and a JSONHelper plugin. Spil.cs contains all the methods and native bridges for the SDK, the other script is a helper class for handling JSON responses from the Spil servers.
 
 Attach the Spil.cs script to a GameObject in your SplashScreen or equivalent.
 

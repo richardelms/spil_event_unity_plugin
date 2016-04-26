@@ -48,6 +48,7 @@ projectpath = projectname + '.xcodeproj/'
 projectfilename = 'project.pbxproj'
 backupPath = os.getcwd() + '/ProjectBackups/'
 plistPath = os.getcwd() + '/' + projectname + '/info.plist'
+altPlistPath = os.getcwd() + '/info.plist'
 
 # load the project file
 project = XcodeProject.Load(projectpath + projectfilename)
@@ -87,7 +88,7 @@ print 'Copying resources and adding them to the XCode project'
 bundles = project.get_or_create_group('')
 addBundleResource(os.getcwd() + '/Spil.framework/Settings.bundle', os.getcwd() + '/Settings.bundle', bundles)
 addBundleResource(os.getcwd() + '/Spil.framework/UnityAds.bundle', os.getcwd() + '/UnityAds.bundle', bundles)
-addBundleResource(os.getcwd() + '/Spil.framework/project.entitlements', os.getcwd() + '/' + projectname + '.entitlements', bundles)
+#addBundleResource(os.getcwd() + '/Spil.framework/project.entitlements', os.getcwd() + '/' + projectname + '.entitlements', bundles)
 
 # change build settings
 print 'Modifying project build settings'
@@ -101,22 +102,26 @@ print 'Saving project file'
 project.save()
 
 # backup info.plist first
+currentPlistPath = plistPath;
 if not os.path.isfile(plistPath):
-    print RED + BOLD + plistPath + ' not found!' + END
-    exit()
+	currentPlistPath = altPlistPath;
+	if not os.path.isfile(altPlistPath):
+	    print RED + BOLD + plistPath + ' not found!' + END
+    	exit();	
+		
 print 'Creating info.plist backup'
-sourcePath = os.path.abspath(plistPath)
+sourcePath = os.path.abspath(currentPlistPath)
 destPath = backupPath + "info.plist.%s.backup" % (datetime.datetime.now().strftime('%d%m%y-%H%M%S'))
 shutil.copy2(sourcePath, destPath)
 
 # modify plist
 print 'Modifying info.plist'
-plist = plistlib.readPlist(plistPath)
+plist = plistlib.readPlist(currentPlistPath)
 plist['NSAppTransportSecurity'] = dict(NSAllowsArbitraryLoads = True)
 
 # write plist
 print 'Saving info.plist'
-plistlib.writePlist(plist, plistPath)
+plistlib.writePlist(plist, currentPlistPath)
 
 # mark setup as done
 open(os.getcwd() + '/spil.initialized', 'a').close()

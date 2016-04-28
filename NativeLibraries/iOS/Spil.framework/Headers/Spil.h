@@ -18,11 +18,18 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 
 @protocol SpilDelegate
 
+// >>> type = interstitial/rewardVideo
+// >>> reason = close/dismiss
+// >>> reward = reward/empty
+// >>> network = DFP/Fyber/Chartboost
+
 // protocol functions for delegate calls
--(void)adDidShow;
--(void)adDidClose;
--(void)videoReward:(NSDictionary*)data;
+-(void)adAvailable:(NSString*)type; // tells developer if an ad is available or not (type defines if it is either an interstitial or reward video)
+-(void)adNotAvailable:(NSString*)type; // tells the developer an ad has failed (either to load or no ads available) (type defines if it is either an interstitial or reward video)
+-(void)adStart; // tells the developer an ad has started showing
+-(void)adFinished:(NSString*)reason reward:(NSString*)reward network:(NSString*)network; //- tells the developer an ad finished showing ( can either be dismissed and no reward will be given, or the video was watched completely and a reward will be presented)
 -(void)notificationReward:(NSDictionary*)reward;
+-(void)storePackagesLoaded;
 
 @end
 
@@ -146,5 +153,54 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  */
 +(id)getConfigValue:(NSString*)keyString;
 
-@end
+/**
+ * Get the latest stored store packages.
+ *
+ * @return NSDictionary object representation from the stored store packages
+ */
++(NSDictionary*)getAllPackages;
 
+/**
+ * Get a specific package from the store
+ *
+ * @param Name of the key. Type must be NSString.
+ * @return returns the store package, or nil if not found
+ */
++(NSDictionary*)getPackageByID:(NSString*)keyString;
+
+/**
+ * Get a specific promotion from the store
+ *
+ * @param Name of the key. Type must be NSString.
+ * @return returns the store promotion, or nil if not found
+ */
++(NSDictionary*)getPromotionByID:(NSString*)keyString;
+
+/**
+ * Refresh the package and promotion data
+ */
++(void)requestPackages;
+
+/*
+ * Show the more apps screen
+ */
++(void)showMoreApps;
+
+/*
+ * Show the last requested interstitial
+ */
++(void)showIntersitial;
+
+/*
+ * Show the last requested reward video
+ */
++(void)playRewardVideo;
+
+#pragma test methods (dev)
+
++(void)devRequestAd:(NSString*)provider withAdType:(NSString*)adType withParentalGate:(BOOL)parentalGate;
++(void)devShowRewardVideo:(NSString*)adProvider;
++(void)devShowInterstitial:(NSString*)adProvider;
++(void)devShowMoreApps:(NSString*)adProvider;
+
+@end

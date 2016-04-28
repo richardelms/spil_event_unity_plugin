@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		n/K0T2/WFOGe6lyjKaTc9xXZsjk=
-		</data>
 		<key>FYBBackIcon@2x.png</key>
 		<data>
 		n6jeEW5sQwWs9aFSfHXIMiQG/38=
@@ -19,10 +15,6 @@
 		<key>FYBBackIconiPhone@2x.png</key>
 		<data>
 		y3Uezfm65mXDcqo7aGEZiL9d7nk=
-		</data>
-		<key>Frameworks/.DS_Store</key>
-		<data>
-		3y++sUAKzaCQmjLBz2v0kvESHgc=
 		</data>
 		<key>Frameworks/Chartboost.framework/Versions/A/Chartboost</key>
 		<data>
@@ -119,7 +111,7 @@
 		</data>
 		<key>Headers/HookBridge.h</key>
 		<data>
-		MSbyjatA7FrsvklFIsI1AHWj3kk=
+		wIxhPiZ9N9oXQo0lsyjHatqWBN4=
 		</data>
 		<key>Headers/MPCloseBtn.png</key>
 		<data>
@@ -147,7 +139,7 @@
 		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		VfVekCAZRtsDVA4HDxmrDe4t3MY=
+		mNevgW0vxZLBEX7QUFiJE1Ib7aQ=
 		</data>
 		<key>Headers/UnityAppController.h</key>
 		<data>
@@ -163,7 +155,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		1JfRx420fShQRPQ+NHJlRHcbHQM=
+		0V8/G9EKxPdt/rJi1UEJzeP6E8U=
 		</data>
 		<key>MPCloseBtn.png</key>
 		<data>
@@ -338,7 +330,7 @@
 		</data>
 		<key>setup.py</key>
 		<data>
-		e0M0xhi7rcxpVp8Za/maxO1F/zk=
+		DtCuXLoUPuTswf6KkdhYmIAxhRw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -699,11 +691,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MSbyjatA7FrsvklFIsI1AHWj3kk=
+			wIxhPiZ9N9oXQo0lsyjHatqWBN4=
 			</data>
 			<key>hash2</key>
 			<data>
-			nOc3q5tWG+VRGUdcT818Rgw/p6Vb5KvIzFP/jhPq5Jk=
+			7yuj6VRLkHkKQ/Wl4EHOcTvZegkE/VmN8oDcvDpIFwU=
 			</data>
 		</dict>
 		<key>Headers/MPCloseBtn.png</key>
@@ -776,11 +768,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			VfVekCAZRtsDVA4HDxmrDe4t3MY=
+			mNevgW0vxZLBEX7QUFiJE1Ib7aQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			Sgau1LsI0pXDz8KgwhEUSkV4QfikL0kqr0BH1QbiObw=
+			0EvR4+9WkOuzoUe99uVMyf/hiA9J0hcnTMA4pCBSzUU=
 			</data>
 		</dict>
 		<key>Headers/UnityAppController.h</key>
@@ -809,11 +801,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1JfRx420fShQRPQ+NHJlRHcbHQM=
+			0V8/G9EKxPdt/rJi1UEJzeP6E8U=
 			</data>
 			<key>hash2</key>
 			<data>
-			LhbHphIawjKzBk5oIp8RlEZhfnMNAhUrKGfB2OLgD7g=
+			69Dmdd0RAmhjc1LCBhS9RyhK0mC9YUT+apFp9k6nHhI=
 			</data>
 		</dict>
 		<key>MPCloseBtn.png</key>
@@ -1255,11 +1247,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			e0M0xhi7rcxpVp8Za/maxO1F/zk=
+			DtCuXLoUPuTswf6KkdhYmIAxhRw=
 			</data>
 			<key>hash2</key>
 			<data>
-			Wz7jbn7fkF8MUyspTesrXw675iOT9A8BT3+SUuMJLhE=
+			QZ6Ig3gJfzLpWbXYjzZ0yEHoQzPT1AlL8K6j8rUITLQ=
 			</data>
 		</dict>
 	</dict>

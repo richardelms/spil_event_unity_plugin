@@ -3,13 +3,11 @@
 <h3>1: Download and Import the Unity package into your project</h3>
 You can find the latest version of the Unity plugin in the releases tab of this repo.
 
-Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
+Unzip the download, inside you will find the native library folders and a Unity package. Please ignore the folder for now and just import the Unity package.
 
-The package contains 2 C# scripts and a JSONHelper plugin. Spil.cs contains all the methods and native bridges for the SDK, the other script is a helper class for handling JSON responses from the Spil servers.
+Attach the script named "Spil.cs" to a GameObject in your SplashScreen or equivalent.
 
-Attach the Spil.cs script to a GameObject in your SplashScreen or equivalent.
-
-For Android, also enter your project ID to the GameObject. Ask your Spil contact to provide you with your project ID.
+For Android, also enter your project ID to the Script. Ask your Spil contact to provide you with your project ID.
 <h3>2: Import appropriate platform specific components</h3>
 <strong>Android</strong>
 
@@ -40,6 +38,13 @@ From the ExtraLibs folder: copy the contents of the GooglePlayServices folder to
 <strong>iOS</strong>
 
 Extra components for iOS need to be added in Xcode after building from unity. See the later section regarding building for details.
+
+<strong>Calling Spil Methods</strong>
+
+To call a Spil method, you must first add "using SpilGames.Unity;" to the top of your class.
+
+Then, you can call any method by typing Spil.instance.nameOfMethod();
+
 <h3>3: Tracking Events</h3>
 
 Several events are expected in every game, the plugin has helper methods for each of these, they are:
@@ -149,64 +154,51 @@ The config service should always return a value. But if for somereason it does n
 <h3>5: AD networks</h3>
 Most AD network functionality will be handled automatically by the SDK. However you will need to handle the triggering of rewarded videos and subsiquent payout to the player on completion of the video.
 
-To request a rewarded video, simply call this method:
-
-Spil.ShowRewardedVideo();
-
-Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward delegate Event, passing it a RewardData Object.
-
-For example, in the game Pixel Wizard, reward data is handled like so:
-
-void OnReward(RewardData rewardData){
-		PixelData.coins += rewardData.reward;
-		PixelData.Save ();
-	}
+Here is an example of a simple script to check if a Rewarded video is avalible, and then hide or show the watch video button accordingly and reward the player is needed.
 
 
-<strong>Open and Close events</strong>
 
-The Spil class contains 2 delegates that you can extend to make sure your app behaves in the correct way when ads are shown and closed.
-
-OnAdOpened
-
-And
-
-OnAdClosed;
-
-For example, in your music manager, you might want to extend these delegates to mute the music when an Ad is shown, and then un-mute it again once closed.
+public GameObject rewardedVideoButton;
 
 void OnEnable(){
-  Spil.OnAdOpened += AdOpened;
-  Spil.OnAdClosed += AdClosed;
+	rewardedVideoButton.SetActive (false);
+	Spil.Instance.SendrequestRewardVideoEvent ();
+	Spil.Instance.OnAdAvailable += OnAdAvalible;
+	Spil.Instance.OnAdNotAvailable += OnAdNotAvalible;
 }
 
-void OnDisable(){
-    Spil.OnAdOpened -= AdOpened;
-    Spil.OnAdClosed -= AdClosed;
+void OnAdAvalible(SpilGames.Unity.Utils.enumAdType adType){
+	if (adType == SpilGames.Unity.Utils.enumAdType.RewardVideo) {
+		rewardedVideoButton.SetActive (true);
+	}
+}
+
+void OnAdNotAvalible(SpilGames.Unity.Utils.enumAdType adType){
+	if (adType == SpilGames.Unity.Utils.enumAdType.RewardVideo) {
+		rewardedVideoButton.SetActive (false);
+	}
+}
+
+
+Then, the user can click the button, and trigger the following:
+
+public void ShowRewardedVideo(){
+	Spil.Instance.OnAdStarted += AdOpened;
+	Spil.Instance.OnAdFinished += AdFinished;
+	Spil.Instance.PlayVideo ();
 }
 
 void AdOpened(){
+	//mute the game and pause if neccessary
 	muteAudio = true;
+	timeScale = 0;
 }
 
-void AdClosed(){
-	muteAudio = false;
+void AdFinished(SpilGames.Unity.Utils.SpilAdFinishedResponse response){
+	if (response.reward != null) {
+		coins += response.reward.reward;
+	}
 }
-
-The events will fire for both Video ads and static fullscreen ads.
-
-<strong>Debugging ADs</strong>
-
-For debugging you can manually init the AD SDKs by calling
-
-Spil.startFyber(String appId, String token)
-
-then you can test ADs with Spil.showFyber(“rewardVideo”)
-
-pleae make sure to remove this debug code before launch.
-
-<h3>6: Building for Distribution</h3>
-<strong>Android:</strong>
 
 No special steps should be necessary for building for Android.
 

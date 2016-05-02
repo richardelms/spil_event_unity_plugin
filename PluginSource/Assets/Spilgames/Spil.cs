@@ -51,7 +51,11 @@ namespace SpilGames.Unity
                 get { return "127433475057"; }
             }
 
-            #if UNITY_ANDROID
+			#if UNITY_EDITOR
+				
+				public static SpilUnityEditorImplementation Instance = new SpilUnityEditorImplementation ();
+
+			#elif UNITY_ANDROID
 
                 public static SpilAndroidUnityImplementation Instance = new SpilAndroidUnityImplementation();
 

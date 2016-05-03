@@ -29,17 +29,17 @@ def addBundleResource(src, dst, group):
 # determine if the spil sdk is already initialized
 if os.path.exists(os.getcwd() + '/spil.initialized'):
 	print 'Spil SDK was already initialized!'
-	exit()
+	exit(0)
 	
 # try to find the project to modify
 if len(sys.argv) < 2:
     print RED + BOLD + 'ERROR: Missing project name! usage: python spilsdksetup.py <ProjectName>' + END
-    exit()
+    exit(1)
 else:
     projectname = sys.argv[1]
     if not os.path.isdir(projectname):
 		print RED + BOLD + projectname + '.xcodeproj not found!' + END
-		exit()
+		exit(1)
     else:
 		print 'Modifying XCode project: ' + projectname
 
@@ -49,6 +49,8 @@ projectfilename = 'project.pbxproj'
 backupPath = os.getcwd() + '/ProjectBackups/'
 plistPath = os.getcwd() + '/' + projectname + '/info.plist'
 altPlistPath = os.getcwd() + '/info.plist'
+entitlementsPath = os.getcwd() + '/' + projectname + '/' + projectname + '.entitlements'
+altEntitlementsPath = os.getcwd() + '/' + projectname + '.plist'
 
 # load the project file
 project = XcodeProject.Load(projectpath + projectfilename)
@@ -88,7 +90,7 @@ print 'Copying resources and adding them to the XCode project'
 bundles = project.get_or_create_group('')
 addBundleResource(os.getcwd() + '/Spil.framework/Settings.bundle', os.getcwd() + '/Settings.bundle', bundles)
 addBundleResource(os.getcwd() + '/Spil.framework/UnityAds.bundle', os.getcwd() + '/UnityAds.bundle', bundles)
-#addBundleResource(os.getcwd() + '/Spil.framework/project.entitlements', os.getcwd() + '/' + projectname + '.entitlements', bundles)
+addBundleResource(os.getcwd() + '/Spil.framework/project.entitlements', os.getcwd() + '/' + projectname + '.entitlements', bundles)
 
 # change build settings
 print 'Modifying project build settings'
@@ -101,14 +103,15 @@ project.add_framework_search_paths('$(PROJECT_DIR)/Spil.framework/Frameworks', r
 print 'Saving project file'
 project.save()
 
-# backup info.plist first
+# try to find the info plist
 currentPlistPath = plistPath;
 if not os.path.isfile(plistPath):
 	currentPlistPath = altPlistPath;
 	if not os.path.isfile(altPlistPath):
 	    print RED + BOLD + plistPath + ' not found!' + END
-    	exit();	
-		
+    	exit(1);	
+
+# backup info.plist first
 print 'Creating info.plist backup'
 sourcePath = os.path.abspath(currentPlistPath)
 destPath = backupPath + "info.plist.%s.backup" % (datetime.datetime.now().strftime('%d%m%y-%H%M%S'))

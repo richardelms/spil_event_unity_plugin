@@ -156,9 +156,9 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 /**
  * Get the latest stored store packages.
  *
- * @return NSDictionary object representation from the stored store packages
+ * @return NSArray object representation from the stored store packages
  */
-+(NSDictionary*)getAllPackages;
++(NSArray*)getAllPackages;
 
 /**
  * Get a specific package from the store
@@ -167,6 +167,13 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  * @return returns the store package, or nil if not found
  */
 +(NSDictionary*)getPackageByID:(NSString*)keyString;
+
+/**
+ * Get the latest stored store promotions.
+ *
+ * @return NSArray object representation from the stored store promotions
+ */
++(NSArray*)getAllPromotions;
 
 /**
  * Get a specific promotion from the store
@@ -195,6 +202,11 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
  * Show the last requested reward video
  */
 +(void)playRewardVideo;
+
+/*
+ * Helper method to determine if the ad provider is initialized
+ */
++(BOOL)isAdProviderInitialized:(NSString*)identifier;
 
 #pragma test methods (dev)
 

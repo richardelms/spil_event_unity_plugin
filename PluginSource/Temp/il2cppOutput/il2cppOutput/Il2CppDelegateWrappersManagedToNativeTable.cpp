@@ -1,0 +1,176 @@
+﻿#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+
+
+#include "class-internals.h"
+#include "codegen/il2cpp-codegen.h"
+
+extern "C" void pinvoke_delegate_wrapper_PrimalityTest_t397689819 ();
+extern "C" void pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396096 ();
+extern "C" void pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396097 ();
+extern "C" void pinvoke_delegate_wrapper_AppDomainInitializer_t1372758802 ();
+extern "C" void pinvoke_delegate_wrapper_Swapper_t4148259466 ();
+extern "C" void pinvoke_delegate_wrapper_AssemblyLoadEventHandler_t3698454801 ();
+extern "C" void pinvoke_delegate_wrapper_AsyncCallback_t1363551830 ();
+extern "C" void pinvoke_delegate_wrapper_EventHandler_t247020293 ();
+extern "C" void pinvoke_delegate_wrapper_ReadDelegate_t3831560539 ();
+extern "C" void pinvoke_delegate_wrapper_WriteDelegate_t4066867812 ();
+extern "C" void pinvoke_delegate_wrapper_AddEventAdapter_t836903542 ();
+extern "C" void pinvoke_delegate_wrapper_MemberFilter_t1585748256 ();
+extern "C" void pinvoke_delegate_wrapper_GetterAdapter_t943738788 ();
+extern "C" void pinvoke_delegate_wrapper_TypeFilter_t2379296192 ();
+extern "C" void pinvoke_delegate_wrapper_ResolveEventHandler_t2783314641 ();
+extern "C" void pinvoke_delegate_wrapper_CrossContextDelegate_t2286976850 ();
+extern "C" void pinvoke_delegate_wrapper_RenewalDelegate_t4057835773 ();
+extern "C" void pinvoke_delegate_wrapper_HeaderHandler_t379822999 ();
+extern "C" void pinvoke_delegate_wrapper_CallbackHandler_t3576143653 ();
+extern "C" void pinvoke_delegate_wrapper_ThreadStart_t2758142267 ();
+extern "C" void pinvoke_delegate_wrapper_TimerCallback_t4291881837 ();
+extern "C" void pinvoke_delegate_wrapper_WaitCallback_t827025885 ();
+extern "C" void pinvoke_delegate_wrapper_WaitOrTimerCallback_t4215077909 ();
+extern "C" void pinvoke_delegate_wrapper_UnhandledExceptionEventHandler_t4230172209 ();
+extern "C" void pinvoke_delegate_wrapper_CollectionChangeEventHandler_t609299751 ();
+extern "C" void pinvoke_delegate_wrapper_ListChangedEventHandler_t3535012143 ();
+extern "C" void pinvoke_delegate_wrapper_PropertyChangedEventHandler_t2898121368 ();
+extern "C" void pinvoke_delegate_wrapper_ReadMethod_t1307699767 ();
+extern "C" void pinvoke_delegate_wrapper_UnmanagedReadOrWrite_t1833047712 ();
+extern "C" void pinvoke_delegate_wrapper_WriteMethod_t2894535040 ();
+extern "C" void pinvoke_delegate_wrapper_BindIPEndPoint_t3524008771 ();
+extern "C" void pinvoke_delegate_wrapper_GetResponseCallback_t786822908 ();
+extern "C" void pinvoke_delegate_wrapper_ReadDelegate_t3831560540 ();
+extern "C" void pinvoke_delegate_wrapper_WriteDelegate_t4066867813 ();
+extern "C" void pinvoke_delegate_wrapper_HttpContinueDelegate_t835016574 ();
+extern "C" void pinvoke_delegate_wrapper_LocalCertificateSelectionCallback_t2540829269 ();
+extern "C" void pinvoke_delegate_wrapper_RemoteCertificateValidationCallback_t4087051103 ();
+extern "C" void pinvoke_delegate_wrapper_SocketAsyncCall_t106740903 ();
+extern "C" void pinvoke_delegate_wrapper_MatchAppendEvaluator_t2378778064 ();
+extern "C" void pinvoke_delegate_wrapper_CostDelegate_t3008899218 ();
+extern "C" void pinvoke_delegate_wrapper_MatchEvaluator_t510977541 ();
+extern "C" void pinvoke_delegate_wrapper_PrimalityTest_t397689820 ();
+extern "C" void pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396098 ();
+extern "C" void pinvoke_delegate_wrapper_CertificateSelectionCallback_t3257378130 ();
+extern "C" void pinvoke_delegate_wrapper_CertificateValidationCallback_t3726148045 ();
+extern "C" void pinvoke_delegate_wrapper_CertificateValidationCallback2_t1582269749 ();
+extern "C" void pinvoke_delegate_wrapper_PrivateKeySelectionCallback_t4199006061 ();
+extern "C" void pinvoke_delegate_wrapper_ValidationEventHandler_t2777264566 ();
+extern "C" void pinvoke_delegate_wrapper_XmlNodeChangedEventHandler_t1687630483 ();
+extern "C" void pinvoke_delegate_wrapper_CharGetter_t2496392225 ();
+extern "C" void pinvoke_delegate_wrapper_DataColumnChangeEventHandler_t215747763 ();
+extern "C" void pinvoke_delegate_wrapper_DataRowChangeEventHandler_t309042851 ();
+extern "C" void pinvoke_delegate_wrapper_DataTableNewRowEventHandler_t30154625 ();
+extern "C" void pinvoke_delegate_wrapper_DelegateConstraintNameChange_t674814672 ();
+extern "C" void pinvoke_delegate_wrapper_MergeFailedEventHandler_t3846687768 ();
+extern "C" void pinvoke_delegate_wrapper_ExtensionDataGetter_t3945575949 ();
+extern "C" void pinvoke_delegate_wrapper_ExtensionDataSetter_t4289125761 ();
+extern "C" void pinvoke_delegate_wrapper_SerializationCallback_t1464462190 ();
+extern "C" void pinvoke_delegate_wrapper_SerializationErrorCallback_t499625910 ();
+extern "C" void pinvoke_delegate_wrapper_LogCallback_t3235662729 ();
+extern "C" void pinvoke_delegate_wrapper_PCMReaderCallback_t749510018 ();
+extern "C" void pinvoke_delegate_wrapper_PCMSetPositionCallback_t2977871350 ();
+extern "C" void pinvoke_delegate_wrapper_AudioConfigurationChangeHandler_t1722466426 ();
+extern "C" void pinvoke_delegate_wrapper_CameraCallback_t1908940458 ();
+extern "C" void pinvoke_delegate_wrapper_StateChanged_t1076524291 ();
+extern "C" void pinvoke_delegate_wrapper_DisplaysUpdatedDelegate_t1240057615 ();
+extern "C" void pinvoke_delegate_wrapper_BannerFailedToLoadDelegate_t2071786927 ();
+extern "C" void pinvoke_delegate_wrapper_BannerWasClickedDelegate_t1325188367 ();
+extern "C" void pinvoke_delegate_wrapper_BannerWasLoadedDelegate_t69910023 ();
+extern "C" void pinvoke_delegate_wrapper_InterstitialWasLoadedDelegate_t2963828231 ();
+extern "C" void pinvoke_delegate_wrapper_InterstitialWasViewedDelegate_t402653446 ();
+extern "C" void pinvoke_delegate_wrapper_ReapplyDrivenProperties_t3247703954 ();
+extern "C" void pinvoke_delegate_wrapper_AdAvailableEvent_t2821451892 ();
+extern "C" void pinvoke_delegate_wrapper_AdFinishedEvent_t4079166917 ();
+extern "C" void pinvoke_delegate_wrapper_AdNotAvailableEvent_t1662598401 ();
+extern "C" void pinvoke_delegate_wrapper_AdStartedEvent_t2961930876 ();
+extern "C" void pinvoke_delegate_wrapper_RewardEvent_t2542469259 ();
+extern "C" void pinvoke_delegate_wrapper_AddJSONConents_t3346118721 ();
+extern "C" void pinvoke_delegate_wrapper_FieldNotFound_t2014471017 ();
+extern "C" void pinvoke_delegate_wrapper_GetFieldResponse_t1656258501 ();
+extern const methodPointerType g_DelegateWrappersManagedToNative[80] = 
+{
+	pinvoke_delegate_wrapper_PrimalityTest_t397689819,
+	pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396096,
+	pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396097,
+	pinvoke_delegate_wrapper_AppDomainInitializer_t1372758802,
+	pinvoke_delegate_wrapper_Swapper_t4148259466,
+	pinvoke_delegate_wrapper_AssemblyLoadEventHandler_t3698454801,
+	pinvoke_delegate_wrapper_AsyncCallback_t1363551830,
+	pinvoke_delegate_wrapper_EventHandler_t247020293,
+	pinvoke_delegate_wrapper_ReadDelegate_t3831560539,
+	pinvoke_delegate_wrapper_WriteDelegate_t4066867812,
+	pinvoke_delegate_wrapper_AddEventAdapter_t836903542,
+	pinvoke_delegate_wrapper_MemberFilter_t1585748256,
+	pinvoke_delegate_wrapper_GetterAdapter_t943738788,
+	pinvoke_delegate_wrapper_TypeFilter_t2379296192,
+	pinvoke_delegate_wrapper_ResolveEventHandler_t2783314641,
+	pinvoke_delegate_wrapper_CrossContextDelegate_t2286976850,
+	pinvoke_delegate_wrapper_RenewalDelegate_t4057835773,
+	pinvoke_delegate_wrapper_HeaderHandler_t379822999,
+	pinvoke_delegate_wrapper_CallbackHandler_t3576143653,
+	pinvoke_delegate_wrapper_ThreadStart_t2758142267,
+	pinvoke_delegate_wrapper_TimerCallback_t4291881837,
+	pinvoke_delegate_wrapper_WaitCallback_t827025885,
+	pinvoke_delegate_wrapper_WaitOrTimerCallback_t4215077909,
+	pinvoke_delegate_wrapper_UnhandledExceptionEventHandler_t4230172209,
+	pinvoke_delegate_wrapper_CollectionChangeEventHandler_t609299751,
+	pinvoke_delegate_wrapper_ListChangedEventHandler_t3535012143,
+	pinvoke_delegate_wrapper_PropertyChangedEventHandler_t2898121368,
+	pinvoke_delegate_wrapper_ReadMethod_t1307699767,
+	pinvoke_delegate_wrapper_UnmanagedReadOrWrite_t1833047712,
+	pinvoke_delegate_wrapper_WriteMethod_t2894535040,
+	pinvoke_delegate_wrapper_BindIPEndPoint_t3524008771,
+	pinvoke_delegate_wrapper_GetResponseCallback_t786822908,
+	pinvoke_delegate_wrapper_ReadDelegate_t3831560540,
+	pinvoke_delegate_wrapper_WriteDelegate_t4066867813,
+	pinvoke_delegate_wrapper_HttpContinueDelegate_t835016574,
+	pinvoke_delegate_wrapper_LocalCertificateSelectionCallback_t2540829269,
+	pinvoke_delegate_wrapper_RemoteCertificateValidationCallback_t4087051103,
+	pinvoke_delegate_wrapper_SocketAsyncCall_t106740903,
+	pinvoke_delegate_wrapper_MatchAppendEvaluator_t2378778064,
+	pinvoke_delegate_wrapper_CostDelegate_t3008899218,
+	pinvoke_delegate_wrapper_MatchEvaluator_t510977541,
+	pinvoke_delegate_wrapper_PrimalityTest_t397689820,
+	pinvoke_delegate_wrapper_KeyGeneratedEventHandler_t1233396098,
+	pinvoke_delegate_wrapper_CertificateSelectionCallback_t3257378130,
+	pinvoke_delegate_wrapper_CertificateValidationCallback_t3726148045,
+	pinvoke_delegate_wrapper_CertificateValidationCallback2_t1582269749,
+	pinvoke_delegate_wrapper_PrivateKeySelectionCallback_t4199006061,
+	pinvoke_delegate_wrapper_ValidationEventHandler_t2777264566,
+	pinvoke_delegate_wrapper_XmlNodeChangedEventHandler_t1687630483,
+	pinvoke_delegate_wrapper_CharGetter_t2496392225,
+	pinvoke_delegate_wrapper_DataColumnChangeEventHandler_t215747763,
+	pinvoke_delegate_wrapper_DataRowChangeEventHandler_t309042851,
+	pinvoke_delegate_wrapper_DataTableNewRowEventHandler_t30154625,
+	pinvoke_delegate_wrapper_DelegateConstraintNameChange_t674814672,
+	pinvoke_delegate_wrapper_MergeFailedEventHandler_t3846687768,
+	pinvoke_delegate_wrapper_ExtensionDataGetter_t3945575949,
+	pinvoke_delegate_wrapper_ExtensionDataSetter_t4289125761,
+	pinvoke_delegate_wrapper_SerializationCallback_t1464462190,
+	pinvoke_delegate_wrapper_SerializationErrorCallback_t499625910,
+	pinvoke_delegate_wrapper_LogCallback_t3235662729,
+	pinvoke_delegate_wrapper_PCMReaderCallback_t749510018,
+	pinvoke_delegate_wrapper_PCMSetPositionCallback_t2977871350,
+	pinvoke_delegate_wrapper_AudioConfigurationChangeHandler_t1722466426,
+	pinvoke_delegate_wrapper_CameraCallback_t1908940458,
+	pinvoke_delegate_wrapper_StateChanged_t1076524291,
+	pinvoke_delegate_wrapper_DisplaysUpdatedDelegate_t1240057615,
+	pinvoke_delegate_wrapper_BannerFailedToLoadDelegate_t2071786927,
+	pinvoke_delegate_wrapper_BannerWasClickedDelegate_t1325188367,
+	pinvoke_delegate_wrapper_BannerWasLoadedDelegate_t69910023,
+	pinvoke_delegate_wrapper_InterstitialWasLoadedDelegate_t2963828231,
+	pinvoke_delegate_wrapper_InterstitialWasViewedDelegate_t402653446,
+	pinvoke_delegate_wrapper_ReapplyDrivenProperties_t3247703954,
+	pinvoke_delegate_wrapper_AdAvailableEvent_t2821451892,
+	pinvoke_delegate_wrapper_AdFinishedEvent_t4079166917,
+	pinvoke_delegate_wrapper_AdNotAvailableEvent_t1662598401,
+	pinvoke_delegate_wrapper_AdStartedEvent_t2961930876,
+	pinvoke_delegate_wrapper_RewardEvent_t2542469259,
+	pinvoke_delegate_wrapper_AddJSONConents_t3346118721,
+	pinvoke_delegate_wrapper_FieldNotFound_t2014471017,
+	pinvoke_delegate_wrapper_GetFieldResponse_t1656258501,
+};

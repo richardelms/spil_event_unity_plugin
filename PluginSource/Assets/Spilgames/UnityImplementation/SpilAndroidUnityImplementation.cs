@@ -6,6 +6,7 @@ using SpilGames.Unity.Utils;
 
 namespace SpilGames.Unity.Implementations
 {
+	#if UNITY_ANDROID
     public class SpilAndroidUnityImplementation : SpilUnityImplementationBase
     {
         #region Inherited members
@@ -334,4 +335,5 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
     }
+	#endif
 }

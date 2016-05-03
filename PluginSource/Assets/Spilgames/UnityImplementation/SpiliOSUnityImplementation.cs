@@ -8,6 +8,7 @@ using System.Collections;
 
 namespace SpilGames.Unity.Implementations
 { 
+	#if UNITY_IPHONE
     public class SpiliOSUnityImplementation : SpilUnityImplementationBase
     {
         #region Inherited members
@@ -341,4 +342,5 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
     }
+	#endif
 }

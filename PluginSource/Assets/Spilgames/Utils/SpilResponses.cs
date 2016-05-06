@@ -27,7 +27,7 @@ namespace SpilGames.Unity.Utils
     public class SpilAdFinishedResponse
     {
         /// <summary>
-        /// Possible values: interstitial/rewardVideo
+        /// Possible values: interstitial / rewardVideo / moreApps
         /// </summary>
         public string type;
 
@@ -41,6 +41,10 @@ namespace SpilGames.Unity.Utils
             else if (type.Equals("interstitial"))
             {
                 adType = enumAdType.Interstitial;
+            }
+            else if (type.Equals("moreApps"))
+            {
+                adType = enumAdType.MoreApps;
             }
             if (adType == enumAdType.Unknown)
             {
@@ -111,6 +115,12 @@ namespace SpilGames.Unity.Utils
         {
             public List<PackageData> packages;
             public List<PromotionData> promotions;
+
+            public PackagesData(List<PackageData> packages, List<PromotionData> promotions)
+            {
+                this.packages = packages;
+                this.promotions = promotions;   
+            }
         }
 
         // Example Promotions JSON string (contains single Promotion object): "{\"packageId\":\"87600\",\"items\":[{\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"400\"}],\"discountLabel\":\"30%\",\"startTime\":\"2016-01-02 01:02:03\",\"endTime\":\"2016-02-03 02:03:04\"}"

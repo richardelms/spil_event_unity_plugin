@@ -2,13 +2,11 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using UnityEngine;
-using SpilGames.Unity.Helpers;
 using SpilGames.Unity.Utils;
-using System.Collections;
 
 namespace SpilGames.Unity.Implementations
 { 
-	#if UNITY_IPHONE
+    #if UNITY_IPHONE
     public class SpiliOSUnityImplementation : SpilUnityImplementationBase
     {
         #region Inherited members
@@ -40,25 +38,6 @@ namespace SpilGames.Unity.Implementations
             #region Packages and promotions
 
                 /// <summary>
-                /// Fetch packages and promotions locally. Packages and promotions are requested from the server when the app starts and are cached.
-                /// </summary>
-                /// <returns>A packageshelper object filled with packages and promotions, will be empty if there are none. Returns null if no packages or promotions are present, which should only happen if the server has never been successfully queried for packages and promotions.</returns>
-                public override PackagesHelper GetPackagesAndPromotions()
-                {
-                    PackagesHelper helper = null;
-                    string packagesString = getAllPackages();
-                    if(packagesString != null)
-                    {
-                        PackagesData packagesData = JsonHelper.getObjectFromJson<PackagesData>(packagesString);
-                        helper = new PackagesHelper(packagesData);
-                    }
-                    return helper;
-                }
-
-                [DllImport("__Internal")]
-	            private static extern string getAllPackages();
-
-                /// <summary>
                 /// Method that requests packages and promotions from the server.
                 /// This is called automatically by the Spil SDK when the game starts.
                 /// This is not essential so could be removed but might be handy for some developers so we left it in.
@@ -68,13 +47,32 @@ namespace SpilGames.Unity.Implementations
                     requestPackages();
                 }
 
+                // Method that returns the all packages
+                protected override string GetAllPackages()
+                {
+                    return getAllPackages();
+                }
+
+                // Method that returns a package based on key
+                protected override string GetPackage(string key)
+                {
+                    return getPackageByID(key);
+                }
+
+                // Method that returns a promotion based on package key
+                protected override string GetPromotion(string key)
+                {
+                    return getPromotionByID(key);
+                }
+
                 [DllImport("__Internal")]
 	            private static extern string requestPackages();
-               
+
+                [DllImport("__Internal")]
+	            private static extern string getAllPackages();
 
                 [DllImport("__Internal")]
 	            private static extern string getPackageByID(string keyString);
-
 
                 [DllImport("__Internal")]
 	            private static extern string getPromotionByID(string keyString);
@@ -341,6 +339,6 @@ namespace SpilGames.Unity.Implementations
 	        private static extern void trackEventWithParamsNative(string eventName, string jsonStringParams);
 
         #endregion
-    }
-	#endif
+    }        
+    #endif
 }

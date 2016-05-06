@@ -1,17 +1,10 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using SpilGames.Unity.Helpers;
-using SpilGames.Unity.Utils;
-using System.Collections;
 
 namespace SpilGames.Unity.Implementations
 {
 
 	public class SpilUnityEditorImplementation : SpilUnityImplementationBase {
-
-
 
 			#region Inherited members
 
@@ -42,16 +35,6 @@ namespace SpilGames.Unity.Implementations
 			#region Packages and promotions
 
 			/// <summary>
-			/// Fetch packages and promotions locally. Packages and promotions are requested from the server when the app starts and are cached.
-			/// </summary>
-			/// <returns>A packageshelper object filled with packages and promotions, will be empty if there are none. Returns null if no packages or promotions are present, which should only happen if the server has never been successfully queried for packages and promotions.</returns>
-			public override PackagesHelper GetPackagesAndPromotions()
-			{
-				PackagesHelper helper = null;
-				return helper;
-			}
-
-			/// <summary>
 			/// Method that requests packages and promotions from the server.
 			/// This is called automatically by the Spil SDK when the game starts.
 			/// This is not essential so could be removed but might be handy for some developers so we left it in.
@@ -61,7 +44,20 @@ namespace SpilGames.Unity.Implementations
 				
 			}
 
+            protected override string GetAllPackages()
+            {
+                return "Not Avalible in editorMode";
+            }
 
+            protected override string GetPackage(string key)
+            {
+                return "Not Avalible in editorMode";
+            }
+
+            protected override string GetPromotion(string key)
+            {
+                return "Not Avalible in editorMode";
+            }
 
 			#endregion
 
@@ -255,6 +251,6 @@ namespace SpilGames.Unity.Implementations
 				return value;
 			}
 
-			#endregion
-		}
+        #endregion
+    }
 	}

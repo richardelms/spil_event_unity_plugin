@@ -47,35 +47,57 @@ namespace SpilGames.Unity.Implementations
 
         #region Packages and promotions
 
-          
-
             // This is not essential so could be removed but might be handy for some developers so we left it in.
             public abstract void UpdatePackagesAndPromotions();
 
-            public abstract PackagesHelper GetPackagesAndPromotions();
+            /// <summary>
+            /// Fetch packages and promotions locally. Packages and promotions are requested from the server when the app starts and are cached.
+            /// </summary>
+            /// <returns>A packageshelper object filled with packages and promotions, will be empty if there are none. Returns null if no packages or promotions are present, which should only happen if the server has never been successfully queried for packages and promotions.</returns>
+            public PackagesHelper GetPackagesAndPromotions()
+            {
+                PackagesHelper helper = null;
+                string packagesString = GetAllPackages();
+                if(packagesString != null)
+                {
+                    List<PackageData> packagesList = JsonHelper.getObjectFromJson<List<PackageData>>(packagesString);
+                    List<PromotionData> promotionsList = new List<PromotionData>();
+                    foreach(PackageData package in packagesList)
+                    {
+                        if(package.hasPromotion)
+                        {
+                            String promotionString = GetPromotion(package.packageId);
+                            if(!String.IsNullOrEmpty(promotionString))
+                            {
+                                PromotionData promotionData = JsonHelper.getObjectFromJson<PromotionData>(promotionString);
+                                if (promotionData != null)
+                                {
+                                    promotionsList.Add(promotionData);
+                                }
+                            }
+                        }
+                    }
+                    PackagesData packagesData = new PackagesData(packagesList, promotionsList);
+                    helper = new PackagesHelper(packagesData);
 
-           
+                    //Debug.Log("SpilSDK-Unity Found " + packagesList.Count + " packages and " + promotionsList.Count + " promotions");
+                }
+                return helper;
+            }
+
+            protected abstract string GetAllPackages();
+
+            //Method that returns a package based on key
+            protected abstract string GetPackage(string key);
+
+            //Method that returns a promotion based on package key
+            protected abstract string GetPromotion(string key);
 
         #endregion
 
         #region Events         
 
             #region Standard Spil events
-
-                /// <summary>
-                /// Sends the "walletUpdate" event to the native Spil SDK which will send a request to the back-end.
-                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
-                /// </summary>
-                /// <param name="name"></param>
-                /// <param name="walletValue">The new wallet value after subtracting the item value. E.g coins</param>
-                /// <param name="itemValue">The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)</param>
-                /// <param name="source">(int) - 0 == premium</param>
-                /// <param name="item">item id or sku</param>
-                /// <param name="category">(int) - 0 = Consumable, 1 = Booster, 2 = Permanent</param>
-                public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
-                {
-                    SendCustomEvent("walletUpdate", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item }, { "category", category } });
-                }
 
                 /// <summary>
                 /// Sends the "milestoneAchieved" event to the native Spil SDK which will send a request to the back-end.
@@ -135,7 +157,7 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 public void SendrequestRewardVideoEvent(string rewardType = null)
                 {
-					SendCustomEvent("requestRewardVideo", rewardType == null ? null : new Dictionary<string, string>() { { "rewardType", rewardType } });
+                    SendCustomEvent("requestRewardVideo", rewardType == null ? null : new Dictionary<string, string>() { { "rewardType", rewardType } });
                 }
 
                 // Deprecated this old method in favor of SendRequestRewardVideoEvent() for uniformity
@@ -151,15 +173,32 @@ namespace SpilGames.Unity.Implementations
                 }
 
                 /// <summary>
+                /// Sends the "walletUpdate" event to the native Spil SDK which will send a request to the back-end.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="name"></param>
+                /// <param name="walletValue">The new wallet value after subtracting the item value. E.g coins</param>
+                /// <param name="itemValue">The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)</param>
+                /// <param name="source">(int) - 0 == premium</param>
+                /// <param name="item">item id or sku</param>
+                /// <param name="category">(int) - 0 = Consumable, 1 = Booster, 2 = Permanent</param>
+                public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
+                {
+                    SendCustomEvent("walletUpdate", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item }, { "category", category } });
+                }
+
+                /// <summary>
                 /// Sends the "iapPurchased" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
                 /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+                /// <param name="localPrice">The price the user paid for the product</param>
+                /// <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
+                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate, string localPrice, string localCurrency)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate } });
+                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }, { "localPrice", localPrice }, { "localCurrency", localCurrency } });
                 }
 
                 /// <summary>

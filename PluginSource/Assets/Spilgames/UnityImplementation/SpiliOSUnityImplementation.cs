@@ -44,38 +44,42 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 public override void UpdatePackagesAndPromotions()
                 {
-                    requestPackages();
+                    requestPackagesNative();
                 }
 
                 // Method that returns the all packages
                 protected override string GetAllPackages()
                 {
-                    return getAllPackages();
+                    return getAllPackagesNative();
                 }
 
                 // Method that returns a package based on key
                 protected override string GetPackage(string key)
                 {
-                    return getPackageByID(key);
+                    return getPackageNative(key);
                 }
 
-                // Method that returns a promotion based on package key
-                protected override string GetPromotion(string key)
+			    /// <summary>
+			    /// This method is marked as internal and should not be exposed to developers.
+			    /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
+			    /// Internal method names start with a lower case so you can easily recognise and avoid them.
+			    /// </summary>
+                internal override string getPromotion(string key)
                 {
-                    return getPromotionByID(key);
+                    return getPromotionNative(key);
                 }
 
                 [DllImport("__Internal")]
-	            private static extern string requestPackages();
+	            private static extern string requestPackagesNative();
 
                 [DllImport("__Internal")]
-	            private static extern string getAllPackages();
+	            private static extern string getAllPackagesNative();
 
                 [DllImport("__Internal")]
-	            private static extern string getPackageByID(string keyString);
+	            private static extern string getPackageNative(string keyString);
 
                 [DllImport("__Internal")]
-	            private static extern string getPromotionByID(string keyString);
+	            private static extern string getPromotionNative(string keyString);
 
             #endregion
 
@@ -84,7 +88,7 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-            internal override void spilInit()
+            internal override void SpilInit()
             {
 		        JSONObject options = new JSONObject();
 		        options.AddField ("isUnity",true);
@@ -131,11 +135,11 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 	        public override void PlayVideo()
             {
-                playRewardVideo();
+                playRewardVideoNative();
 	        }
 
             [DllImport("__Internal")]
-	        private static extern string playRewardVideo();
+	        private static extern string playRewardVideoNative();
 
             /// <summary>
             /// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
@@ -145,23 +149,22 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 	        public override void PlayMoreApps()
             {
-                showMoreApps();
+                showMoreAppsNative();
 	        }
 
             [DllImport("__Internal")]
-	        private static extern string showMoreApps();
+	        private static extern string showMoreAppsNative();
 
             /// <summary>
             /// Method that requests the "more apps" activity
             /// </summary>
             public override void RequestMoreApps()
             {
-                throw new NotImplementedException();
-                //requestRewardVideo("Chartboost", "moreApps");
+                devRequestAdNative("Chartboost", "moreApps", false);
             }
 
-        	//[DllImport("__Internal")]
-	        //private static extern string requestMoreApps(string type);
+            [DllImport("__Internal")]
+	        private static extern string devRequestAdNative(string providerName, string adTypeName, bool parentalGate);
 
         #endregion
 
@@ -283,7 +286,7 @@ namespace SpilGames.Unity.Implementations
                 /// This method is marked as internal and should not be exposed to developers.
                 /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
                 /// Internal method names start with a lower case so you can easily recognise and avoid them.
-	            internal void sendNotificationTokenToSpil()
+	            internal void SendNotificationTokenToSpil()
                 {
 		            if (!tokenSent)
                     {

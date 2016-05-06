@@ -54,7 +54,12 @@ namespace SpilGames.Unity.Implementations
                 return "Not Avalible in editorMode";
             }
 
-            protected override string GetPromotion(string key)
+        	/// <summary>
+			/// This method is marked as internal and should not be exposed to developers.
+			/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
+			/// Internal method names start with a lower case so you can easily recognise and avoid them.
+			/// </summary>
+            internal override string getPromotion(string key)
             {
                 return "Not Avalible in editorMode";
             }
@@ -66,7 +71,7 @@ namespace SpilGames.Unity.Implementations
 			/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
 			/// Internal method names start with a lower case so you can easily recognise and avoid them.
 			/// </summary>
-			internal override void spilInit()
+			internal override void SpilInit()
 			{
 				
 			}

@@ -100,29 +100,6 @@ namespace SpilGames.Unity.Utils
 
     #region Packages
 
-        // Example Packages JSON string (contains PackagesResponse object ) "{\"name\": \"packages\",\"type\": \"packages\",\"action\": \"\",\"message\": \"\",\"data\": [{\"packages\":[{\"packageId\":\"87596\",\"items\":[{\"id\":\"13\",\"type\":\"CURRENCY\",\"value\":\"100\"},{\"id\":\"256\",\"type\":\"ITEM\",\"value\":\"2\"}],\"discountLabel\":\"35%\",\"hasPromotion\": \"false\" },{\"packageId\":\"87600\",\"items\":[{\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"200\"}],\"discountLabel\":\"15%\",\"hasPromotion\": \"true\"}],\"promotions\":[{\"packageId\":\"87600\",\"items\":[ {\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"400\"}],\"discountLabel\":\"30%\",\"startTime\":\"2016-01-02 01:02:03\",\"endTime\":\"2016-02-03 02:03:04\"}]}]}"
-        // This response is only received by SpilSDK, not by the unity plugin. The spil SDK splits the response 
-        // into packages and promotions and sends only the part of the response the Unity developer needs.
-        // Just added this for completion, hopefully in the future we can use a direct Java port of these classes 
-        // in the Android SpilSDK(?).
-
-        public class PackagesResponse : SpilResponse
-        {
-            public PackagesData data;
-        }
-
-        public class PackagesData
-        {
-            public List<PackageData> packages;
-            public List<PromotionData> promotions;
-
-            public PackagesData(List<PackageData> packages, List<PromotionData> promotions)
-            {
-                this.packages = packages;
-                this.promotions = promotions;   
-            }
-        }
-
         // Example Promotions JSON string (contains single Promotion object): "{\"packageId\":\"87600\",\"items\":[{\"id\":\"14\",\"type\":\"CURRENCY\",\"value\":\"400\"}],\"discountLabel\":\"30%\",\"startTime\":\"2016-01-02 01:02:03\",\"endTime\":\"2016-02-03 02:03:04\"}"
 
         public class PromotionData

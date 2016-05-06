@@ -15,10 +15,7 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so unfortunately this method is currently visible.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-            internal abstract void spilInit();  
-
-            // TODO: Does this method do anyting yet? Shouldn't it be an event just like SendiapFailedEvent and all the others?
-            //public void ShowSpilMoreApps() { TrackEvent("more_apps"); }
+            internal abstract void SpilInit();  
 
         #endregion
 
@@ -61,26 +58,7 @@ namespace SpilGames.Unity.Implementations
                 if(packagesString != null)
                 {
                     List<PackageData> packagesList = JsonHelper.getObjectFromJson<List<PackageData>>(packagesString);
-                    List<PromotionData> promotionsList = new List<PromotionData>();
-                    foreach(PackageData package in packagesList)
-                    {
-                        if(package.hasPromotion)
-                        {
-                            String promotionString = GetPromotion(package.packageId);
-                            if(!String.IsNullOrEmpty(promotionString))
-                            {
-                                PromotionData promotionData = JsonHelper.getObjectFromJson<PromotionData>(promotionString);
-                                if (promotionData != null)
-                                {
-                                    promotionsList.Add(promotionData);
-                                }
-                            }
-                        }
-                    }
-                    PackagesData packagesData = new PackagesData(packagesList, promotionsList);
-                    helper = new PackagesHelper(packagesData);
-
-                    //Debug.Log("SpilSDK-Unity Found " + packagesList.Count + " packages and " + promotionsList.Count + " promotions");
+                    helper = new PackagesHelper(packagesList);
                 }
                 return helper;
             }
@@ -90,8 +68,12 @@ namespace SpilGames.Unity.Implementations
             //Method that returns a package based on key
             protected abstract string GetPackage(string key);
 
-            //Method that returns a promotion based on package key
-            protected abstract string GetPromotion(string key);
+			/// <summary>
+			/// This method is marked as internal and should not be exposed to developers.
+			/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
+			/// Internal method names start with a lower case so you can easily recognise and avoid them.
+			/// </summary>
+            internal abstract string getPromotion(string key);
 
         #endregion
 
@@ -275,7 +257,6 @@ namespace SpilGames.Unity.Implementations
                 /// The developer can subscribe to this event to assign the reward and update the UI.
                 /// This event should no longer be used, reward data is now passed as a parameter of the AdFinished event so please use that instead.
                 /// </summary>
-                [Obsolete("This event should no longer be needed, reward data is now passed as a parameter in the AdFinished event so please use that instead. Please update any references, this event will be removed in the next version.")]
                 public event RewardEvent OnReward;
                 /// <summary>
                 /// This is fired by the Unity Spil SDK after it receives a "Reward" response from the back-end.

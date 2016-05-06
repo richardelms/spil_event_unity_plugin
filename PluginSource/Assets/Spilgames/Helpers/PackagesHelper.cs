@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SpilGames.Unity.Utils;
+using UnityEngine;
 
 namespace SpilGames.Unity.Helpers
 { 
@@ -13,12 +14,11 @@ namespace SpilGames.Unity.Helpers
     {
         public List<Package> Packages;
 
-        public PackagesHelper(PackagesData packagesData)
+        public PackagesHelper(List<PackageData> packages)
         {
-            List<PackageData> packages = packagesData.packages;
-            List<PromotionData> promotions = packagesData.promotions;
-
             Packages = new List<Package>();
+
+            int promotions = 0;
 
             // Create package objects with promotion data (if any)
             List<Package> returnValue = new List<Package>();
@@ -27,28 +27,34 @@ namespace SpilGames.Unity.Helpers
                 if (packageData.hasPromotion)
                 {
                     bool bFound = false;
-                    foreach(PromotionData promotionData in promotions)
+                    if (packageData.hasPromotion)
                     {
-                        if(promotionData.packageId.Equals(packageData.packageId))
+                        string promotionString = Spil.Instance.GetPromotion(packageData.packageId);
+                        if (!string.IsNullOrEmpty(promotionString))
                         {
+                            PromotionData promotionData = JsonHelper.getObjectFromJson<PromotionData>(promotionString);
+
                             // Check datetime, even though the server shouldn't send inactive promotions the data we're using might be old.
                             DateTime currentTime = DateTime.Now;
                             if (currentTime >= promotionData.startTime && currentTime <= promotionData.endTime)
                             {
+                                promotions += 1;
                                 Packages.Add(new Package(packageData.packageId, packageData.discountLabel, promotionData.discountLabel, promotionData.startTime.ToString(), promotionData.endTime.ToString()));
+                                bFound = true;
                             }
-                            bFound = true;
                             break;
                         }
-                    }    
+                    }
                     if(!bFound)
                     {
                         Packages.Add(new Package(packageData.packageId, packageData.discountLabel));
-                    }            
+                    }
                 } else {
                     Packages.Add(new Package(packageData.packageId, packageData.discountLabel));
                 }
             }
+
+            Debug.Log("SpilSDK-Unity Found " + packages.Count() + " packages and " + promotions + " promotions");
         }
 
         public Package GetPackageById(string packageId)

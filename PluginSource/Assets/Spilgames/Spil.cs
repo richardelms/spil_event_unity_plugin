@@ -74,7 +74,7 @@ namespace SpilGames.Unity
             {
                 Debug.Log("SpilSDK-Unity Init");
 
-                Instance.spilInit();
+                Instance.SpilInit();
                 DontDestroyOnLoad(gameObject);
                 gameObject.name = "SpilSDK";
 

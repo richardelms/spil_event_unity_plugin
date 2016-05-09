@@ -36,17 +36,16 @@ namespace SpilGames.Unity.Helpers
                         if (currentTime >= promotionData.startTime && currentTime <= promotionData.endTime)
                         {
                             promotions += 1;
-                            Packages.Add(new Package(packageData.packageId, packageData.discountLabel, promotionData.discountLabel, promotionData.startTime.ToString(), promotionData.endTime.ToString()));
+                            Packages.Add(new Package(packageData.packageId, packageData.discountLabel, packageData.items, promotionData.items, promotionData.discountLabel, promotionData.startTime.ToString(), promotionData.endTime.ToString()));
                         } else {
-                            Packages.Add(new Package(packageData.packageId, packageData.discountLabel));
+                            Packages.Add(new Package(packageData.packageId, packageData.discountLabel, packageData.items));
                         }
                     }
                 } else {
-                    Packages.Add(new Package(packageData.packageId, packageData.discountLabel));
+                    Packages.Add(new Package(packageData.packageId, packageData.discountLabel, packageData.items));
                 }
             }
-
-            Debug.Log("SpilSDK-Unity Found " + packages.Count() + " packages and " + promotions + " promotions");
+            //Debug.Log("SpilSDK-Unity Found " + packages.Count() + " packages and " + promotions + " promotions");
         }
 
         public Package GetPackageById(string packageId)
@@ -92,13 +91,32 @@ namespace SpilGames.Unity.Helpers
 
         public List<Item> Items;
 
-        public Package(string id, string originalDiscountLabel, string promotionDiscountLabel = null, string promotionBeginDate = null, string promotionEndDate = null)
+        public Package(string id, string originalDiscountLabel, List<ItemData> packageItems, List<ItemData> promotionItems = null, string promotionDiscountLabel = null, string promotionBeginDate = null, string promotionEndDate = null)
         {
             this.id = id;
             this.originalDiscountLabel = originalDiscountLabel;
             this.promotionDiscountLabel = promotionDiscountLabel;
             this.promotionBeginDate = promotionBeginDate != null ? DateTime.Parse(promotionBeginDate) : DateTime.MinValue;
             this.promotionEndDate = promotionEndDate != null ? DateTime.Parse(promotionEndDate) : DateTime.MinValue;
+
+            Items = new List<Item>();
+
+            // Populate items
+            foreach(ItemData packageItem in packageItems)
+            {
+                string promotionvalue = null;
+                if(promotionItems != null)
+                {
+                    foreach (ItemData promotionItem in promotionItems)
+                    {
+                        if(promotionItem.id.Equals(packageItem.id))
+                        {
+                            promotionvalue = promotionItem.value;
+                        }
+                    }       
+                }
+                Items.Add(new Item(packageItem.id, packageItem.type, packageItem.value));                
+            }
         }
 
         /// <summary>
@@ -137,6 +155,12 @@ namespace SpilGames.Unity.Helpers
         private string id;
 
         /// <summary>
+        /// The type of the item.
+        /// </summary>
+        public string Type { get { return Type; } }
+        private string type;
+
+        /// <summary>
         /// The original value of the item before any promotion is applied.
         /// </summary>
         public string OriginalValue { get { return originalValue; } }
@@ -148,9 +172,10 @@ namespace SpilGames.Unity.Helpers
         public string PromotionValue { get { return promotionValue; } }
         private string promotionValue;
 
-        public Item(string id, string originalValue, string promotionValue = null)
+        public Item(string id, string type, string originalValue, string promotionValue = null)
         {
             this.id = id;
+            this.type = type;
             this.originalValue = originalValue;
             this.promotionValue = promotionValue;
         }

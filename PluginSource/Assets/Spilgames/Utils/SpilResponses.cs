@@ -123,7 +123,7 @@ namespace SpilGames.Unity.Utils
 
         public class ItemData
         {
-            public int id;
+            public string id;
             public string type;
             public string value;
         }

@@ -71,16 +71,16 @@ namespace SpilGames.Unity.Implementations
                 }
 
                 [DllImport("__Internal")]
-	            private static extern string requestPackagesNative();
+	            private static extern void requestPackagesNative();
 
                 [DllImport("__Internal")]
 	            private static extern string getAllPackagesNative();
 
                 [DllImport("__Internal")]
-	            private static extern string getPackageNative(string keyString);
+				private static extern string getPackageNative(string keyName);
 
                 [DllImport("__Internal")]
-	            private static extern string getPromotionNative(string keyString);
+				private static extern string getPromotionNative(string keyName);
 
             #endregion
 
@@ -140,7 +140,7 @@ namespace SpilGames.Unity.Implementations
 	        }
 
             [DllImport("__Internal")]
-	        private static extern string playRewardVideoNative();
+	        private static extern void playRewardVideoNative();
 
             /// <summary>
             /// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
@@ -154,7 +154,7 @@ namespace SpilGames.Unity.Implementations
 	        }
 
             [DllImport("__Internal")]
-	        private static extern string showMoreAppsNative();
+	        private static extern void showMoreAppsNative();
 
             /// <summary>
             /// Method that requests the "more apps" activity
@@ -165,7 +165,7 @@ namespace SpilGames.Unity.Implementations
             }
 
             [DllImport("__Internal")]
-	        private static extern string devRequestAdNative(string providerName, string adTypeName, bool parentalGate);
+	        private static extern void devRequestAdNative(string providerName, string adTypeName, bool parentalGate);
 
         #endregion
 

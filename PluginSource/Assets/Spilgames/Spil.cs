@@ -66,7 +66,7 @@ namespace SpilGames.Unity
                 /// </summary>
                 public static SpiliOSUnityImplementation Instance = new SpiliOSUnityImplementation();
 
-				void Update() { Instance.sendNotificationTokenToSpil(); }
+				void Update() { Instance.SendNotificationTokenToSpil(); }
 
             #endif
 

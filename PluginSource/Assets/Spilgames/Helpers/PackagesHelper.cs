@@ -115,7 +115,7 @@ namespace SpilGames.Unity.Helpers
                         }
                     }       
                 }
-                Items.Add(new Item(packageItem.id, packageItem.type, packageItem.value));                
+                Items.Add(new Item(packageItem.id, packageItem.type, packageItem.value, promotionvalue));
             }
         }
 

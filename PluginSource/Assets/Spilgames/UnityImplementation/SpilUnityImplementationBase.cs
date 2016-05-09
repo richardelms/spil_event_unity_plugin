@@ -385,5 +385,13 @@ namespace SpilGames.Unity.Implementations
         public abstract void PlayVideo();
 
         public abstract void PlayMoreApps();
+
+        /// <summary>
+        /// Retrieves the Spil User Id so that developers can show this in-game for users.
+        /// If users contact Spil customer service they can supply this Id so that 
+        /// customer support can help them properly. Please make this Id available for users
+        /// in one of your game's screens.
+        /// </summary>
+	    public abstract string GetSpilUID();
     }
 }

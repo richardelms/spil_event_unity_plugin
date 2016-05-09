@@ -210,9 +210,9 @@ namespace SpilGames.Unity.Implementations
 			/// customer support can help them properly. Please make this Id available for users
 			/// in one of your game's screens.
 			/// </summary>
-			public string GetSpilUID()
+			public override string GetSpilUID()
 			{
-				return "";
+				return "1337";
 			}
 
 			/// <summary>

@@ -6,7 +6,7 @@ using SpilGames.Unity.Utils;
 using System.Collections;
 
 namespace SpilGames.Unity.Implementations
-{ 
+{
     #if UNITY_IPHONE
     public class SpiliOSUnityImplementation : SpilUnityImplementationBase
     {
@@ -77,10 +77,10 @@ namespace SpilGames.Unity.Implementations
 	            private static extern string getAllPackagesNative();
 
                 [DllImport("__Internal")]
-				private static extern string getPackageNative(string keyName);
+	            private static extern string getPackageNative(string keyName);
 
                 [DllImport("__Internal")]
-				private static extern string getPromotionNative(string keyName);
+	            private static extern string getPromotionNative(string keyName);
 
             #endregion
 
@@ -166,6 +166,20 @@ namespace SpilGames.Unity.Implementations
 
             [DllImport("__Internal")]
 	        private static extern void devRequestAdNative(string providerName, string adTypeName, bool parentalGate);
+
+            /// <summary>
+            /// Retrieves the Spil User Id so that developers can show this in-game for users.
+            /// If users contact Spil customer service they can supply this Id so that 
+            /// customer support can help them properly. Please make this Id available for users
+            /// in one of your game's screens.
+            /// </summary>
+	        public override string GetSpilUID()
+            {
+                return getSpilUIDNative();
+            }
+
+            [DllImport("__Internal")]
+	        private static extern string getSpilUIDNative();
 
         #endregion
 

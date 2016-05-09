@@ -149,6 +149,17 @@ namespace SpilGames.Unity.Implementations
                 CallNativeMethod("requestAd", new object[]{ "Chartboost", "moreApps", false }, true);
             }
 
+            /// <summary>
+            /// Retrieves the Spil User Id so that developers can show this in-game for users.
+            /// If users contact Spil customer service they can supply this Id so that 
+            /// customer support can help them properly. Please make this Id available for users
+            /// in one of your game's screens.
+            /// </summary>
+	        public override string GetSpilUID()
+            {
+                return CallNativeMethod("getSpilUID");
+            }
+
         #endregion
 
         #region Non inherited members (Android only members)
@@ -227,17 +238,6 @@ namespace SpilGames.Unity.Implementations
             private void RegisterDevice(string projectID)
             {
                 CallNativeMethod("registerDevice", projectID, true);
-            }
-
-            /// <summary>
-            /// Retrieves the Spil User Id so that developers can show this in-game for users.
-            /// If users contact Spil customer service they can supply this Id so that 
-            /// customer support can help them properly. Please make this Id available for users
-            /// in one of your game's screens.
-            /// </summary>
-	        public string GetSpilUID()
-            {
-                return CallNativeMethod("getSpilUID");
             }
 
             /// <summary>

@@ -86,7 +86,7 @@ namespace SpilGames.Unity
             /// This method is called by the native Spil SDK, it should not be used by developers.
             /// Developers can subscribe to the Spil.Instance.AdStarted event.
             /// </summary>
-            public void AdStarted()
+            public void AdStart()
             {
                 SpilUnityImplementationBase.fireAdStartedEvent();
             }
@@ -118,6 +118,14 @@ namespace SpilGames.Unity
                 SpilUnityImplementationBase.fireAdNotAvailableEvent(type);
             }
 
+            /// <summary>
+            /// This method is called by the native Spil SDK, it should not be used by developers.
+            /// </summary>
+            public static void OnResponseReceived(string response)
+            {
+                SpilUnityImplementationBase.OnResponseReceived(response);
+            }
+			
         #endregion
     }
 }

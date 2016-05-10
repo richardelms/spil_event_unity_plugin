@@ -1,5 +1,5 @@
 # How to use:
-# Add a new \Run Script' phase in the Build Phases tab using the following Shell command: /usr/bin/python Spil.framework/setup.py $(PRODUCT_NAME)
+# Add a new 'Run Script' phase - ON TOP - in the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)
 # Or run the shell command from the terminal using the project name: python Spil.framework/setup.py <ProjectName>
 
 import datetime
@@ -108,9 +108,10 @@ currentPlistPath = plistPath;
 if not os.path.isfile(plistPath):
 	currentPlistPath = altPlistPath;
 	if not os.path.isfile(altPlistPath):
-	    print RED + BOLD + plistPath + ' not found!' + END
-    	exit(1);	
-
+		print RED + BOLD + plistPath + ' not found!' + END;
+		exit(1);
+print "info.plist found at: " + currentPlistPath;
+	
 # backup info.plist first
 print 'Creating info.plist backup'
 sourcePath = os.path.abspath(currentPlistPath)

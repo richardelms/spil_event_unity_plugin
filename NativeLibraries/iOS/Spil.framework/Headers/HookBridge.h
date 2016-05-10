@@ -37,6 +37,8 @@ extern "C" {
     char* cStringCopy(const char* string);
     
     void initEventTrackerWithOptions(const char* options);
+    
+    char* getSpilUIDNative();
 
     // -- Config ---
     

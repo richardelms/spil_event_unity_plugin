@@ -121,7 +121,7 @@ namespace SpilGames.Unity
             /// <summary>
             /// This method is called by the native Spil SDK, it should not be used by developers.
             /// </summary>
-            public static void OnResponseReceived(string response)
+            public void OnResponseReceived(string response)
             {
                 SpilUnityImplementationBase.OnResponseReceived(response);
             }

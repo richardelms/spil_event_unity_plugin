@@ -184,10 +184,12 @@ No special steps should be necessary for building for Android.
 
 <p>
 <strong>iOS</strong></br>
-1: Drag the spil framework into the root of the Xcode project</br>
-2a: In terminal, cd to the root of the Xcode project <strong>OR</strong></br>
-2b: Add a new 'Run Script' phase - ON TOP - in the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)</br>
-3: Run the following command: python Spil.framework/setup.py &lt;Project-Name&gt; project name being the name of the Xcode project most commonly python Spil.framework/setup.py Unity-iPhone</br>
+1: Drag the spil framework into the root of the Xcode project
+2: Add a new 'Run Script' phase - ON TOP - of the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)
+<strong>OR</strong>
+1: Drag the spil framework into the root of the Xcode project
+2: In terminal, cd to the root of the Xcode project
+3: Run the following command: "python Spil.framework/setup.py <Project-Name>" project name being the name of the Xcode project most commonly python Spil.framework/setup.py Unity-iPhone
 <p>
 
 <h3>Changelog</h3>

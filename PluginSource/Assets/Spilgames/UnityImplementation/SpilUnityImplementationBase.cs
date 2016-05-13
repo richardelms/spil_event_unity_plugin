@@ -176,9 +176,9 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
                 /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                /// <param name="localPrice">The price the user paid for the product</param>
-                /// <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
-                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate, string localPrice, string localCurrency)
+                // <param name="localPrice">The price the user paid for the product</param>
+                // <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
+                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)//, string localPrice, string localCurrency)
                 {
                     SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }, { "localPrice", localPrice }, { "localCurrency", localCurrency } });
                 }

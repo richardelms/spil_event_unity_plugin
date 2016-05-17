@@ -1,5 +1,5 @@
 # How to use:
-# Add a new \Run Script' phase in the Build Phases tab using the following Shell command: /usr/bin/python Spil.framework/setup.py $(PRODUCT_NAME)
+# Add a new 'Run Script' phase - ON TOP - in the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)
 # Or run the shell command from the terminal using the project name: python Spil.framework/setup.py <ProjectName>
 
 import datetime
@@ -29,17 +29,17 @@ def addBundleResource(src, dst, group):
 # determine if the spil sdk is already initialized
 if os.path.exists(os.getcwd() + '/spil.initialized'):
 	print 'Spil SDK was already initialized!'
-	exit()
+	exit(0)
 	
 # try to find the project to modify
 if len(sys.argv) < 2:
     print RED + BOLD + 'ERROR: Missing project name! usage: python spilsdksetup.py <ProjectName>' + END
-    exit()
+    exit(1)
 else:
     projectname = sys.argv[1]
     if not os.path.isdir(projectname):
 		print RED + BOLD + projectname + '.xcodeproj not found!' + END
-		exit()
+		exit(1)
     else:
 		print 'Modifying XCode project: ' + projectname
 
@@ -48,6 +48,9 @@ projectpath = projectname + '.xcodeproj/'
 projectfilename = 'project.pbxproj'
 backupPath = os.getcwd() + '/ProjectBackups/'
 plistPath = os.getcwd() + '/' + projectname + '/info.plist'
+altPlistPath = os.getcwd() + '/info.plist'
+entitlementsPath = os.getcwd() + '/' + projectname + '/' + projectname + '.entitlements'
+altEntitlementsPath = os.getcwd() + '/' + projectname + '.plist'
 
 # load the project file
 project = XcodeProject.Load(projectpath + projectfilename)
@@ -100,23 +103,29 @@ project.add_framework_search_paths('$(PROJECT_DIR)/Spil.framework/Frameworks', r
 print 'Saving project file'
 project.save()
 
-# backup info.plist first
+# try to find the info plist
+currentPlistPath = plistPath;
 if not os.path.isfile(plistPath):
-    print RED + BOLD + plistPath + ' not found!' + END
-    exit()
+	currentPlistPath = altPlistPath;
+	if not os.path.isfile(altPlistPath):
+		print RED + BOLD + plistPath + ' not found!' + END;
+		exit(1);
+print "info.plist found at: " + currentPlistPath;
+	
+# backup info.plist first
 print 'Creating info.plist backup'
-sourcePath = os.path.abspath(plistPath)
+sourcePath = os.path.abspath(currentPlistPath)
 destPath = backupPath + "info.plist.%s.backup" % (datetime.datetime.now().strftime('%d%m%y-%H%M%S'))
 shutil.copy2(sourcePath, destPath)
 
 # modify plist
 print 'Modifying info.plist'
-plist = plistlib.readPlist(plistPath)
+plist = plistlib.readPlist(currentPlistPath)
 plist['NSAppTransportSecurity'] = dict(NSAllowsArbitraryLoads = True)
 
 # write plist
 print 'Saving info.plist'
-plistlib.writePlist(plist, plistPath)
+plistlib.writePlist(plist, currentPlistPath)
 
 # mark setup as done
 open(os.getcwd() + '/spil.initialized', 'a').close()

@@ -1,238 +1,198 @@
-<h1>Spilgames Event System: Unity Plugin</h1>
+<h1>Spil Games Unity Plugin (V2.0.0)</h1>
 
-<h3>1: Download and Import the Unity package into your project</h3>
-You can find the latest version of the Unity plugin in the releases tab of this repo.
+The Spil Game Unity Plugin is designed to give developers access to Spil Games SLOT functions and communicate with the Spil backend. The plugin also provides developers with an easy way to connect to ad networks and implement features like video's, interstitials and tracking of users' behaviours.
 
-Unzip the download, inside you will find 2 folders and a Unity package. Please ignore the iOS and Android folders for now and just import the Unity package.
+<h3>Installation</h3>
 
-The package contains 2 C# scripts and a JSONHelper plugin. Spil.cs contains all the methods and native bridges for the SDK, the other script is a helper class for handling JSON responses from the Spil servers.
+<h4>1: Download and Import the Unity package into your project</h4>
+The latest version of the Unity plugin can be downloaded from the releases tab of the Github repo at https://github.com/spilgames/spil_event_unity_plugin/releases. Unpack the download, inside you will find the native library folders and a Unity package. You can ignore the folder for now and just import the Unity package. Attach the script named "Spil.cs" to a GameObject in your SplashScreen or equivalent. For Android you should also enter your project ID as the value of the "Project_ID" field in Spil.cs. Ask your Spil contact to provide you with your project ID. 
 
-Attach the Spil.cs script to a GameObject in your SplashScreen or equivalent.
-
-For Android, also enter your project ID to the GameObject. Ask your Spil contact to provide you with your project ID.
-<h3>2: Import appropriate platform specific components</h3>
+<h4>2: Import appropriate platform specific components</h4>
 <strong>Android</strong>
-
+<p>
 Inside the downloaded Android folder you will find several java libraries, you might not need all of them in your project. Follow this guide to work out which ones you need:
-
-If you are using the version of the Spil SDK <strong>with integrated AD networks</strong>, drag the following files into Assets&gt;Plugins&gt;Android:
-
+If you are using the version of the Spil SDK <strong>with integrated AD networks</strong>, drag the following files into Assets/Plugins/Android:
 From the 'SDK With ADs' folder: AndroidManifest.xml and spilSDK.jar.
-
 From the ExtraLibs folder: mm-ad-sdk.aar, unityads-sdk.aar.
-
+</p>
 <strong>Google Play Services</strong>
+<p>
+Because Unity does not support Multi-Dex publishing for Android apps Unity Android developers are forced to limit the total number of methods in their app and its dependencies to a maximum of 64000. To accommodate for this we have provided a version of Google Play Services that includes only the bare essentials required to run the SpilSDK. Copy the contents of the GooglePlayServices folder to Plugins/Android. If you require additional components of Google Play Services use this google dependency manager: https://github.com/googlesamples/unity-jar-resolver. However, If you are using the version of the Spil SDK <strong>without AD networks</strong>, copy the following files to Assets/Plugins/Android: From the 'SDK Without ADs' folder: AndroidManifest.xml and spilSDK.jar. From the ExtraLibs folder: Copy the contents of the GooglePlayServices folder to Plugins/Android.
+</p>
 
-Due to the ever growing number of methods in Google Play Services, and Unity not supporting Multi-Dex, we have provided a version of GPS that only has the bare necessary for the SpilSDK to run.
-
-Please copy the contents of the GooglePlayServices folder to Plugins>Android.
-
-If you need other parts of Google play services added please use this google dependancy manager: https://github.com/googlesamples/unity-jar-resolver.
-
-However, If you are using the version of the Spil SDK <strong>without AD networks</strong>, drag the following files into Assets&gt;Plugins&gt;Android:
-
-From the 'SDK Without ADs' folder: AndroidManifest.xml and spilSDK.jar.
-
-From the ExtraLibs folder: copy the contents of the GooglePlayServices folder to Plugins>Android.
-
+<p>
 <strong>Note:</strong> If you are using another 3rd party plugin that might clash with the spil plugin (prime31 for example), you will find versions of the Manifest and spilSDK.jar that allow for that within the correct folders.
+</p>
 
 <strong>iOS</strong>
-
+<p>
 Extra components for iOS need to be added in Xcode after building from unity. See the later section regarding building for details.
-<h3>3: Tracking Events</h3>
+</p>
+
+<strong>Calling Spil Methods</strong>
+<p>
+To call a Spil method, you must first add "using SpilGames.Unity;" to the top of your class. Then, you can call any method by typing Spil.Instance.nameOfMethod();
+</p>
+
+<h3>Tracking Events</h3>
 
 Several events are expected in every game, the plugin has helper methods for each of these, they are:
-
+<ul>
+<li>
 SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
-
+</li>
+<li>
 SendlevelStartEvent(string levelName)
-
+</li>
+<li>
 SendlevelCompleteEvent(string levelName)
-
+</li>
+<li>
 SendlevelFailedEvent(string levelName)
-
+</li>
+<li>
 SendplayerDiesEvent(string levelName)
-
+</li>
+<li>
 SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
-
+</li>
+<li>
 SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
-
+</li>
+<li>
 SendiapFailedEvent(string error, string skuId)
-
+</li>
+<li>
 SendmilestoneAchievedEvent(string name)
+</li>
+</ul>
 
-Just call the corresponding method at the right point in your game, and the SDK will send the evet to our servers.
+Just call the corresponding method at the right point in your game, and the SDK will send the event to the Spil backend. Be sure to pay close attention to the expected params, these will need to be correct for the game to pass QA. Descriptions for all methods and parameters are included in the code and should be visible in your IDE.
 
-Please pay close attention to the expected params, these will need to be correct for the game to pass QA.
+<p>
+<strong>Custom events</strong> may be tracked as follows:
+To track an simple custom event, simply call Spil.TrackEvent(String eventName); from anywhere in your code. To pass more information with the event, simply create a &lt;String, String&gt; Dictionary and pass that as the second parameter like so:
+</p>
+<p>
+Dictionary&lt;String, String&gt; eventParams = new Dictionary&lt;String,String&gt;();</br>
+eventParams.Add("level",levelName);</br>
+Spil.Instance.TrackEvent("PlayerDeath", eventParams);
+</p>
 
-
-IAP params explained:
-* skuId (string) - The product identifier of the item that was purchased.
-* transactionId (string) - The transaction identifier of the item that was purchased (also called orderId).
-* purchaseDate (string) - The date and time that the item was purchased.
-* originalTransactionId (string) - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
-* originalPurchaseDate (string) - For a transaction that restores a previous transaction, the date of the original transaction.
-* error (string) - Error description or error code
-
-Wallet Update Params explained:
-* walletValue (int) - The new wallet value after subtracting the item value. E.g coins.
-* itemValue (int) - The value of the item consumed. E.g. coins. (note: This property can also be negative, for example if a user spends coins, the itemValue can be -100)
-* source (int) - 0 == premium
-* item (string) - item id or sku
-* category (int) - 0 = Consumable, 1 = Booster, 2 = Permanent
-
-
-Custom events may be tracked as follows:
-
-To track an simple custom event, simply call Spil.TrackEvent(String eventName); from anywhere in your code.
-
-To pass more information with the event, simply create a &lt;String, String&gt; Dictionary and pass that as the second parameter like so:
-
-Dictionary&lt;String, String&gt; eventParams = new Dictionary&lt;String,String&gt;();
-
-eventParams.Add(“level”,levelName);
-
-Spil.TrackEvent(“PlayerDeath”, eventParams);
-
-<h3>4: Game Config Service</h3>
-
-The spil sdk provides 2 methods that will allow you to pull a game config file (JSON) from our server.
-
-Please contact your Spil rep to discuss which features in your game should be changable via a config editor.
-
-2 simple methods will grant you access to the config file.
-
-It is up to you to decide which one you want to use.
-
+<h3>Game Config Service</h3>
+<p>
+The spil sdk provides methods to request a game config file (JSON) from the Spil backend. Contact your Spil Games contact person to discuss which features in your game should be configurable via a game config file. 
+</p>
+There are two methods for requesting a config file via the Unity Plugin:
+<ul>
+<li>
 Spil.GetConfigAll() will return a JSON string of the entire config file.
-
+</li>
+<li>
 Spil.GetConfigValue(String key) will return an JSON String of an object from one layer within the config file.
+</li>
+</ul>
 
-See examples below for more details.
+If there is no network connection then the SDK will use a default config file. Be sure to include a default config file named 'defaultGameConfig.json' in Assets/StreamingAssets. For iOS the defaultGameConfig.json file should be placed in the root of your Xcode project.
 
-If there is no network connection, then the SDK will use a default config file.
-
-Please make sure to have a default version of the config file named 'defaultGameConfig.json' in Assets&gt;StreamingAssets.
-
-For using the config service with ios, the defaultGameConfig.json file must also be placed in the root of your Xcode project.
-
+<p>
 Here is an example of a simple config file for the game Pixel Wizard:
-
-{
-"enemyhealth":{
-"Bat":10,
-"Beardwoman":400,
-"Clown":35
-},
-"enemycoindrop":{
-"Bat":1,
-"Beardwoman":7,
-"Clown":2
-},
-"WizardDamage":{
-"Wizard1":25,
-"Wizard2":35
+</p>
+<p>
+{</br>
+	"enemyhealth":{</br>
+		"Bat":10,</br>
+		"Beardwoman":400,</br>
+		"Clown":35</br>
+	},</br>
+	"enemycoindrop":{</br>
+		"Bat":1,</br>
+		"Beardwoman":7,</br>
+		"Clown":2</br>
+	},</br>
+	"WizardDamage":{</br>
+		"Wizard1":25,</br>
+		"Wizard2":35</br>
+	}</br>
 }
-}
-
-So, with this config file, calling GetConfigAll() will return the whole object stringified.
-
-Calling GetConfigValue("enemycoindrop") will return the enemycoindrop object stringified.
-
-Please get in touch if you need help designing your config file.
+</p>
+<p>
+Calling GetConfigAll() will return this whole JSON object as a String.</br>
+Calling GetConfigValue("enemycoindrop") will return the enemycoindrop node as a String.</br>
+The Unity SDK also includes methods for converting JSON strings to objects via the SpilGames.Unity.Helpers.JSONHelper getObjectFromJson&lt;T&gt;(string jsonString) method. A detailed example is included in JSONHelper.cs</br>
+Don't hesitate to contact us if you need help designing your config file.
+</p>
 
 <strong>Important Note: Null return</strong>
+<p>
+The config service should always return a value. But if for some reason it does not, be sure to check and handle a possible null return.
+</p>
 
-The config service should always return a value. But if for somereason it does not, please make sure you check and handle a possible null return.
+<h3>AD networks</h3>
+<p>
+Most AD network functionality will be handled automatically by the SDK. However you will need to handle the triggering of reward videos and subsequent payout to the player on completion of the video. Here is an example script that checks if a Reward video is available, hides or shows the watch video button and rewards the player if a reward video was succesfully played.
+</p>
 
-<h3>5: AD networks</h3>
-Most AD network functionality will be handled automatically by the SDK. However you will need to handle the triggering of rewarded videos and subsiquent payout to the player on completion of the video.
+<p>
+public GameObject rewardVideoButton;</br></br>
 
-To request a rewarded video, simply call this method:
+void OnEnable(){</br>
+	rewardVideoButton.SetActive (false);</br>
+	Spil.Instance.SendrequestRewardVideoEvent ();</br>
+	Spil.Instance.OnAdAvailable += OnAdAvailable;</br>
+	Spil.Instance.OnAdNotAvailable += OnAdNotAvailable;</br>
+}</br>
+</br>
+void OnAdAvailable(SpilGames.Unity.Utils.enumAdType adType){</br>
+	if (adType == SpilGames.Unity.Utils.enumAdType.RewardVideo) {</br>
+		rewardVideoButton.SetActive (true);</br>
+	}</br>
+}</br>
+</br>
+void OnAdNotAvailable(SpilGames.Unity.Utils.enumAdType adType){</br>
+	if (adType == SpilGames.Unity.Utils.enumAdType.RewardVideo) {</br>
+		rewardVideoButton.SetActive (false);</br>
+	}</br>
+}</br>
+</br>
+Then, the user can click the button, and trigger the following:</br>
+</br>
+public void ShowRewardedVideo(){</br>
+	Spil.Instance.OnAdStarted += AdOpened;</br>
+	Spil.Instance.OnAdFinished += AdFinished;</br>
+	Spil.Instance.PlayVideo ();</br>
+}</br>
+</br>
+void AdOpened(){</br>
+	//mute the game and pause if neccessary</br>
+	muteAudio = true;</br>
+}</br>
+</br>
+void AdFinished(SpilGames.Unity.Utils.SpilAdFinishedResponse response){</br>
+	if (response.reward != null) {</br>
+		playerCoins += response.reward.reward;</br>
+	}</br>
+}</br>
+</p>
 
-Spil.ShowRewardedVideo();
+<h3>Building and publishing</h3>
 
-Then, if the video is completed, the SDK will send back a message to the Spil.cs script triggering the OnReward delegate Event, passing it a RewardData Object.
-
-For example, in the game Pixel Wizard, reward data is handled like so:
-
-void OnReward(RewardData rewardData){
-		PixelData.coins += rewardData.reward;
-		PixelData.Save ();
-	}
-
-
-<strong>Open and Close events</strong>
-
-The Spil class contains 2 delegates that you can extend to make sure your app behaves in the correct way when ads are shown and closed.
-
-OnAdOpened
-
-And
-
-OnAdClosed;
-
-For example, in your music manager, you might want to extend these delegates to mute the music when an Ad is shown, and then un-mute it again once closed.
-
-void OnEnable(){
-  Spil.OnAdOpened += AdOpened;
-  Spil.OnAdClosed += AdClosed;
-}
-
-void OnDisable(){
-    Spil.OnAdOpened -= AdOpened;
-    Spil.OnAdClosed -= AdClosed;
-}
-
-void AdOpened(){
-	muteAudio = true;
-}
-
-void AdClosed(){
-	muteAudio = false;
-}
-
-The events will fire for both Video ads and static fullscreen ads.
-
-<strong>Debugging ADs</strong>
-
-For debugging you can manually init the AD SDKs by calling
-
-Spil.startFyber(String appId, String token)
-
-then you can test ADs with Spil.showFyber(“rewardVideo”)
-
-pleae make sure to remove this debug code before launch.
-
-<h3>6: Building for Distribution</h3>
-<strong>Android:</strong>
-
+<p>
+<strong>Android</strong></br>
 No special steps should be necessary for building for Android.
+<p>
 
-<strong>iOS:</strong>
-<p class="p1"><span class="s1">1: From the iOS folder, drag the Spil.framework and unityads.bundle into your Xcode project. Select Copy items if needed.</span></p>
-<p class="p1"><img class="aligncenter size-full wp-image-9566" src="http://www.spilgames.com/wp-content/uploads/2016/02/step1.png" alt="step1" width="1162" height="559" /></p>
-<p class="p1"><span class="s1">2: In general settings under linked frameworks and libraries, add the following frameworks</span></p>
-<p class="p1">libxml2.tbd</p>
-<p class="p1"><span class="s1">libsqlite3.tbd</span></p>
-<p class="p1"><span class="s1">WebKit.framework</span></p>
-<p class="p1"><span class="s1">3: Drag the Spil.framework in the list of frameworks </span></p>
-<p class="p1"><span class="s1">4: Open the spilframework and drag the ADNetwork frameworks into the same list</span></p>
-<p class="p1"><img class="aligncenter size-full wp-image-9571" src="http://www.spilgames.com/wp-content/uploads/2016/02/step6.png" alt="step6" width="1451" height="973" /></p>
-<p class="p1"><span class="s1">5: Add the '-ObjC' and '-undefined dynamic_lookup' linker flags to build settings</span></p>
-<p class="p1"><span class="s1">6: Make sure that in the build options, Enable Bitcode is set to No</span></p>
-<p class="p1"><span class="s1">7: Manually add the app group  group.com.spilgames to your entitlements file.</span></p>
-<p class="p1"><img class="aligncenter size-full wp-image-9577" src="http://www.spilgames.com/wp-content/uploads/2016/02/sprong_entitlements_and_Unity-iPhone_xcodeproj.png" alt="sprong_entitlements_and_Unity-iPhone_xcodeproj" width="1596" height="298" /></p>
-<p class="p1"><span class="s1">8: In the info section, make sure Allow Arbitrary Loads is set to YES</span></p>
-<p class="p1"><img class="aligncenter size-full wp-image-9575" src="http://www.spilgames.com/wp-content/uploads/2016/02/step10.png" alt="step10" width="980" height="830" /></p>
-<p class="p1"><span class="s1">9: Set the build target to 7.1</span></p>
+<p>
+<strong>iOS</strong></br>
+1: Drag the spil framework into the root of the Xcode project</br>
+2: Add a new 'Run Script' phase - ON TOP - of the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)</br>
+<strong>OR</strong></br>
+1: Drag the spil framework into the root of the Xcode project</br>
+2: In terminal, cd to the root of the Xcode project</br>
+3: Run the following command: "python Spil.framework/setup.py <Project-Name>" project name being the name of the Xcode project most commonly python Spil.framework/setup.py Unity-iPhone</br>
+<p>
 
-
-
-
-
-
-
-
-
+<h3>Changelog</h3>
+<p>
+The whole unity plugin has been revamped and upgraded for V2.0.0. Changelog and additional documentation, examples and tutorials will be added a.s.a.p.
+</p>

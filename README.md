@@ -189,7 +189,7 @@ No special steps should be necessary for building for Android.
 <strong>OR</strong></br>
 1: Drag the spil framework into the root of the Xcode project</br>
 2: In terminal, cd to the root of the Xcode project</br>
-3: Run the following command: "python Spil.framework/setup.py <Project-Name>" project name being the name of the Xcode project most commonly python Spil.framework/setup.py Unity-iPhone</br>
+3: Run the following command: "python Spil.framework/setup.py 'Project-Name'" project name being the name of the Xcode project most commonly 'Unity-iPhone'</br>
 <p>
 
 <h3>Changelog</h3>

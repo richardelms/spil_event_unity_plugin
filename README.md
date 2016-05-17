@@ -138,9 +138,9 @@ public GameObject rewardVideoButton;</br></br>
 
 void OnEnable(){</br>
 	rewardVideoButton.SetActive (false);</br>
-	Spil.Instance.SendrequestRewardVideoEvent ();</br>
 	Spil.Instance.OnAdAvailable += OnAdAvailable;</br>
 	Spil.Instance.OnAdNotAvailable += OnAdNotAvailable;</br>
+	Spil.Instance.SendrequestRewardVideoEvent ();</br>
 }</br>
 </br>
 void OnAdAvailable(SpilGames.Unity.Utils.enumAdType adType){</br>

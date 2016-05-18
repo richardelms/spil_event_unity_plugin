@@ -142,7 +142,9 @@ namespace SpilGames.Unity.Implementations
 	        }
 
             /// <summary>
-            /// Method that requests the "more apps" activity
+            /// Sends the "requestAd" event with the "moreApps" parameter to the native Spil SDK which will send a request to the back-end.
+            /// When a response has been received from the back-end the SDK will fire either an "AdAvailable" or and "AdNotAvailable"
+            /// event to which the developer can subscribe and for instance call PlayVideo(); or PlayMoreApps();
             /// </summary>
             public override void RequestMoreApps()
             {

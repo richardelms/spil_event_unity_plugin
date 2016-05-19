@@ -180,7 +180,7 @@ namespace SpilGames.Unity.Implementations
                 // <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
                 public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)//, string localPrice, string localCurrency)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }, { "localPrice", localPrice }, { "localCurrency", localCurrency } });
+                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }});
                 }
 
                 /// <summary>

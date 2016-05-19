@@ -1,5 +1,0 @@
-<linker>
-<assembly fullname="Assembly-CSharp">
-<type fullname="SpilGames.Unity.Spil" preserve="all"/>
-</assembly>
-</linker>

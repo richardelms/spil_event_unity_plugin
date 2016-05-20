@@ -142,6 +142,19 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern void playRewardVideoNative();
 
+
+
+
+			public override void ShowToastOnVideoReward(bool show)
+			{
+				showToastOnVideoReward(show);
+			}
+			
+			[DllImport("__Internal")]
+			private static extern void showToastOnVideoReward(bool show);
+
+			
+
             /// <summary>
             /// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
             /// and receiving an "AdAvailable" event the developer could call this method from the event handler.

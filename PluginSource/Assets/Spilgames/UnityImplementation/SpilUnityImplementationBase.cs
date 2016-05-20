@@ -231,6 +231,8 @@ namespace SpilGames.Unity.Implementations
 
             #region Advertisement events
 
+			public abstract void ShowToastOnVideoReward (bool show);
+
                 /// <summary>
                 /// This is fired by the native Spil SDK after it receives a response from the back-end.
                 /// This method is exposed only for use by the native Spil SDK and should not be used by the developer!

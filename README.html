@@ -194,3 +194,15 @@ No special steps should be necessary for building for Android.
 <p>
 The whole unity plugin has been revamped and upgraded for V2.0.0. Changelog and additional documentation, examples and tutorials will be added a.s.a.p.
 </p>
+
+<h4>V2.0.1</h4>
+<p>
+Since V2.0.1 Unity developers have to include a defaultGameConfig.json file in their StreamingAssets directory. This json file should contain a ChartBoost id and signature as well as a key for Google IAP (only required if the game uses in-app purchases).</br>
+A defaultGameConfig.json file could look like this:</br>
+</br>
+{</br>
+"chartBoostAppId":"ValueHere",</br>
+"chartBoostAppSignature":"ValueHere",</br>
+"googleIAPKey":"ValueHere"</br>
+}
+</p>

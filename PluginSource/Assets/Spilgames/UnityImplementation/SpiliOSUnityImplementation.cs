@@ -196,6 +196,72 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern string getSpilUIDNative();
 
+			#region Spil Game Objects
+
+				public override string GetSpilGameDataFromSdk ()
+				{
+					return getSpilGameDataNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getSpilGameDataNative();
+			
+			#endregion
+
+			#region Player Data
+
+				public override string GetWalletFromSdk()
+				{
+					return getWalletNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getWalletNative();
+
+				public override string GetInvetoryFromSdk()
+				{
+					return getInventoryNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getInventoryNative();
+
+				public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
+				{
+					updateWalletNative(currencyId, amount, reason);
+				}
+
+				public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
+				{
+					updateWalletNative(currencyId, -amount, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void updateWalletNative(int currencyId, int delta, string reason);
+
+				public override void AddItemToInventory (int itemId, int amount, string reason)
+				{
+					updateInventoryWithItemNative(itemId, amount, "add", reason);
+				}
+
+				public override void SubtractItemFromInventory (int itemId, int amount, string reason)
+				{
+					updateInventoryWithItemNative(itemId, amount, "substract", reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void updateInventoryWithItemNative (int itemId, int amount, string action, string reason);
+
+				public override void ConsumeBundle (int bundleId, string reason)
+				{
+					updateInventoryWithBundleNative(bundleId, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void updateInventoryWithBundleNative (int bundleId, string reason);
+
+			#endregion
+
         #endregion
 
         #region Non inherited members (iOS only members)

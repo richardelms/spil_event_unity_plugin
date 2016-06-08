@@ -129,4 +129,82 @@ namespace SpilGames.Unity.Utils
         }
 
     #endregion
+
+	#region Spil Game Objects
+
+		public class SpilCurrencyData
+		{
+			public int id;
+			public string name;
+			public int category;
+			public int type;
+		}
+		
+		public class SpilItemData
+		{
+			public int id;
+			public string name;
+			public int category;
+			public int type;
+		}
+		
+		public class SpilBundlePriceData
+		{
+			public int currencyId;
+			public int value;
+		}
+		
+		public class SpilBundleItemData
+		{
+			public int id;
+			public int amount;
+		}
+		
+		public class SpilBundleData
+		{
+			public int id;
+			public string name;
+			public List<SpilBundlePriceData> prices;
+			public List<SpilBundleItemData> items;
+		}
+		
+		public class SpilGameData
+		{
+			public List<SpilCurrencyData> currencies;
+			public List<SpilItemData> items;
+			public List<SpilBundleData> bundles;
+		}
+
+	#endregion
+	
+	#region Player Data Objects
+	
+		public class PlayerCurrencyData : SpilCurrencyData
+		{
+			public int currentBalance;
+			public int delta;
+		}
+		
+		public class WalletData
+		{
+			public List<PlayerCurrencyData> currencies;
+			public int offset;
+			public string logic;
+		}
+		
+		public class PlayerItemData : SpilItemData
+		{
+			public int amount;
+			public int value;
+		}
+		
+		public class InventoryData
+		{
+			public List<PlayerItemData> items;
+			public int offset;
+			public string logic;
+		}
+	
+	#endregion
+
 }

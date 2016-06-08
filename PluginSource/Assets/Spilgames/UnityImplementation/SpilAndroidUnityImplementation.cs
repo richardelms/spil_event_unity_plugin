@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SpilGames.Unity.Utils;
 
 namespace SpilGames.Unity.Implementations
 {
-    #if UNITY_ANDROID
+//    #if UNITY_ANDROID
     public class SpilAndroidUnityImplementation : SpilUnityImplementationBase
     {
         #region Inherited members
@@ -161,6 +162,54 @@ namespace SpilGames.Unity.Implementations
             {
                 return CallNativeMethod("getSpilUID");
             }
+            
+			#region Spil Game Objects
+			
+			public override string GetSpilGameDataFromSdk ()
+			{
+				return CallNativeMethod("getSpilGameData");
+			}
+			
+			#endregion
+			
+			#region Player Data
+			
+			public override string GetWalletFromSdk()
+			{
+				return CallNativeMethod("getWallet");
+			}
+			
+			public override string GetInvetoryFromSdk()
+			{
+				return CallNativeMethod("getInventory");
+			}
+			
+			public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
+			{
+				CallNativeMethod("addCurrencyToWallet", new object[]{ currencyId, amount, reason });
+			}
+			
+			public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
+			{
+				CallNativeMethod("subtractCurrencyFromWallet", new object[]{ currencyId, amount, reason });
+			}
+			
+			public override void AddItemToInventory (int itemId, int amount, string reason)
+			{
+				CallNativeMethod("addItemToInventory", new object[]{ itemId, amount, reason });
+			}
+			
+			public override void SubtractItemFromInventory (int itemId, int amount, string reason)
+			{
+				CallNativeMethod("subtractItemFromInventory", new object[]{ itemId, amount, reason });
+			}
+			
+			public override void ConsumeBundle (int bundleId, string reason)
+			{
+				CallNativeMethod("consumeBundle", new object[]{ bundleId, reason });
+			}
+			
+			#endregion
 
         #endregion
 
@@ -339,5 +388,5 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
     }
-    #endif
+//    #endif
 }

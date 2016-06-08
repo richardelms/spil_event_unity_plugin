@@ -395,5 +395,131 @@ namespace SpilGames.Unity.Implementations
         /// in one of your game's screens.
         /// </summary>
 	    public abstract string GetSpilUID();
+
+		#region Spil Game Objects
+
+		public delegate void SpilGameDataAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK after game data has been received from the server.
+		/// The developer can subscribe to this event and then request the Spil Game Data.
+		/// </summary>
+		public event SpilGameDataAvailable OnSpilGameDataAvailable;
+
+		public static void fireSpilGameDataAvailable()
+		{
+			Debug.Log ("SpilSDK-Unity Spil Game Data is available");
+			
+			if (Spil.Instance.OnSpilGameDataAvailable != null) { Spil.Instance.OnSpilGameDataAvailable(); }
+		}
+		
+		public delegate void SpilGameDataError(string reason);
+		/// <summary>
+		/// This is fired by the native Spil SDK after game data has failed to be retrieved.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event SpilGameDataError OnSpilGameDataError;
+		
+		public static void fireSpilGameDataError(String reason)
+		{
+			Debug.Log ("SpilSDK-Unity Spil Game Data error with reason = " + reason);
+			
+			if (Spil.Instance.OnSpilGameDataError != null) { Spil.Instance.OnSpilGameDataError(reason); }
+		
+		}
+		
+		public abstract string GetSpilGameDataFromSdk();
+		
+		public SpilGameDataHelper GetSpilGameData()
+		{
+			SpilGameDataHelper helper = null;
+			string spilGameDataString = GetSpilGameDataFromSdk();
+			if(spilGameDataString != null)
+			{
+				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);
+				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles);
+			}
+			return helper;
+		}
+
+		#endregion
+		
+		#region Player Data
+		
+		public delegate void PlayerDataAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK after player data has been received from the server.
+		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
+		/// </summary>
+		public event PlayerDataAvailable OnPlayerDataAvailable;
+		
+		public static void firePlayerDataAvailable()
+		{
+			Debug.Log ("SpilSDK-Unity Player Data is available");
+			
+			if (Spil.Instance.OnPlayerDataAvailable != null) { Spil.Instance.OnPlayerDataAvailable(); }
+			
+		}
+		
+		public delegate void PlayerDataUpdated();
+		/// <summary>
+		/// This is fired by the native Spil SDK after player data has been updated.
+		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
+		/// </summary>
+		public event PlayerDataUpdated OnPlayerDataUpdated;
+		
+		public static void firePlayerDataUpdated()
+		{
+			Debug.Log ("SpilSDK-Unity Player Data has been updated");
+			
+			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
+			
+		}
+		
+		public delegate void PlayerDataError();
+		/// <summary>
+		/// This is fired by the native Spil SDK after player data has failed to be retrieved.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event PlayerDataError OnPlayerDataError;
+		
+		public static void firePlayerDataError(String reason)
+		{
+			Debug.Log ("SpilSDK-Unity Player Data error with reason = " + reason);
+			
+			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
+			
+		}
+		
+		public abstract string GetWalletFromSdk();
+		
+		public abstract string GetInvetoryFromSdk();
+		
+		public PlayerDataHelper GetPlayerData()
+		{
+			PlayerDataHelper helper = null;
+			string walletString = GetWalletFromSdk();
+			string inventoryString = GetInvetoryFromSdk();
+			if(walletString != null && inventoryString != null)
+			{
+				WalletData walletData = JsonHelper.getObjectFromJson<WalletData>(walletString);
+				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData>(inventoryString);
+				
+				helper = new PlayerDataHelper(walletData, inventoryData);
+				
+			}
+			return helper;
+		}
+		
+		public abstract void AddCurrencyToWallet(int currencyId, int amount, string reason);
+		
+		public abstract void SubtractCurrencyFromWallet(int currencyId, int amount, string reason);
+		
+		public abstract void AddItemToInventory(int itemId, int amount, string reason);
+		
+		public abstract void SubtractItemFromInventory(int itemId, int amount, string reason);
+		
+		public abstract void ConsumeBundle(int bundleId, string reason);
+		
+		#endregion
     }
 }

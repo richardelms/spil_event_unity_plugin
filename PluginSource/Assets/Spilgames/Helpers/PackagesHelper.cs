@@ -89,7 +89,7 @@ namespace SpilGames.Unity.Helpers
         public DateTime PromotionEndDate { get { return promotionEndDate; } }
         private DateTime promotionEndDate;
 
-        public List<Item> Items;
+        public List<PackageItem> Items;
 
         public Package(string id, string originalDiscountLabel, List<ItemData> packageItems, List<ItemData> promotionItems = null, string promotionDiscountLabel = null, string promotionBeginDate = null, string promotionEndDate = null)
         {
@@ -99,7 +99,7 @@ namespace SpilGames.Unity.Helpers
             this.promotionBeginDate = promotionBeginDate != null ? DateTime.Parse(promotionBeginDate) : DateTime.MinValue;
             this.promotionEndDate = promotionEndDate != null ? DateTime.Parse(promotionEndDate) : DateTime.MinValue;
 
-            Items = new List<Item>();
+            Items = new List<PackageItem>();
 
             // Populate items
             foreach(ItemData packageItem in packageItems)
@@ -115,7 +115,7 @@ namespace SpilGames.Unity.Helpers
                         }
                     }       
                 }
-                Items.Add(new Item(packageItem.id, packageItem.type, packageItem.value, promotionvalue));
+                Items.Add(new PackageItem(packageItem.id, packageItem.type, packageItem.value, promotionvalue));
             }
         }
 
@@ -137,7 +137,7 @@ namespace SpilGames.Unity.Helpers
             return PromotionDiscountLabel != null;
         }
 
-        public Item GetItemById(string itemId)
+        public PackageItem GetItemById(string itemId)
         {
             return Items.FirstOrDefault(a => a.Id.Equals(itemId));
         }
@@ -146,7 +146,7 @@ namespace SpilGames.Unity.Helpers
     /// <summary>
     /// This is the business object that the developer can use to work with Items associated with Packages and Promotions.
     /// </summary>
-    public class Item
+    public class PackageItem
     {
         /// <summary>
         /// The item Id, also known as "SKU".
@@ -172,7 +172,7 @@ namespace SpilGames.Unity.Helpers
         public string PromotionValue { get { return promotionValue; } }
         private string promotionValue;
 
-        public Item(string id, string type, string originalValue, string promotionValue = null)
+        public PackageItem(string id, string type, string originalValue, string promotionValue = null)
         {
             this.id = id;
             this.type = type;

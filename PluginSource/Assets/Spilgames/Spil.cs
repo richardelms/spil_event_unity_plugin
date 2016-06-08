@@ -125,6 +125,46 @@ namespace SpilGames.Unity
             {
                 SpilUnityImplementationBase.OnResponseReceived(response);
             }
+            
+			/// <summary>
+			/// This method is called by the native Spil SDK, it should not be used by developers.
+			/// </summary>
+			public void SpilGameDataAvailable()
+			{
+				SpilUnityImplementationBase.fireSpilGameDataAvailable();
+			}
+			
+			/// <summary>
+			/// This method is called by the native Spil SDK, it should not be used by developers.
+			/// </summary>
+			public void SpilGameDataError(string reason)
+			{
+				SpilUnityImplementationBase.fireSpilGameDataError(reason);
+			}
+			
+			/// <summary>
+			/// This method is called by the native Spil SDK, it should not be used by developers.
+			/// </summary>
+			public void PlayerDataAvailable()
+			{
+				SpilUnityImplementationBase.firePlayerDataAvailable();
+			}
+			
+			/// <summary>
+			/// This method is called by the native Spil SDK, it should not be used by developers.
+			/// </summary>
+			public void PlayerDataUpdated()
+			{
+				SpilUnityImplementationBase.firePlayerDataUpdated();
+			}
+			
+			/// <summary>
+			/// This method is called by the native Spil SDK, it should not be used by developers.
+			/// </summary>
+			public void PlayerDataError(string reason)
+			{
+				SpilUnityImplementationBase.firePlayerDataError(reason);
+			}
 			
         #endregion
     }

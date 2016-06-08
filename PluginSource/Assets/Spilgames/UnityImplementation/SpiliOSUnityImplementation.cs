@@ -246,7 +246,7 @@ namespace SpilGames.Unity.Implementations
 
 				public override void SubtractItemFromInventory (int itemId, int amount, string reason)
 				{
-					updateInventoryWithItemNative(itemId, amount, "substract", reason);
+					updateInventoryWithItemNative(itemId, amount, "subtract", reason);
 				}
 
 				[DllImport("__Internal")]

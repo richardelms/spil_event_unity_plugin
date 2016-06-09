@@ -164,9 +164,9 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="source">(int) - 0 == premium</param>
                 /// <param name="item">item id or sku</param>
                 /// <param name="category">(int) - 0 = Consumable, 1 = Booster, 2 = Permanent</param>
-                public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item)
+                public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
                 {
-                    SendCustomEvent("walletUpdate", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item } });
+                    SendCustomEvent("walletUpdate", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item }, { "category", category } });
                 }
 
                 /// <summary>

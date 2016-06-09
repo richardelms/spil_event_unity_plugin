@@ -32,7 +32,7 @@ namespace SpilGames.Unity.Helpers
 		public int Delta { get { return delta; } }
 		private int delta;
 		
-		public PlayerCurrency(int id, string name, int category, int type, int currentBalance, int delta) : base(id, name, category, type)
+		public PlayerCurrency(int id, string name, int type, int currentBalance, int delta) : base(id, name, type)
 		{
 			this.currentBalance = currentBalance;
 			this.delta = delta;
@@ -51,7 +51,7 @@ namespace SpilGames.Unity.Helpers
 			//Adding currencies of the player
 			foreach(PlayerCurrencyData playerCurrencyData in currencyData)
 			{
-				currencies.Add(new PlayerCurrency(playerCurrencyData.id, playerCurrencyData.name, playerCurrencyData.category, playerCurrencyData.type, playerCurrencyData.currentBalance, playerCurrencyData.delta));
+				currencies.Add(new PlayerCurrency(playerCurrencyData.id, playerCurrencyData.name, playerCurrencyData.type, playerCurrencyData.currentBalance, playerCurrencyData.delta));
 			}
 			
 		}
@@ -75,7 +75,7 @@ namespace SpilGames.Unity.Helpers
 		public int Value { get { return value; } }
 		private int value;
 		
-		public PlayerItem(int id, string name, int category, int type, int amount, int value) : base(id, name, category, type)
+		public PlayerItem(int id, string name, int type, int amount, int value) : base(id, name, type)
 		{
 			this.amount = amount;
 			this.value = value;
@@ -94,7 +94,7 @@ namespace SpilGames.Unity.Helpers
 			//Adding currencies of the player
 			foreach(PlayerItemData playerItemData in itemData)
 			{
-				items.Add(new PlayerItem(playerItemData.id, playerItemData.name, playerItemData.category, playerItemData.type, playerItemData.amount, playerItemData.value));
+				items.Add(new PlayerItem(playerItemData.id, playerItemData.name, playerItemData.type, playerItemData.amount, playerItemData.value));
 			}
 		}
 		

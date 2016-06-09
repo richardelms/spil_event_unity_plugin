@@ -136,15 +136,13 @@ namespace SpilGames.Unity.Utils
 		{
 			public int id;
 			public string name;
-			public int category;
 			public int type;
 		}
 		
 		public class SpilItemData
 		{
-			public int id;
+			public string id;
 			public string name;
-			public int category;
 			public int type;
 		}
 		

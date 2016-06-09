@@ -172,7 +172,7 @@ namespace SpilGames.Unity.Helpers
         public string PromotionValue { get { return promotionValue; } }
         private string promotionValue;
 
-        public PackageItem(string id, string type, string originalValue, string promotionValue = null)
+        public PackageItem(int id, string type, string originalValue, string promotionValue = null)
         {
             this.id = id;
             this.type = type;

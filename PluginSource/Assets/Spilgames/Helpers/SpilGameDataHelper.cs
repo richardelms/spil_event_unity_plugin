@@ -19,7 +19,7 @@ namespace SpilGames.Unity.Helpers
 			//Adding currency data to helper
 			foreach(SpilCurrencyData spilCurrencyData in currencies)
 			{
-				Currencies.Add(new Currency(spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.category, spilCurrencyData.type));
+				Currencies.Add(new Currency(spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.type));
 			}
 			
 			Items = new List<PackageItem>();
@@ -27,7 +27,7 @@ namespace SpilGames.Unity.Helpers
 			//Adding item data to helper
 			foreach(SpilItemData spilCurrencyItems in items)
 			{
-				Items.Add(new PlayerItem(spilCurrencyItems.id, spilCurrencyItems.name, spilCurrencyItems.category, spilCurrencyItems.type));
+				Items.Add(new PackageItem(spilCurrencyItems.id, spilCurrencyItems.name, spilCurrencyItems.type));
 			}
 			
 			Bundles = new List<Bundle>();
@@ -50,17 +50,13 @@ namespace SpilGames.Unity.Helpers
 		public string Name { get { return name; } }
 		private string name;
 		
-		public int Category { get { return category; } }
-		private int category;
-		
 		public int Type { get { return type; } }
 		public int type;
 		
-		public Currency(int id, string name, int category, int type)
+		public Currency(int id, string name, int type)
 		{
 			this.id = id;
 			this.name = name;
-			this.category = category;
 			this.type = type;
 		}
 	}
@@ -73,17 +69,13 @@ namespace SpilGames.Unity.Helpers
 		public string Name { get { return name; } }
 		private string name;
 		
-		public int Category { get { return category; } }
-		private int category;
-		
 		public int Type { get { return type; } }
 		public int type;
 		
-		public Item(int id, string name, int category, int type)
+		public Item(int id, string name, int type)
 		{
 			this.id = id;
 			this.name = name;
-			this.category = category;
 			this.type = type;
 		}
 	}

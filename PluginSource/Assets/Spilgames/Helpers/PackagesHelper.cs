@@ -157,7 +157,7 @@ namespace SpilGames.Unity.Helpers
 		/// <summary>
 		/// The type of the item.
 		/// </summary>
-		public string Type { get { return Type; } }
+		public string Type { get { return type; } }
 		private string type;
 		
 		/// <summary>

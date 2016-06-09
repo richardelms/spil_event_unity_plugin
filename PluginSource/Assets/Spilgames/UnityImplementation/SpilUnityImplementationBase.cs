@@ -192,7 +192,7 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format!</param>
                 public void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
                 {
-                    SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
+                    SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "skuId", skuId }, { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
                 }
 
                 /// <summary>
@@ -231,7 +231,13 @@ namespace SpilGames.Unity.Implementations
 
             #region Advertisement events
 
-			public abstract void ShowToastOnVideoReward (bool show);
+                /// <summary>
+                /// When Fyber has shown a reward video and the user goes back to the game to receive his/her reward Fyber can
+                /// automatically show a toast message with information about the reward, for instance "You've received 50 coins". 
+                /// This is disabled by default to allow the developer to create a reward notification for the user.
+                /// Developers can call SetShowToastOnVideoReward(true) to enable Fyber's automatic toast message.
+                /// </summary>
+			    public abstract void SetShowToastOnVideoReward(bool value);
 
                 /// <summary>
                 /// This is fired by the native Spil SDK after it receives a response from the back-end.
@@ -246,7 +252,7 @@ namespace SpilGames.Unity.Implementations
 
                     SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse>(response);
 
-                    if (spilResponse.type.Equals("reward"))
+                    if (spilResponse.type.ToLower().Trim().Equals("reward"))
                     {
                         RewardResponse rewardResponseData = JsonHelper.getObjectFromJson<RewardResponse>(response);
                         fireOnRewardEvent(rewardResponseData.data.eventData);
@@ -282,15 +288,15 @@ namespace SpilGames.Unity.Implementations
 			        Debug.Log ("SpilSDK-Unity Ad " + type + " ready!");
 
                     enumAdType adType = enumAdType.Unknown;
-                    if(type.Equals("rewardVideo"))
+                    if(type.ToLower().Trim().Equals("rewardvideo"))
                     {
                          adType = enumAdType.RewardVideo;
                     }
-                    else if(type.Equals("interstitial"))
+                    else if(type.ToLower().Trim().Equals("interstitial"))
                     {
                         adType = enumAdType.Interstitial;
                     }
-                    else if(type.Equals("moreApps"))
+                    else if(type.ToLower().Trim().Equals("moreapps"))
                     {
                         adType = enumAdType.MoreApps;
                     }
@@ -319,15 +325,15 @@ namespace SpilGames.Unity.Implementations
 		            Debug.Log ("SpilSDK-Unity Ad " + type + " is not available");
 
                     enumAdType adType = enumAdType.Unknown;
-                    if(type.Equals("rewardVideo"))
+                    if(type.ToLower().Trim().Equals("rewardvideo"))
                     {
                          adType = enumAdType.RewardVideo;
                     }
-                    else if(type.Equals("interstitial"))
+                    else if(type.ToLower().Trim().Equals("interstitial"))
                     {
                         adType = enumAdType.Interstitial;
                     }
-                    else if(type.Equals("moreApps"))
+                    else if(type.ToLower().Trim().Equals("moreapps"))
                     {
                         adType = enumAdType.MoreApps;
                     }

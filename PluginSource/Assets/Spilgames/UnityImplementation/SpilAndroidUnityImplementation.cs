@@ -148,7 +148,7 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
             public override void RequestMoreApps()
             {
-                CallNativeMethod("requestAd", new object[]{ "Chartboost", "moreApps", false }, true);
+                CallNativeMethod("requestAd", new object[]{ "ChartBoost", "moreApps", false }, true);
             }
 
             /// <summary>
@@ -161,12 +161,23 @@ namespace SpilGames.Unity.Implementations
             {
                 return CallNativeMethod("getSpilUID");
             }
+			
+            /// <summary>
+            /// When Fyber has shown a reward video and the user goes back to the game to receive his/her reward Fyber can
+            /// automatically show a toast message with information about the reward, for instance "You've received 50 coins". 
+            /// This is disabled by default to allow the developer to create a reward notification for the user.
+            /// Developers can call SetShowToastOnVideoReward(true) to enable Fyber's automatic toast message.
+            /// </summary>
+            public override void SetShowToastOnVideoReward(bool value)
+            {
+                CallNativeMethod("showToastOnVideoReward", new object[]{ value }, true);
+            }
 
         #endregion
 
         #region Non inherited members (Android only members)
 
-            #region DFP / Fyber / Chartboost
+            #region DFP / Fyber / ChartBoost
 
                 /// <summary>
                 /// Method that initiaties DFP Ads (to be used only for testing purposes).
@@ -190,7 +201,7 @@ namespace SpilGames.Unity.Implementations
                 }
 
                 /// <summary>
-                /// Method that shows Chartboost more apps (to be used only for testing purposes).
+                /// Method that shows ChartBoost more apps (to be used only for testing purposes).
                 /// This is not essential for developers so could be hidden but it might be handy for some developers so we left it in.
                 /// </summary>
                 /// <param name="appId"></param>
@@ -266,7 +277,7 @@ namespace SpilGames.Unity.Implementations
 
             private string CallNativeMethod(string methodName)
             {
-                return CallNativeMethod<object>(methodName, null, false);
+                return CallNativeMethod<object>(methodName);
             }
 
             /// <summary>

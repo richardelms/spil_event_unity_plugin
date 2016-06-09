@@ -228,37 +228,43 @@ namespace SpilGames.Unity.Implementations
 
 				public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
 				{
-					updateWalletNative(currencyId, amount, reason);
+					addCurrencyToWallet(currencyId, amount, reason);
 				}
+
+				[DllImport("__Internal")]
+				private static extern void addCurrencyToWallet(int currencyId, int amount, string reason);
 
 				public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
 				{
-					updateWalletNative(currencyId, -amount, reason);
+					subtractCurrencyFromWallet(currencyId, amount, reason);
 				}
 
 				[DllImport("__Internal")]
-				private static extern void updateWalletNative(int currencyId, int delta, string reason);
+				private static extern void subtractCurrencyFromWallet(int currencyId, int amount, string reason);
 
 				public override void AddItemToInventory (int itemId, int amount, string reason)
 				{
-					updateInventoryWithItemNative(itemId, amount, "add", reason);
+					addItemToInventory(itemId, amount, reason);
 				}
+
+				[DllImport("__Internal")]
+				private static extern void addItemToInventory (int itemId, int amount, string reason);
 
 				public override void SubtractItemFromInventory (int itemId, int amount, string reason)
 				{
-					updateInventoryWithItemNative(itemId, amount, "subtract", reason);
+					subtractItemToInventory(itemId, amount, reason);
 				}
 
 				[DllImport("__Internal")]
-				private static extern void updateInventoryWithItemNative (int itemId, int amount, string action, string reason);
+				private static extern void subtractItemToInventory (int itemId, int amount, string reason);
 
 				public override void ConsumeBundle (int bundleId, string reason)
 				{
-					updateInventoryWithBundleNative(bundleId, reason);
+					consumeBundle(bundleId, reason);
 				}
 
 				[DllImport("__Internal")]
-				private static extern void updateInventoryWithBundleNative (int bundleId, string reason);
+				private static extern void consumeBundle (int bundleId, string reason);
 
 			#endregion
 

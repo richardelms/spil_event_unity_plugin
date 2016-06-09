@@ -105,8 +105,8 @@ namespace SpilGames.Unity.Utils
         public class PromotionData
         {
             public string packageId;
-            public List<ItemData> items;
-            public string discountLabel;
+			public List<PackageItemData> items;
+			public string discountLabel;
             public DateTime startTime;
             public DateTime endTime;
         }
@@ -116,12 +116,12 @@ namespace SpilGames.Unity.Utils
         public class PackageData
         {
             public string packageId;
-            public List<ItemData> items;
-            public string discountLabel;
+			public List<PackageItemData> items;
+			public string discountLabel;
             public bool hasPromotion;
         }
 
-        public class ItemData
+        public class PackageItemData
         {
             public string id;
             public string type;
@@ -141,7 +141,7 @@ namespace SpilGames.Unity.Utils
 		
 		public class SpilItemData
 		{
-			public string id;
+			public int id;
 			public string name;
 			public int type;
 		}

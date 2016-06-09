@@ -9,7 +9,7 @@ namespace SpilGames.Unity.Helpers
 	public class SpilGameDataHelper
 	{
 		public List<Currency> Currencies;
-		public List<PackageItem> Items;
+		public List<Item> Items;
 		public List<Bundle> Bundles;
 		
 		public SpilGameDataHelper (List<SpilCurrencyData> currencies , List<SpilItemData> items, List<SpilBundleData> bundles)
@@ -22,12 +22,12 @@ namespace SpilGames.Unity.Helpers
 				Currencies.Add(new Currency(spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.type));
 			}
 			
-			Items = new List<PackageItem>();
+			Items = new List<Item>();
 			
 			//Adding item data to helper
 			foreach(SpilItemData spilCurrencyItems in items)
 			{
-				Items.Add(new PackageItem(spilCurrencyItems.id, spilCurrencyItems.name, spilCurrencyItems.type));
+				Items.Add(new Item(spilCurrencyItems.id, spilCurrencyItems.name, spilCurrencyItems.type));
 			}
 			
 			Bundles = new List<Bundle>();

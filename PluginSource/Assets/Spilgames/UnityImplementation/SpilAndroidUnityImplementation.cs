@@ -211,6 +211,11 @@ namespace SpilGames.Unity.Implementations
 			
 			#endregion
 
+			public override void ShowToastOnVideoReward (bool show)
+			{
+				
+			}
+
         #endregion
 
         #region Non inherited members (Android only members)

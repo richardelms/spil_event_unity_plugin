@@ -1,4 +1,6 @@
-<h1>Spil Games Unity Plugin (V2.0.0)</h1>
+<h1>Spil Games Unity Plugin (V2.0.1)</h1>
+
+Update: Version 2.0.1 is here and brings a lot of fixes and updates. Version 2.0.1 is primarily aimed at Android, in the coming weeks we expect to release V2.0.2 which will also include improvements for iOS.
 
 The Spil Game Unity Plugin is designed to give developers access to Spil Games SLOT functions and communicate with the Spil backend. The plugin also provides developers with an easy way to connect to ad networks and implement features like video's, interstitials and tracking of users' behaviours.
 
@@ -138,9 +140,9 @@ public GameObject rewardVideoButton;</br></br>
 
 void OnEnable(){</br>
 	rewardVideoButton.SetActive (false);</br>
+	Spil.Instance.SendrequestRewardVideoEvent ();</br>
 	Spil.Instance.OnAdAvailable += OnAdAvailable;</br>
 	Spil.Instance.OnAdNotAvailable += OnAdNotAvailable;</br>
-	Spil.Instance.SendrequestRewardVideoEvent ();</br>
 }</br>
 </br>
 void OnAdAvailable(SpilGames.Unity.Utils.enumAdType adType){</br>
@@ -185,21 +187,20 @@ No special steps should be necessary for building for Android.
 <p>
 <strong>iOS</strong></br>
 1: Drag the spil framework into the root of the Xcode project</br>
-2: Add a new 'Run Script' phase - ON TOP - of the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)</br>
-<strong>OR</strong></br>
-1: Drag the spil framework into the root of the Xcode project</br>
-2: In terminal, cd to the root of the Xcode project</br>
-3: Run the following command: "python Spil.framework/setup.py 'Project-Name'" project name being the name of the Xcode project most commonly 'Unity-iPhone'</br>
+2a: In terminal, cd to the root of the Xcode project <strong>OR</strong></br>
+2b: Add a new 'Run Script' phase - ON TOP - in the Build Phases tab using the following Shell command and build the project: /usr/bin/python Spil.framework/setup.py $(PROJECT_NAME)</br>
+3: Run the following command: python Spil.framework/setup.py &lt;Project-Name&gt; project name being the name of the Xcode project most commonly python Spil.framework/setup.py Unity-iPhone</br>
 <p>
 
 <h3>Changelog</h3>
-<p>
-The whole unity plugin has been revamped and upgraded for V2.0.0. Changelog and additional documentation, examples and tutorials will be added a.s.a.p.
-</p>
 
 <h4>V2.0.1</h4>
 <p>
-Since V2.0.1 Unity developers have to include a defaultGameConfig.json file in their StreamingAssets directory. This json file should contain a ChartBoost id and signature as well as a key for Google IAP (only required if the game uses in-app purchases).</br>
+The whole SDK has been upgraded for V2.0.1. with many bugfixes, improvements and some new features. Changelog and additional documentation, examples and tutorials will be added a.s.a.p.
+</p>
+
+<p>
+(Android only) Since V2.0.1 Unity developers have to include a defaultGameConfig.json file in their StreamingAssets directory. This json file should contain a ChartBoost id and signature as well as a key for Google IAP (only required if the game uses in-app purchases).</br>
 A defaultGameConfig.json file could look like this:</br>
 </br>
 {</br>

@@ -21,7 +21,7 @@
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent-filter>
     </activity>
-	<activity android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:label="" android:name="com.spilgames.spilsdk.web.WebViewActivity"/>
+	<activity android:screenOrientation="landscape" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:label="" android:name="com.spilgames.spilsdk.web.WebViewActivity"/>
 	
         <!--DFP-->
         <!--<activity android:name="com.google.android.gms.ads.AdActivity"

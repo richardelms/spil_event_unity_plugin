@@ -50,26 +50,6 @@ namespace SpilGames.Unity
                 Spil.Instance.OnAdFinished += AdFinishedHandler;
             }
             
-            // Make sure you've called AttachListeners() before calling this method
-            public void RequestRewardVideo()
-            {
-                // Because of all the event handlers we've attached using AttachListeners() this will cause an infinite 
-                // loop of reward video's! Every time you close/dismiss the video AdFinishedHandler is called, which 
-                // requests a new video, which calls AdAvailableHandler, which plays the video and so on.
-                // So this is for testing only, easy to adapt for your own purposes though.
-                Spil.Instance.SendrequestRewardVideoEvent();
-            }
-
-            // Be sure to call AttachListeners() before calling this method
-            public void RequestMoreApps()
-            {
-                // Because of all the event handlers we've attached using AttachListeners() this will cause an infinite 
-                // loop of more apps! Every time you close/dismiss the more apps screen AdFinishedHandler is called, which 
-                // requests a new video, which should call AdAvailableHandler, which shows the more apps menu and so on.
-                // So this is for testing only, easy to adapt for your own purposes though.
-                Spil.Instance.RequestMoreApps();
-            }
-
             // When an ad is available it can be shown
             void AdAvailableHandler(enumAdType adType)
             {
@@ -124,7 +104,7 @@ namespace SpilGames.Unity
 		        if (response.reward != null)
                 {
 			        int rewardAmount = response.reward.reward;
-			        //Debug.Log ("Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits"));
+                    txtBox1.text = "Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits");
 		        }
             }
 
@@ -170,7 +150,6 @@ namespace SpilGames.Unity
                 gameObject.name = "SpilSDK";
 
                 Instance.UpdatePackagesAndPromotions();
-
 
                 AttachListeners();
             }
@@ -221,43 +200,65 @@ namespace SpilGames.Unity
 
         #endregion
 
-        public Button btn1;
-        public Button btn2;
-        public Button btn3;
-        public Button btn4;
+        public Button btnRequestRewardVideo;
+        public Button btnFyberRewardVideo;
+        public Button btnChartBoostRewardVideo;
+        public Button btnMoreApps;
+        public Button btnDFPInterstitial;
+        public Button btnChartBoostInterstitial;
+        public Button btnCake;
+
         public Text txtBox1;
         public Text txtBox2;
 
-        public void DoTest1()
+        public void RequestRewardVideo()
         {
             txtBox1.text = "Requesting reward video";
-            RequestRewardVideo();
+            Spil.Instance.SendrequestRewardVideoEvent();
         }
 
-        public void DoTest2()
+        public void RequestFyberRewardVideo()
+        {
+            txtBox1.text = "Requesting Fyber reward video";
+            Spil.Instance.TestRequestAd("Fyber","rewardVideo", false);
+        }
+
+        public void RequestChartBoostRewardVideo()
+        {
+            txtBox1.text = "Requesting ChartBoost reward video";
+            Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
+        }
+
+        public void RequestMoreApps()
         {
             txtBox1.text = "Requesting more apps";
-            RequestMoreApps();
+            Spil.Instance.RequestMoreApps();
         }
 
-        public void DoTest3()
+        public void RequestDFPInterstitial()
         {
-            txtBox1.text = "Requesting interstitial";
+            txtBox1.text = "Requesting DFP interstitial";
+            Spil.Instance.TestRequestAd("DFP", "interstitial", false);
+        }
+
+        public void RequestChartBoostInterstitial()
+        {
+            txtBox1.text = "Requesting ChartBoost interstitial";
             Spil.Instance.TestRequestAd("chartboost", "interstitial", false);
         }
 
-        public void DoTest4()
+        public void RequestCake()
         {
             txtBox1.text = "The cake is a lie";
+            DoTest();
         }
 
-        /*
         public void DoTest()
         {
             //new Thread(
             //() =>
             //{
-            btnStart.gameObject.SetActive(false);
+            toggleUIEnabled(false);
             txtBox1.text = "Test running";
 
             txtBox2.text = "Testing SendlevelStartEvent(\"Level1\")";
@@ -270,18 +271,18 @@ namespace SpilGames.Unity
             catch (Exception ex)
             {
                 txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 1";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             string s = Spil.Instance.getLog();
             if (!s.Contains(": track_event levelStart") || !s.Contains(": name=levelStart"))
             {
                 Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 2";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
             // Event was properly dispatched by SpilSDK native, now check for response
@@ -289,7 +290,7 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 3";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
@@ -337,18 +338,18 @@ namespace SpilGames.Unity
             catch (Exception ex)
             {
                 txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 1";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             s = Spil.Instance.getLog();
             if (!s.Contains(": track_event levelFailed") || !s.Contains(": name=levelFailed"))
             {
                 Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 2";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
             // Event was properly dispatched by SpilSDK native, now check for response
@@ -356,7 +357,7 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 3";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
             txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\")";
@@ -370,18 +371,18 @@ namespace SpilGames.Unity
             catch (Exception ex)
             {
                 txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 1";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             s = Spil.Instance.getLog();
             if (!s.Contains(": track_event playerDies") || !s.Contains(": name=playerDies"))
             {
                 Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 2";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
             // Event was properly dispatched by SpilSDK native, now check for response
@@ -389,10 +390,11 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 3";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
+            /*
             txtBox2.text = "Testing SendrequestRewardVideoEvent()";
 
             Spil.Instance.clearLog();
@@ -404,7 +406,7 @@ namespace SpilGames.Unity
             catch (Exception ex)
             {
                 txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 1";
-                btnStart.gameObject.SetActive(true);
+                btn4.gameObject.SetActive(true);
                 return;
             }
 
@@ -415,7 +417,7 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 2";
-                btnStart.gameObject.SetActive(true);
+                btn4.gameObject.SetActive(true);
                 return;
             }
             // Event was properly dispatched by SpilSDK native, now check for response
@@ -423,11 +425,13 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 3";
-                btnStart.gameObject.SetActive(true);
+                btn4.gameObject.SetActive(true);
                 return;
             }
+            */
 
             txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\")";
+
 
             Spil.Instance.clearLog();
             Debug.Log("LOG CLEARED");
@@ -438,18 +442,18 @@ namespace SpilGames.Unity
             catch (Exception ex)
             {
                 txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 1";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             s = Spil.Instance.getLog();
             if (!s.Contains(": track_event milestoneAchieved") || !s.Contains(": name=milestoneAchieved"))
             {
                 Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 2";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
             // Event was properly dispatched by SpilSDK native, now check for response
@@ -457,7 +461,7 @@ namespace SpilGames.Unity
             {
                 Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
                 txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 3";
-                btnStart.gameObject.SetActive(true);
+                toggleUIEnabled(true);
                 return;
             }
 
@@ -469,7 +473,7 @@ namespace SpilGames.Unity
                 if (packages == null)
                 {
                     txtBox2.text = "Testing getPackagesAll FAILED 2";
-                    btnStart.gameObject.SetActive(true);
+                    toggleUIEnabled(true);
                     return;
                 }
                 else
@@ -477,7 +481,7 @@ namespace SpilGames.Unity
                     if (packages.Packages == null)
                     {
                         txtBox2.text = "Testing getPackagesAll FAILED 3";
-                        btnStart.gameObject.SetActive(true);
+                        toggleUIEnabled(true);
                         return;
                     }
                     else
@@ -557,7 +561,7 @@ namespace SpilGames.Unity
 
             txtBox2.text = "";
             txtBox1.text = "Test successful!";
-            btnStart.gameObject.SetActive(true);
+            toggleUIEnabled(true);
 
             //Spil.Instance.SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
             //Spil.Instance.SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
@@ -567,7 +571,26 @@ namespace SpilGames.Unity
             // }
             //).Start();
         }
-        */
+
+        public void toggleUIEnabled(bool enabled)
+        {
+            if (enabled)
+            {
+                btnFyberRewardVideo.gameObject.SetActive(true);
+                btnChartBoostRewardVideo.gameObject.SetActive(true);
+                btnMoreApps.gameObject.SetActive(true);
+                btnDFPInterstitial.gameObject.SetActive(true);
+                btnChartBoostInterstitial.gameObject.SetActive(true);
+                btnCake.gameObject.SetActive(true);
+            } else {
+                btnFyberRewardVideo.gameObject.SetActive(false);
+                btnChartBoostRewardVideo.gameObject.SetActive(false);
+                btnMoreApps.gameObject.SetActive(false);
+                btnDFPInterstitial.gameObject.SetActive(false);
+                btnChartBoostInterstitial.gameObject.SetActive(false);
+                btnCake.gameObject.SetActive(false);
+            }
+        }
     }
 
 }

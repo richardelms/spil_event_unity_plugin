@@ -89,15 +89,20 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-            internal override void SpilInit()
-            {
-		        JSONObject options = new JSONObject();
-		        options.AddField ("isUnity",true);
-		        initEventTrackerWithOptions(options.ToString());
-		        applicationDidBecomeActive();
-		        RegisterForIosPushNotifications();
-		        CheckForRemoteNotifications();
-	        }
+			internal override void SpilInit(bool pushNotificationsEnabled)
+			{
+				JSONObject options = new JSONObject();
+				options.AddField ("isUnity",true);
+				initEventTrackerWithOptions(options.ToString());
+				applicationDidBecomeActive();
+
+				this.pushNotificationsEnabled = pushNotificationsEnabled;
+				if (pushNotificationsEnabled) 
+				{
+					RegisterForIosPushNotifications ();
+					CheckForRemoteNotifications();
+				}
+			}
 
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -355,7 +360,10 @@ namespace SpilGames.Unity.Implementations
 		            if(!pauseStatus)
                     {
 			            applicationDidBecomeActive();
-			            CheckForRemoteNotifications();
+						if (pushNotificationsEnabled)
+						{
+			            	CheckForRemoteNotifications();
+						}
 		            } else {
 			            applicationDidEnterBackground();
 		            }

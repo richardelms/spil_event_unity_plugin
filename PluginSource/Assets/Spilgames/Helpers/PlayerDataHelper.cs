@@ -108,5 +108,28 @@ namespace SpilGames.Unity.Helpers
 			Spil.Instance.SubtractItemFromInventory(itemId, amount, reason);
 		}
 	}
+
+	public class PlayerDataUpdateReasons
+	{
+		public static string RewardAds = "Reward Ads";
+		public static string ItemBought = "Item Bought";
+		public static string ItemSold = "Item Sold";
+		public static string EventReward = "Event Reward";
+		public static string LoginReward = "Login Reward";
+		public static string IAP = "IAP";
+		public static string PlayerLevelUp = "Player Level Up";
+		public static string LevelComplete = "Level Complete";
+		public static string ItemUpgrade = "Item Upgrade";
+		public static string BonusFeatures = "Bonus Features";
+		public static string Trade = "Trade";
+		public static string ClientServerMismatch = "Client-Server Mismatch";
+		public static string ItemPickedUp = "Item Picked Up";
+
+		public PlayerDataUpdateReasons ()
+		{
+		}
+
+
+	}
 }
 

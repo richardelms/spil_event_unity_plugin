@@ -186,27 +186,27 @@ namespace SpilGames.Unity.Implementations
 			
 			public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
 			{
-				CallNativeMethod("addCurrencyToWallet", new object[]{ currencyId, amount, reason });
+				CallNativeMethod("addCurrencyToWallet", new object[]{ currencyId, amount, reason }, true);
 			}
 			
 			public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
 			{
-				CallNativeMethod("subtractCurrencyFromWallet", new object[]{ currencyId, amount, reason });
+				CallNativeMethod("subtractCurrencyFromWallet", new object[]{ currencyId, amount, reason }, true);
 			}
 			
 			public override void AddItemToInventory (int itemId, int amount, string reason)
 			{
-				CallNativeMethod("addItemToInventory", new object[]{ itemId, amount, reason });
+				CallNativeMethod("addItemToInventory", new object[]{ itemId, amount, reason }, true);
 			}
 			
 			public override void SubtractItemFromInventory (int itemId, int amount, string reason)
 			{
-				CallNativeMethod("subtractItemFromInventory", new object[]{ itemId, amount, reason });
+				CallNativeMethod("subtractItemFromInventory", new object[]{ itemId, amount, reason }, true);
 			}
 			
 			public override void ConsumeBundle (int bundleId, string reason)
 			{
-				CallNativeMethod("consumeBundle", new object[]{ bundleId, reason });
+				CallNativeMethod("consumeBundle", new object[]{ bundleId, reason }, true);
 			}
 			
 			#endregion

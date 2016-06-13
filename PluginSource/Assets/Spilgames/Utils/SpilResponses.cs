@@ -171,7 +171,36 @@ namespace SpilGames.Unity.Utils
 			public List<SpilCurrencyData> currencies;
 			public List<SpilItemData> items;
 			public List<SpilBundleData> bundles;
+			public List<SpilShopTabData> shop;
+			public List<SpilShopPromotionData> promotions;
 		}
+
+		#region Shop
+
+		public class SpilShopEntryData
+		{
+			public int bundleId;
+			public string label;
+			public int position;
+		}
+
+		public class SpilShopTabData
+		{
+			public string name;
+			public List<SpilShopEntryData> entries;
+		}
+
+		public class SpilShopPromotionData
+		{
+			public int bundleId;
+			public int amount;
+			public List<SpilBundlePriceData> prices;
+			public string discount;
+			public DateTime startDate;
+			public DateTime endDate;
+		}
+
+		#endregion
 
 	#endregion
 	
@@ -203,6 +232,6 @@ namespace SpilGames.Unity.Utils
 			public string logic;
 		}
 	
-	#endregion
+	#endregion 
 
 }

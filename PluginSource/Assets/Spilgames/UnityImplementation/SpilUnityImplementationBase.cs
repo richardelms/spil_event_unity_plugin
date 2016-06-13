@@ -436,7 +436,7 @@ namespace SpilGames.Unity.Implementations
 			if(spilGameDataString != null)
 			{
 				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);
-				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles);
+				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
 			}
 			return helper;
 		}

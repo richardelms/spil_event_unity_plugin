@@ -7,6 +7,10 @@ using SpilGames.Unity.Helpers;
 
 namespace SpilGames.Unity.Helpers
 {
+	/// <summary>
+	/// This is the business object that the developer can use to work with Player Data (Wallet and Inventory).
+	/// Much easier to work with than the raw data!
+	/// </summary>
 	public class PlayerDataHelper
 	{
 		public Wallet Wallet;
@@ -23,7 +27,10 @@ namespace SpilGames.Unity.Helpers
 			Spil.Instance.ConsumeBundle(bundleId, reason);
 		}
 	}
-	
+
+	/// <summary>
+	/// This is the business object that the developer can use to work with for the Player owned Currency.
+	/// </summary>
 	public class PlayerCurrency : Currency
 	{
 		public int CurrrentBalance { get { return currentBalance; } }
@@ -38,7 +45,10 @@ namespace SpilGames.Unity.Helpers
 			this.delta = delta;
 		}
 	}
-	
+
+	/// <summary>
+	/// This is the business object that the developer can use to work with the Wallet.
+	/// </summary>
 	public class Wallet
 	{
 		public List<PlayerCurrency> Currencies { get { return currencies; } }
@@ -66,7 +76,10 @@ namespace SpilGames.Unity.Helpers
 			Spil.Instance.SubtractCurrencyFromWallet(currencyId, amount, reason);
 		}
 	}
-	
+
+	/// <summary>
+	/// This is the business object that the developer can use to work with for the Player owned Item.
+	/// </summary>
 	public class PlayerItem : Item
 	{
 		public int Amount { get { return amount; } }
@@ -81,7 +94,10 @@ namespace SpilGames.Unity.Helpers
 			this.value = value;
 		}
 	}
-	
+
+	/// <summary>
+	/// This is the business object that the developer can use to work with the Inventory.
+	/// </summary>
 	public class Inventory
 	{
 		public List<PlayerItem> Items { get { return items; } }
@@ -109,6 +125,9 @@ namespace SpilGames.Unity.Helpers
 		}
 	}
 
+	/// <summary>
+	/// This is the business object that the developer can use to work with the reasons for the Player Update Events.
+	/// </summary>
 	public class PlayerDataUpdateReasons
 	{
 		public static string RewardAds = "Reward Ads";

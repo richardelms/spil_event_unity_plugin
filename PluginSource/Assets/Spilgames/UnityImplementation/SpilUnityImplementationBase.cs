@@ -433,6 +433,7 @@ namespace SpilGames.Unity.Implementations
 		{
 			SpilGameDataHelper helper = null;
 			string spilGameDataString = GetSpilGameDataFromSdk();
+			Debug.Log ("Spil Game Data: " + spilGameDataString);
 			if(spilGameDataString != null)
 			{
 				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);

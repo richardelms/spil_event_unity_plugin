@@ -25,6 +25,9 @@ namespace SpilGames.Unity
 
                 Instance.OnAdNotAvailable -= AdNotAvailableHandler;
                 Instance.OnAdNotAvailable += AdNotAvailableHandler;
+
+				Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
+				Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
             }
 
             private void AdAvailableHandler(enumAdType adType)
@@ -36,6 +39,11 @@ namespace SpilGames.Unity
             {
                 Debug.Log("PixelWizard AdNotAvailable");
             }
+
+			private void SpilGameDataAvailableHandler()
+			{
+				Instance.GetSpilGameData ();
+			}
 
         #endregion
 
@@ -79,6 +87,8 @@ namespace SpilGames.Unity
                 gameObject.name = "SpilSDK";
 
                 Instance.UpdatePackagesAndPromotions();
+
+				//AttachListeners ();
 
             }
 

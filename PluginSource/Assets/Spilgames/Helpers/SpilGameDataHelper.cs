@@ -56,7 +56,6 @@ namespace SpilGames.Unity.Helpers
 			}
 
 		}
-		
 	}
 
 	/// <summary>
@@ -233,6 +232,9 @@ namespace SpilGames.Unity.Helpers
 
 		public Shop(List<SpilShopTabData> shop)
 		{
+
+			this.tabs = new List<Tab>();
+
 			foreach (SpilShopTabData tab in shop) 
 			{
 				this.tabs.Add (new Tab(tab.name, tab.entries));
@@ -260,6 +262,8 @@ namespace SpilGames.Unity.Helpers
 		public Tab(string name, List<SpilShopEntryData> entries)
 		{
 			this.name = name;
+
+			this.entries = new List<Entry>();
 
 			foreach (SpilShopEntryData entry in entries) 
 			{
@@ -346,6 +350,8 @@ namespace SpilGames.Unity.Helpers
 			this.amount = amount;
 
 			//Adding Prices for Bundle Promotion
+			this.prices = new List<BundlePrice>();
+
 			foreach(SpilBundlePriceData bundlePriceData in prices)
 			{
 				this.prices.Add(new BundlePrice(bundlePriceData.currencyId, bundlePriceData.value));
@@ -356,6 +362,6 @@ namespace SpilGames.Unity.Helpers
 			this.endDate = endDate;
 		}
 	}
-	
+
 }
 

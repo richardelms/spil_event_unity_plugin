@@ -9,6 +9,7 @@
 using UnityEngine;
 using SpilGames.Unity.Implementations;
 using SpilGames.Unity.Utils;
+using SpilGames.Unity.Helpers;
 
 namespace SpilGames.Unity
 { 
@@ -28,6 +29,7 @@ namespace SpilGames.Unity
 
 				Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
 				Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
+
             }
 
             private void AdAvailableHandler(enumAdType adType)
@@ -42,8 +44,9 @@ namespace SpilGames.Unity
 
 			private void SpilGameDataAvailableHandler()
 			{
-				Instance.GetSpilGameData ();
+				Debug.Log("SpilGameData Available");
 			}
+			
 
         #endregion
 
@@ -59,9 +62,13 @@ namespace SpilGames.Unity
                 get { return "127433475057"; }
             }
 
+			public static SpilGameDataHelper SpilGameDataInstance;
+			public static PlayerDataHelper SpilPlayerDataInstance;
+
 			#if UNITY_EDITOR
 				
 				public static SpilUnityEditorImplementation Instance = new SpilUnityEditorImplementation ();
+
 
 			#elif UNITY_ANDROID
 
@@ -87,6 +94,9 @@ namespace SpilGames.Unity
                 gameObject.name = "SpilSDK";
 
                 Instance.UpdatePackagesAndPromotions();
+
+				SpilGameDataInstance = new SpilGameDataHelper(Instance);
+				SpilPlayerDataInstance = new PlayerDataHelper(Instance);
 
 				//AttachListeners ();
 

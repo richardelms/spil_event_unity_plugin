@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using SpilGames.Unity.Utils;
 using SpilGames.Unity.Helpers;
+using SpilGames.Unity.Implementations;
 
 namespace SpilGames.Unity.Helpers
 {
@@ -16,17 +17,67 @@ namespace SpilGames.Unity.Helpers
 		public Wallet Wallet;
 		public Inventory Inventory;
 		
-		public PlayerDataHelper (WalletData wallet, InventoryData inventory)
+		public PlayerDataHelper (SpilUnityImplementationBase Instance)
 		{
-			Wallet = new Wallet(wallet.currencies);
-			Inventory = new Inventory(inventory.items);
+			string walletString = Instance.GetWalletFromSdk();
+			string inventoryString = Instance.GetInvetoryFromSdk();
+			if (walletString != null && inventoryString != null) {
+				WalletData walletData = JsonHelper.getObjectFromJson<WalletData> (walletString);
+				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData> (inventoryString);
+
+				AddDataToHelper (walletData, inventoryData);
+			}
 		}
-		
+
+		/// <summary>
+		/// Helper method that returns true if an item is in the inventory
+		/// </summary>
+		public Boolean InventoryHasItem(int itemId)
+		{
+			if (Inventory != null) {
+				foreach (PlayerItem item in Inventory.Items) {
+					if (item.Id == itemId) {
+						return true;
+					}
+				}
+				return false;
+			} else {
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Helper method that consumes the bundle given a bundleId and a reason
+		/// </summary>
 		public void ConsumeBundle(int bundleId, string reason)
 		{
 			Spil.Instance.ConsumeBundle(bundleId, reason);
 		}
+
+		private void AddDataToHelper(WalletData wallet, InventoryData inventory){
+			Wallet = new Wallet(wallet.currencies);
+			Inventory = new Inventory(inventory.items);
+		}
+
+		public void PlayerDataUpdatedHandler()
+		{
+			UpdatePlayerData ();
+		}
+
+		private void UpdatePlayerData()
+		{
+			string walletString = Spil.Instance.GetWalletFromSdk();
+			string inventoryString = Spil.Instance.GetInvetoryFromSdk();
+			if (walletString != null && inventoryString != null) {
+				WalletData walletData = JsonHelper.getObjectFromJson<WalletData> (walletString);
+				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData> (inventoryString);
+
+				AddDataToHelper (walletData, inventoryData);
+			}
+		}
+
 	}
+		
 
 	/// <summary>
 	/// This is the business object that the developer can use to work with for the Player owned Currency.

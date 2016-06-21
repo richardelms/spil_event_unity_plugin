@@ -407,6 +407,8 @@ namespace SpilGames.Unity.Implementations
 
 		public static void fireSpilGameDataAvailable()
 		{
+			Spil.SpilGameDataInstance.SpilGameDataHandler ();
+
 			Debug.Log ("SpilSDK-Unity Spil Game Data is available");
 			
 			if (Spil.Instance.OnSpilGameDataAvailable != null) { Spil.Instance.OnSpilGameDataAvailable(); }
@@ -429,18 +431,18 @@ namespace SpilGames.Unity.Implementations
 		
 		public abstract string GetSpilGameDataFromSdk();
 		
-		public SpilGameDataHelper GetSpilGameData()
-		{
-			SpilGameDataHelper helper = null;
-			string spilGameDataString = GetSpilGameDataFromSdk();
-			Debug.Log ("Spil Game Data: " + spilGameDataString);
-			if(spilGameDataString != null)
-			{
-				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);
-				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
-			}
-			return helper;
-		}
+//		public SpilGameDataHelper GetSpilGameData()
+//		{
+//			SpilGameDataHelper helper = null;
+//			string spilGameDataString = GetSpilGameDataFromSdk();
+//			Debug.Log ("Spil Game Data: " + spilGameDataString);
+//			if(spilGameDataString != null)
+//			{
+//				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);
+//				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
+//			}
+//			return helper;
+//		}
 
 		#endregion
 		
@@ -470,8 +472,10 @@ namespace SpilGames.Unity.Implementations
 		
 		public static void firePlayerDataUpdated()
 		{
+			Spil.SpilPlayerDataInstance.PlayerDataUpdatedHandler ();
+
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
-			
+
 			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
 			
 		}
@@ -495,21 +499,21 @@ namespace SpilGames.Unity.Implementations
 		
 		public abstract string GetInvetoryFromSdk();
 		
-		public PlayerDataHelper GetPlayerData()
-		{
-			PlayerDataHelper helper = null;
-			string walletString = GetWalletFromSdk();
-			string inventoryString = GetInvetoryFromSdk();
-			if(walletString != null && inventoryString != null)
-			{
-				WalletData walletData = JsonHelper.getObjectFromJson<WalletData>(walletString);
-				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData>(inventoryString);
-				
-				helper = new PlayerDataHelper(walletData, inventoryData);
-				
-			}
-			return helper;
-		}
+//		public PlayerDataHelper GetPlayerData()
+//		{
+//			PlayerDataHelper helper = null;
+//			string walletString = GetWalletFromSdk();
+//			string inventoryString = GetInvetoryFromSdk();
+//			if(walletString != null && inventoryString != null)
+//			{
+//				WalletData walletData = JsonHelper.getObjectFromJson<WalletData>(walletString);
+//				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData>(inventoryString);
+//				
+//				helper = new PlayerDataHelper(walletData, inventoryData);
+//				
+//			}
+//			return helper;
+//		}
 		
 		public abstract void AddCurrencyToWallet(int currencyId, int amount, string reason);
 		

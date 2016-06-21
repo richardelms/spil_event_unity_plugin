@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SpilGames.Unity.Utils;
+using SpilGames.Unity.Implementations;
+
 
 namespace SpilGames.Unity.Helpers
 {
@@ -18,16 +20,96 @@ namespace SpilGames.Unity.Helpers
 		public Shop Shop;
 		public List<Promotion> Promotions = new List<Promotion>();
 		
-		public SpilGameDataHelper (List<SpilCurrencyData> currencies , List<SpilItemData> items, List<SpilBundleData> bundles, List<SpilShopTabData> shop, List<SpilShopPromotionData> promotions)
+		public SpilGameDataHelper (SpilUnityImplementationBase Instance)
 		{
+			string spilGameDataString = Instance.GetSpilGameDataFromSdk();
+			if (spilGameDataString != null) 
+			{
+				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData> (spilGameDataString);
+				AddDataToHelper (spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
+				Debug.Log ("Spil Game Data Created");
+			}
+		}
+
+		/// <summary>
+		/// Helper method that returns the Bundle for a given bundleId
+		/// Returns null if no bundle was found
+		/// </summary>
+		public Bundle GetBundle(int bundleId)
+		{
+			if (Bundles != null) {
+				foreach (Bundle bundle in Bundles) {
+					if (bundle.Id == bundleId) {
+						return bundle;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Helper method that returns the Item for a given itemId
+		/// Returns null if no item was found
+		/// </summary>
+		public Item GetItem(int itemId)
+		{
+			if (Items != null) {
+				foreach (Item item in Items) {
+					if (item.Id == itemId) {
+						return item;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Helper method that returns the Currency for a given currencyId
+		/// Returns null if no currency was found
+		/// </summary>
+		public Currency GetCurrency(int currencyId)
+		{
+			if (Currencies != null) {
+				foreach (Currency currency in Currencies) {
+					if (currency.Id == currencyId) {
+						return currency;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		private void AddDataToHelper(List<SpilCurrencyData> currencies , List<SpilItemData> items, List<SpilBundleData> bundles, List<SpilShopTabData> shop, List<SpilShopPromotionData> promotions)
+		{
+			if(!Currencies.Any())
+			{
+				Currencies.Clear ();
+			}
+
 			foreach(SpilCurrencyData spilCurrencyData in currencies)
 			{
 				Currencies.Add(new Currency(spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.type));
 			}
 
-            foreach (SpilItemData spilCurrencyItems in items)
+			if(!Items.Any())
+			{
+				Items.Clear ();
+			}
+
+			foreach (SpilItemData spilCurrencyItems in items)
 			{
 				Items.Add(new Item(spilCurrencyItems.id, spilCurrencyItems.name, spilCurrencyItems.type));
+			}
+
+			if(!Bundles.Any())
+			{
+				Bundles.Clear ();
 			}
 
 			foreach(SpilBundleData spilBundleData in bundles)
@@ -38,9 +120,30 @@ namespace SpilGames.Unity.Helpers
 			//Adding shop data to helper
 			Shop = new Shop(shop);
 
+			if(!Promotions.Any())
+			{
+				Promotions.Clear ();
+			}
+
 			foreach (SpilShopPromotionData promotion in promotions) 
 			{
 				Promotions.Add (new Promotion (promotion.bundleId, promotion.amount, promotion.prices, promotion.discount, promotion.startDate, promotion.endDate));
+			}
+		}
+
+		public void SpilGameDataHandler()
+		{
+			UpdateSpilGameData ();
+		}
+
+		private void UpdateSpilGameData()
+		{
+			string spilGameDataString = Spil.Instance.GetSpilGameDataFromSdk();
+			if (spilGameDataString != null) 
+			{
+				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData> (spilGameDataString);
+				AddDataToHelper (spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
+				Debug.Log ("Spil Game Data Updated");
 			}
 		}
 	}
@@ -338,5 +441,7 @@ namespace SpilGames.Unity.Helpers
 			_EndDate = endDate;
 		}
 	}
+
+
 }
 

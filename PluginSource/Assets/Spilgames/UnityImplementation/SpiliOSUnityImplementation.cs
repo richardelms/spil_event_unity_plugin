@@ -10,6 +10,8 @@ namespace SpilGames.Unity.Implementations
 #if UNITY_IPHONE
     public class SpiliOSUnityImplementation : SpilUnityImplementationBase
     {
+        protected bool pushNotificationsEnabled = false;
+
     #region Inherited members
 
     #region Game config

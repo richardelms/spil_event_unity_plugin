@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JsonUtil.h"
+#import "HookBridge.h"
+#import "UnityAppController.h"
 
 //! Project version number for Spil.
 FOUNDATION_EXPORT double SpilVersionNumber;

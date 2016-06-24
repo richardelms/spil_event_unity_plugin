@@ -1,3 +1,7 @@
 PluginSource/Library
 PluginSource/Temp
 PluginSource/obj
+PluginSource/Assembly-CSharp-Editor.csproj
+PluginSource/Assembly-CSharp.csproj
+PluginSource/PluginSource.userprefs
+PluginSource.sln

@@ -15,7 +15,7 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so unfortunately this method is currently visible.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-            internal abstract void SpilInit();  
+			internal abstract void SpilInit(bool pushNotificationsEnabled);  
 
         #endregion
 
@@ -180,7 +180,7 @@ namespace SpilGames.Unity.Implementations
                 // <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
                 public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)//, string localPrice, string localCurrency)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate } });
+                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }});
                 }
 
                 /// <summary>
@@ -252,7 +252,7 @@ namespace SpilGames.Unity.Implementations
 
                     SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse>(response);
 
-                    if (spilResponse.type.ToLower().Equals("reward"))
+                    if (spilResponse.type.ToLower().Trim().Equals("reward"))
                     {
                         RewardResponse rewardResponseData = JsonHelper.getObjectFromJson<RewardResponse>(response);
                         fireOnRewardEvent(rewardResponseData.data.eventData);
@@ -288,15 +288,15 @@ namespace SpilGames.Unity.Implementations
 			        Debug.Log ("SpilSDK-Unity Ad " + type + " ready!");
 
                     enumAdType adType = enumAdType.Unknown;
-                    if(type.ToLower().Equals("rewardvideo"))
+                    if(type.ToLower().Trim().Equals("rewardvideo"))
                     {
                          adType = enumAdType.RewardVideo;
                     }
-                    else if(type.ToLower().Equals("interstitial"))
+                    else if(type.ToLower().Trim().Equals("interstitial"))
                     {
                         adType = enumAdType.Interstitial;
                     }
-                    else if(type.ToLower().Equals("moreapps"))
+                    else if(type.ToLower().Trim().Equals("moreapps"))
                     {
                         adType = enumAdType.MoreApps;
                     }
@@ -325,15 +325,15 @@ namespace SpilGames.Unity.Implementations
 		            Debug.Log ("SpilSDK-Unity Ad " + type + " is not available");
 
                     enumAdType adType = enumAdType.Unknown;
-                    if(type.ToLower().Equals("rewardvideo"))
+                    if(type.ToLower().Trim().Equals("rewardvideo"))
                     {
                          adType = enumAdType.RewardVideo;
                     }
-                    else if(type.ToLower().Equals("interstitial"))
+                    else if(type.ToLower().Trim().Equals("interstitial"))
                     {
                         adType = enumAdType.Interstitial;
                     }
-                    else if(type.ToLower().Equals("moreapps"))
+                    else if(type.ToLower().Trim().Equals("moreapps"))
                     {
                         adType = enumAdType.MoreApps;
                     }

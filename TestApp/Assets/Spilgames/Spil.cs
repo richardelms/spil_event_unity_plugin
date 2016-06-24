@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.0.1
+ * Version 2.0.2
  * 
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -16,121 +16,121 @@ using System.Threading;
 using SpilGames.Unity.Helpers;
 
 namespace SpilGames.Unity
-{ 
+{
     public class Spil : MonoBehaviour
     {
         #region Example code
 
-            // Here's some example methods to show what can be done
+        // Here's some example methods to show what can be done
 
-            // Note: Be sure to include a defaultGameConfig.json file with your chartboost
-            // id and signature in the /StreamingAssets directory. ChartBoost videos and 
-            // more apps screens won't work without them. Instructions for creating a
-            // defaultGameConfig.json are included in the SpilSDK documentation.
+        // Note: Be sure to include a defaultGameConfig.json file with your chartboost
+        // id and signature in the /StreamingAssets directory. ChartBoost videos and 
+        // more apps screens won't work without them. Instructions for creating a
+        // defaultGameConfig.json are included in the SpilSDK documentation.
 
-            // Call this method before showing ads, for instance in Awake()
-            void AttachListeners()
+        // Call this method before showing ads, for instance in Awake()
+        void AttachListeners()
+        {
+            // Make sure that any existing handlers are removed and add new ones
+
+            // When we've requested an ad, if it is available it will call OnAdAvailable
+            Spil.Instance.OnAdAvailable -= AdAvailableHandler;
+            Spil.Instance.OnAdAvailable += AdAvailableHandler;
+
+            // When we've requested an ad, if it is not available it will call OnAdNotAvailable
+            Spil.Instance.OnAdNotAvailable -= AdNotAvailableHandler;
+            Spil.Instance.OnAdNotAvailable += AdNotAvailableHandler;
+
+            // When an ad starts it will first call OnAdStarted so music can be muted etc
+            Spil.Instance.OnAdStarted -= AdStartedHandler;
+            Spil.Instance.OnAdStarted += AdStartedHandler;
+
+            // When an ad finishes or is dismissed it will call OnAdFinished so music can be re-enabled etc
+            Spil.Instance.OnAdFinished -= AdFinishedHandler;
+            Spil.Instance.OnAdFinished += AdFinishedHandler;
+        }
+
+        // When an ad is available it can be shown
+        void AdAvailableHandler(enumAdType adType)
+        {
+            txtBox1.text = adType.ToString() + " available";
+
+            if (adType == enumAdType.RewardVideo)
             {
-                // Make sure that any existing handlers are removed and add new ones
-
-                // When we've requested an ad, if it is available it will call OnAdAvailable
-                Spil.Instance.OnAdAvailable -= AdAvailableHandler;
-                Spil.Instance.OnAdAvailable += AdAvailableHandler;
-
-                // When we've requested an ad, if it is not available it will call OnAdNotAvailable
-                Spil.Instance.OnAdNotAvailable -= AdNotAvailableHandler;
-                Spil.Instance.OnAdNotAvailable += AdNotAvailableHandler;
-
-                // When an ad starts it will first call OnAdStarted so music can be muted etc
-                Spil.Instance.OnAdStarted -= AdStartedHandler;
-                Spil.Instance.OnAdStarted += AdStartedHandler;
-
-                // When an ad finishes or is dismissed it will call OnAdFinished so music can be re-enabled etc
-                Spil.Instance.OnAdFinished -= AdFinishedHandler;
-                Spil.Instance.OnAdFinished += AdFinishedHandler;
+                Spil.Instance.PlayVideo();
             }
-            
-            // When an ad is available it can be shown
-            void AdAvailableHandler(enumAdType adType)
+            else if (adType == enumAdType.MoreApps)
             {
-                txtBox1.text = adType.ToString() + " available";
-
-                if (adType == enumAdType.RewardVideo)
-                {
-                    Spil.Instance.PlayVideo();
-                }
-                else if(adType == enumAdType.MoreApps)
-                {
-                    Spil.Instance.PlayMoreApps();
-                }
-
-                // Interstitials aren't played on command but are automatically played by the SpilSDK 
-                // when certain events are fired such as "levelComplete" or "playerDies".
-                // Which events trigger interstitials is configured by Spil.
-                // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
+                Spil.Instance.PlayMoreApps();
             }
 
-            // When an ad is not available the UI may have to be updated,
-            // for instance to hide a button.
-            void AdNotAvailableHandler(enumAdType adType)
+            // Interstitials aren't played on command but are automatically played by the SpilSDK 
+            // when certain events are fired such as "levelComplete" or "playerDies".
+            // Which events trigger interstitials is configured by Spil.
+            // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
+        }
+
+        // When an ad is not available the UI may have to be updated,
+        // for instance to hide a button.
+        void AdNotAvailableHandler(enumAdType adType)
+        {
+            //Debug.Log("Ad was not available");
+            txtBox1.text = adType.ToString() + " was not available";
+        }
+
+        void AdStartedHandler()
+        {
+            // Mute the game music etc.
+            txtBox1.text = "Ad started";
+        }
+
+        void AdFinishedHandler(SpilAdFinishedResponse response)
+        {
+            // Re-enable the game music etc.
+
+            // When an ad finishes we can immediately request a new one
+            if (response.GetTypeAsEnum() == enumAdType.RewardVideo)
             {
-                //Debug.Log("Ad was not available");
-                txtBox1.text = adType.ToString() + " was not available";
+                //Spil.Instance.SendrequestRewardVideoEvent();
+            }
+            if (response.GetTypeAsEnum() == enumAdType.MoreApps)
+            {
+                //Spil.Instance.RequestMoreApps();
             }
 
-            void AdStartedHandler()
+            txtBox1.text = "Ad finished";
+
+            // Reward video's may also send a reward in the response if the video wasn't dismissed
+            if (response.reward != null)
             {
-                // Mute the game music etc.
-                txtBox1.text = "Ad started";
+                int rewardAmount = response.reward.reward;
+                txtBox1.text = "Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits");
             }
-
-            void AdFinishedHandler(SpilAdFinishedResponse response)
-            {
-                // Re-enable the game music etc.
-
-                // When an ad finishes we can immediately request a new one
-                if (response.GetTypeAsEnum() == enumAdType.RewardVideo)
-                {
-                    //Spil.Instance.SendrequestRewardVideoEvent();
-                }
-                if (response.GetTypeAsEnum() == enumAdType.MoreApps)
-                {
-                    //Spil.Instance.RequestMoreApps();
-                }
-
-                txtBox1.text = "Ad finished";
-
-                // Reward video's may also send a reward in the response if the video wasn't dismissed
-		        if (response.reward != null)
-                {
-			        int rewardAmount = response.reward.reward;
-                    txtBox1.text = "Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits");
-		        }
-            }
+        }
 
         #endregion
 
         #region SpilSDK code
 
-            /// <summary>
-            /// The project ID assigned to your project by Spil games.
-            /// You can get your project id from your contact person.
-            /// The project ID is used for push notifications.
-            /// </summary>
-            public static string Project_ID
-            {
-                get { return "127433475057"; }
-            }
+        /// <summary>
+        /// The project ID assigned to your project by Spil games.
+        /// You can get your project id from your contact person.
+        /// The project ID is used for push notifications.
+        /// </summary>
+        public static string Project_ID
+        {
+            get { return "127433475057"; }
+        }
 
-			#if UNITY_EDITOR
-				
-				public static SpilUnityEditorImplementation Instance = new SpilUnityEditorImplementation ();
+#if UNITY_EDITOR
 
-			#elif UNITY_ANDROID
+        public static SpilUnityEditorImplementation Instance = new SpilUnityEditorImplementation();
+
+#elif UNITY_ANDROID
 
                 public static SpilAndroidUnityImplementation Instance = new SpilAndroidUnityImplementation();
 
-            #elif UNITY_IPHONE
+#elif UNITY_IPHONE
 
                 /// <summary>
                 /// Use this object to access all Spil related functionality.
@@ -139,64 +139,64 @@ namespace SpilGames.Unity
 
 				void Update() { Instance.SendNotificationTokenToSpil(); }
 
-            #endif
+#endif
 
-            void Awake()
-            {
-                Debug.Log("SpilSDK-Unity Init");
+        void Awake()
+        {
+            Debug.Log("SpilSDK-Unity Init");
 
-                Instance.SpilInit();
-                DontDestroyOnLoad(gameObject);
-                gameObject.name = "SpilSDK";
+            Instance.SpilInit(false);
+            DontDestroyOnLoad(gameObject);
+            gameObject.name = "SpilSDK";
 
-                Instance.UpdatePackagesAndPromotions();
+            Instance.UpdatePackagesAndPromotions();
 
-                AttachListeners();
-            }
+            AttachListeners();
+        }
 
-            /// <summary>
-            /// This method is called by the native Spil SDK, it should not be used by developers.
-            /// Developers can subscribe to the Spil.Instance.AdStarted event.
-            /// </summary>
-            public void AdStart()
-            {
-                SpilUnityImplementationBase.fireAdStartedEvent();
-            }
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.AdStarted event.
+        /// </summary>
+        public void AdStart()
+        {
+            SpilUnityImplementationBase.fireAdStartedEvent();
+        }
 
-            /// <summary>
-            /// This method is called by the native Spil SDK, it should not be used by developers.
-            /// Developers can subscribe to the Spil.Instance.AdFinished event.
-            /// </summary>
-            public void AdFinished(string response)
-            {
-                SpilUnityImplementationBase.fireAdFinishedEvent(response);
-            }
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.AdFinished event.
+        /// </summary>
+        public void AdFinished(string response)
+        {
+            SpilUnityImplementationBase.fireAdFinishedEvent(response);
+        }
 
-            /// <summary>
-            /// This method is called by the native Spil SDK, it should not be used by developers.
-            /// Developers can subscribe to the Spil.Instance.AdAvailable event.
-            /// </summary>
-            public void AdAvailable(string type)
-            {
-                SpilUnityImplementationBase.fireAdAvailableEvent(type);            
-            }
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.AdAvailable event.
+        /// </summary>
+        public void AdAvailable(string type)
+        {
+            SpilUnityImplementationBase.fireAdAvailableEvent(type);
+        }
 
-            /// <summary>
-            /// This method is called by the native Spil SDK, it should not be used by developers.
-            /// Developers can subscribe to the Spil.Instance.AdNotAvailable event.
-            /// </summary>
-            public void AdNotAvailable(string type)
-            {
-                SpilUnityImplementationBase.fireAdNotAvailableEvent(type);
-            }
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.AdNotAvailable event.
+        /// </summary>
+        public void AdNotAvailable(string type)
+        {
+            SpilUnityImplementationBase.fireAdNotAvailableEvent(type);
+        }
 
-            /// <summary>
-            /// This method is called by the native Spil SDK, it should not be used by developers.
-            /// </summary>
-            public void OnResponseReceived(string response)
-            {
-                SpilUnityImplementationBase.OnResponseReceived(response);
-            }
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void OnResponseReceived(string response)
+        {
+            SpilUnityImplementationBase.OnResponseReceived(response);
+        }
 
         #endregion
 
@@ -220,7 +220,7 @@ namespace SpilGames.Unity
         public void RequestFyberRewardVideo()
         {
             txtBox1.text = "Requesting Fyber reward video";
-            Spil.Instance.TestRequestAd("Fyber","rewardVideo", false);
+            Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
         }
 
         public void RequestChartBoostRewardVideo()
@@ -396,7 +396,6 @@ namespace SpilGames.Unity
 
             /*
             txtBox2.text = "Testing SendrequestRewardVideoEvent()";
-
             Spil.Instance.clearLog();
             Debug.Log("LOG CLEARED");
             try
@@ -409,9 +408,7 @@ namespace SpilGames.Unity
                 btn4.gameObject.SetActive(true);
                 return;
             }
-
             Thread.Sleep(1000);
-
             s = Spil.Instance.getLog();
             if (!s.Contains(": track_event requestRewardVideo") || !s.Contains(": name=requestRewardVideo"))
             {
@@ -582,7 +579,9 @@ namespace SpilGames.Unity
                 btnDFPInterstitial.gameObject.SetActive(true);
                 btnChartBoostInterstitial.gameObject.SetActive(true);
                 btnCake.gameObject.SetActive(true);
-            } else {
+            }
+            else
+            {
                 btnFyberRewardVideo.gameObject.SetActive(false);
                 btnChartBoostRewardVideo.gameObject.SetActive(false);
                 btnMoreApps.gameObject.SetActive(false);

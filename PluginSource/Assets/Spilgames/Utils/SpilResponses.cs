@@ -34,15 +34,15 @@ namespace SpilGames.Unity.Utils
         public enumAdType GetTypeAsEnum()
         {
             enumAdType adType = enumAdType.Unknown;
-            if (type.Equals("rewardVideo"))
+            if (type.ToLower().Trim().Equals("rewardvideo"))
             {
                 adType = enumAdType.RewardVideo;
             }
-            else if (type.Equals("interstitial"))
+            else if (type.ToLower().Trim().Equals("interstitial"))
             {
                 adType = enumAdType.Interstitial;
             }
-            else if (type.Equals("moreApps"))
+            else if (type.ToLower().Trim().Equals("moreapps"))
             {
                 adType = enumAdType.MoreApps;
             }

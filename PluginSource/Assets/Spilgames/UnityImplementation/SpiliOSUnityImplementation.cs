@@ -7,12 +7,14 @@ using System.Collections;
 
 namespace SpilGames.Unity.Implementations
 {
-    #if UNITY_IPHONE
+#if UNITY_IPHONE
     public class SpiliOSUnityImplementation : SpilUnityImplementationBase
     {
-        #region Inherited members
+        protected bool pushNotificationsEnabled = false;
 
-            #region Game config
+    #region Inherited members
+
+    #region Game config
 	
                 /// <summary>
                 /// Returns the game config as a json string.
@@ -34,9 +36,9 @@ namespace SpilGames.Unity.Implementations
 		            return getConfigValueNative(key);
 	            }
 
-            #endregion
+    #endregion
         
-            #region Packages and promotions
+    #region Packages and promotions
 
                 /// <summary>
                 /// Method that requests packages and promotions from the server.
@@ -82,22 +84,27 @@ namespace SpilGames.Unity.Implementations
                 [DllImport("__Internal")]
 	            private static extern string getPromotionNative(string keyName);
 
-            #endregion
+    #endregion
 
             /// <summary>
             /// This method is marked as internal and should not be exposed to developers.
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-            internal override void SpilInit()
-            {
-		        JSONObject options = new JSONObject();
-		        options.AddField ("isUnity",true);
-		        initEventTrackerWithOptions(options.ToString());
-		        applicationDidBecomeActive();
-		        RegisterForIosPushNotifications();
-		        CheckForRemoteNotifications();
-	        }
+			internal override void SpilInit(bool pushNotificationsEnabled)
+			{
+				JSONObject options = new JSONObject();
+				options.AddField ("isUnity",true);
+				initEventTrackerWithOptions(options.ToString());
+				applicationDidBecomeActive();
+
+				this.pushNotificationsEnabled = pushNotificationsEnabled;
+				if (pushNotificationsEnabled) 
+				{
+					RegisterForIosPushNotifications ();
+					CheckForRemoteNotifications();
+				}
+			}
 
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -142,18 +149,19 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern void playRewardVideoNative();
 
-
-
-
-			public override void ShowToastOnVideoReward(bool show)
-			{
-				showToastOnVideoReward(show);
-			}
+            /// <summary>
+            /// When Fyber has shown a reward video and the user goes back to the game to receive his/her reward Fyber can
+            /// automatically show a toast message with information about the reward, for instance "You've received 50 coins". 
+            /// This is disabled by default to allow the developer to create a reward notification for the user.
+            /// Developers can call SetShowToastOnVideoReward(true) to enable Fyber's automatic toast message.
+            /// </summary>
+            public override void SetShowToastOnVideoReward(bool value)
+            {
+                showToastOnVideoReward(value);
+            }
 			
 			[DllImport("__Internal")]
-			private static extern void showToastOnVideoReward(bool show);
-
-			
+			private static extern void showToastOnVideoReward(bool show);		
 
             /// <summary>
             /// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
@@ -176,7 +184,7 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
             public override void RequestMoreApps()
             {
-                devRequestAdNative("Chartboost", "moreApps", false);
+                devRequestAdNative("ChartBoost", "moreApps", false);
             }
 
             [DllImport("__Internal")]
@@ -196,6 +204,7 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern string getSpilUIDNative();
 
+<<<<<<< HEAD
 			#region Spil Game Objects
 
 				public override string GetSpilGameDataFromSdk ()
@@ -269,10 +278,13 @@ namespace SpilGames.Unity.Implementations
 			#endregion
 
         #endregion
+=======
+    #endregion
+>>>>>>> master
 
-        #region Non inherited members (iOS only members)
+    #region Non inherited members (iOS only members)
 
-            #region Game config
+    #region Game config
 
     	        [DllImport("__Internal")]
 	            private static extern string getConfigNative();
@@ -280,9 +292,9 @@ namespace SpilGames.Unity.Implementations
 	            [DllImport("__Internal")]
 	            private static extern string getConfigValueNative(string keyName);
 
-            #endregion
+    #endregion
 
-            #region Push notifications
+    #region Push notifications
 
 	            [DllImport("__Internal")]
 	            private static extern void setPushNotificationKey(string key);
@@ -294,38 +306,38 @@ namespace SpilGames.Unity.Implementations
 	            private void RegisterForIosPushNotifications()
                 {
 		            Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
-                    #if UNITY_IPHONE
-                    #if UNITY_5
+#if UNITY_IPHONE
+#if UNITY_5
 		            UnityEngine.iOS.NotificationServices.RegisterForNotifications(
                         UnityEngine.iOS.NotificationType.Alert |
                         UnityEngine.iOS.NotificationType.Badge |
                         UnityEngine.iOS.NotificationType.Sound,
                         true
                     );
-                    #else
+#else
 		            NotificationServices.RegisterForRemoteNotificationTypes (
                         RemoteNotificationType.Alert|
 		                RemoteNotificationType.Badge|
 		                RemoteNotificationType.Sound
                     );
-                    #endif
-                    #endif
+#endif
+#endif
 	            }
 
 	            private void CheckForRemoteNotifications()
                 {
-                    #if UNITY_IPHONE
-                    #if UNITY_5
+#if UNITY_IPHONE
+#if UNITY_5
                     if (UnityEngine.iOS.NotificationServices.remoteNotificationCount > 0)
                     {			
 			            foreach(UnityEngine.iOS.RemoteNotification notification in 	UnityEngine.iOS.NotificationServices.remoteNotifications)
                         {
-                    #else
+#else
                     if (UnityEngine.NotificationServices.remoteNotificationCount > 0)
                     {			
 			            foreach(UnityEngine.RemoteNotification notification in 	UnityEngine.NotificationServices.remoteNotifications)
                         {
-                    #endif
+#endif
 				            foreach(var key in notification.userInfo.Keys)
                             {
 					            if(notification.userInfo[key].GetType() == typeof(Hashtable))
@@ -371,15 +383,15 @@ namespace SpilGames.Unity.Implementations
 					            }
 				            }
 			            }
-                        #if UNITY_5
+#if UNITY_5
                             UnityEngine.iOS.NotificationServices.ClearRemoteNotifications();
-                        #else
+#else
                             UnityEngine.NotificationServices.ClearRemoteNotifications();
-                        #endif
+#endif
                     } else {
 			            Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
 		            }
-                    #endif
+#endif
 	            }
 
                 //is the IOS notification service token sent
@@ -392,12 +404,12 @@ namespace SpilGames.Unity.Implementations
                 {
 		            if (!tokenSent)
                     {
-                        #if UNITY_IPHONE
-                        #if UNITY_5
+#if UNITY_IPHONE
+#if UNITY_5
                             byte[] token = UnityEngine.iOS.NotificationServices.deviceToken;
-                        #else
+#else
                             byte[] token = UnityEngine.NotificationServices.deviceToken;
-                        #endif
+#endif
 			            if (token != null)
                         {
 				            // send token to a provider
@@ -407,13 +419,13 @@ namespace SpilGames.Unity.Implementations
 				            setPushNotificationKey (tokenToBeSent);
 				            tokenSent = true;
 			            }
-                        #endif
+#endif
 		            }
 	            }
 
-            #endregion
+    #endregion
 
-            #region App lifecycle handlers
+    #region App lifecycle handlers
 
 	            [DllImport("__Internal")]
 	            private static extern void applicationDidEnterBackground();
@@ -426,13 +438,16 @@ namespace SpilGames.Unity.Implementations
 		            if(!pauseStatus)
                     {
 			            applicationDidBecomeActive();
-			            CheckForRemoteNotifications();
+						if (pushNotificationsEnabled)
+						{
+			            	CheckForRemoteNotifications();
+						}
 		            } else {
 			            applicationDidEnterBackground();
 		            }
 	            }
 
-            #endregion
+    #endregion
 
 	        [DllImport("__Internal")]
 	        private static extern void initEventTrackerWithOptions(string options);	
@@ -443,7 +458,7 @@ namespace SpilGames.Unity.Implementations
 	        [DllImport("__Internal")]
 	        private static extern void trackEventWithParamsNative(string eventName, string jsonStringParams);
 
-        #endregion
+    #endregion
     }        
-    #endif
+#endif
 }

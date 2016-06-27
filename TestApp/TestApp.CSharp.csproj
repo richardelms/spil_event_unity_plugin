@@ -74,8 +74,6 @@
   <ItemGroup>
     <Compile Include="Assets\Spilgames\Helpers\JSONHelper.cs" />
     <Compile Include="Assets\Spilgames\Helpers\PackagesHelper.cs" />
-    <Compile Include="Assets\Spilgames\Helpers\PlayerDataHelper.cs" />
-    <Compile Include="Assets\Spilgames\Helpers\SpilGameDataHelper.cs" />
     <Compile Include="Assets\Spilgames\Spil.cs" />
     <Compile Include="Assets\Spilgames\UnityImplementation\SpilAndroidUnityImplementation.cs" />
     <Compile Include="Assets\Spilgames\UnityImplementation\SpilUnityEditorImplementation.cs" />

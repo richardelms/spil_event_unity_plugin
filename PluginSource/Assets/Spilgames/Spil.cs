@@ -85,13 +85,6 @@ namespace SpilGames.Unity
                 // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
             }
 
-
-                Instance.OnAdNotAvailable -= AdNotAvailableHandler;
-                Instance.OnAdNotAvailable += AdNotAvailableHandler;
-
-				Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
-				Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
-
             // When an ad is not available the UI may have to be updated,
             // for instance to hide a button.
             void AdNotAvailableHandler(enumAdType adType)

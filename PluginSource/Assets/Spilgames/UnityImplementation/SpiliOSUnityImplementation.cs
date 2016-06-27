@@ -204,7 +204,6 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern string getSpilUIDNative();
 
-<<<<<<< HEAD
 			#region Spil Game Objects
 
 				public override string GetSpilGameDataFromSdk ()
@@ -278,9 +277,8 @@ namespace SpilGames.Unity.Implementations
 			#endregion
 
         #endregion
-=======
-    #endregion
->>>>>>> master
+
+
 
     #region Non inherited members (iOS only members)
 

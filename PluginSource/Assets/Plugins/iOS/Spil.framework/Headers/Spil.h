@@ -249,7 +249,7 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 +(void)addCurrencyToWallet:(int)currencyId withAmount:(int)amount withReason:(NSString*)reason;
 +(void)subtractCurrencyFromWallet:(int)currencyId withAmount:(int)amount withReason:(NSString*)reason;
 +(void)addItemToInventory:(int)itemId withAmount:(int)amount withReason:(NSString*)reason;
-+(void)subtractItemToInventory:(int)itemId withAmount:(int)amount withReason:(NSString*)reason;
++(void)subtractItemFromInventory:(int)itemId withAmount:(int)amount withReason:(NSString*)reason;
 +(void)consumeBundle:(int)bundleId withReason:(NSString*)reason;
 
 

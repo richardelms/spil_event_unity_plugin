@@ -5,3 +5,6 @@ PluginSource/Assembly-CSharp-Editor.csproj
 PluginSource/Assembly-CSharp.csproj
 PluginSource/PluginSource.userprefs
 PluginSource.sln
+export
+TestApp/Assets/Plugins/iOS
+TestApp/Library

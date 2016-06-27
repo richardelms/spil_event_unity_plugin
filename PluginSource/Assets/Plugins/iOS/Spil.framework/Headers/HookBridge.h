@@ -98,7 +98,7 @@ extern "C" {
     
     void addItemToInventory(int itemId, int amount, char* reasonName);
     
-    void subtractItemToInventory(int itemId, int amount, char* reasonName);
+    void subtractItemFromInventory(int itemId, int amount, char* reasonName);
     
     void consumeBundle(int itemId, char* reasonName);
 }

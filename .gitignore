@@ -5,3 +5,7 @@ export
 TestApp/Library
 TestApp/Assets/Plugins/iOS
 PluginSource/obj
+TestApp/Temp
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
+ProjectVersion.txt

@@ -204,7 +204,81 @@ namespace SpilGames.Unity.Implementations
             [DllImport("__Internal")]
 	        private static extern string getSpilUIDNative();
 
-    #endregion
+			#region Spil Game Objects
+
+				public override string GetSpilGameDataFromSdk ()
+				{
+					return getSpilGameDataNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getSpilGameDataNative();
+			
+			#endregion
+
+			#region Player Data
+
+				public override string GetWalletFromSdk()
+				{
+					return getWalletNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getWalletNative();
+
+				public override string GetInvetoryFromSdk()
+				{
+					return getInventoryNative();
+				}
+
+				[DllImport("__Internal")]
+				private static extern string getInventoryNative();
+
+				public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
+				{
+					addCurrencyToWallet(currencyId, amount, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void addCurrencyToWallet(int currencyId, int amount, string reason);
+
+				public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
+				{
+					subtractCurrencyFromWallet(currencyId, amount, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void subtractCurrencyFromWallet(int currencyId, int amount, string reason);
+
+				public override void AddItemToInventory (int itemId, int amount, string reason)
+				{
+					addItemToInventory(itemId, amount, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void addItemToInventory (int itemId, int amount, string reason);
+
+				public override void SubtractItemFromInventory (int itemId, int amount, string reason)
+				{
+					subtractItemFromInventory(itemId, amount, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void subtractItemFromInventory (int itemId, int amount, string reason);
+
+				public override void ConsumeBundle (int bundleId, string reason)
+				{
+					consumeBundle(bundleId, reason);
+				}
+
+				[DllImport("__Internal")]
+				private static extern void consumeBundle (int bundleId, string reason);
+
+			#endregion
+
+        #endregion
+
+
 
     #region Non inherited members (iOS only members)
 

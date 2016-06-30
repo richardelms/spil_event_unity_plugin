@@ -324,6 +324,7 @@ namespace SpilGames.Unity.Implementations
 
 		private void CheckForRemoteNotifications()
 		{
+	bool proccessedNotifications = false;
 	#if UNITY_IPHONE
 	#if UNITY_5
 			if (UnityEngine.iOS.NotificationServices.remoteNotificationCount > 0)
@@ -377,7 +378,12 @@ namespace SpilGames.Unity.Implementations
 									notificationPayload.AddField(keyStr,innerJson);
 								}
 							}
-							handlePushNotification(notificationPayload.ToString());
+
+							String notificationJsonForNative = notificationPayload.ToString().Replace("\"","'");
+							if(!proccessedNotifications){									
+								SendCustomEvent("notificationReceived", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
+								proccessedNotifications = true;
+							}
 						}
 					}
 				}

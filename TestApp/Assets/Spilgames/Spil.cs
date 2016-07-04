@@ -58,6 +58,12 @@ namespace SpilGames.Unity
 
             Spil.Instance.OnSpilGameDataAvailable -= Instance_OnSpilGameDataAvailable;
             Spil.Instance.OnSpilGameDataAvailable += Instance_OnSpilGameDataAvailable;
+
+            Spil.Instance.OnPlayerDataError -= Instance_OnPlayerDataError;
+            Spil.Instance.OnPlayerDataError += Instance_OnPlayerDataError;
+
+            Spil.Instance.OnSpilGameDataError -= Instance_OnSpilGameDataError;
+            Spil.Instance.OnSpilGameDataError += Instance_OnSpilGameDataError;
         }
 
         // When an ad is available it can be shown
@@ -83,6 +89,24 @@ namespace SpilGames.Unity
         private void Instance_OnPlayerDataUpdated()
         {
             updateUI();
+        }
+
+        private void Instance_OnPlayerDataError(SpilErrorMessage errorMessage)
+        {
+            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+            pnlErrorMessage.SetActive(true);
+
+            updateUI();
+            updateUIShop();
+        }
+
+        private void Instance_OnSpilGameDataError(SpilErrorMessage errorMessage)
+        {
+            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+            pnlErrorMessage.SetActive(true);
+
+            updateUI();
+            updateUIShop();
         }
 
         private void Instance_OnPlayerDataAvailable()
@@ -172,6 +196,8 @@ namespace SpilGames.Unity
             SpilPlayerDataInstance = new PlayerDataHelper(Instance);
 
             AttachListeners();
+
+            updateUI();
         }
 
         /// <summary>
@@ -260,6 +286,14 @@ namespace SpilGames.Unity
 
         #endregion
 
+        public GameObject pnlErrorMessage;
+        public Text txtErrorMessage;
+
+        public void btnErrorMessageOkClick()
+        {
+            pnlErrorMessage.SetActive(false);
+        }
+
         public Button btnRequestRewardVideo;
         public Button btnFyberRewardVideo;
         public Button btnChartBoostRewardVideo;
@@ -275,13 +309,14 @@ namespace SpilGames.Unity
 
         public GameObject panel1;
         public GameObject panel2;
+        public GameObject panel3;
 
         public void btnPrevClick()
         {
             currentScreenShowing -= 1;
             if (currentScreenShowing < 0)
             {
-                currentScreenShowing = 1;
+                currentScreenShowing = 2;
             }
             setCurrentPanel();
         }
@@ -289,7 +324,7 @@ namespace SpilGames.Unity
         public void btnNextClick()
         {
             currentScreenShowing += 1;
-            if (currentScreenShowing > 1)
+            if (currentScreenShowing > 2)
             {
                 currentScreenShowing = 0;
             }
@@ -302,11 +337,23 @@ namespace SpilGames.Unity
             {
                 panel1.SetActive(true);
                 panel2.SetActive(false);
+                panel3.SetActive(false);
             }
             else if (currentScreenShowing == 1)
             {
                 panel1.SetActive(false);
                 panel2.SetActive(true);
+                panel3.SetActive(false);
+
+                updateUI();
+            }
+            else if (currentScreenShowing == 2)
+            {
+                panel1.SetActive(false);
+                panel2.SetActive(false);
+                panel3.SetActive(true);
+
+                updateUIShop();
             }
         }
 
@@ -897,12 +944,12 @@ namespace SpilGames.Unity
                 {
                     if (Adding)
                     {
-                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.ItemBought);
                     } else {
-                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.Trade);
                     }
                 } else {
-                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4].Id, "cuz");
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4].Id, PlayerDataUpdateReasons.ItemBought);
                 }
                 pnlItems.SetActive(false);
                 updateUI();
@@ -917,12 +964,12 @@ namespace SpilGames.Unity
                 {
                     if (Adding)
                     {
-                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.ItemBought);
                     } else {
-                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.Trade);
                     }
                 } else {
-                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 1].Id, "cuz");
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 1].Id, PlayerDataUpdateReasons.ItemBought);
                 }
                 pnlItems.SetActive(false);
                 updateUI();
@@ -937,12 +984,12 @@ namespace SpilGames.Unity
                 {
                     if (Adding)
                     {
-                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.ItemBought);
                     } else {
-                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.Trade);
                     }
                 } else {
-                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 2].Id, "cuz");
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 2].Id, PlayerDataUpdateReasons.ItemBought);
                 }
                 pnlItems.SetActive(false);
                 updateUI();
@@ -957,12 +1004,12 @@ namespace SpilGames.Unity
                 {
                     if (Adding)
                     {
-                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.ItemBought);
                     } else {
-                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, "momma said");
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.Trade);
                     }
                 } else {
-                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 3].Id, "cuz");
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 3].Id, PlayerDataUpdateReasons.ItemBought);
                 }
                 pnlItems.SetActive(false);
                 updateUI();
@@ -1149,6 +1196,304 @@ namespace SpilGames.Unity
         }
 
         #endregion
-    }
 
+        #region Shop
+
+        public Text txtPnlShopItemId1;
+        public Text txtPnlShopItemId2;
+        public Text txtPnlShopItemId3;
+        public Text txtPnlShopItemId4;
+        public Text txtPnlShopItemId5;
+        public Text txtPnlShopItemId6;
+        public Text txtPnlShopItemId7;
+
+        public Text txtPnlShopItem1;
+        public Text txtPnlShopItem2;
+        public Text txtPnlShopItem3;
+        public Text txtPnlShopItem4;
+        public Text txtPnlShopItem5;
+        public Text txtPnlShopItem6;
+        public Text txtPnlShopItem7;
+
+        public Text txtPnlShopItemAmount1;
+        public Text txtPnlShopItemAmount2;
+        public Text txtPnlShopItemAmount3;
+        public Text txtPnlShopItemAmount4;
+        public Text txtPnlShopItemAmount5;
+        public Text txtPnlShopItemAmount6;
+        public Text txtPnlShopItemAmount7;
+
+        public Text txtPnlShopItemCurrency1;
+        public Text txtPnlShopItemCurrency2;
+        public Text txtPnlShopItemCurrency3;
+        public Text txtPnlShopItemCurrency4;
+        public Text txtPnlShopItemCurrency5;
+        public Text txtPnlShopItemCurrency6;
+        public Text txtPnlShopItemCurrency7;
+
+        public void btnPreviousTabClick()
+        {
+            pnlShopCurrentTabPage -= 1;
+            if(pnlShopCurrentTabPage < 0)
+            {
+                pnlShopCurrentTabPage = Convert.ToInt32(Math.Floor(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d));
+            }
+            updateUIShop();
+        }
+
+        public void btnNextTabClick()
+        {
+            pnlShopCurrentTabPage += 1;
+            if (pnlShopCurrentTabPage > Convert.ToInt32(Math.Floor(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d)))
+            {
+                pnlShopCurrentTabPage = 0;
+            }
+            updateUIShop();
+        }
+
+        public void btnTab1Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab2Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 1;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab3Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 2;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab4Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 3;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnShopItem1Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem2Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 1].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem3Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 2].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem4Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 3].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem5Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 4].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem6Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 5].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem7Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 6].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItemUp()
+        {
+            if (Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count > 7)
+            {
+                pnlShopCurrentPage -= 1;
+                if (pnlShopCurrentPage < 0)
+                {
+                    pnlShopCurrentPage = Convert.ToInt32(Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count / 7d)) - 1;
+                }
+            }
+        }
+
+        public void btnShopItemDown()
+        {
+            if (Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count > 7)
+            {
+                pnlShopCurrentPage += 1;
+                if (pnlShopCurrentPage > Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count / 7d) - 1)
+                {
+                    pnlShopCurrentPage = 0;
+                }
+            }
+        }
+
+        public GameObject bntTab1;
+        public GameObject bntTab2;
+        public GameObject bntTab3;
+        public GameObject bntTab4;
+
+        public Text txtBntTab1;
+        public Text txtBntTab2;
+        public Text txtBntTab3;
+        public Text txtBntTab4;
+
+        public GameObject bntTabNext;
+        public GameObject bntTabPrevious;
+
+        int pnlShopCurrentPage = 0;
+        int pnlShopCurrentTabPage = 0;
+        int pnlShopCurrentTab = 0;
+
+        public void updateUIShop()
+        {
+            //bntTab1.SetActive(false);
+            //bntTab2.SetActive(false);
+            //bntTab3.SetActive(false);
+            //bntTab4.SetActive(false);
+
+            //bntTabNext.SetActive(false);
+            //bntTabPrevious.SetActive(false);
+
+            txtBntTab1.text = "";
+            txtBntTab2.text = "";
+            txtBntTab3.text = "";
+            txtBntTab4.text = "";
+
+            txtPnlShopItemId1.text = "";
+            txtPnlShopItemId2.text = "";
+            txtPnlShopItemId3.text = "";
+            txtPnlShopItemId4.text = "";
+            txtPnlShopItemId5.text = "";
+            txtPnlShopItemId6.text = "";
+            txtPnlShopItemId7.text = "";
+
+            txtPnlShopItem1.text = "";
+            txtPnlShopItem2.text = "";
+            txtPnlShopItem3.text = "";
+            txtPnlShopItem4.text = "";
+            txtPnlShopItem5.text = "";
+            txtPnlShopItem6.text = "";
+            txtPnlShopItem7.text = "";
+
+            txtPnlShopItemAmount1.text = "";
+            txtPnlShopItemAmount2.text = "";
+            txtPnlShopItemAmount3.text = "";
+            txtPnlShopItemAmount4.text = "";
+            txtPnlShopItemAmount5.text = "";
+            txtPnlShopItemAmount6.text = "";
+            txtPnlShopItemAmount7.text = "";
+
+            txtPnlShopItemCurrency1.text = "";
+            txtPnlShopItemCurrency2.text = "";
+            txtPnlShopItemCurrency3.text = "";
+            txtPnlShopItemCurrency4.text = "";
+            txtPnlShopItemCurrency5.text = "";
+            txtPnlShopItemCurrency6.text = "";
+            txtPnlShopItemCurrency7.text = "";
+
+            if (Spil.SpilGameDataInstance.Shop.Tabs.Count > 0)
+            {
+                Debug.Log("pnlShopCurrentTab: " + pnlShopCurrentTab + " ");
+
+                if (pnlShopCurrentTabPage > 0)
+                {
+                    //bntTabPrevious.SetActive(true);
+                }
+                if(Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d) - 1 > pnlShopCurrentTabPage)
+                {
+                    //bntTabNext.SetActive(false);
+                }
+
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage *  4 + 1)
+                {
+                    //bntTab1.SetActive(true);
+                    txtBntTab1.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 2)
+                {
+                    //bntTab2.SetActive(true);
+                    txtBntTab2.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 1].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 3)
+                {
+                    //bntTab3.SetActive(true);
+                    txtBntTab3.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 2].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 4)
+                {
+                    //bntTab4.SetActive(true);
+                    txtBntTab4.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 3].Name;
+                }
+
+                for (int i = 0; i < Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count; i++)
+                {
+                    if (i >= pnlShopCurrentPage * 7 && i < (pnlShopCurrentPage + 1) * 7)
+                    {
+                        if (i % 7 == 0)
+                        {
+                            txtPnlShopItemId1.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem1.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount1.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency1.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 1)
+                        {
+                            txtPnlShopItemId2.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem2.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount2.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency2.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 2)
+                        {
+                            txtPnlShopItemId3.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem3.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount3.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency3.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 3)
+                        {
+                            txtPnlShopItemId4.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem4.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount4.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency4.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 4)
+                        {
+                            txtPnlShopItemId5.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem5.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount5.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency5.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 5)
+                        {
+                            txtPnlShopItemId6.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem6.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount6.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency6.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 6)
+                        {
+                            txtPnlShopItemId7.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem7.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount7.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency7.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                    }
+                }
+            } 
+        }
+
+        #endregion
+    }
 }

@@ -47,7 +47,7 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 // Player data events
 -(void)playerDataAvailable;
 -(void)playerDataError:(NSString*)message;
--(void)playerDataUpdated;
+-(void)playerDataUpdated:(NSString*)reason;
 
 @end
 

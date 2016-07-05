@@ -55,7 +55,7 @@ namespace SpilGames.Unity.Helpers
 			if (Wallet != null) {
 				foreach (PlayerCurrency currency in Wallet.Currencies) {
 					if (currency.Id == currencyId) {
-						return currency.CurrrentBalance;
+						return currency.CurrentBalance;
 					}
 				}
 				return -1;

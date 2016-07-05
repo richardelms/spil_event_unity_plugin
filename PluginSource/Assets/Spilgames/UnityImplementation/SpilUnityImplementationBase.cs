@@ -427,7 +427,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public event SpilGameDataError OnSpilGameDataError;
 		
-		public static void fireSpilGameDataError(String reason)
+		public static void fireSpilGameDataError(string reason)
 		{
 			Debug.Log ("SpilSDK-Unity Spil Game Data error with reason = " + reason);
 			
@@ -469,20 +469,20 @@ namespace SpilGames.Unity.Implementations
 			
 		}
 		
-		public delegate void PlayerDataUpdated();
+		public delegate void PlayerDataUpdated(string reason);
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been updated.
 		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
 		/// </summary>
 		public event PlayerDataUpdated OnPlayerDataUpdated;
 		
-		public static void firePlayerDataUpdated()
+		public static void firePlayerDataUpdated(string reason)
 		{
 			Spil.SpilPlayerDataInstance.PlayerDataUpdatedHandler ();
 
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
 
-			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
+			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(reason); }
 			
 		}
 		
@@ -493,7 +493,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public event PlayerDataError OnPlayerDataError;
 		
-		public static void firePlayerDataError(String reason)
+		public static void firePlayerDataError(string reason)
 		{
 			Debug.Log ("SpilSDK-Unity Player Data error with reason = " + reason);
 			

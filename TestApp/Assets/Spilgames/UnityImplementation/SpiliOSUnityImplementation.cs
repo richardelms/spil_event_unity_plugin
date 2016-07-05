@@ -187,6 +187,11 @@ namespace SpilGames.Unity.Implementations
 			devRequestAdNative("ChartBoost", "moreApps", false);
 		}
 
+		public void TestRequestAd(string providerName, string adTypeName, bool parentalGate)
+		{
+			devRequestAdNative(providerName, adTypeName, parentalGate);
+		}
+
 		[DllImport("__Internal")]
 		private static extern void devRequestAdNative(string providerName, string adTypeName, bool parentalGate);
 

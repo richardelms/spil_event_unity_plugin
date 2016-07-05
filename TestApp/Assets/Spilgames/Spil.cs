@@ -369,6 +369,9 @@ namespace SpilGames.Unity
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
+			#endif
         }
 
         public void RequestChartBoostRewardVideo()
@@ -377,6 +380,9 @@ namespace SpilGames.Unity
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
+			#endif
         }
 
         public void RequestMoreApps()
@@ -391,6 +397,9 @@ namespace SpilGames.Unity
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("DFP", "interstitial", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("DFP", "interstitial", false);
+			#endif
         }
 
         public void RequestChartBoostInterstitial()
@@ -399,6 +408,9 @@ namespace SpilGames.Unity
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("chartboost", "interstitial", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("ChartBoost", "interstitial", false);
+			#endif
         }
 
         public void RequestCake()

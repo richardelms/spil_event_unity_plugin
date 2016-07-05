@@ -135,7 +135,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		2SoGtSwXQICceGIZywIBaTWdRd0=
+		neg2xOtmP8iWxtVTKJcM6wcjJZw=
 		</data>
 		<key>MPCloseBtn.png</key>
 		<data>
@@ -234,14 +234,6 @@
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>defaultGameData.json</key>
-		<data>
-		lKAfhlXggQEjD6iACfF1zD4C6sc=
-		</data>
-		<key>defaultPlayerData.json</key>
-		<data>
-		1DnNMae5ARfKbRWxU6YG9ATQNf4=
-		</data>
 		<key>mod_pbxproj.py</key>
 		<data>
 		DSPT1Q95FKxMA2drNgY4hs9HbJw=
@@ -593,11 +585,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2SoGtSwXQICceGIZywIBaTWdRd0=
+			neg2xOtmP8iWxtVTKJcM6wcjJZw=
 			</data>
 			<key>hash2</key>
 			<data>
-			5taeHMhDx+4htE2Ma/gn86gsqdLJ1MPBFi2s3U3JYR0=
+			QUXiFArKgRqSjCM/tLIAwncvEpgFw46KPSUgJ7FSttg=
 			</data>
 		</dict>
 		<key>MPCloseBtn.png</key>
@@ -854,28 +846,6 @@
 			</data>
 			<key>optional</key>
 			<true/>
-		</dict>
-		<key>defaultGameData.json</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			lKAfhlXggQEjD6iACfF1zD4C6sc=
-			</data>
-			<key>hash2</key>
-			<data>
-			e5B7SZ45YvHCAVrchQtTjtUpk5QPw5O1XLZGj2TaGjI=
-			</data>
-		</dict>
-		<key>defaultPlayerData.json</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			1DnNMae5ARfKbRWxU6YG9ATQNf4=
-			</data>
-			<key>hash2</key>
-			<data>
-			kKf1/r5P/YP/6I2MM4J6ALGztVh68Am4NaxnQMvZDEs=
-			</data>
 		</dict>
 		<key>mod_pbxproj.py</key>
 		<dict>

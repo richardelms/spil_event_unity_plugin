@@ -49,12 +49,27 @@ namespace SpilGames.Unity
             // When an ad finishes or is dismissed it will call OnAdFinished so music can be re-enabled etc
             Spil.Instance.OnAdFinished -= AdFinishedHandler;
             Spil.Instance.OnAdFinished += AdFinishedHandler;
+
+            Spil.Instance.OnPlayerDataUpdated -= Instance_OnPlayerDataUpdated;
+            Spil.Instance.OnPlayerDataUpdated += Instance_OnPlayerDataUpdated;
+
+            Spil.Instance.OnPlayerDataAvailable -= Instance_OnPlayerDataAvailable;
+            Spil.Instance.OnPlayerDataAvailable += Instance_OnPlayerDataAvailable;
+
+            Spil.Instance.OnSpilGameDataAvailable -= Instance_OnSpilGameDataAvailable;
+            Spil.Instance.OnSpilGameDataAvailable += Instance_OnSpilGameDataAvailable;
+
+            Spil.Instance.OnPlayerDataError -= Instance_OnPlayerDataError;
+            Spil.Instance.OnPlayerDataError += Instance_OnPlayerDataError;
+
+            Spil.Instance.OnSpilGameDataError -= Instance_OnSpilGameDataError;
+            Spil.Instance.OnSpilGameDataError += Instance_OnSpilGameDataError;
         }
 
         // When an ad is available it can be shown
         void AdAvailableHandler(enumAdType adType)
         {
-            txtBox1.text = adType.ToString() + " available";
+            txtStatus1.text = adType.ToString() + " available";
 
             if (adType == enumAdType.RewardVideo)
             {
@@ -71,41 +86,63 @@ namespace SpilGames.Unity
             // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
         }
 
+        private void Instance_OnPlayerDataUpdated()
+        {
+            updateUI();
+        }
+
+        private void Instance_OnPlayerDataError(SpilErrorMessage errorMessage)
+        {
+            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+            pnlErrorMessage.SetActive(true);
+
+            updateUI();
+            updateUIShop();
+        }
+
+        private void Instance_OnSpilGameDataError(SpilErrorMessage errorMessage)
+        {
+            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+            pnlErrorMessage.SetActive(true);
+
+            updateUI();
+            updateUIShop();
+        }
+
+        private void Instance_OnPlayerDataAvailable()
+        {
+            updateUI();
+        }
+
+        private void Instance_OnSpilGameDataAvailable()
+        {
+            updateUI();
+        }
+
         // When an ad is not available the UI may have to be updated,
         // for instance to hide a button.
         void AdNotAvailableHandler(enumAdType adType)
         {
             //Debug.Log("Ad was not available");
-            txtBox1.text = adType.ToString() + " was not available";
+            txtStatus1.text = adType.ToString() + " was not available";
         }
 
         void AdStartedHandler()
         {
             // Mute the game music etc.
-            txtBox1.text = "Ad started";
+            txtStatus1.text = "Ad started";
         }
 
         void AdFinishedHandler(SpilAdFinishedResponse response)
         {
             // Re-enable the game music etc.
-
-            // When an ad finishes we can immediately request a new one
-            if (response.GetTypeAsEnum() == enumAdType.RewardVideo)
-            {
-                //Spil.Instance.SendrequestRewardVideoEvent();
-            }
-            if (response.GetTypeAsEnum() == enumAdType.MoreApps)
-            {
-                //Spil.Instance.RequestMoreApps();
-            }
-
-            txtBox1.text = "Ad finished";
+            txtStatus1.text = "Ad finished";
 
             // Reward video's may also send a reward in the response if the video wasn't dismissed
             if (response.reward != null)
             {
                 int rewardAmount = response.reward.reward;
-                txtBox1.text = "Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits");
+                txtStatus1.text = "Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits");
             }
         }
 
@@ -122,6 +159,9 @@ namespace SpilGames.Unity
         {
             get { return "127433475057"; }
         }
+
+        public static SpilGameDataHelper SpilGameDataInstance;
+        public static PlayerDataHelper SpilPlayerDataInstance;
 
 #if UNITY_EDITOR
 
@@ -152,7 +192,12 @@ namespace SpilGames.Unity
 
             Instance.UpdatePackagesAndPromotions();
 
+            SpilGameDataInstance = new SpilGameDataHelper(Instance);
+            SpilPlayerDataInstance = new PlayerDataHelper(Instance);
+
             AttachListeners();
+
+            updateUI();
         }
 
         /// <summary>
@@ -199,7 +244,55 @@ namespace SpilGames.Unity
             SpilUnityImplementationBase.OnResponseReceived(response);
         }
 
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void SpilGameDataAvailable()
+        {
+            SpilUnityImplementationBase.fireSpilGameDataAvailable();
+        }
+
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void SpilGameDataError(string reason)
+        {
+            SpilUnityImplementationBase.fireSpilGameDataError(reason);
+        }
+
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void PlayerDataAvailable()
+        {
+            SpilUnityImplementationBase.firePlayerDataAvailable();
+        }
+
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void PlayerDataUpdated()
+        {
+            SpilUnityImplementationBase.firePlayerDataUpdated();
+        }
+
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
+        public void PlayerDataError(string reason)
+        {
+            SpilUnityImplementationBase.firePlayerDataError(reason);
+        }
+
         #endregion
+
+        public GameObject pnlErrorMessage;
+        public Text txtErrorMessage;
+
+        public void btnErrorMessageOkClick()
+        {
+            pnlErrorMessage.SetActive(false);
+        }
 
         public Button btnRequestRewardVideo;
         public Button btnFyberRewardVideo;
@@ -209,58 +302,123 @@ namespace SpilGames.Unity
         public Button btnChartBoostInterstitial;
         public Button btnCake;
 
-        public Text txtBox1;
-        public Text txtBox2;
+        public Text txtStatus1;
+        public Text txtStatus2;
+
+        int currentScreenShowing = 0;
+
+        public GameObject panel1;
+        public GameObject panel2;
+        public GameObject panel3;
+
+        public void btnPrevClick()
+        {
+            currentScreenShowing -= 1;
+            if (currentScreenShowing < 0)
+            {
+                currentScreenShowing = 2;
+            }
+            setCurrentPanel();
+        }
+
+        public void btnNextClick()
+        {
+            currentScreenShowing += 1;
+            if (currentScreenShowing > 2)
+            {
+                currentScreenShowing = 0;
+            }
+            setCurrentPanel();
+        }
+
+        private void setCurrentPanel()
+        {
+            if (currentScreenShowing == 0)
+            {
+                panel1.SetActive(true);
+                panel2.SetActive(false);
+                panel3.SetActive(false);
+            }
+            else if (currentScreenShowing == 1)
+            {
+                panel1.SetActive(false);
+                panel2.SetActive(true);
+                panel3.SetActive(false);
+
+                updateUI();
+            }
+            else if (currentScreenShowing == 2)
+            {
+                panel1.SetActive(false);
+                panel2.SetActive(false);
+                panel3.SetActive(true);
+
+                updateUIShop();
+            }
+        }
 
         public void RequestRewardVideo()
         {
-            txtBox1.text = "Requesting reward video";
+            txtStatus1.text = "Requesting reward video";
             Spil.Instance.SendrequestRewardVideoEvent();
         }
 
         public void RequestFyberRewardVideo()
         {
-            txtBox1.text = "Requesting Fyber reward video";
+            txtStatus1.text = "Requesting Fyber reward video";
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
+			#endif
         }
 
         public void RequestChartBoostRewardVideo()
         {
-            txtBox1.text = "Requesting ChartBoost reward video";
+            txtStatus1.text = "Requesting ChartBoost reward video";
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
+			#endif
         }
 
         public void RequestMoreApps()
         {
-            txtBox1.text = "Requesting more apps";
+            txtStatus1.text = "Requesting more apps";
             Spil.Instance.RequestMoreApps();
         }
 
         public void RequestDFPInterstitial()
         {
-            txtBox1.text = "Requesting DFP interstitial";
+            txtStatus1.text = "Requesting DFP interstitial";
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("DFP", "interstitial", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("DFP", "interstitial", false);
+			#endif
         }
 
         public void RequestChartBoostInterstitial()
         {
-            txtBox1.text = "Requesting ChartBoost interstitial";
+            txtStatus1.text = "Requesting ChartBoost interstitial";
             #if UNITY_ANDROID
                 Spil.Instance.TestRequestAd("chartboost", "interstitial", false);
             #endif
+			#if UNITY_IPHONE
+				Spil.Instance.TestRequestAd("ChartBoost", "interstitial", false);
+			#endif
         }
 
         public void RequestCake()
         {
-            txtBox1.text = "The cake is a lie";
+            txtStatus1.text = "The cake is a lie";
 
-            Spil.Instance.SendCustomEvent("URL Encoded Key & Value", new Dictionary<string, string>() { { "URL Encoded Key & Value", "I l|k3 u$|ng l*ts #f w31rd ch@r@cters" } });
+            //Spil.Instance.SendCustomEvent("URL Encoded Key & Value", new Dictionary<string, string>() { { "URL Encoded Key & Value", "I l|k3 u$|ng l*ts #f w31rd ch@r@cters" } });
+            Spil.Instance.SendlevelCompleteEvent("Level1");
 
             //DoTest();
         }
@@ -269,9 +427,9 @@ namespace SpilGames.Unity
         {            
             #if UNITY_ANDROID
                 toggleUIEnabled(false);
-                txtBox1.text = "Test running";
+                txtStatus1.text = "Test running";
 
-                txtBox2.text = "Testing SendlevelStartEvent(\"Level1\")";
+                txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\")";
                 Spil.Instance.clearLog();
                 Debug.Log("LOG CLEARED");
                 try
@@ -280,7 +438,7 @@ namespace SpilGames.Unity
                 }
                 catch (Exception ex)
                 {
-                    txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 1";
+                    txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 1";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -291,7 +449,7 @@ namespace SpilGames.Unity
                 if (!s.Contains(": track_event levelStart") || !s.Contains(": name=levelStart"))
                 {
                     Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 2";
+                    txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 2";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -299,7 +457,7 @@ namespace SpilGames.Unity
                 else if (!s.Contains("eventReceived: name=levelStart;"))
                 {
                     Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 3";
+                    txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 3";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -337,7 +495,7 @@ namespace SpilGames.Unity
                 //    return;
                 //}
 
-                txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\")";
+                txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\")";
 
                 Spil.Instance.clearLog();
                 Debug.Log("LOG CLEARED");
@@ -347,7 +505,7 @@ namespace SpilGames.Unity
                 }
                 catch (Exception ex)
                 {
-                    txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 1";
+                    txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 1";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -358,7 +516,7 @@ namespace SpilGames.Unity
                 if (!s.Contains(": track_event levelFailed") || !s.Contains(": name=levelFailed"))
                 {
                     Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 2";
+                    txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 2";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -366,11 +524,11 @@ namespace SpilGames.Unity
                 else if (!s.Contains("eventReceived: name=levelFailed;"))
                 {
                     Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 3";
+                    txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 3";
                     toggleUIEnabled(true);
                     return;
                 }
-                txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\")";
+                txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\")";
 
                 Spil.Instance.clearLog();
                 Debug.Log("LOG CLEARED");
@@ -380,7 +538,7 @@ namespace SpilGames.Unity
                 }
                 catch (Exception ex)
                 {
-                    txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 1";
+                    txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 1";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -391,7 +549,7 @@ namespace SpilGames.Unity
                 if (!s.Contains(": track_event playerDies") || !s.Contains(": name=playerDies"))
                 {
                     Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 2";
+                    txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 2";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -399,7 +557,7 @@ namespace SpilGames.Unity
                 else if (!s.Contains("eventReceived: name=playerDies;"))
                 {
                     Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 3";
+                    txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 3";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -435,7 +593,7 @@ namespace SpilGames.Unity
                 //    return;
                 //}
 
-                txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\")";
+                txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\")";
 
 
                 Spil.Instance.clearLog();
@@ -446,7 +604,7 @@ namespace SpilGames.Unity
                 }
                 catch (Exception ex)
                 {
-                    txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 1";
+                    txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 1";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -457,7 +615,7 @@ namespace SpilGames.Unity
                 if (!s.Contains(": track_event milestoneAchieved") || !s.Contains(": name=milestoneAchieved"))
                 {
                     Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 2";
+                    txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 2";
                     toggleUIEnabled(true);
                     return;
                 }
@@ -465,19 +623,19 @@ namespace SpilGames.Unity
                 else if (!s.Contains("eventReceived: name=milestoneAchieved;"))
                 {
                     Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-                    txtBox2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 3";
+                    txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 3";
                     toggleUIEnabled(true);
                     return;
                 }
 
-                txtBox2.text = "Testing getPackagesAll()";
+                txtStatus2.text = "Testing getPackagesAll()";
 
                 //try
                 {
                     PackagesHelper packages = Spil.Instance.GetPackagesAndPromotions();
                     if (packages == null)
                     {
-                        txtBox2.text = "Testing getPackagesAll FAILED 2";
+                        txtStatus2.text = "Testing getPackagesAll FAILED 2";
                         toggleUIEnabled(true);
                         return;
                     }
@@ -485,7 +643,7 @@ namespace SpilGames.Unity
                     {
                         if (packages.Packages == null)
                         {
-                            txtBox2.text = "Testing getPackagesAll FAILED 3";
+                            txtStatus2.text = "Testing getPackagesAll FAILED 3";
                             toggleUIEnabled(true);
                             return;
                         }
@@ -564,8 +722,8 @@ namespace SpilGames.Unity
                     //return;
                 }
 
-                txtBox2.text = "";
-                txtBox1.text = "Test successful!";
+                txtStatus2.text = "";
+                txtStatus1.text = "Test successful!";
                 toggleUIEnabled(true);
 
                 //Spil.Instance.SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
@@ -583,6 +741,7 @@ namespace SpilGames.Unity
         {
             if (enabled)
             {
+                btnRequestRewardVideo.gameObject.SetActive(true);
                 btnFyberRewardVideo.gameObject.SetActive(true);
                 btnChartBoostRewardVideo.gameObject.SetActive(true);
                 btnMoreApps.gameObject.SetActive(true);
@@ -590,6 +749,7 @@ namespace SpilGames.Unity
                 btnChartBoostInterstitial.gameObject.SetActive(true);
                 btnCake.gameObject.SetActive(true);
             } else {
+                btnRequestRewardVideo.gameObject.SetActive(false);
                 btnFyberRewardVideo.gameObject.SetActive(false);
                 btnChartBoostRewardVideo.gameObject.SetActive(false);
                 btnMoreApps.gameObject.SetActive(false);
@@ -598,6 +758,754 @@ namespace SpilGames.Unity
                 btnCake.gameObject.SetActive(false);
             }
         }
-    }
 
+        #region PlayerData
+
+        public Text txtFirstCurrencyName;
+        public Text txtFirstCurrencyValue;
+        public Text txtSecondCurrencyName;
+        public Text txtSecondCurrencyValue;
+
+        public void addFirstCurrencyValue()
+        {
+            Spil.SpilPlayerDataInstance.Wallet.Add(Spil.SpilPlayerDataInstance.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.LevelComplete);
+        }
+
+        public void subtractFirstCurrencyValue()
+        {
+            Spil.SpilPlayerDataInstance.Wallet.Subtract(Spil.SpilPlayerDataInstance.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.Trade);
+        }
+
+        public void addSecondCurrencyValue()
+        {
+            Spil.SpilPlayerDataInstance.Wallet.Add(Spil.SpilPlayerDataInstance.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.LevelComplete);
+        }
+
+        public void subtractSecondCurrencyValue()
+        {
+            Spil.SpilPlayerDataInstance.Wallet.Subtract(Spil.SpilPlayerDataInstance.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.Trade);
+        }
+
+        public GameObject pnlItems;
+        public Text txtItemsMenuTitle;
+        bool Adding = true;
+        bool ShowBundles = false;
+
+        public void addItem()
+        {
+            Adding = true;
+            pnlSelectItemCurrentPage = 0;
+            txtItemsMenuTitle.text = "Spil SDK Game Items";
+            ShowBundles = false;
+            showItemSelectList();
+            pnlItems.SetActive(true);
+        }
+
+        public void subtractItem()
+        {
+            Adding = false;
+            pnlSelectItemCurrentPage = 0;
+            txtItemsMenuTitle.text = "Spil SDK Game Items";
+            ShowBundles = false;
+            showItemSelectList();
+            pnlItems.SetActive(true);
+        }
+
+        public void itemPanelCancelBtn()
+        {
+            pnlItems.SetActive(false);
+        }
+
+        public void buyBundle()
+        {
+            txtItemsMenuTitle.text = "Spil SDK Game Bundles";
+            ShowBundles = true;
+            showItemSelectList();
+            pnlItems.SetActive(true);
+        }
+
+        int pnlSelectItemCurrentPage = 0;
+
+        public void pnlSelectItemPreviousPage()
+        {
+            pnlSelectItemCurrentPage -= 1;
+            if (pnlSelectItemCurrentPage < 0)
+            {
+                pnlSelectItemCurrentPage = 0;
+            }
+        }
+
+        public void pnlSelectItemNextPage()
+        {
+            pnlSelectItemCurrentPage += 1;
+            if (pnlSelectItemCurrentPage >= Spil.SpilGameDataInstance.Items.Count)
+            {
+                pnlSelectItemCurrentPage = 0;
+            }
+        }
+
+        public Text txtPnlSelectItemsId1;
+        public Text txtPnlSelectItemsId2;
+        public Text txtPnlSelectItemsId3;
+        public Text txtPnlSelectItemsId4;
+
+        public Text txtPnlSelectItemsAmount1;
+        public Text txtPnlSelectItemsAmount2;
+        public Text txtPnlSelectItemsAmount3;
+        public Text txtPnlSelectItemsAmount4;
+
+        public Text txtPnlSelectItems1;
+        public Text txtPnlSelectItems2;
+        public Text txtPnlSelectItems3;
+        public Text txtPnlSelectItems4;
+
+        public Text txtPnlSelectItemsCurrencyAmount1;
+        public Text txtPnlSelectItemsCurrencyAmount2;
+        public Text txtPnlSelectItemsCurrencyAmount3;
+        public Text txtPnlSelectItemsCurrencyAmount4;
+
+        public Text txtPnlSelectItemsCurrency1;
+        public Text txtPnlSelectItemsCurrency2;
+        public Text txtPnlSelectItemsCurrency3;
+        public Text txtPnlSelectItemsCurrency4;
+
+        private void showItemSelectList()
+        {
+            txtPnlSelectItemsId1.text = "";
+            txtPnlSelectItemsId2.text = "";
+            txtPnlSelectItemsId3.text = "";
+            txtPnlSelectItemsId4.text = "";
+
+            txtPnlSelectItemsAmount1.text = "";
+            txtPnlSelectItemsAmount2.text = "";
+            txtPnlSelectItemsAmount3.text = "";
+            txtPnlSelectItemsAmount4.text = "";
+
+            txtPnlSelectItems1.text = "";
+            txtPnlSelectItems2.text = "";
+            txtPnlSelectItems3.text = "";
+            txtPnlSelectItems4.text = "";
+
+            txtPnlSelectItemsCurrencyAmount1.text = "";
+            txtPnlSelectItemsCurrencyAmount2.text = "";
+            txtPnlSelectItemsCurrencyAmount3.text = "";
+            txtPnlSelectItemsCurrencyAmount4.text = "";
+
+            txtPnlSelectItemsCurrency1.text = "";
+            txtPnlSelectItemsCurrency2.text = "";
+            txtPnlSelectItemsCurrency3.text = "";
+            txtPnlSelectItemsCurrency4.text = "";
+
+            for (int i = 0; i < (!ShowBundles ? Spil.SpilGameDataInstance.Items.Count : Spil.SpilGameDataInstance.Bundles.Count); i++)
+            {
+                if (i >= pnlSelectItemCurrentPage * 4 && i < (pnlSelectItemCurrentPage + 1) * 4)
+                {
+                    if (i % 4 == 0)
+                    {
+                        txtPnlSelectItemsId1.text = "Id: " + (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Id.ToString() : Spil.SpilGameDataInstance.Bundles[i].Id.ToString());
+                        txtPnlSelectItemsAmount1.text = "X: 0";
+                        txtPnlSelectItems1.text = (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Name : Spil.SpilGameDataInstance.Bundles[i].Name);
+                        if(ShowBundles)
+                        {
+                            txtPnlSelectItemsCurrencyAmount1.text = Spil.SpilGameDataInstance.Bundles[i].Prices[0].Value.ToString();
+                            txtPnlSelectItemsCurrency1.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.Bundles[i].Prices[0].CurrencyId).Name;
+                        }
+                    }
+                    if (i % 4 == 1)
+                    {
+                        txtPnlSelectItemsId2.text = "Id: " + (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Id.ToString() : Spil.SpilGameDataInstance.Bundles[i].Id.ToString());
+                        txtPnlSelectItemsAmount2.text = "X: 0";
+                        txtPnlSelectItems2.text = (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Name : Spil.SpilGameDataInstance.Bundles[i].Name);
+                        if (ShowBundles)
+                        {
+                            txtPnlSelectItemsCurrencyAmount2.text = Spil.SpilGameDataInstance.Bundles[i].Prices[0].Value.ToString();
+                            txtPnlSelectItemsCurrency2.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.Bundles[i].Prices[0].CurrencyId).Name;
+                        }
+                    }
+                    if (i % 4 == 2)
+                    {
+                        txtPnlSelectItemsId3.text = "Id: " + (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Id.ToString() : Spil.SpilGameDataInstance.Bundles[i].Id.ToString());
+                        txtPnlSelectItemsAmount3.text = "X: 0";
+                        txtPnlSelectItems3.text = (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Name : Spil.SpilGameDataInstance.Bundles[i].Name);
+                        if (ShowBundles)
+                        {
+                            txtPnlSelectItemsCurrencyAmount3.text = Spil.SpilGameDataInstance.Bundles[i].Prices[0].Value.ToString();
+                            txtPnlSelectItemsCurrency3.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.Bundles[i].Prices[0].CurrencyId).Name;
+                        }
+                    }
+                    if (i % 4 == 3)
+                    {
+                        txtPnlSelectItemsId4.text = "Id: " + (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Id.ToString() : Spil.SpilGameDataInstance.Bundles[i].Id.ToString());
+                        txtPnlSelectItemsAmount4.text = "X: 0";
+                        txtPnlSelectItems4.text = (!ShowBundles ? Spil.SpilGameDataInstance.Items[i].Name : Spil.SpilGameDataInstance.Bundles[i].Name);
+                        if (ShowBundles)
+                        {
+                            txtPnlSelectItemsCurrencyAmount4.text = Spil.SpilGameDataInstance.Bundles[i].Prices[0].Value.ToString();
+                            txtPnlSelectItemsCurrency4.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.Bundles[i].Prices[0].CurrencyId).Name;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void txtPnlSelectItems1Click()
+        {
+            if (Spil.SpilGameDataInstance.Items.Count >= pnlSelectItemCurrentPage * 4)
+            {
+                if (!ShowBundles)
+                {
+                    if (Adding)
+                    {
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.ItemBought);
+                    } else {
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.Trade);
+                    }
+                } else {
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4].Id, PlayerDataUpdateReasons.ItemBought);
+                }
+                pnlItems.SetActive(false);
+                updateUI();
+            }
+        }
+
+        public void txtPnlSelectItems2Click()
+        {
+            if (Spil.SpilGameDataInstance.Items.Count >= pnlSelectItemCurrentPage * 4 + 1)
+            {
+                if (!ShowBundles)
+                {
+                    if (Adding)
+                    {
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.ItemBought);
+                    } else {
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.Trade);
+                    }
+                } else {
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 1].Id, PlayerDataUpdateReasons.ItemBought);
+                }
+                pnlItems.SetActive(false);
+                updateUI();
+            }
+        }
+
+        public void txtPnlSelectItems3Click()
+        {
+            if (Spil.SpilGameDataInstance.Items.Count >= pnlSelectItemCurrentPage * 4 + 2)                
+            {
+                if (!ShowBundles)
+                {
+                    if (Adding)
+                    {
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.ItemBought);
+                    } else {
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.Trade);
+                    }
+                } else {
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 2].Id, PlayerDataUpdateReasons.ItemBought);
+                }
+                pnlItems.SetActive(false);
+                updateUI();
+            }
+        }
+
+        public void txtPnlSelectItems4Click()
+        {
+            if (Spil.SpilGameDataInstance.Items.Count >= pnlSelectItemCurrentPage * 4 + 3)                
+            {
+                if (!ShowBundles)
+                {
+                    if (Adding)
+                    {
+                        Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.ItemBought);
+                    } else {
+                        Spil.SpilPlayerDataInstance.Inventory.Subtract(Spil.SpilGameDataInstance.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.Trade);
+                    }
+                } else {
+                    Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Bundles[pnlSelectItemCurrentPage * 4 + 3].Id, PlayerDataUpdateReasons.ItemBought);
+                }
+                pnlItems.SetActive(false);
+                updateUI();
+            }
+        }
+
+        int pnlItemsCurrentPage = 0;
+
+        public void pnlItemPreviousPage()
+        {
+            pnlItemsCurrentPage -= 1;
+            if (pnlItemsCurrentPage < 0)
+            {
+                pnlItemsCurrentPage = 0;
+            }
+        }
+
+        public void pnlItemNextPage()
+        {
+            pnlItemsCurrentPage += 1;
+            if (pnlItemsCurrentPage >= Spil.SpilPlayerDataInstance.Inventory.Items.Count)
+            {
+                pnlItemsCurrentPage = 0;
+            }
+        }
+
+        /*
+        private void showBundlesList()
+        {
+            ArrayList<com.spilgames.spilsdk.gamedata.bundles.Bundle> bundles = MainActivity.spilGameData.getBundles();
+
+            MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+            .title("Spil SDK Game Bundles")
+            .customView(R.layout.dialog_bundle_layout, false)
+            .negativeText("Cancel")
+            .titleColor(Color.WHITE)
+            .negativeColor(Color.WHITE)
+            .backgroundColor(getActivity().getResources().getColor(R.color.colorPrimary))
+            .onNegative(new MaterialDialog.SingleButtonCallback()
+            {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which)
+                {
+                    dialog.dismiss();
+                }
+            })
+            .build();
+
+            View view = dialog.getCustomView();
+
+            if(view != null)
+            {
+                RecyclerView mListView = (RecyclerView)view.findViewById(R.id.gameBundleList);
+
+                GameBundleListAdapter mAdapter = new GameBundleListAdapter(getContext(), R.layout.list_gamebundle_item, bundles, dialog);
+
+                mListView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+                mListView.setItemAnimator(new DefaultItemAnimator());
+
+                mListView.setAdapter(mAdapter);
+            }
+            dialog.show();
+        }
+        */
+
+        public void updateUI()
+        {
+            Debug.Log("UpdateUI");
+
+            txtFirstCurrencyName.text = "";
+            txtFirstCurrencyValue.text = "";
+            txtSecondCurrencyName.text = "";
+            txtSecondCurrencyValue.text = "";
+
+            Currency firstCurrency = null;
+            Currency secondCurrency = null;
+
+            if (Spil.SpilPlayerDataInstance.Wallet.Currencies.Count > 0)
+            {
+                firstCurrency = Spil.SpilPlayerDataInstance.Wallet.Currencies[0];
+                txtFirstCurrencyName.text = firstCurrency.Name + ":";
+            }
+
+            if (Spil.SpilPlayerDataInstance.Wallet.Currencies.Count > 1)
+            {
+                secondCurrency = Spil.SpilPlayerDataInstance.Wallet.Currencies[1];
+                txtSecondCurrencyName.text = secondCurrency.Name + ":";
+            }
+
+            PlayerCurrency playerFirstCurrency = null;
+            PlayerCurrency playerSecondCurrency = null;
+
+            for (int i = 0; i < Spil.SpilPlayerDataInstance.Wallet.Currencies.Count; i++)
+            {
+                if (firstCurrency != null && firstCurrency.Id == Spil.SpilPlayerDataInstance.Wallet.Currencies[i].Id)
+                {
+                    playerFirstCurrency = Spil.SpilPlayerDataInstance.Wallet.Currencies[i];
+                }
+                if (secondCurrency != null && secondCurrency.Id == Spil.SpilPlayerDataInstance.Wallet.Currencies[i].Id)
+                {
+                    playerSecondCurrency = Spil.SpilPlayerDataInstance.Wallet.Currencies[i];
+                }
+            }
+
+            if (playerFirstCurrency != null)
+            {
+                txtFirstCurrencyValue.text = playerFirstCurrency.CurrentBalance.ToString();
+            } else {
+                txtFirstCurrencyValue.text = "";
+            }
+
+            if (playerSecondCurrency != null)
+            {
+                txtSecondCurrencyValue.text = playerSecondCurrency.CurrentBalance.ToString();
+            } else {
+                txtSecondCurrencyValue.text = "";
+            }
+
+            showInventory();
+        }
+
+        public Text txtPnlItemsId1;
+        public Text txtPnlItemsId2;
+        public Text txtPnlItemsId3;
+        public Text txtPnlItemsId4;
+
+        public Text txtPnlItemsAmount1;
+        public Text txtPnlItemsAmount2;
+        public Text txtPnlItemsAmount3;
+        public Text txtPnlItemsAmount4;
+
+        public Text txtPnlItems1;
+        public Text txtPnlItems2;
+        public Text txtPnlItems3;
+        public Text txtPnlItems4;
+
+        private void showInventory()
+        {
+            txtPnlItemsId1.text = "";
+            txtPnlItemsId2.text = "";
+            txtPnlItemsId3.text = "";
+            txtPnlItemsId4.text = "";
+
+            txtPnlItemsAmount1.text = "";
+            txtPnlItemsAmount2.text = "";
+            txtPnlItemsAmount3.text = "";
+            txtPnlItemsAmount4.text = "";
+
+            txtPnlItems1.text = "";
+            txtPnlItems2.text = "";
+            txtPnlItems3.text = "";
+            txtPnlItems4.text = "";
+
+            for (int i = 0; i < Spil.SpilPlayerDataInstance.Inventory.Items.Count; i++)
+            {
+                if (i >= pnlItemsCurrentPage * 4 && i < (pnlItemsCurrentPage + 1) * 4)
+                {
+                    if (i % 4 == 0)
+                    {
+                        txtPnlItemsId1.text = "Id: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Id.ToString();
+                        txtPnlItemsAmount1.text = "X: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Amount.ToString();
+                        txtPnlItems1.text = Spil.SpilPlayerDataInstance.Inventory.Items[i].Name;
+                    }
+                    if (i % 4 == 1)
+                    {
+                        txtPnlItemsId2.text = "Id: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Id.ToString();
+                        txtPnlItemsAmount2.text = "X: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Amount.ToString();
+                        txtPnlItems2.text = Spil.SpilPlayerDataInstance.Inventory.Items[i].Name;
+                    }
+                    if (i % 4 == 2)
+                    {
+                        txtPnlItemsId3.text = "Id: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Id.ToString();
+                        txtPnlItemsAmount3.text = "X: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Amount.ToString();
+                        txtPnlItems3.text = Spil.SpilPlayerDataInstance.Inventory.Items[i].Name;
+                    }
+                    if (i % 4 == 3)
+                    {
+                        txtPnlItemsId4.text = "Id: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Id.ToString();
+                        txtPnlItemsAmount4.text = "X: " + Spil.SpilPlayerDataInstance.Inventory.Items[i].Amount.ToString();
+                        txtPnlItems4.text = Spil.SpilPlayerDataInstance.Inventory.Items[i].Name;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Shop
+
+        public Text txtPnlShopItemId1;
+        public Text txtPnlShopItemId2;
+        public Text txtPnlShopItemId3;
+        public Text txtPnlShopItemId4;
+        public Text txtPnlShopItemId5;
+        public Text txtPnlShopItemId6;
+        public Text txtPnlShopItemId7;
+
+        public Text txtPnlShopItem1;
+        public Text txtPnlShopItem2;
+        public Text txtPnlShopItem3;
+        public Text txtPnlShopItem4;
+        public Text txtPnlShopItem5;
+        public Text txtPnlShopItem6;
+        public Text txtPnlShopItem7;
+
+        public Text txtPnlShopItemAmount1;
+        public Text txtPnlShopItemAmount2;
+        public Text txtPnlShopItemAmount3;
+        public Text txtPnlShopItemAmount4;
+        public Text txtPnlShopItemAmount5;
+        public Text txtPnlShopItemAmount6;
+        public Text txtPnlShopItemAmount7;
+
+        public Text txtPnlShopItemCurrency1;
+        public Text txtPnlShopItemCurrency2;
+        public Text txtPnlShopItemCurrency3;
+        public Text txtPnlShopItemCurrency4;
+        public Text txtPnlShopItemCurrency5;
+        public Text txtPnlShopItemCurrency6;
+        public Text txtPnlShopItemCurrency7;
+
+        public void btnPreviousTabClick()
+        {
+            pnlShopCurrentTabPage -= 1;
+            if(pnlShopCurrentTabPage < 0)
+            {
+                pnlShopCurrentTabPage = Convert.ToInt32(Math.Floor(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d));
+            }
+            updateUIShop();
+        }
+
+        public void btnNextTabClick()
+        {
+            pnlShopCurrentTabPage += 1;
+            if (pnlShopCurrentTabPage > Convert.ToInt32(Math.Floor(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d)))
+            {
+                pnlShopCurrentTabPage = 0;
+            }
+            updateUIShop();
+        }
+
+        public void btnTab1Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab2Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 1;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab3Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 2;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnTab4Click()
+        {
+            pnlShopCurrentTab = pnlShopCurrentTabPage * 4 + 3;
+            pnlShopCurrentPage = 0;
+            updateUIShop();
+        }
+
+        public void btnShopItem1Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem2Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 1].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem3Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 2].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem4Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 3].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem5Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 4].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem6Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 5].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItem7Click()
+        {
+            Spil.SpilPlayerDataInstance.ConsumeBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 6].BundleId, PlayerDataUpdateReasons.ItemBought);
+        }
+
+        public void btnShopItemUp()
+        {
+            if (Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count > 7)
+            {
+                pnlShopCurrentPage -= 1;
+                if (pnlShopCurrentPage < 0)
+                {
+                    pnlShopCurrentPage = Convert.ToInt32(Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count / 7d)) - 1;
+                }
+            }
+        }
+
+        public void btnShopItemDown()
+        {
+            if (Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count > 7)
+            {
+                pnlShopCurrentPage += 1;
+                if (pnlShopCurrentPage > Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count / 7d) - 1)
+                {
+                    pnlShopCurrentPage = 0;
+                }
+            }
+        }
+
+        public GameObject bntTab1;
+        public GameObject bntTab2;
+        public GameObject bntTab3;
+        public GameObject bntTab4;
+
+        public Text txtBntTab1;
+        public Text txtBntTab2;
+        public Text txtBntTab3;
+        public Text txtBntTab4;
+
+        public GameObject bntTabNext;
+        public GameObject bntTabPrevious;
+
+        int pnlShopCurrentPage = 0;
+        int pnlShopCurrentTabPage = 0;
+        int pnlShopCurrentTab = 0;
+
+        public void updateUIShop()
+        {
+            //bntTab1.SetActive(false);
+            //bntTab2.SetActive(false);
+            //bntTab3.SetActive(false);
+            //bntTab4.SetActive(false);
+
+            //bntTabNext.SetActive(false);
+            //bntTabPrevious.SetActive(false);
+
+            txtBntTab1.text = "";
+            txtBntTab2.text = "";
+            txtBntTab3.text = "";
+            txtBntTab4.text = "";
+
+            txtPnlShopItemId1.text = "";
+            txtPnlShopItemId2.text = "";
+            txtPnlShopItemId3.text = "";
+            txtPnlShopItemId4.text = "";
+            txtPnlShopItemId5.text = "";
+            txtPnlShopItemId6.text = "";
+            txtPnlShopItemId7.text = "";
+
+            txtPnlShopItem1.text = "";
+            txtPnlShopItem2.text = "";
+            txtPnlShopItem3.text = "";
+            txtPnlShopItem4.text = "";
+            txtPnlShopItem5.text = "";
+            txtPnlShopItem6.text = "";
+            txtPnlShopItem7.text = "";
+
+            txtPnlShopItemAmount1.text = "";
+            txtPnlShopItemAmount2.text = "";
+            txtPnlShopItemAmount3.text = "";
+            txtPnlShopItemAmount4.text = "";
+            txtPnlShopItemAmount5.text = "";
+            txtPnlShopItemAmount6.text = "";
+            txtPnlShopItemAmount7.text = "";
+
+            txtPnlShopItemCurrency1.text = "";
+            txtPnlShopItemCurrency2.text = "";
+            txtPnlShopItemCurrency3.text = "";
+            txtPnlShopItemCurrency4.text = "";
+            txtPnlShopItemCurrency5.text = "";
+            txtPnlShopItemCurrency6.text = "";
+            txtPnlShopItemCurrency7.text = "";
+
+            if (Spil.SpilGameDataInstance.Shop.Tabs.Count > 0)
+            {
+                Debug.Log("pnlShopCurrentTab: " + pnlShopCurrentTab + " ");
+
+                if (pnlShopCurrentTabPage > 0)
+                {
+                    //bntTabPrevious.SetActive(true);
+                }
+                if(Math.Ceiling(Spil.SpilGameDataInstance.Shop.Tabs.Count / 4d) - 1 > pnlShopCurrentTabPage)
+                {
+                    //bntTabNext.SetActive(false);
+                }
+
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage *  4 + 1)
+                {
+                    //bntTab1.SetActive(true);
+                    txtBntTab1.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 2)
+                {
+                    //bntTab2.SetActive(true);
+                    txtBntTab2.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 1].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 3)
+                {
+                    //bntTab3.SetActive(true);
+                    txtBntTab3.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 2].Name;
+                }
+                if (Spil.SpilGameDataInstance.Shop.Tabs.Count >= pnlShopCurrentTabPage * 4 + 4)
+                {
+                    //bntTab4.SetActive(true);
+                    txtBntTab4.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTabPage * 4 + 3].Name;
+                }
+
+                for (int i = 0; i < Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries.Count; i++)
+                {
+                    if (i >= pnlShopCurrentPage * 7 && i < (pnlShopCurrentPage + 1) * 7)
+                    {
+                        if (i % 7 == 0)
+                        {
+                            txtPnlShopItemId1.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem1.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount1.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency1.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 1)
+                        {
+                            txtPnlShopItemId2.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem2.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount2.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency2.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 2)
+                        {
+                            txtPnlShopItemId3.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem3.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount3.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency3.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 3)
+                        {
+                            txtPnlShopItemId4.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem4.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount4.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency4.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 4)
+                        {
+                            txtPnlShopItemId5.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem5.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount5.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency5.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 5)
+                        {
+                            txtPnlShopItemId6.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem6.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount6.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency6.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                        if (i % 7 == 6)
+                        {
+                            txtPnlShopItemId7.text = "Id: " + Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                            txtPnlShopItem7.text = Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
+                            txtPnlShopItemAmount7.text = Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
+                            txtPnlShopItemCurrency7.text = Spil.SpilGameDataInstance.GetCurrency(Spil.SpilGameDataInstance.GetBundle(Spil.SpilGameDataInstance.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        }
+                    }
+                }
+            } 
+        }
+
+        #endregion
+    }
 }

@@ -119,7 +119,7 @@
 		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		0jJ1/VBiC7cPvI6OI/FW8VVw+tE=
+		VSniZSCSjx/uxBwRYtK2Aa/humE=
 		</data>
 		<key>Headers/UnityAppController.h</key>
 		<data>
@@ -135,7 +135,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		n2mt2xzALaLDn9HKSQGAQlUDLrU=
+		neg2xOtmP8iWxtVTKJcM6wcjJZw=
 		</data>
 		<key>MPCloseBtn.png</key>
 		<data>
@@ -234,14 +234,6 @@
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>defaultGameData.json</key>
-		<data>
-		lKAfhlXggQEjD6iACfF1zD4C6sc=
-		</data>
-		<key>defaultPlayerData.json</key>
-		<data>
-		1DnNMae5ARfKbRWxU6YG9ATQNf4=
-		</data>
 		<key>mod_pbxproj.py</key>
 		<data>
 		DSPT1Q95FKxMA2drNgY4hs9HbJw=
@@ -252,7 +244,7 @@
 		</data>
 		<key>setup.py</key>
 		<data>
-		lIoNzv89XnwUHlcO23v+yKB4JG8=
+		ZdOHxqvXYFNG/by6g1l8AE+rhpc=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -560,11 +552,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0jJ1/VBiC7cPvI6OI/FW8VVw+tE=
+			VSniZSCSjx/uxBwRYtK2Aa/humE=
 			</data>
 			<key>hash2</key>
 			<data>
-			UO+ewxVs+Rw9FUYLWppZDlFztxayjrCVBp3C0FBuYx0=
+			lJsNaOJToocA1/bV+35/9mioxwgd87DIHR8uu9Qodgc=
 			</data>
 		</dict>
 		<key>Headers/UnityAppController.h</key>
@@ -593,11 +585,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			n2mt2xzALaLDn9HKSQGAQlUDLrU=
+			neg2xOtmP8iWxtVTKJcM6wcjJZw=
 			</data>
 			<key>hash2</key>
 			<data>
-			nK5kPhOlqCq0MFo7Lt2kTM3bkIXfn44jUXSoM2coMlA=
+			QUXiFArKgRqSjCM/tLIAwncvEpgFw46KPSUgJ7FSttg=
 			</data>
 		</dict>
 		<key>MPCloseBtn.png</key>
@@ -855,28 +847,6 @@
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>defaultGameData.json</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			lKAfhlXggQEjD6iACfF1zD4C6sc=
-			</data>
-			<key>hash2</key>
-			<data>
-			e5B7SZ45YvHCAVrchQtTjtUpk5QPw5O1XLZGj2TaGjI=
-			</data>
-		</dict>
-		<key>defaultPlayerData.json</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			1DnNMae5ARfKbRWxU6YG9ATQNf4=
-			</data>
-			<key>hash2</key>
-			<data>
-			kKf1/r5P/YP/6I2MM4J6ALGztVh68Am4NaxnQMvZDEs=
-			</data>
-		</dict>
 		<key>mod_pbxproj.py</key>
 		<dict>
 			<key>hash</key>
@@ -903,11 +873,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lIoNzv89XnwUHlcO23v+yKB4JG8=
+			ZdOHxqvXYFNG/by6g1l8AE+rhpc=
 			</data>
 			<key>hash2</key>
 			<data>
-			INpunGMXvOl4ozk0WAVBW/tXm13uTuIeUoR66lck2Jo=
+			r0r6w76yl5KUp3pD9fhra7oWOFpWwLcC2FMlbzJ+V3w=
 			</data>
 		</dict>
 	</dict>

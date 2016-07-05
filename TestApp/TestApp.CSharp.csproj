@@ -58,6 +58,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -74,6 +80,8 @@
   <ItemGroup>
     <Compile Include="Assets\Spilgames\Helpers\JSONHelper.cs" />
     <Compile Include="Assets\Spilgames\Helpers\PackagesHelper.cs" />
+    <Compile Include="Assets\Spilgames\Helpers\PlayerDataHelper.cs" />
+    <Compile Include="Assets\Spilgames\Helpers\SpilGameDataHelper.cs" />
     <Compile Include="Assets\Spilgames\Spil.cs" />
     <Compile Include="Assets\Spilgames\UnityImplementation\SpilAndroidUnityImplementation.cs" />
     <Compile Include="Assets\Spilgames\UnityImplementation\SpilUnityEditorImplementation.cs" />

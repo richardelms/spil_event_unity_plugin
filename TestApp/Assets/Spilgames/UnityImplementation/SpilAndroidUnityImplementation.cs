@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SpilGames.Unity.Utils;
 
 namespace SpilGames.Unity.Implementations
 {
-    #if UNITY_ANDROID
+//    #if UNITY_ANDROID
     public class SpilAndroidUnityImplementation : SpilUnityImplementationBase
     {
         #region Inherited members
@@ -148,7 +149,7 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
             public override void RequestMoreApps()
             {
-                CallNativeMethod("requestAd", new object[]{ "ChartBoost", "moreApps", false }, true);
+                CallNativeMethod("requestAd", new object[]{ "Chartboost", "moreApps", false }, true);
             }
 
             /// <summary>
@@ -161,23 +162,65 @@ namespace SpilGames.Unity.Implementations
             {
                 return CallNativeMethod("getSpilUID");
             }
+            
+			#region Spil Game Objects
 			
-            /// <summary>
-            /// When Fyber has shown a reward video and the user goes back to the game to receive his/her reward Fyber can
-            /// automatically show a toast message with information about the reward, for instance "You've received 50 coins". 
-            /// This is disabled by default to allow the developer to create a reward notification for the user.
-            /// Developers can call SetShowToastOnVideoReward(true) to enable Fyber's automatic toast message.
-            /// </summary>
-            public override void SetShowToastOnVideoReward(bool value)
-            {
-                CallNativeMethod("showToastOnVideoReward", new object[]{ value }, true);
-            }
+			public override string GetSpilGameDataFromSdk ()
+			{
+				return CallNativeMethod("getSpilGameData");
+			}
+			
+			#endregion
+			
+			#region Player Data
+			
+			public override string GetWalletFromSdk()
+			{
+				return CallNativeMethod("getWallet");
+			}
+			
+			public override string GetInvetoryFromSdk()
+			{
+				return CallNativeMethod("getInventory");
+			}
+			
+			public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
+			{
+				CallNativeMethod("addCurrencyToWallet", new object[]{ currencyId, amount, reason }, true);
+			}
+			
+			public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
+			{
+				CallNativeMethod("subtractCurrencyFromWallet", new object[]{ currencyId, amount, reason }, true);
+			}
+			
+			public override void AddItemToInventory (int itemId, int amount, string reason)
+			{
+				CallNativeMethod("addItemToInventory", new object[]{ itemId, amount, reason }, true);
+			}
+			
+			public override void SubtractItemFromInventory (int itemId, int amount, string reason)
+			{
+				CallNativeMethod("subtractItemFromInventory", new object[]{ itemId, amount, reason }, true);
+			}
+			
+			public override void ConsumeBundle (int bundleId, string reason)
+			{
+				CallNativeMethod("consumeBundle", new object[]{ bundleId, reason }, true);
+			}
+			
+			#endregion
+
+			public override void SetShowToastOnVideoReward (bool enabled)
+			{
+				
+			}
 
         #endregion
 
         #region Non inherited members (Android only members)
 
-            #region DFP / Fyber / ChartBoost
+            #region DFP / Fyber / Chartboost
 
                 /// <summary>
                 /// Method that initiaties DFP Ads (to be used only for testing purposes).
@@ -201,7 +244,7 @@ namespace SpilGames.Unity.Implementations
                 }
 
                 /// <summary>
-                /// Method that shows ChartBoost more apps (to be used only for testing purposes).
+                /// Method that shows Chartboost more apps (to be used only for testing purposes).
                 /// This is not essential for developers so could be hidden but it might be handy for some developers so we left it in.
                 /// </summary>
                 /// <param name="appId"></param>
@@ -277,7 +320,7 @@ namespace SpilGames.Unity.Implementations
 
             private string CallNativeMethod(string methodName)
             {
-                return CallNativeMethod<object>(methodName);
+                return CallNativeMethod<object>(methodName, null, false);
             }
 
             /// <summary>
@@ -350,5 +393,5 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
     }
-    #endif
+//    #endif
 }

@@ -26,7 +26,7 @@
     <application>
 
       <provider
-          android:authorities=<!-- Replace this string with your own company identifier and remove this comment: “com.Company.ProductName.google_measurement_service” -->
+          android:authorities=<!-- Replace this string with your own company identifier and remove this comment: "com.Company.ProductName.google_measurement_service" -->
           android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
           android:exported="false"/>
 

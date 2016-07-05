@@ -420,7 +420,7 @@ namespace SpilGames.Unity.Implementations
 			if (Spil.Instance.OnSpilGameDataAvailable != null) { Spil.Instance.OnSpilGameDataAvailable(); }
 		}
 		
-		public delegate void SpilGameDataError(string reason);
+		public delegate void SpilGameDataError(SpilErrorMessage errorMessage);
 		/// <summary>
 		/// This is fired by the native Spil SDK after game data has failed to be retrieved.
 		/// The developer can subscribe to this event and check the reason.
@@ -431,8 +431,8 @@ namespace SpilGames.Unity.Implementations
 		{
 			Debug.Log ("SpilSDK-Unity Spil Game Data error with reason = " + reason);
 			
-			if (Spil.Instance.OnSpilGameDataError != null) { Spil.Instance.OnSpilGameDataError(reason); }
-		
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+			if (Spil.Instance.OnSpilGameDataError != null) { Spil.Instance.OnSpilGameDataError(errorMessage); }
 		}
 		
 		public abstract string GetSpilGameDataFromSdk();
@@ -486,7 +486,7 @@ namespace SpilGames.Unity.Implementations
 			
 		}
 		
-		public delegate void PlayerDataError();
+		public delegate void PlayerDataError(SpilErrorMessage errorMessage);
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has failed to be retrieved.
 		/// The developer can subscribe to this event and check the reason.
@@ -497,8 +497,10 @@ namespace SpilGames.Unity.Implementations
 		{
 			Debug.Log ("SpilSDK-Unity Player Data error with reason = " + reason);
 			
-			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
-			
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); }
+			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); } 	
 		}
 		
 		public abstract string GetWalletFromSdk();

@@ -44,7 +44,22 @@ namespace SpilGames.Unity
 
                 // When an ad finishes or is dismissed it will call OnAdFinished so music can be re-enabled etc
                 Spil.Instance.OnAdFinished -= AdFinishedHandler;
-                Spil.Instance.OnAdFinished += AdFinishedHandler;
+                Spil.Instance.OnAdFinished += AdFinishedHandler;			
+				
+				Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
+				Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
+
+				Spil.Instance.OnPlayerDataAvailable -= PlayerDataAvailableHandler;
+				Spil.Instance.OnPlayerDataAvailable += PlayerDataAvailableHandler;
+
+				Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
+				Spil.Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
+
+				Spil.Instance.OnPlayerDataError -= PlayerDataErrorHandler;
+				Spil.Instance.OnPlayerDataError += PlayerDataErrorHandler;
+
+				Spil.Instance.OnSpilGameDataError -= SpilGameDataErrorHandler;
+				Spil.Instance.OnSpilGameDataError += SpilGameDataErrorHandler;
             }
             
             // Make sure you've called AttachListeners() before calling this method
@@ -118,11 +133,26 @@ namespace SpilGames.Unity
 			        Debug.Log ("Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits"));
 		        }
             }
+			
+			private void PlayerDataUpdatedHandler()
+			{
+			}
+
+			private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
+			{			
+			}
+
+			private void SpilGameDataErrorHandler(SpilErrorMessage errorMessage)
+			{
+			}
+
+			private void PlayerDataAvailableHandler()
+			{
+			}
 
 			private void SpilGameDataAvailableHandler()
-			{
-				Debug.Log("SpilGameData Available");
-			}
+			{	
+			}			
 			
 
         #endregion

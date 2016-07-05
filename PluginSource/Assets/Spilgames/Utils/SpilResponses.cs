@@ -232,6 +232,12 @@ namespace SpilGames.Unity.Utils
 			public string logic;
 		}
 	
-	#endregion 
+	#endregion
 
+	public class SpilErrorMessage
+	{
+		public int id;
+		public string name;
+		public string message;
+	}	
 }

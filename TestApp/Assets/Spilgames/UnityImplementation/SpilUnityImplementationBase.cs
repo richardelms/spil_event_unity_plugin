@@ -394,6 +394,8 @@ namespace SpilGames.Unity.Implementations
 
         public abstract void PlayMoreApps();
 
+		public abstract void TestRequestAd(string providerName, string adType, bool parentalGate);
+		
         /// <summary>
         /// Retrieves the Spil User Id so that developers can show this in-game for users.
         /// If users contact Spil customer service they can supply this Id so that 
@@ -430,10 +432,10 @@ namespace SpilGames.Unity.Implementations
 		public static void fireSpilGameDataError(string reason)
 		{
 			Debug.Log ("SpilSDK-Unity Spil Game Data error with reason = " + reason);
-
-            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
-            if (Spil.Instance.OnSpilGameDataError != null) { Spil.Instance.OnSpilGameDataError(errorMessage); }
-        }
+			
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+			if (Spil.Instance.OnSpilGameDataError != null) { Spil.Instance.OnSpilGameDataError(errorMessage); }
+		}
 		
 		public abstract string GetSpilGameDataFromSdk();
 		
@@ -469,20 +471,20 @@ namespace SpilGames.Unity.Implementations
 			
 		}
 		
-		public delegate void PlayerDataUpdated();
+		public delegate void PlayerDataUpdated(string reason);
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been updated.
 		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
 		/// </summary>
 		public event PlayerDataUpdated OnPlayerDataUpdated;
 		
-		public static void firePlayerDataUpdated()
+		public static void firePlayerDataUpdated(string reason)
 		{
 			Spil.SpilPlayerDataInstance.PlayerDataUpdatedHandler ();
 
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
 
-			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
+			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(reason); }
 			
 		}
 		
@@ -493,13 +495,13 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public event PlayerDataError OnPlayerDataError;
 		
-		public static void firePlayerDataError(String reason)
+		public static void firePlayerDataError(string reason)
 		{
 			Debug.Log ("SpilSDK-Unity Player Data error with reason = " + reason);
-            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+			
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
 
-            if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); }
-            if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(); }
+			if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); } 	
 		}
 		
 		public abstract string GetWalletFromSdk();

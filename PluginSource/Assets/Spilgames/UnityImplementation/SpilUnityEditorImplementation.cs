@@ -231,7 +231,7 @@ namespace SpilGames.Unity.Implementations
 			/// <param name="provider"></param>
 			/// <param name="adType"></param>
 			/// <param name="parentalGate"></param>
-			public void TestRequestAd(string provider, string adType, bool parentalGate)
+			public override void TestRequestAd(string provider, string adType, bool parentalGate)
 			{
 				
 			}

@@ -50,20 +50,20 @@ namespace SpilGames.Unity
             Spil.Instance.OnAdFinished -= AdFinishedHandler;
             Spil.Instance.OnAdFinished += AdFinishedHandler;
 
-            Spil.Instance.OnPlayerDataUpdated -= Instance_OnPlayerDataUpdated;
-            Spil.Instance.OnPlayerDataUpdated += Instance_OnPlayerDataUpdated;
+            Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
+            Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
 
-            Spil.Instance.OnPlayerDataAvailable -= Instance_OnPlayerDataAvailable;
-            Spil.Instance.OnPlayerDataAvailable += Instance_OnPlayerDataAvailable;
+            Spil.Instance.OnPlayerDataAvailable -= PlayerDataAvailableHandler;
+            Spil.Instance.OnPlayerDataAvailable += PlayerDataAvailableHandler;
 
-            Spil.Instance.OnSpilGameDataAvailable -= Instance_OnSpilGameDataAvailable;
-            Spil.Instance.OnSpilGameDataAvailable += Instance_OnSpilGameDataAvailable;
+            Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
+            Spil.Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
 
-            Spil.Instance.OnPlayerDataError -= Instance_OnPlayerDataError;
-            Spil.Instance.OnPlayerDataError += Instance_OnPlayerDataError;
+            Spil.Instance.OnPlayerDataError -= PlayerDataErrorHandler;
+            Spil.Instance.OnPlayerDataError += PlayerDataErrorHandler;
 
-            Spil.Instance.OnSpilGameDataError -= Instance_OnSpilGameDataError;
-            Spil.Instance.OnSpilGameDataError += Instance_OnSpilGameDataError;
+            Spil.Instance.OnSpilGameDataError -= SpilGameDataErrorHandler;
+            Spil.Instance.OnSpilGameDataError += SpilGameDataErrorHandler;
         }
 
         // When an ad is available it can be shown
@@ -86,21 +86,18 @@ namespace SpilGames.Unity
             // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
         }
 
-        private void Instance_OnPlayerDataUpdated()
+        private void PlayerDataUpdatedHandler(string reason)
         {
+            if(reason.Equals(PlayerDataUpdateReasons.ItemBought))
+            {
+                txtErrorMessage.text = "Transaction successfull";
+                pnlErrorMessage.SetActive(true);
+            }
+
             updateUI();
         }
 
-        private void Instance_OnPlayerDataError(SpilErrorMessage errorMessage)
-        {
-            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
-            pnlErrorMessage.SetActive(true);
-
-            updateUI();
-            updateUIShop();
-        }
-
-        private void Instance_OnSpilGameDataError(SpilErrorMessage errorMessage)
+        private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
         {
             txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
             pnlErrorMessage.SetActive(true);
@@ -109,12 +106,21 @@ namespace SpilGames.Unity
             updateUIShop();
         }
 
-        private void Instance_OnPlayerDataAvailable()
+        private void SpilGameDataErrorHandler(SpilErrorMessage errorMessage)
+        {
+            txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+            pnlErrorMessage.SetActive(true);
+
+            updateUI();
+            updateUIShop();
+        }
+
+        private void PlayerDataAvailableHandler()
         {
             updateUI();
         }
 
-        private void Instance_OnSpilGameDataAvailable()
+        private void SpilGameDataAvailableHandler()
         {
             updateUI();
         }
@@ -271,9 +277,9 @@ namespace SpilGames.Unity
         /// <summary>
         /// This method is called by the native Spil SDK, it should not be used by developers.
         /// </summary>
-        public void PlayerDataUpdated()
+        public void PlayerDataUpdated(string reason)
         {
-            SpilUnityImplementationBase.firePlayerDataUpdated();
+            SpilUnityImplementationBase.firePlayerDataUpdated(reason);
         }
 
         /// <summary>

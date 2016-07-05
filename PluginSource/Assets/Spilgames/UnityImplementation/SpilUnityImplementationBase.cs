@@ -394,6 +394,8 @@ namespace SpilGames.Unity.Implementations
 
         public abstract void PlayMoreApps();
 
+		public abstract void TestRequestAd(string providerName, string adType, bool parentalGate);
+		
         /// <summary>
         /// Retrieves the Spil User Id so that developers can show this in-game for users.
         /// If users contact Spil customer service they can supply this Id so that 

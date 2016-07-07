@@ -252,14 +252,14 @@ namespace SpilGames.Unity.Implementations
 
                     SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse>(response);
 
-                    if (spilResponse.type.ToLower().Trim().Equals("reward"))
+					if (spilResponse.type.ToLower().Trim().Equals("notificationreward"))
                     {
-                        RewardResponse rewardResponseData = JsonHelper.getObjectFromJson<RewardResponse>(response);
-                        fireOnRewardEvent(rewardResponseData.data.eventData);
+						PushNotificationRewardResponse rewardResponseData = JsonHelper.getObjectFromJson<PushNotificationRewardResponse>(response);
+                        fireOnRewardEvent(rewardResponseData);
                     }
                 }
 
-                public delegate void RewardEvent(RewardData rewardResponse);
+				public delegate void RewardEvent(PushNotificationRewardResponse rewardResponse);
                 /// <summary>
                 /// This is fired by the Unity Spil SDK after it receives a "Reward" response from the back-end.
                 /// The developer can subscribe to this event to assign the reward and update the UI.
@@ -269,7 +269,7 @@ namespace SpilGames.Unity.Implementations
                 /// <summary>
                 /// This is fired by the Unity Spil SDK after it receives a "Reward" response from the back-end.
                 /// </summary>
-                private static void fireOnRewardEvent(RewardData rewardResponse) {  if (Spil.Instance.OnReward != null) { Spil.Instance.OnReward(rewardResponse); } }
+				private static void fireOnRewardEvent(PushNotificationRewardResponse rewardResponse) {  if (Spil.Instance.OnReward != null) { Spil.Instance.OnReward(rewardResponse); } }
 
                 public delegate void AdAvailableEvent(enumAdType adType);
                 /// <summary>

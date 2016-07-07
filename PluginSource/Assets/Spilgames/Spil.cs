@@ -134,7 +134,7 @@ namespace SpilGames.Unity
 		        }
             }
 			
-			private void PlayerDataUpdatedHandler()
+            private void PlayerDataUpdatedHandler(string reason)
 			{
 			}
 

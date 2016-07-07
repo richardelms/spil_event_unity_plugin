@@ -1,10 +1,15 @@
-<h1>Spil Games Unity Plugin (V2.0.2)</h1>
+<h1>Spil Games Unity Plugin (V2.1.0)</h1>
 
 The Spil Game Unity Plugin is designed to give developers access to Spil Games SLOT functions and communicate with the Spil backend. The plugin also provides developers with an easy way to connect to ad networks and implement features like video's, interstitials and tracking of users' behaviours.
 
 Documentation can be found at: http://www.spilgames.com/developers/integration/unity/unity-get-started/
 
 <h3>Changelog</h3>
+
+<h4>V2.1.0</h4>
+<p>
+Version 2.1.0 is here and brings new "Shop", "Wallet" and "Inventory" features that allow developers to create an in-game shop, items and economy that can be monitored, managed and balanced from the Spil back-end. Documentation will be updated a.s.a.p. on SpilGames.com, this changelog will also be expanded.
+</p>
 
 <h4>V2.0.2</h4>
 <p>

@@ -224,7 +224,7 @@ FOUNDATION_EXPORT const unsigned char SpilVersionString[];
 /*
  * Show the last requested interstitial
  */
-+(void)showIntersitial;
+//+(void)showIntersitial;
 
 /*
  * Show the last requested reward video

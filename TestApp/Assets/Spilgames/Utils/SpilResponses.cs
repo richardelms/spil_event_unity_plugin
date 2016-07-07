@@ -96,6 +96,24 @@ namespace SpilGames.Unity.Utils
         public int reward;
     }
 
+	// Pushnotifications reward classes
+
+	public class PushNotificationRewardResponse : SpilResponse
+	{
+		public PushRewardEventData data;
+	}
+
+	public class PushRewardEventData
+	{
+		public NotificationRewardData eventData;
+	}
+
+	public class NotificationRewardData{
+		public string currencyName;
+		public int currencyId;
+		public int reward;
+	}
+
     #endregion
 
     #region Packages

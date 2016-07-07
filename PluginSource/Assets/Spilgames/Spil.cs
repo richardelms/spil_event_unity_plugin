@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.0.2
+ * Version 2.1.0
  * 
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -30,34 +30,39 @@ namespace SpilGames.Unity
             {
                 // Make sure that any existing handlers are removed and add new ones
 
-                // When we've requested an ad, if it is available it will call OnAdAvailable
+                // When an ad has been requested, if it is available then the OnAdAvailable event is fired.
                 Spil.Instance.OnAdAvailable -= AdAvailableHandler;
                 Spil.Instance.OnAdAvailable += AdAvailableHandler;
 
-                // When we've requested an ad, if it is not available it will call OnAdNotAvailable
+                // When an ad has been requested, if it is not available then the OnAdNotAvailable event is fired.
                 Spil.Instance.OnAdNotAvailable -= AdNotAvailableHandler;
                 Spil.Instance.OnAdNotAvailable += AdNotAvailableHandler;
 
-                // When an ad starts it will first call OnAdStarted so music can be muted etc
+                // Before an ad starts the OnAdStarted event is fired so that music can be muted etc
                 Spil.Instance.OnAdStarted -= AdStartedHandler;
                 Spil.Instance.OnAdStarted += AdStartedHandler;
 
-                // When an ad finishes or is dismissed it will call OnAdFinished so music can be re-enabled etc
+                // When an ad finishes or is dismissed the OnAdFinished event is fired so that music can be re-enabled etc
                 Spil.Instance.OnAdFinished -= AdFinishedHandler;
                 Spil.Instance.OnAdFinished += AdFinishedHandler;			
 				
+				// When the user's wallet or inventory has been updated either by the back-end or because an item 
+				// was bought/sold/consumed the OnPlayerDataUpdated event is fired.
 				Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
 				Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
 
-				Spil.Instance.OnPlayerDataAvailable -= PlayerDataAvailableHandler;
-				Spil.Instance.OnPlayerDataAvailable += PlayerDataAvailableHandler;
-
+				// When data from the back-end has been received for the shop, items, currencies etc the OnSpilGameDataAvailable
+				// event is fired.
 				Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
 				Spil.Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
 
+				// If an error occurs when buying/selling/consuming items or bundles the OnPlayerDataError event is fired. 
+				// For instance the user may not have had enough money to buy an item.
 				Spil.Instance.OnPlayerDataError -= PlayerDataErrorHandler;
 				Spil.Instance.OnPlayerDataError += PlayerDataErrorHandler;
 
+				// If an error occurs when reading the defaultGameData.json or when receiving gamedata for shop/items/currencies
+				// from the back-end the OnSpilGameDataError event is fired.
 				Spil.Instance.OnSpilGameDataError -= SpilGameDataErrorHandler;
 				Spil.Instance.OnSpilGameDataError += SpilGameDataErrorHandler;
             }
@@ -136,25 +141,32 @@ namespace SpilGames.Unity
 			
             private void PlayerDataUpdatedHandler(string reason)
 			{
+				// Check reason and inform the player for instance if a purchase was successfull
+				// The reason that is returned is the same as the reason that was passed as a parameter
+				// for the method that initiated the PlayerData update. So for instance:
+				// Spil.SpilPlayerDataInstance.Inventory.Add(Spil.SpilGameDataInstance.Items[0].Id, 1, PlayerDataUpdateReasons.ItemBought);
+				// Will return the string PlayerDataUpdateReasons.ItemBought. See the PlayerDataUpdateReasons class in PlayerDataHelper.cs
+				// for standard reasons.
 			}
 
 			private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
 			{			
+				// Check the errorMessage and inform the player for instance if there was not enough money to purchase an item.
 			}
 
 			private void SpilGameDataErrorHandler(SpilErrorMessage errorMessage)
 			{
-			}
-
-			private void PlayerDataAvailableHandler()
-			{
+				// This shouldn't happen in a live environment and should hopefully only be used for debugging.
+				// Can also be used to provide a fallback and/or present a message to the user and update the UI
+				// should the game data be corrupted or unavailable for some reason.
 			}
 
 			private void SpilGameDataAvailableHandler()
-			{	
-			}			
+			{
+				// New game data (items, currencies, shop information) was received from the back-end.
+				// Update the UI and player wallet / inventory if necessary.
+			}
 			
-
         #endregion
 
         #region SpilSDK code

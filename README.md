@@ -23,6 +23,7 @@ on SpilGames.com.
 <li>Improved logging for iOS.</li>
 <li>AndroidManifest.xml for google play measurements now intentionally crashes build untill it is updated by user (how to notes are included)</li>
 <li>Various minor bugfixes and improvements for ease of use.</li>
+<li>150% damage vs dragons</li>
 </ul>
 </p>
 

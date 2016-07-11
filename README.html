@@ -8,7 +8,20 @@ Documentation can be found at: http://www.spilgames.com/developers/integration/u
 
 <h4>V2.1.0</h4>
 <p>
-Version 2.1.0 is here and brings new "Shop", "Wallet" and "Inventory" features that allow developers to create an in-game shop, items and economy that can be monitored, managed and balanced from the Spil back-end. Documentation will be updated a.s.a.p. on SpilGames.com, this changelog will also be expanded.
+Version 2.1.0 is here and brings new "Shop", "Wallet" and "Inventory" features that allow developers to create an in-game shop, 
+items and economy that can be monitored, managed and balanced from the Spil back-end. Documentation will be updated a.s.a.p. 
+on SpilGames.com.
+</p>
+
+<p>
+- Updated to Android SpilSDK V2.1.0 and iOS SDK V2.0.3
+- Added Wallet, Inventory and Shop features for creating and managing in-game economy.
+- Fixed and improved reward passed via push notifications.
+- Updated test app to include Wallet, Inventory and Shop features (See the TestApp directory).
+- TestRequest methods for testing advertisements are now also available for iOS
+- Improved logging for iOS
+- AndroidManifest.xml for google play measurements now intentionally crashes build untill it is updated by user (how to notes are included)
+- Various minor bugfixes and improvements for ease of use.
 </p>
 
 <h4>V2.0.2</h4>

@@ -14,14 +14,16 @@ on SpilGames.com.
 </p>
 
 <p>
-- Updated to Android SpilSDK V2.1.0 and iOS SDK V2.0.3
-- Added Wallet, Inventory and Shop features for creating and managing in-game economy.
-- Fixed and improved reward passed via push notifications.
-- Updated test app to include Wallet, Inventory and Shop features (See the TestApp directory).
-- TestRequest methods for testing advertisements are now also available for iOS
-- Improved logging for iOS
-- AndroidManifest.xml for google play measurements now intentionally crashes build untill it is updated by user (how to notes are included)
-- Various minor bugfixes and improvements for ease of use.
+<ul>
+<li>Updated to Android SpilSDK V2.1.0 and iOS SDK V2.0.3</li>
+<li>Added Wallet, Inventory and Shop features for creating and managing in-game economy.</li>
+<li>Fixed and improved reward passed via push notifications.</li>
+<li>Updated test app to include Wallet, Inventory and Shop features (See the TestApp directory).</li>
+<li>TestRequest methods for testing advertisements are now also available for iOS.</li>
+<li>Improved logging for iOS.</li>
+<li>AndroidManifest.xml for google play measurements now intentionally crashes build untill it is updated by user (how to notes are included)</li>
+<li>Various minor bugfixes and improvements for ease of use.</li>
+</ul>
 </p>
 
 <h4>V2.0.2</h4>

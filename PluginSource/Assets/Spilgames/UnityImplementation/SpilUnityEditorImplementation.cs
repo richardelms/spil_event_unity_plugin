@@ -280,6 +280,14 @@ namespace SpilGames.Unity.Implementations
             
             }
 
+            /// <summary>
+            /// Registers for push notifications for iOS.
+            /// Can be used then the automatic registration was disabled using: DisableAutomaticRegisterForPushNotifications();
+            /// </summary>
+            public void RegisterForPushNotifications()
+            {
+            }
+
 			#endregion
 
 			// If Android, register device

@@ -415,7 +415,7 @@ namespace SpilGames.Unity.Implementations
 
 		public static void fireSpilGameDataAvailable()
 		{
-			Spil.SpilGameDataInstance.SpilGameDataHandler ();
+			Spil.GameData.SpilGameDataHandler ();
 
 			Debug.Log ("SpilSDK-Unity Spil Game Data is available");
 			
@@ -480,7 +480,7 @@ namespace SpilGames.Unity.Implementations
 		
 		public static void firePlayerDataUpdated(string reason)
 		{
-			Spil.SpilPlayerDataInstance.PlayerDataUpdatedHandler ();
+			Spil.PlayerData.PlayerDataUpdatedHandler ();
 
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
 

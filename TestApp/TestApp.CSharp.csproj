@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameScript.cs" />
     <Compile Include="Assets\Spilgames\Helpers\JSONHelper.cs" />
     <Compile Include="Assets\Spilgames\Helpers\PackagesHelper.cs" />
     <Compile Include="Assets\Spilgames\Helpers\PlayerDataHelper.cs" />

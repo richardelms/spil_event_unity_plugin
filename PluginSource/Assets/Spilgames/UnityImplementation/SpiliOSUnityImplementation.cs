@@ -310,6 +310,7 @@ namespace SpilGames.Unity.Implementations
         public void DisableAutomaticRegisterForPushNotifications()
         {
             disableAutomaticRegisterForPushNotifications = true;
+            disableAutomaticRegisterForPushNotificationsNative();
         }
 
         [DllImport("__Internal")]
@@ -324,7 +325,10 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void handlePushNotification(string notificationStringParams);
 
-		//register for ios push notifications
+        /// <summary>
+        /// Registers for push notifications for iOS.
+        /// Can be used then the automatic registration was disabled using: DisableAutomaticRegisterForPushNotifications();
+        /// </summary>
 		public void RegisterForPushNotifications()
 		{
 			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");

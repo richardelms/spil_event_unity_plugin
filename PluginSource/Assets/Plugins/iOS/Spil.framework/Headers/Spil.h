@@ -10,7 +10,7 @@
 #import "JsonUtil.h"
 #import "HookBridge.h"
 
-#define SDK_VERSION @"2.0.3"
+#define SDK_VERSION @"2.0.4"
 
 @class Spil;
 @class UserProfile;

@@ -20,12 +20,7 @@ namespace SpilGames.Unity
         /// You can get your project id from your contact person.
         /// The project ID is used for push notifications.
         /// </summary>
-        public static string Project_ID
-        {
-            get { return "127433475057"; }
-            set { Project_ID = value; }
-        }
-        private string project_ID;
+        public static string Project_ID = "127433475057";
 
         public static SpilGameDataHelper GameData;
         public static PlayerDataHelper PlayerData;

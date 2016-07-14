@@ -100,7 +100,7 @@ namespace SpilGames.Unity.Implementations
 
             if (disableAutomaticRegisterForPushNotifications == false) 
 			{
-				RegisterForIosPushNotifications ();
+                RegisterForPushNotifications ();
 				CheckForRemoteNotifications();
 			}
 		}
@@ -325,7 +325,7 @@ namespace SpilGames.Unity.Implementations
 		private static extern void handlePushNotification(string notificationStringParams);
 
 		//register for ios push notifications
-		private void RegisterForIosPushNotifications()
+		public void RegisterForPushNotifications()
 		{
 			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
 	#if UNITY_IPHONE

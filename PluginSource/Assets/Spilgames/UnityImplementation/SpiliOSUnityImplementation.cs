@@ -193,7 +193,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void RequestMoreApps()
 		{
-			devRequestAdNative("ChartBoost", "moreApps", false);
+			devRequestAdNative("Chartboost", "moreApps", false);
 		}
 
 		[DllImport("__Internal")]
@@ -300,6 +300,24 @@ namespace SpilGames.Unity.Implementations
 		private static extern string getConfigValueNative(string keyName);
 
 		#endregion
+
+        #region Customer support
+
+        public override void ShowHelpCenter() {
+            showHelpCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterNative();
+
+        public override void showContactCenter() {
+            showContactCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showContactCenterNative();
+
+        #endregion
 
 		#region Push notifications
 

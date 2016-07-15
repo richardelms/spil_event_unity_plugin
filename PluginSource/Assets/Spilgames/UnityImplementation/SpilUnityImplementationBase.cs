@@ -535,5 +535,13 @@ namespace SpilGames.Unity.Implementations
 		public abstract void ConsumeBundle(int bundleId, string reason);
 		
 		#endregion
+
+        #region Customer support
+
+        public abstract void ShowHelpCenter();
+
+        public abstract void showContactCenter();
+
+        #endregion
     }
 }

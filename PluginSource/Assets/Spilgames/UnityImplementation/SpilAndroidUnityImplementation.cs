@@ -392,6 +392,20 @@ namespace SpilGames.Unity.Implementations
             }
 
         #endregion
+
+        #region Customer support
+
+        public override void ShowHelpCenter() 
+        {
+            // TODO
+        }
+
+        public override void showContactCenter()
+        {
+            // TODO
+        }
+
+        #endregion
     }
 //    #endif
 }

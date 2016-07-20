@@ -310,12 +310,20 @@ namespace SpilGames.Unity.Implementations
         [DllImport("__Internal")]
         private static extern void showHelpCenterNative();
 
-        public override void showContactCenter() {
+        public override void ShowContactCenter() {
             showContactCenterNative();
         }
 
         [DllImport("__Internal")]
         private static extern void showContactCenterNative();
+
+        public override void ShowHelpCenterWebview()
+        {
+            showHelpCenterWebviewNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterWebviewNative();
 
         #endregion
 

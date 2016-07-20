@@ -400,7 +400,12 @@ namespace SpilGames.Unity.Implementations
             // TODO
         }
 
-        public override void showContactCenter()
+        public override void ShowContactCenter()
+        {
+            // TODO
+        }
+
+        public override void ShowHelpCenterWebview()
         {
             // TODO
         }

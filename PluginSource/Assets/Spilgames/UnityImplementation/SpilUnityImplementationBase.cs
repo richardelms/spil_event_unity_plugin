@@ -471,20 +471,22 @@ namespace SpilGames.Unity.Implementations
 			
 		}
 		
-		public delegate void PlayerDataUpdated(string reason);
+        public delegate void PlayerDataUpdated(string reason, PlayerDataUpdatedData updatedData);
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been updated.
 		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
 		/// </summary>
 		public event PlayerDataUpdated OnPlayerDataUpdated;
 		
-		public static void firePlayerDataUpdated(string reason)
+        public static void firePlayerDataUpdated(string data)
 		{
+            PlayerDataUpdatedData playerDataUpdatedData = JsonHelper.getObjectFromJson<PlayerDataUpdatedData>(data);
+
 			Spil.PlayerData.PlayerDataUpdatedHandler ();
 
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
 
-			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(reason); }
+            if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(playerDataUpdatedData.reason, playerDataUpdatedData); }
 			
 		}
 		

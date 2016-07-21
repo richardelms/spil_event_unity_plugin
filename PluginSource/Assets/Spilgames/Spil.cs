@@ -131,9 +131,9 @@ namespace SpilGames.Unity
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>
-		public void PlayerDataUpdated(string reason)
+		public void PlayerDataUpdated(string data)
 		{
-			SpilUnityImplementationBase.firePlayerDataUpdated(reason);
+            SpilUnityImplementationBase.firePlayerDataUpdated(data);
 		}
 		
 		/// <summary>

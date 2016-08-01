@@ -80,6 +80,11 @@ namespace SpilGames.Unity.Implementations
                 RegisterDevice(Spil.Project_ID);
             }
 
+            public override void SetSocialUserId(string userId, string serviceIdentifier)
+            {
+                // TODO
+            }
+
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
             /// Custom events may be tracked as follows:

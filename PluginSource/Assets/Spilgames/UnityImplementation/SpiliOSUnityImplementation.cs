@@ -105,6 +105,14 @@ namespace SpilGames.Unity.Implementations
 			}
 		}
 
+        public override void SetSocialUserId(string userId, string serviceIdentifier)
+        {
+            setSocialUserIdNative(userId, serviceIdentifier);
+        }
+
+        [DllImport("__Internal")]
+        private static extern void setSocialUserIdNative(string userId, string serviceIdentifier);
+
 		/// <summary>
 		/// Sends an event to the native Spil SDK which will send a request to the back-end.
 		/// Custom events may be tracked as follows:

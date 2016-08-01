@@ -17,6 +17,8 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 			internal abstract void SpilInit();  
 
+            public abstract void SetSocialUserId(string userId, string serviceIdentifier);
+
         #endregion
 
         #region Game config

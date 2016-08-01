@@ -381,6 +381,22 @@ namespace SpilGames.Unity.Implementations
                     if (Spil.Instance.OnAdFinished != null) { Spil.Instance.OnAdFinished(responseObject); }
 	            }
 
+                public delegate void ConfigUpdatedEvent();
+                /// <summary>
+                /// This is fired by the native Spil SDK when the config was updated.
+                /// The developer can subscribe to this event and for instance re-enable the in-game sound.
+                /// </summary>
+                public event ConfigUpdatedEvent OnConfigUpdated;
+                /// <summary>
+                /// This is called by the native Spil SDK and will fire an ConfigUpdated event to which the developer 
+                /// can subscribe, it will only be called when the config values are different from the previous loaded config.
+                /// </summary>
+                public static void fireConfigUpdatedEvent()
+                {
+                    Debug.Log ("SpilSDK-Unity Config updated!");
+                    if (Spil.Instance.OnConfigUpdated != null) { Spil.Instance.OnConfigUpdated(); }
+                }
+
             #endregion
         
         #endregion

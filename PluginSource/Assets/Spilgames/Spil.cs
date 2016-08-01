@@ -96,6 +96,15 @@ namespace SpilGames.Unity
 			SpilUnityImplementationBase.fireAdNotAvailableEvent(type);
 		}
 
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.ConfigUpdated event.
+        /// </summary>
+        public void ConfigUpdated()
+        {
+            SpilUnityImplementationBase.fireConfigUpdatedEvent();
+        }
+
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>

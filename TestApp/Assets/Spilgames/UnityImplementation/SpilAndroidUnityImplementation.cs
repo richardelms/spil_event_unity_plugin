@@ -77,7 +77,7 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 			internal override void SpilInit(bool pushNotificationsEnabled)
             {
-                RegisterDevice(Spil.Project_ID);
+                RegisterDevice(Spil.GCMProject_ID);
             }
 
             /// <summary>

@@ -32,7 +32,9 @@ public class SpilEditor : EditorWindow
 		}
 		Debug.Log ("Getting Default Game Data for: " + PlayerSettings.bundleIdentifier);
 		string streamingAssetsPath = Application.dataPath + "/StreamingAssets";
-		Directory.CreateDirectory(streamingAssetsPath);
+		if (!File.Exists ()) {
+			Directory.CreateDirectory (streamingAssetsPath);
+		}
 		File.WriteAllText (streamingAssetsPath + "/defaultGamedata.json", GetData ("requestGameData"));
 		File.WriteAllText (streamingAssetsPath + "/defaultGameConfig.json", GetData ("requestConfig"));
 		File.WriteAllText (streamingAssetsPath + "/defaultPlayerData.json", GetData ("requestPlayerData"));

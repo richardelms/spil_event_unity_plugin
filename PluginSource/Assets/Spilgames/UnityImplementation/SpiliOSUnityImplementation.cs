@@ -13,7 +13,10 @@ namespace SpilGames.Unity.Implementations
         protected bool disableAutomaticRegisterForPushNotifications = false;
 
 		#region Inherited members
-
+		public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			//ToDo
+		}
 		#region Game config
 
 		/// <summary>

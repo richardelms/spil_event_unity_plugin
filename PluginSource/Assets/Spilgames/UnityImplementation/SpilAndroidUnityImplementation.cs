@@ -10,6 +10,10 @@ namespace SpilGames.Unity.Implementations
     {
         #region Inherited members
 
+        	public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			CallNativeMethod("setPluginInformation", new object[]{ PluginName, PluginVersion }, true);
+		}
             #region Game config
 
                 /// <summary>
@@ -82,7 +86,7 @@ namespace SpilGames.Unity.Implementations
 
             public override void SetSocialUserId(string userId, string serviceIdentifier)
             {
-                // TODO
+			CallNativeMethod("setSocialUserId", new object[]{ userId, serviceIdentifier }, true);
             }
 
             /// <summary>
@@ -402,17 +406,17 @@ namespace SpilGames.Unity.Implementations
 
         public override void ShowHelpCenter() 
         {
-            // TODO
+            CallNativeMethod("showZendeskHelpCenter");
         }
 
         public override void ShowContactCenter()
         {
-            // TODO
+            CallNativeMethod("showContactZendeskCenter");
         }
 
         public override void ShowHelpCenterWebview()
         {
-            // TODO
+            CallNativeMethod("showZendeskWebViewHelpCenter");
         }
 
         #endregion

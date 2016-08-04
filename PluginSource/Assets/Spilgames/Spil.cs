@@ -50,7 +50,7 @@ namespace SpilGames.Unity
 		{
 			Debug.Log("SpilSDK-Unity Init");
 
-			Instance.SpilInit(false);
+			Instance.SpilInit();
 			DontDestroyOnLoad(gameObject);
 			gameObject.name = "SpilSDK";
 
@@ -96,6 +96,15 @@ namespace SpilGames.Unity
 			SpilUnityImplementationBase.fireAdNotAvailableEvent(type);
 		}
 
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// Developers can subscribe to the Spil.Instance.ConfigUpdated event.
+        /// </summary>
+        public void ConfigUpdated()
+        {
+            SpilUnityImplementationBase.fireConfigUpdatedEvent();
+        }
+
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>
@@ -131,9 +140,9 @@ namespace SpilGames.Unity
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>
-		public void PlayerDataUpdated(string reason)
+		public void PlayerDataUpdated(string data)
 		{
-			SpilUnityImplementationBase.firePlayerDataUpdated(reason);
+            SpilUnityImplementationBase.firePlayerDataUpdated(data);
 		}
 		
 		/// <summary>

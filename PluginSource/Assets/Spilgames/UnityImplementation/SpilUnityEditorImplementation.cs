@@ -12,44 +12,49 @@ namespace SpilGames.Unity.Implementations
 
 	public class SpilUnityEditorImplementation : SpilUnityImplementationBase {
 
-			#region Inherited members
+	#region Inherited members
 
-			#region Game config
+		public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			
+		}
 
-			/// <summary>
-			/// Returns the game config as a json string.
-			/// This is not essential for developers so could be made private (getConfig T () uses it so it cannot be removed entirely) but might be handy for some developers so we left it in.
-			/// </summary>
-			/// <returns></returns>     
-			public override string GetConfigAll()
-			{
-				string config = System.IO.File.ReadAllText(Application.streamingAssetsPath + "/defaultGameConfig.json");
-				return config;
-			}
+		#region Game config
 
-			/// <summary>
-			/// Method that returns a configuration value from the game config based on key 
-			/// </summary>
-			/// <param name="key"></param>
-			/// <returns></returns>
-			public override string GetConfigValue(string key)
-			{
-				return "Not Avalible in editorMode";
-			}
+		/// <summary>
+		/// Returns the game config as a json string.
+		/// This is not essential for developers so could be made private (getConfig T () uses it so it cannot be removed entirely) but might be handy for some developers so we left it in.
+		/// </summary>
+		/// <returns></returns>     
+		public override string GetConfigAll()
+		{
+			string config = System.IO.File.ReadAllText(Application.streamingAssetsPath + "/defaultGameConfig.json");
+			return config;
+		}
 
-			#endregion
+		/// <summary>
+		/// Method that returns a configuration value from the game config based on key 
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public override string GetConfigValue(string key)
+		{
+			return "Not Avalible in editorMode";
+		}
 
-			#region Packages and promotions
+		#endregion
 
-			/// <summary>
-			/// Method that requests packages and promotions from the server.
-			/// This is called automatically by the Spil SDK when the game starts.
-			/// This is not essential so could be removed but might be handy for some developers so we left it in.
-			/// </summary>
-			public override void UpdatePackagesAndPromotions()
-			{
-				
-			}
+		#region Packages and promotions
+
+		/// <summary>
+		/// Method that requests packages and promotions from the server.
+		/// This is called automatically by the Spil SDK when the game starts.
+		/// This is not essential so could be removed but might be handy for some developers so we left it in.
+		/// </summary>
+		public override void UpdatePackagesAndPromotions()
+		{
+			
+		}
 
             protected override string GetAllPackages()
             {
@@ -78,10 +83,14 @@ namespace SpilGames.Unity.Implementations
 			/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
 			/// Internal method names start with a lower case so you can easily recognise and avoid them.
 			/// </summary>
-			internal override void SpilInit(bool pushNotificationsEnabled)
+			internal override void SpilInit()
 			{
 				
 			}
+
+            public override void SetSocialUserId(string userId, string serviceIdentifier)
+            {
+            }
 
 			/// <summary>
 			/// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -271,6 +280,23 @@ namespace SpilGames.Unity.Implementations
 				
 			}
 
+			/// <summary>
+            /// Disables the automatic register for push notifications for iOS.
+            /// Should be called before the SpilInit() call!
+            /// </summary>
+            public void DisableAutomaticRegisterForPushNotifications()
+            {
+            
+            }
+
+            /// <summary>
+            /// Registers for push notifications for iOS.
+            /// Can be used then the automatic registration was disabled using: DisableAutomaticRegisterForPushNotifications();
+            /// </summary>
+            public void RegisterForPushNotifications()
+            {
+            }
+
 			#endregion
 
 			// If Android, register device
@@ -330,6 +356,25 @@ namespace SpilGames.Unity.Implementations
 				string value = null;
 				return value;
 			}
+
+        #endregion
+
+        #region Customer support
+
+            public override void ShowHelpCenter() 
+            {
+                // TODO
+            }
+
+            public override void ShowContactCenter()
+            {
+                // TODO
+            }
+
+            public override void ShowHelpCenterWebview()
+            {
+                // TODO
+            }
 
         #endregion
     }

@@ -10,6 +10,10 @@ namespace SpilGames.Unity.Implementations
     {
         #region Inherited members
 
+        	public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			CallNativeMethod("setPluginInformation", new object[]{ PluginName, PluginVersion }, true);
+		}
             #region Game config
 
                 /// <summary>
@@ -75,9 +79,14 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-			internal override void SpilInit(bool pushNotificationsEnabled)
+			internal override void SpilInit()
             {
                 RegisterDevice(Spil.Project_ID);
+            }
+
+            public override void SetSocialUserId(string userId, string serviceIdentifier)
+            {
+			CallNativeMethod("setSocialUserId", new object[]{ userId, serviceIdentifier }, true);
             }
 
             /// <summary>
@@ -390,6 +399,25 @@ namespace SpilGames.Unity.Implementations
                 }
                 return value;
             }
+
+        #endregion
+
+        #region Customer support
+
+        public override void ShowHelpCenter() 
+        {
+            CallNativeMethod("showZendeskHelpCenter");
+        }
+
+        public override void ShowContactCenter()
+        {
+            CallNativeMethod("showContactZendeskCenter");
+        }
+
+        public override void ShowHelpCenterWebview()
+        {
+            CallNativeMethod("showZendeskWebViewHelpCenter");
+        }
 
         #endregion
     }

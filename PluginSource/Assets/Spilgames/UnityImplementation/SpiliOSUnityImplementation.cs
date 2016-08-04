@@ -10,10 +10,13 @@ namespace SpilGames.Unity.Implementations
 	#if UNITY_IPHONE
 	public class SpiliOSUnityImplementation : SpilUnityImplementationBase
 	{
-		protected bool pushNotificationsEnabled = false;
+        protected bool disableAutomaticRegisterForPushNotifications = false;
 
 		#region Inherited members
-
+		public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			//ToDo
+		}
 		#region Game config
 
 		/// <summary>
@@ -91,20 +94,27 @@ namespace SpilGames.Unity.Implementations
 		/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
 		/// Internal method names start with a lower case so you can easily recognise and avoid them.
 		/// </summary>
-		internal override void SpilInit(bool pushNotificationsEnabled)
+		internal override void SpilInit()
 		{
 			JSONObject options = new JSONObject();
 			options.AddField ("isUnity",true);
 			initEventTrackerWithOptions(options.ToString());
 			applicationDidBecomeActive();
 
-			this.pushNotificationsEnabled = pushNotificationsEnabled;
-			if (pushNotificationsEnabled) 
+            if (disableAutomaticRegisterForPushNotifications == false) 
 			{
-				RegisterForIosPushNotifications ();
+                RegisterForPushNotifications ();
 				CheckForRemoteNotifications();
 			}
 		}
+
+        public override void SetSocialUserId(string userId, string serviceIdentifier)
+        {
+            setSocialUserIdNative(userId, serviceIdentifier);
+        }
+
+        [DllImport("__Internal")]
+        private static extern void setSocialUserIdNative(string userId, string serviceIdentifier);
 
 		/// <summary>
 		/// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -194,7 +204,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void RequestMoreApps()
 		{
-			devRequestAdNative("ChartBoost", "moreApps", false);
+			devRequestAdNative("Chartboost", "moreApps", false);
 		}
 
 		[DllImport("__Internal")]
@@ -302,7 +312,49 @@ namespace SpilGames.Unity.Implementations
 
 		#endregion
 
+        #region Customer support
+
+        public override void ShowHelpCenter() {
+            showHelpCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterNative();
+
+        public override void ShowContactCenter() {
+            showContactCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showContactCenterNative();
+
+        public override void ShowHelpCenterWebview()
+        {
+            showHelpCenterWebviewNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterWebviewNative();
+
+        #endregion
+
 		#region Push notifications
+
+        /// <summary>
+        /// Disables the automatic register for push notifications.
+        /// Should be called before SpilInit!
+        /// </summary>
+        public void DisableAutomaticRegisterForPushNotifications()
+        {
+            disableAutomaticRegisterForPushNotifications = true;
+            disableAutomaticRegisterForPushNotificationsNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void disableAutomaticRegisterForPushNotificationsNative();
+
+        [DllImport("__Internal")]
+        private static extern void registerForPushNotifications();
 
 		[DllImport("__Internal")]
 		private static extern void setPushNotificationKey(string key);
@@ -310,8 +362,11 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void handlePushNotification(string notificationStringParams);
 
-		//register for ios push notifications
-		private void RegisterForIosPushNotifications()
+        /// <summary>
+        /// Registers for push notifications for iOS.
+        /// Can be used then the automatic registration was disabled using: DisableAutomaticRegisterForPushNotifications();
+        /// </summary>
+		public void RegisterForPushNotifications()
 		{
 			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
 	#if UNITY_IPHONE
@@ -452,10 +507,7 @@ namespace SpilGames.Unity.Implementations
 			if(!pauseStatus)
 			{
 				applicationDidBecomeActive();
-				if (pushNotificationsEnabled)
-				{
-					CheckForRemoteNotifications();
-				}
+				CheckForRemoteNotifications();
 			} else {
 				applicationDidEnterBackground();
 			}

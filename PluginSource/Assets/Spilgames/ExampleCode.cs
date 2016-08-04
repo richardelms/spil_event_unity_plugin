@@ -128,8 +128,8 @@ public class ExampleCode : MonoBehaviour
 			Debug.Log ("Rewarded " + rewardAmount + (response.reward.currencyName != null ? " " + response.reward.currencyName : " credits"));
 		}
 	}
-	
-	private void PlayerDataUpdatedHandler(string reason)
+
+    private void PlayerDataUpdatedHandler(string reason, PlayerDataUpdatedData updatedData)
 	{
 		// Check reason and inform the player for instance if a purchase was successfull
 		// The reason that is returned is the same as the reason that was passed as a parameter

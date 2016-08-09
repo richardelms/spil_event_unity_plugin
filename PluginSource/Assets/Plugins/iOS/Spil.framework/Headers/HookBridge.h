@@ -49,6 +49,8 @@ extern "C" {
     char* cStringCopy(const char* string);
     
     char* getSpilUIDNative();
+    
+    void setSocialUserIdNative(const char* userId, const char* serviceIdentifier);
 
     // --- Config ---
     
@@ -83,8 +85,6 @@ extern "C" {
     void showToastOnVideoReward(const bool enabled);
     
     // --- Game & Player data ---
-    
-    //char* getUserProfileNative ();
 
     char* getWalletNative ();
     
@@ -101,6 +101,14 @@ extern "C" {
     void subtractItemFromInventoryNative (int itemId, int amount, char* reasonName);
     
     void consumeBundleNative (int itemId, char* reasonName);
+    
+    // --- Customer support ---
+    
+    void showHelpCenterNative();
+    
+    void showContactCenterNative();
+    
+    void showHelpCenterWebviewNative();
 }
 
 #endif

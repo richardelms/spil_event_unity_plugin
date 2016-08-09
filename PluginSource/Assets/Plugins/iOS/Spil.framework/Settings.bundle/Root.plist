@@ -12,7 +12,7 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Debug</string>
+			<string>DebugMode</string>
 			<key>Title</key>
 			<string>Debug</string>
 			<key>Type</key>

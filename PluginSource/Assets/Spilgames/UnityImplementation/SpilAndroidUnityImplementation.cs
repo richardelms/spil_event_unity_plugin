@@ -84,10 +84,15 @@ namespace SpilGames.Unity.Implementations
                 RegisterDevice(Spil.Project_ID);
             }
 
-            public override void SetSocialUserId(string userId, string serviceIdentifier)
+            public override void SetUserId(string providerId, string userId)
             {
-			CallNativeMethod("setSocialUserId", new object[]{ userId, serviceIdentifier }, true);
+				CallNativeMethod("getUserId", new object[]{ providerId, userId }, true);
             }
+
+			public override string GetUserId()
+			{
+				return CallNativeMethod("getUserId");
+			}
 
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -167,9 +172,9 @@ namespace SpilGames.Unity.Implementations
             /// customer support can help them properly. Please make this Id available for users
             /// in one of your game's screens.
             /// </summary>
-	        public override string GetSpilUID()
+			public override string GetSpilUserId()
             {
-                return CallNativeMethod("getSpilUID");
+				return CallNativeMethod("getSpilUserId");
             }
             
 			#region Spil Game Objects

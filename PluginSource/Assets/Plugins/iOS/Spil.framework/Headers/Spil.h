@@ -85,15 +85,29 @@
  *  Get the Spil user id
  *
  */
-+(NSString*)getSpilUID;
++(NSString*)getSpilUserId;
 
 /**
- *  Set a social user id for a specified service.
+ *  Get the custom user id
+ *
+ */
++(NSString*)getUserId;
+
+/**
+ *  Set a custom user id for a specified service.
  *  
  *  @param userId The social user id to use
- *  @param serviceIdentifier The name of the service (e.g. facebook)
+ *  @param providerId The id of the service (e.g. facebook)
  */
-+(void)setSocialUserId:(NSString*)userId forServiceIdentifier:(NSString*)serviceIdentifier;
++(void)setUserId:(NSString*)userId forProviderId:(NSString*)providerId;
+
+/**
+ *  Set a plugin name and version for the current session.
+ *
+ *  @param pluginName The plugin name
+ *  @param pluginVersion The plugin version
+ */
++(void)setPluginInformation:(NSString*)pluginName pluginVersion:(NSString*)pluginVersion;
 
 #pragma mark App flow
 

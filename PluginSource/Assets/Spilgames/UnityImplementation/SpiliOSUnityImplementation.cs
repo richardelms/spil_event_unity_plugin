@@ -13,10 +13,15 @@ namespace SpilGames.Unity.Implementations
         protected bool disableAutomaticRegisterForPushNotifications = false;
 
 		#region Inherited members
+
 		public override void SetPluginInformation (string PluginName, string PluginVersion)
 		{
-			//ToDo
+			setPluginInformationNative(PluginName, PluginVersion);
 		}
+
+		[DllImport("__Internal")]
+		private static extern void setPluginInformationNative(string pluginName, string pluginVersion);
+
 		#region Game config
 
 		/// <summary>
@@ -107,14 +112,6 @@ namespace SpilGames.Unity.Implementations
 				CheckForRemoteNotifications();
 			}
 		}
-
-        public override void SetSocialUserId(string userId, string serviceIdentifier)
-        {
-            setSocialUserIdNative(userId, serviceIdentifier);
-        }
-
-        [DllImport("__Internal")]
-        private static extern void setSocialUserIdNative(string userId, string serviceIdentifier);
 
 		/// <summary>
 		/// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -216,13 +213,37 @@ namespace SpilGames.Unity.Implementations
 		/// customer support can help them properly. Please make this Id available for users
 		/// in one of your game's screens.
 		/// </summary>
-		public override string GetSpilUID()
+		public override string GetSpilUserId()
 		{
-			return getSpilUIDNative();
+			return getSpilUserIdNative();
 		}
 
 		[DllImport("__Internal")]
-		private static extern string getSpilUIDNative();
+		private static extern string getSpilUserIdNative();
+
+		/// <summary>
+		/// Retrieves the custom User Id
+		/// </summary>
+		public override string GetUserId()
+		{
+			return getUserIdNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getUserIdNative();
+
+		/// <summary>
+		/// Sets the custom User Id for a provider
+		/// </summary>
+		/// <param name="providerId"></param>
+		/// <param name="userId"></param>
+		public override void SetUserId(string providerId, string userId)
+		{
+			setUserIdNative(providerId, userId);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setUserIdNative(string providerId, string userId);
 
 		#region Spil Game Objects
 

@@ -22,8 +22,6 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 			internal abstract void SpilInit();  
 
-            public abstract void SetSocialUserId(string userId, string serviceIdentifier);
-
         #endregion
 
         #region Game config
@@ -425,7 +423,11 @@ namespace SpilGames.Unity.Implementations
         /// customer support can help them properly. Please make this Id available for users
         /// in one of your game's screens.
         /// </summary>
-	    public abstract string GetSpilUID();
+		public abstract string GetSpilUserId();
+
+		public abstract void SetUserId (string providerId, string userId);
+
+		public abstract string GetUserId ();
 
 		#region Spil Game Objects
 

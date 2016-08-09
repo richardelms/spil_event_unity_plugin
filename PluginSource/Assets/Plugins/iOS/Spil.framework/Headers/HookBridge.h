@@ -48,9 +48,13 @@ extern "C" {
     
     char* cStringCopy(const char* string);
     
-    char* getSpilUIDNative();
+    char* getSpilUserIdNative();
     
-    void setSocialUserIdNative(const char* userId, const char* serviceIdentifier);
+    char* getUserIdNative();
+    
+    void setUserIdNative(const char* providerId, const char* userId);
+    
+    void setPluginInformationNative(const char* pluginName, const char* pluginVersion);
 
     // --- Config ---
     

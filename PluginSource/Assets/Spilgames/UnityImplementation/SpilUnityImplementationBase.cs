@@ -181,9 +181,7 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
                 /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                // <param name="localPrice">The price the user paid for the product</param>
-                // <param name="localCurrency">The currency for the price the user paid (euro, dollar etc)</param>
-                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)//, string localPrice, string localCurrency)
+                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
                 {
                     SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }});
                 }
@@ -211,6 +209,57 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("iapFailed", new Dictionary<string, string>() { { "error", error }, { "skuId", skuId } });
                 }
 
+                /// <summary>
+                /// Sends the "tutorialComplete" event to the native Spil SDK which will send a request to the back-end.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                public void SendtutorialCompleteEvent()
+                {
+                    SendCustomEvent("tutorialComplete");
+                }
+
+                /// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                public void SendtutorialSkippedEvent()
+                {
+                    SendCustomEvent("tutorialSkipped");
+                }
+
+                /// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called after the user completes registration via email, Facebook, Google Plus or other available option. Registration option is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendregisterEvent(string platform)
+                {
+                    SendCustomEvent("register", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+                /// <summary>
+                /// Sends the "share" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user shares content on their social media accounts. Social media integration is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendshareEvent(string platform)
+                {
+                    SendCustomEvent("share", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+                /// <summary>
+                /// Sends the "invite" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user invites another user. Respective function in-game is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendinviteEvent(string platform)
+                {
+                    SendCustomEvent("invite", new Dictionary<string, string>() { { "platform", platform } });
+                }				
+				
             #endregion
 
             [Obsolete("This method is obsolete and has been replaced by SendCustomEvent(string eventName). Please update any references, this method will be removed in the next version.")]

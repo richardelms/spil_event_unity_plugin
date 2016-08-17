@@ -50,7 +50,7 @@ on SpilGames.com.
 
 <h4>V2.0.2</h4>
 <p>
-Version 2.0.2 is here and brings some fixes and updates primarily for iOS. This version also includes a new post-processor script to make building to iOS easier. Documentation will be updated a.s.a.p.
+Version 2.0.2 is here and brings some fixes and updates primarily for iOS. This version also includes a new post-processor script to make building to iOS easier.
 </p>
 
 <h4>V2.0.1</h4>

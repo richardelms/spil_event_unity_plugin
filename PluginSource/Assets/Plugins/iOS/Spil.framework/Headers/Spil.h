@@ -10,7 +10,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.0.6"
+#define SDK_VERSION @"2.0.7"
 
 @class Spil;
 @class UserProfile;
@@ -49,6 +49,11 @@
 -(void)playerDataError:(NSString*)message;
 -(void)playerDataUpdated:(NSString*)reason updatedData:(NSString*)updatedData;
 
+// User data events
+-(void)gameStateUpdated:(NSString*)data access:(NSString*)access; // Access: private|public
+-(void)otherUsersGameStateLoaded:(NSDictionary*)data forProvider:(NSString*)provider; // Data: <NSString* userId, NSString* data>
+-(void)gameStateError:(NSString*)message;
+
 @end
 
 @interface Spil : NSObject {
@@ -86,20 +91,6 @@
  *
  */
 +(NSString*)getSpilUserId;
-
-/**
- *  Get the custom user id
- *
- */
-+(NSString*)getUserId;
-
-/**
- *  Set a custom user id for a specified service.
- *  
- *  @param userId The social user id to use
- *  @param providerId The id of the service (e.g. facebook)
- */
-+(void)setUserId:(NSString*)userId forProviderId:(NSString*)providerId;
 
 /**
  *  Set a plugin name and version for the current session.

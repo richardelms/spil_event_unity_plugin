@@ -50,10 +50,6 @@ extern "C" {
     
     char* getSpilUserIdNative();
     
-    char* getUserIdNative();
-    
-    void setUserIdNative(const char* providerId, const char* userId);
-    
     void setPluginInformationNative(const char* pluginName, const char* pluginVersion);
 
     // --- Config ---

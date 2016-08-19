@@ -109,6 +109,24 @@ extern "C" {
     void showContactCenterNative();
     
     void showHelpCenterWebviewNative();
+    
+    // --- User data ---
+    
+    char* getUserIdNative();
+    
+    char* getUserProviderNative();
+    
+    void setUserIdNative(const char* providerId, const char* userId);
+
+    void setPrivateGameStateNative(const char* privateData);
+
+    char* getPrivateGameStateNative();
+
+    void setPublicGameStateNative(const char* publicData);
+    
+    char* getPublicGameStateNative();
+
+    void getOtherUsersGameStateNative(const char* provider, const char* userIdsJsonArray);
 }
 
 #endif

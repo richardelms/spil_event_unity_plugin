@@ -379,6 +379,60 @@
  */
 +(void)showHelpCenterWebview;
 
+#pragma mark User data
+
+/**
+ * Get the custom user id
+ */
++(NSString*)getUserId;
+
+/**
+ * Get the custom provider id
+ */
++(NSString*)getUserProvider;
+
+/**
+ *  Set a custom user id for a specified service.
+ *
+ *  @param userId The social user id to use
+ *  @param providerId The id of the service (e.g. facebook)
+ */
++(void)setUserId:(NSString*)userId forProviderId:(NSString*)providerId;
+
+/**
+ *  Set private game state data.
+ *
+ *  @param privateData The private data to store
+ */
++(void)setPrivateGameState:(NSString*)privateData;
+
+/**
+ *  Get private game state data.
+ *
+ */
++(NSString*)getPrivateGameState;
+
+/**
+ *  Set public game state data.
+ *
+ *  @param publicData The public data to store
+ */
++(void)setPublicGameState:(NSString*)publicData;
+
+/**
+ *  Get public game state data.
+ */
++(NSString*)getPublicGameState;
+
+/**
+ *  Get the public game state data of other users, 
+ *  based on the user id of a custom provider.
+ *
+ *  @param provider The provider to request the data from
+ *  @param userIds The user ids
+ */
++(void)getOtherUsersGameState:(NSString*)provider userIds:(NSArray*)userIds;
+
 #pragma test methods (dev)
 
 /**

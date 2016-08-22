@@ -474,9 +474,49 @@ namespace SpilGames.Unity.Implementations
         /// </summary>
 		public abstract string GetSpilUserId();
 
+		/// <summary>
+		/// Sets the user identifier.
+		/// </summary>
+		/// <param name="providerId">Provider identifier.</param>
+		/// <param name="userId">User identifier.</param>
 		public abstract void SetUserId (string providerId, string userId);
 
+		/// <summary>
+		/// Gets the user identifier.
+		/// </summary>
+		/// <returns>The user identifier.</returns>
 		public abstract string GetUserId ();
+
+		/// <summary>
+		/// Sets the state of the private game.
+		/// </summary>
+		/// <param name="privateData">Private data.</param>
+		public abstract void SetPrivateGameState(string privateData);
+
+		/// <summary>
+		/// Gets the state of the private game.
+		/// </summary>
+		/// <returns>The private game state.</returns>
+		public abstract string GetPrivateGameState ();
+
+		/// <summary>
+		/// Sets the public game state.
+		/// </summary>
+		/// <param name="publicData">Public data.</param>
+		public abstract void SetPublicGameState (string publicData);
+
+		/// <summary>
+		/// Sets the public game state.
+		/// </summary>
+		/// <returns>The public game state.</returns>
+		public abstract string SetPublicGameState ();
+
+		/// <summary>
+		/// Gets the public game state of other users.
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="userIdsJsonArray">User identifiers json array.</param>
+		public abstract void GetOtherUsersGameState(string provider, string userIdsJsonArray);
 
 		#region Spil Game Objects
 
@@ -578,6 +618,54 @@ namespace SpilGames.Unity.Implementations
 			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
 
 			if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); } 	
+		}
+
+		public delegate void GameStateUpdated(GameStateUpdatedData data);
+		/// <summary>
+		/// This is fired by the native Spil SDK after game state was updated.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event GameStateUpdated OnGameStateUpdated;
+
+		public static void fireGameStateUpdated(String message)
+		{
+			Debug.Log ("SpilSDK-Unity Game State Data updated, message = " + message);
+
+			GameStateUpdatedData data = JsonHelper.getObjectFromJson<GameStateUpdatedData>(message);
+
+			if (Spil.Instance.OnGameStateUpdated != null) { Spil.Instance.OnGameStateUpdated(data); } 	
+		}
+
+		public delegate void OtherUsersGameStateDataLoaded(OtherUsersGameStateData data);
+		/// <summary>
+		/// This is fired by the native Spil SDK after the game state data of other users was loaded.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event OtherUsersGameStateDataLoaded OnOtherUsersGameStateDataLoaded;
+
+		public static void fireOtherUsersGameStateLoaded(String message)
+		{
+			Debug.Log ("SpilSDK-Unity Other users game state data loaded, message = " + message);
+
+			OtherUsersGameStateData data = JsonHelper.getObjectFromJson<OtherUsersGameStateData>(message);
+
+			if (Spil.Instance.OnOtherUsersGameStateDataLoaded != null) { Spil.Instance.OnOtherUsersGameStateDataLoaded(data); } 	
+		}
+
+		public delegate void GameStateError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the game state has failed to be retrieved.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event GameStateError OnGameStateError;
+
+		public static void fireGameStateError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Game State Data error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnGameStateError != null) { Spil.Instance.OnGameStateError(errorMessage); } 	
 		}
 		
 		public abstract string GetWalletFromSdk();

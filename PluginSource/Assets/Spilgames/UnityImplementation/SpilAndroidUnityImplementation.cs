@@ -94,6 +94,49 @@ namespace SpilGames.Unity.Implementations
 				return CallNativeMethod("getUserId");
 			}
 
+			/// <summary>
+			/// Sets the state of the private game.
+			/// </summary>
+			/// <param name="privateData">Private data.</param>
+			public override void SetPrivateGameState(string privateData) {
+				// TODO
+			}
+
+			/// <summary>
+			/// Gets the state of the private game.
+			/// </summary>
+			/// <returns>The private game state.</returns>
+			public override string GetPrivateGameState () {
+				// TODO
+				return "";
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <param name="publicData">Public data.</param>
+			public override void SetPublicGameState (string publicData) {
+				// TODO
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <returns>The public game state.</returns>
+			public override string SetPublicGameState () {
+				// TODO
+				return "";
+			}
+
+			/// <summary>
+			/// Gets the public game state of other users.
+			/// </summary>
+			/// <param name="provider">Provider.</param>
+			/// <param name="userIdsJsonArray">User identifiers json array.</param>
+			public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
+				// TODO
+			}
+
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
             /// Custom events may be tracked as follows:

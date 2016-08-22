@@ -323,6 +323,15 @@ namespace SpilGames.Unity.Implementations
 			}
 
 			/// <summary>
+			/// Gets the user provider.
+			/// </summary>
+			/// <returns>The user provider native.</returns>
+			public override string GetUserProvider() 
+			{
+				return "1337";
+			}
+
+			/// <summary>
 			/// Sets the state of the private game.
 			/// </summary>
 			/// <param name="privateData">Private data.</param>
@@ -348,7 +357,7 @@ namespace SpilGames.Unity.Implementations
 			}
 
 			/// <summary>
-			/// Sets the public game state.
+			/// Gets the public game state.
 			/// </summary>
 			/// <returns>The public game state.</returns>
 			public override string GetPublicGameState () {

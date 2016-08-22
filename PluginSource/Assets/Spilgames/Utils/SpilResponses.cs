@@ -254,12 +254,6 @@ namespace SpilGames.Unity.Utils
 
 	#region Game State Data Objects
 
-		public class GameStateUpdatedData
-		{
-			public string data;
-			public string access;
-		}
-
 		public class OtherUsersGameStateData
 		{
 			public Dictionary<String, String> data;

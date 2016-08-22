@@ -156,9 +156,9 @@ namespace SpilGames.Unity
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>
-		public void GameStateUpdated(string message)
+		public void GameStateUpdated(string access)
 		{
-			SpilUnityImplementationBase.fireGameStateUpdated(message);
+			SpilUnityImplementationBase.fireGameStateUpdated(access);
 		}
 
 		/// <summary>

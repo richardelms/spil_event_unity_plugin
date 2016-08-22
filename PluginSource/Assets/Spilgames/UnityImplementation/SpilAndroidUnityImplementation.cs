@@ -95,6 +95,14 @@ namespace SpilGames.Unity.Implementations
 			}
 
 			/// <summary>
+			/// Gets the user provider.
+			/// </summary>
+			/// <returns>The user provider native.</returns>
+			public override string GetUserProvider() {
+				return CallNativeMethod("getUserProvider");
+			}
+
+			/// <summary>
 			/// Sets the state of the private game.
 			/// </summary>
 			/// <param name="privateData">Private data.</param>

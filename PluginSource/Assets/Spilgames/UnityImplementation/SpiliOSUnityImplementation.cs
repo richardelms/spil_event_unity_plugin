@@ -246,6 +246,17 @@ namespace SpilGames.Unity.Implementations
 		private static extern void setUserIdNative(string providerId, string userId);
 
 		/// <summary>
+		/// Gets the user provider.
+		/// </summary>
+		/// <returns>The user provider native.</returns>
+		public override string GetUserProvider() {
+			return getUserProviderNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getUserProviderNative();
+
+		/// <summary>
 		/// Sets the state of the private game.
 		/// </summary>
 		/// <param name="privateData">Private data.</param>
@@ -279,10 +290,10 @@ namespace SpilGames.Unity.Implementations
 		private static extern void setPublicGameStateNative(string publicData);
 
 		/// <summary>
-		/// Sets the public game state.
+		/// Gets the public game state.
 		/// </summary>
 		/// <returns>The public game state.</returns>
-		public override string SetPublicGameState() {
+		public override string GetPublicGameState() {
 			return getPublicGameStateNative();
 		}
 

@@ -488,6 +488,12 @@ namespace SpilGames.Unity.Implementations
 		public abstract string GetUserId ();
 
 		/// <summary>
+		/// Gets the user provider.
+		/// </summary>
+		/// <returns>The user provider native.</returns>
+		public abstract string GetUserProvider();
+
+		/// <summary>
 		/// Sets the state of the private game.
 		/// </summary>
 		/// <param name="privateData">Private data.</param>
@@ -506,7 +512,7 @@ namespace SpilGames.Unity.Implementations
 		public abstract void SetPublicGameState (string publicData);
 
 		/// <summary>
-		/// Sets the public game state.
+		/// Gets the public game state.
 		/// </summary>
 		/// <returns>The public game state.</returns>
 		public abstract string GetPublicGameState ();
@@ -620,20 +626,18 @@ namespace SpilGames.Unity.Implementations
 			if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); } 	
 		}
 
-		public delegate void GameStateUpdated(GameStateUpdatedData data);
+		public delegate void GameStateUpdated(String access);
 		/// <summary>
 		/// This is fired by the native Spil SDK after game state was updated.
 		/// The developer can subscribe to this event and check the reason.
 		/// </summary>
 		public event GameStateUpdated OnGameStateUpdated;
 
-		public static void fireGameStateUpdated(String message)
+		public static void fireGameStateUpdated(String access)
 		{
-			Debug.Log ("SpilSDK-Unity Game State Data updated, message = " + message);
+			Debug.Log ("SpilSDK-Unity Game State Data updated, access = " + access);
 
-			GameStateUpdatedData data = JsonHelper.getObjectFromJson<GameStateUpdatedData>(message);
-
-			if (Spil.Instance.OnGameStateUpdated != null) { Spil.Instance.OnGameStateUpdated(data); } 	
+			if (Spil.Instance.OnGameStateUpdated != null) { Spil.Instance.OnGameStateUpdated(access); } 	
 		}
 
 		public delegate void OtherUsersGameStateDataLoaded(OtherUsersGameStateData data);

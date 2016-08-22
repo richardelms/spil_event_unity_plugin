@@ -509,7 +509,7 @@ namespace SpilGames.Unity.Implementations
 		/// Sets the public game state.
 		/// </summary>
 		/// <returns>The public game state.</returns>
-		public abstract string SetPublicGameState ();
+		public abstract string GetPublicGameState ();
 
 		/// <summary>
 		/// Gets the public game state of other users.

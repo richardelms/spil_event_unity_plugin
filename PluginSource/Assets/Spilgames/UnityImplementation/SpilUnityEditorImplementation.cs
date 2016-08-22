@@ -351,7 +351,7 @@ namespace SpilGames.Unity.Implementations
 			/// Sets the public game state.
 			/// </summary>
 			/// <returns>The public game state.</returns>
-			public override string SetPublicGameState () {
+			public override string GetPublicGameState () {
 				// TODO
 				return "";
 			}

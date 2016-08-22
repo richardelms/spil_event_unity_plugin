@@ -99,7 +99,7 @@ namespace SpilGames.Unity.Implementations
 			/// </summary>
 			/// <param name="privateData">Private data.</param>
 			public override void SetPrivateGameState(string privateData) {
-				// TODO
+				CallNativeMethod("setPrivateGameState");
 			}
 
 			/// <summary>
@@ -107,8 +107,7 @@ namespace SpilGames.Unity.Implementations
 			/// </summary>
 			/// <returns>The private game state.</returns>
 			public override string GetPrivateGameState () {
-				// TODO
-				return "";
+				return CallNativeMethod("getPrivateGameState");
 			}
 
 			/// <summary>
@@ -116,16 +115,15 @@ namespace SpilGames.Unity.Implementations
 			/// </summary>
 			/// <param name="publicData">Public data.</param>
 			public override void SetPublicGameState (string publicData) {
-				// TODO
+				CallNativeMethod("setPublicGameState");
 			}
 
 			/// <summary>
 			/// Sets the public game state.
 			/// </summary>
 			/// <returns>The public game state.</returns>
-			public override string SetPublicGameState () {
-				// TODO
-				return "";
+			public override string GetPublicGameState () {
+				return CallNativeMethod("getPublicGameState");
 			}
 
 			/// <summary>
@@ -134,7 +132,7 @@ namespace SpilGames.Unity.Implementations
 			/// <param name="provider">Provider.</param>
 			/// <param name="userIdsJsonArray">User identifiers json array.</param>
 			public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
-				// TODO
+				CallNativeMethod("getOtherUsersGameState");
 			}
 
             /// <summary>

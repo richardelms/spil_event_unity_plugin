@@ -180,10 +180,9 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
-                /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+                public void SendiapPurchasedEvent(string skuId, string transactionId)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }});
+					SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", System.Xml.XmlConvert.ToString(DateTime.Now, System.Xml.XmlDateTimeSerializationMode.Local) } });
                 }
 
                 /// <summary>

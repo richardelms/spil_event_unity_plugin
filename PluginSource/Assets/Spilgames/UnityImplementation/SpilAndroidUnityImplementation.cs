@@ -86,7 +86,7 @@ namespace SpilGames.Unity.Implementations
 
             public override void SetUserId(string providerId, string userId)
             {
-				CallNativeMethod("getUserId", new object[]{ providerId, userId }, true);
+			CallNativeMethod("setUserId", new object[]{ providerId, userId }, true);
             }
 
 			public override string GetUserId()
@@ -107,7 +107,7 @@ namespace SpilGames.Unity.Implementations
 			/// </summary>
 			/// <param name="privateData">Private data.</param>
 			public override void SetPrivateGameState(string privateData) {
-				CallNativeMethod("setPrivateGameState");
+				CallNativeMethod("setPrivateGameState", new object[]{ privateData}, true);
 			}
 
 			/// <summary>
@@ -123,7 +123,7 @@ namespace SpilGames.Unity.Implementations
 			/// </summary>
 			/// <param name="publicData">Public data.</param>
 			public override void SetPublicGameState (string publicData) {
-				CallNativeMethod("setPublicGameState");
+				CallNativeMethod("setPublicGameState", new object[]{ publicData}, true);
 			}
 
 			/// <summary>
@@ -140,7 +140,7 @@ namespace SpilGames.Unity.Implementations
 			/// <param name="provider">Provider.</param>
 			/// <param name="userIdsJsonArray">User identifiers json array.</param>
 			public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
-				CallNativeMethod("getOtherUsersGameState");
+				CallNativeMethod("getOtherUsersGameState", new object[]{ provider, userIdsJsonArray}, true);
 			}
 
             /// <summary>

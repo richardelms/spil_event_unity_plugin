@@ -11,3 +11,8 @@ Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
 ProjectVersion.txt
 PluginSource.sln
+*.meta
+
+*.meta
+
+*.meta

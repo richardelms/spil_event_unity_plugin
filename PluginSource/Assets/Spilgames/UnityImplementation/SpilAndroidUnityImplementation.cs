@@ -84,10 +84,64 @@ namespace SpilGames.Unity.Implementations
                 RegisterDevice(Spil.Project_ID);
             }
 
-            public override void SetSocialUserId(string userId, string serviceIdentifier)
+            public override void SetUserId(string providerId, string userId)
             {
-			CallNativeMethod("setSocialUserId", new object[]{ userId, serviceIdentifier }, true);
+			CallNativeMethod("setUserId", new object[]{ providerId, userId }, true);
             }
+
+			public override string GetUserId()
+			{
+				return CallNativeMethod("getUserId");
+			}
+
+			/// <summary>
+			/// Gets the user provider.
+			/// </summary>
+			/// <returns>The user provider native.</returns>
+			public override string GetUserProvider() {
+				return CallNativeMethod("getUserProvider");
+			}
+
+			/// <summary>
+			/// Sets the state of the private game.
+			/// </summary>
+			/// <param name="privateData">Private data.</param>
+			public override void SetPrivateGameState(string privateData) {
+				CallNativeMethod("setPrivateGameState", new object[]{ privateData}, true);
+			}
+
+			/// <summary>
+			/// Gets the state of the private game.
+			/// </summary>
+			/// <returns>The private game state.</returns>
+			public override string GetPrivateGameState () {
+				return CallNativeMethod("getPrivateGameState");
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <param name="publicData">Public data.</param>
+			public override void SetPublicGameState (string publicData) {
+				CallNativeMethod("setPublicGameState", new object[]{ publicData}, true);
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <returns>The public game state.</returns>
+			public override string GetPublicGameState () {
+				return CallNativeMethod("getPublicGameState");
+			}
+
+			/// <summary>
+			/// Gets the public game state of other users.
+			/// </summary>
+			/// <param name="provider">Provider.</param>
+			/// <param name="userIdsJsonArray">User identifiers json array.</param>
+			public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
+				CallNativeMethod("getOtherUsersGameState", new object[]{ provider, userIdsJsonArray}, true);
+			}
 
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -167,9 +221,9 @@ namespace SpilGames.Unity.Implementations
             /// customer support can help them properly. Please make this Id available for users
             /// in one of your game's screens.
             /// </summary>
-	        public override string GetSpilUID()
+			public override string GetSpilUserId()
             {
-                return CallNativeMethod("getSpilUID");
+				return CallNativeMethod("getSpilUserId");
             }
             
 			#region Spil Game Objects

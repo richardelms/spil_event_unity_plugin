@@ -22,7 +22,7 @@
 		</data>
 		<key>Frameworks/Chartboost.framework/Chartboost</key>
 		<data>
-		eDdkj28CurV9vnjrQx3EJZX/XCs=
+		8F24+kxutLRChQaK3I5RZcU1oxw=
 		</data>
 		<key>Frameworks/FBAudienceNetwork.framework/FBAudienceNetwork</key>
 		<data>
@@ -34,27 +34,27 @@
 		</data>
 		<key>Frameworks/Fyber_AdColony.framework/Fyber_AdColony</key>
 		<data>
-		htq+/faYlTiY+ylaXvyQQeKUcWw=
+		xllKiSpUyjeHocB4bqEPBG1E+AA=
 		</data>
 		<key>Frameworks/Fyber_AdColony.framework/Resources/Info.plist</key>
 		<data>
-		+IlF0p7yAGsc/Ey1VtKOeeZZmOg=
+		xEoYT58xvdzZVkhv4vdaYYp4e7U=
 		</data>
 		<key>Frameworks/Fyber_AppLovin.framework/Fyber_AppLovin</key>
 		<data>
-		2ltzDXfOVmrObpkfLPjdcca0w/8=
+		sPjFkilWQMa8CAJ/Fb3ZvmAdzqQ=
 		</data>
 		<key>Frameworks/Fyber_AppLovin.framework/Resources/Info.plist</key>
 		<data>
-		l46xdfYe4f8wdEogTG4efVAZbr4=
+		cW6bRDJf3pzbNS3LpDP3QfL7i9U=
 		</data>
 		<key>Frameworks/Fyber_UnityAds.framework/Fyber_UnityAds</key>
 		<data>
-		3h1neNKKeqW2zK71WtvEWxDOnDY=
+		scPkX5FsIycfkP403CnPu/o80iQ=
 		</data>
 		<key>Frameworks/Fyber_UnityAds.framework/Resources/Info.plist</key>
 		<data>
-		iSHF9pDKNlAbdloznX17qttfCWo=
+		8ka+ftc4nITtaHYY2dtjw6pFL60=
 		</data>
 		<key>Frameworks/Fyber_UnityAds.framework/Resources/UnityAds.bundle/Info.plist</key>
 		<data>
@@ -91,11 +91,71 @@
 		</data>
 		<key>Frameworks/GoogleMobileAds.framework/GoogleMobileAds</key>
 		<data>
-		/QvWXOI09U4++fCbBJUYYjdLsVs=
+		WIYGe9v0/Vd9qzO22UWutHPAdTI=
 		</data>
 		<key>Frameworks/MMAdSDK.framework/MMAdSDK</key>
 		<data>
 		r9f+wN9Nf4EfInOuYQjl1BwUymE=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/Info.plist</key>
+		<data>
+		4TaaTtnrcYPS66p2zvn5iiFetJg=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/ZendeskProviderSDK</key>
+		<data>
+		t2ALITwz2FWdzCfRsQmGmtbDy1I=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeDirectory</key>
+		<data>
+		wDp1NHU+UeP0AlEXsBFwN7hMRYc=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeRequirements</key>
+		<data>
+		v74Zl9cBUE2hi0yjz++vbjRE+Mk=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeRequirements-1</key>
+		<data>
+		XBZeI8BYlNU5jnFtaIQdweuJRkc=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeResources</key>
+		<data>
+		cBgvZpokz59Rk+TZQmeU4GW+kdI=
+		</data>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeSignature</key>
+		<data>
+		AP1LRJxYOpL1RTi21LVL3ilThcQ=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/Info.plist</key>
+		<data>
+		XEgcYhz95vRR2ZFObL9PAbakObI=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/ZendeskSDK</key>
+		<data>
+		0HCUzW/qogeFvUWK72/f1S3KeYo=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeDirectory</key>
+		<data>
+		5w5NXccuW/BiVxKAISSYJxt10pw=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeRequirements</key>
+		<data>
+		w5i/gGp9s/zqD+pgTmbzAaI5VIU=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeRequirements-1</key>
+		<data>
+		kCFBfzU0JYN7vGvw3As+fbzZ6eA=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeResources</key>
+		<data>
+		jp4z8BZKnDxts2jIceS/4WU+Jzo=
+		</data>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeSignature</key>
+		<data>
+		/q1G4vchTopNHD5kMtteeEH7VWQ=
+		</data>
+		<key>Frameworks/libAdIdAccess.a</key>
+		<data>
+		j7vl67AnzxWYm66xODk2FEdORnw=
 		</data>
 		<key>Frameworks/libAdMobMMAdapter.a</key>
 		<data>
@@ -111,11 +171,31 @@
 		</data>
 		<key>Frameworks/libFyberSDK.a</key>
 		<data>
-		7raVX7MNbs1TvH5WVH5xRLvx+eI=
+		mPCrWkrkXirCW8EJ6/pZbCT1xoo=
+		</data>
+		<key>Frameworks/libGoogleAnalyticsServices.a</key>
+		<data>
+		//s4jecytyAgKUwKtRpZW89H2f4=
+		</data>
+		<key>Headers/GAI.h</key>
+		<data>
+		UuSNXPo/6wEz7IQddrXIy76jBkw=
+		</data>
+		<key>Headers/GAILogger.h</key>
+		<data>
+		nOpJHoT7LPVo/OHSCrrUjB+gpbI=
+		</data>
+		<key>Headers/GAITrackedViewController.h</key>
+		<data>
+		27Vx25gXTUsOVIKRVUiUFL1k+sk=
+		</data>
+		<key>Headers/GAITracker.h</key>
+		<data>
+		LDXEnQhyCGF4gDFo2/rJF1eKUwY=
 		</data>
 		<key>Headers/HookBridge.h</key>
 		<data>
-		eedDCooxmhOewKmMgmAw5yHKrCg=
+		B+SCEr9EDkEifVW4tb1pFkDNYsw=
 		</data>
 		<key>Headers/JsonUtil.h</key>
 		<data>
@@ -123,11 +203,11 @@
 		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		5U202Iqt5SLzZ+IOLTEa6feu00E=
+		dg8NRHN/yJYGFT0LN2rk+3WT8HY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		w7leqkCxWr6HY5mXuhxBSwzVBqY=
+		J0rT5isCdMc3vcXu74qzb/vkFIc=
 		</data>
 		<key>LICENSE</key>
 		<data>
@@ -135,7 +215,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		MpAHDXNYqKhao6HaIBikuU1NqeM=
+		Ddzd7GFuwVMMPiaL4Iyl2UQKfsA=
 		</data>
 		<key>MPCloseBtn.png</key>
 		<data>
@@ -219,17 +299,552 @@
 		</data>
 		<key>Settings.bundle/DebugMode.plist</key>
 		<data>
-		d5LXCJBKL+wM+otcjONjOEik+Jk=
+		37HZxAJBwPvjPFxZWzPAQ0/0Jt8=
 		</data>
 		<key>Settings.bundle/Root.plist</key>
 		<data>
-		R5trXMzLihmakv5+whC+JJSmTuU=
+		RUMNDxhhdLUWJdq6Czd0pWhtMh4=
 		</data>
 		<key>Settings.bundle/en.lproj/Root.strings</key>
 		<dict>
 			<key>hash</key>
 			<data>
 			OdQkXZAAI2j/EQPbEhpVOf9KDTM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDK.bundle/Info.plist</key>
+		<data>
+		r2y4+H47gG4Ri/ZlOoL0B8CaKWo=
+		</data>
+		<key>ZendeskSDK.bundle/ModelIdentifier.plist</key>
+		<data>
+		eaocA6PHre+7bluaGT87+lUOH6k=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		CSRcsya9pmYMqggh6TytCDhiXms=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/objects.nib</key>
+		<data>
+		KcbMQ3xYZd974Ww8qgfHxuTFT24=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/runtime.nib</key>
+		<data>
+		HAXEwso1XacFrQvmiFSPeVkRoGM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		0pK+G4tcKXlaGEa+hbGjxdu1EEQ=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/objects.nib</key>
+		<data>
+		nZ/lJzLHAYibykSbsug2kvALlgg=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/runtime.nib</key>
+		<data>
+		JYdy4Dv5FNivoXkTF5G0PhjUm74=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		LhKGtHCICJyhhfklpHEuw19b760=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		YKzTr2Et4Ktv+taGZ8Nk32y4XQo=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		o8HngIQENSHXKOeRbWHFX2vs0bA=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		v3pWv/Q7bTzW8WGt8U3/TqohGEA=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		8BHfjbSQ6opWTv8ynfjjyVsjVhM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		YOkV3uHsjLKBdeiiPdnYe8M68/0=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		QW3CGT+JoSzc/Qt+bCNOMmqbHx4=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/objects.nib</key>
+		<data>
+		J0CLc6Sk3GIMsuT8+aZo0xsPuYM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/runtime.nib</key>
+		<data>
+		CjvKoXgfMVsdNhyeO02ehung4Ls=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		KKHhkA0wg/MECZ2XVV5kCaesdxE=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/objects.nib</key>
+		<data>
+		6KcGbDTCuP2Bh+t/cwEHUf4iNvo=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/runtime.nib</key>
+		<data>
+		si/Yh4fQxMOnUQCZFG42oh19gx0=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		45z6D7t95dN8zdys4YHFwzE1Mqc=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/objects.nib</key>
+		<data>
+		uQP5yTidYclBNZOdWATbZyEsjH0=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/runtime.nib</key>
+		<data>
+		9jcnulwgWJfBc/bTXyAEplBoibU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		sq3zwaHDBYrz5DCZbyQOSpZFj8M=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/objects.nib</key>
+		<data>
+		O7H5Xe8rSrpVKl4PQLradMH8ryM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/runtime.nib</key>
+		<data>
+		Q5Jvc/n3qnY3W6Ec6nr8/Ww/gCk=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		9Z5BgOLRG7v/5vPx1+5h1b/+SKU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/objects.nib</key>
+		<data>
+		MSG+WuYzKsfQuTESdF9rGeSomco=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/runtime.nib</key>
+		<data>
+		eA+7eYkj6skdH81OE4CkX6jXxC8=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		EmGmZD03FrSc5sbV+xgm91qLtow=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/objects.nib</key>
+		<data>
+		7N10kZ/f5vlRaQbcn2+KVTfEybY=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/runtime.nib</key>
+		<data>
+		6ooGHo3HekGcilHN4ZdKG74mj+k=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		CVihCsT5DlD/d5+p2J7hlyOnAuM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		7cKRJe/+P3Ewu8IrZ89imk4Ph3M=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		XpX4XJUEeUvqpAX2gjSpVHRYy/U=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		s0MWxPyC2HJassMv6oD2g2Uh23s=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		S1LcfKUnp2TuE+fcDfjbAgNKIGE=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		0phxfO3qG5NUw8a0u+Dc6l3r5eU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		tfOU+dsA/qhUWy+t9pVxGzSJDkE=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		uootdZRUHPkpdB0CGiUD2QZi4c8=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		kRL2oma4u+dN6Hf+wNVeJpT59ls=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		e+iTLqcayDsXVJ4gh1he+oyqLxk=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		amsU+QfYnsme+FUtiscLB2CNihU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		LIIuVKdweq/TEFeA41zC0JNSGXI=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		vV/kxd6r5Y72klsxVnTSBQcjbSQ=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		Ski14FGMLphWG+deDFW6PQii3/s=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		g40mC9lT35jNR4aeNLcKY+3iLvM=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		mysXlgU1zCn2Cqh8OjLj2cRgOek=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		cuxuCW4p4gq8fKMc9zmD63MaBfs=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		xswdlfSVXR0FelnusF/1DoGVvoA=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		Sup4MlflSad8qtU1r5P3XI4ABJU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		c3iCkSBHnO/x7GOcpTVyWpGHwgg=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		3rOHmXaT3V5IiVTXIW/W79Fc0gI=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		jadBRfht4yj94UqxUQqO1ER/fAQ=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		Qz59OR4jhHvdK78d2FvDfJgIo8s=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		CeGBiziOdvltiZU18CWQEEwV754=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		R8EqUPEXfCQPFzZ1XV0h2udRT6A=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/objects.nib</key>
+		<data>
+		QA6jhLqQ409caJ7zoihB7IkmECU=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/runtime.nib</key>
+		<data>
+		tUuAjxfEk8Jjz7C3lsOAGPMIg0A=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		uliVA6HdWrgFO4nWcsBjq30jF4A=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/objects.nib</key>
+		<data>
+		sdS2RgfF9/cVamYKOPFWrMpTbfY=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/runtime.nib</key>
+		<data>
+		lrc+07WCKXCC6osVsdk39gFFU7Q=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/objects-8.0+.nib</key>
+		<data>
+		aBGEN1tn8ZnUbN6ZNIhhUuZlzP0=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/objects.nib</key>
+		<data>
+		vesKjtM92tqlDltFfj4jLw6Nan8=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/runtime.nib</key>
+		<data>
+		M8g9nuCQXLTxUpvnQKAvD1U86Lg=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/objects-8.0+.nib</key>
+		<data>
+		2gLbXWnr+GlK7K74QJDebqMweB8=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/objects.nib</key>
+		<data>
+		ulszR50dqbFwaIB79lp+I4WSiDY=
+		</data>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/runtime.nib</key>
+		<data>
+		9JGS8N7baSsdmxGa3znB3PuLlS0=
+		</data>
+		<key>ZendeskSDK.bundle/btnAttach.png</key>
+		<data>
+		A60sX8Y5CMG5CulTF6El0eAn6y4=
+		</data>
+		<key>ZendeskSDK.bundle/btnAttach@2x.png</key>
+		<data>
+		feQhTfUg3xn2zYO8LaLuyqbtS1g=
+		</data>
+		<key>ZendeskSDK.bundle/btnAttach@3x.png</key>
+		<data>
+		G/a2kIABx/geEvCxYvFq+vojY28=
+		</data>
+		<key>ZendeskSDK.bundle/help_center_article_style.css</key>
+		<data>
+		PaECMdKpxTouNZE5xjHHhY9+UmY=
+		</data>
+		<key>ZendeskSDK.bundle/icoAdd.png</key>
+		<data>
+		zX0sCoD4p/QYvgxu3nrWJFYyM64=
+		</data>
+		<key>ZendeskSDK.bundle/icoAdd@2x.png</key>
+		<data>
+		3CLKLAgvdOXc/1RHKc5/KzDanIc=
+		</data>
+		<key>ZendeskSDK.bundle/icoAdd@3x.png</key>
+		<data>
+		gMD+W24QQ9kQGovoq7aD4WiFutA=
+		</data>
+		<key>ZendeskSDK.bundle/icoAttach.png</key>
+		<data>
+		6/buDEdP4BuLTdwzx+RBRK4BJ84=
+		</data>
+		<key>ZendeskSDK.bundle/icoAttach@2x.png</key>
+		<data>
+		6DB4ZKb3sm/jjYPbrUaYPfK24vE=
+		</data>
+		<key>ZendeskSDK.bundle/icoAttach@3x.png</key>
+		<data>
+		mz6b6Ne7cQZUVHH+0LGs4oWPcCU=
+		</data>
+		<key>ZendeskSDK.bundle/icoClose.png</key>
+		<data>
+		qShFL3iNeYsHucAAA2o4+ZgcNxU=
+		</data>
+		<key>ZendeskSDK.bundle/icoClose@2x.png</key>
+		<data>
+		9EePbZNoOpPb4TiBCCcERh4pJaM=
+		</data>
+		<key>ZendeskSDK.bundle/icoClose@3x.png</key>
+		<data>
+		6FUjj3FvlYiJC/NPeMHbJcRHFIY=
+		</data>
+		<key>ZendeskSDK.bundle/icoDown.png</key>
+		<data>
+		SBuT+PBdgCoC1upVejrhluN4eog=
+		</data>
+		<key>ZendeskSDK.bundle/icoDown@2x.png</key>
+		<data>
+		QZBvc+XaIiFNPNnYGTn9z4i5To4=
+		</data>
+		<key>ZendeskSDK.bundle/icoDown@3x.png</key>
+		<data>
+		uTylllD83viWYzAoOy3lpZ8rpkw=
+		</data>
+		<key>ZendeskSDK.bundle/ico_coversations.png</key>
+		<data>
+		V4dI3qzw6UJjd8/tP3bnb9fQlNA=
+		</data>
+		<key>ZendeskSDK.bundle/ico_coversations@2x.png</key>
+		<data>
+		fe0YVvznEMd9UdiL2SEkJDax2Ag=
+		</data>
+		<key>ZendeskSDK.bundle/ico_coversations@3x.png</key>
+		<data>
+		opW6UMJn9J1Iw8f0IjmKobEYPpU=
+		</data>
+		<key>ZendeskSDK.bundle/ico_newticket.png</key>
+		<data>
+		N5HroUPrAOvmsDbGUortxgAVP+A=
+		</data>
+		<key>ZendeskSDK.bundle/ico_newticket@2x.png</key>
+		<data>
+		QWAzuT21nsQUG8QQyi9mPqnhBVQ=
+		</data>
+		<key>ZendeskSDK.bundle/ico_newticket@3x.png</key>
+		<data>
+		u687L/wWYQSF4oga62JCP8sdjp0=
+		</data>
+		<key>ZendeskSDKStrings.bundle/Info.plist</key>
+		<data>
+		EMkQWQgbdatCVRP7o+yPlnhIuRU=
+		</data>
+		<key>ZendeskSDKStrings.bundle/da.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xR+lTyTZ/QX4FoOZe60HhdjfycE=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/de.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			isAFC6xT6xOtg+MAQqV/XgzKIi0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/en-GB.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hPdmzH+yweCblX3i2rgDSDY5t6A=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hPdmzH+yweCblX3i2rgDSDY5t6A=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/es.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qQlEQahg/Km8Ly7cEQHODmWiNFI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/fi.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JKP2YUregcPXo5YZQ78X60bpxpc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/fr.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			k0+MTyWTZuUk5cv4QS3XQUDEfJw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/it.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			J5/0CulX37CWvJ+mMHra/KhJuLY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fqh0mSSoIQ5KxLTtZXADa8rAIsc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PtqZKofteRTtq6gOZ13KooGi5eM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/nl.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eqkXuWgBQseC041ADonSRSHEwtY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/no.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4xEIXQGQ+KURmdsffJ+BLMZv34k=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/pl.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6qcNuDwf+YYU/ZUygdOupBwqkAg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/pt.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oH61e5GDz8oYUWR2IWT97UGq02k=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ru.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			m+1NmTdf+ookSFsX7w6kicl+RRg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/sv.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JfHFbxqzkTifiqzWRRsnrzy7x/w=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/tr.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HpU9fV9D4itaofm0e6/jYJ7bwzA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/zh-Hans.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NuXg0pv+Rdbhvcy3A2NnSsafPak=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/zh-Hant.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			irX3+fpuPG+HmYQs9z5OJjsqpBk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -244,7 +859,7 @@
 		</data>
 		<key>setup.py</key>
 		<data>
-		UmwqXfRsDs5tyCKus5/2fLjGJ4Y=
+		Velcp53nj0a5KsBMR6x2swQPtrI=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -297,11 +912,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			eDdkj28CurV9vnjrQx3EJZX/XCs=
+			8F24+kxutLRChQaK3I5RZcU1oxw=
 			</data>
 			<key>hash2</key>
 			<data>
-			lpSS2TnR70jtKAyyOy9VochTeBDHLI3tD9IrRT2G1TQ=
+			EntCIzy0xbi3nCYinp7MS44YseLBhZWtU7xlkC1mHIY=
 			</data>
 		</dict>
 		<key>Frameworks/FBAudienceNetwork.framework/FBAudienceNetwork</key>
@@ -330,66 +945,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			htq+/faYlTiY+ylaXvyQQeKUcWw=
+			xllKiSpUyjeHocB4bqEPBG1E+AA=
 			</data>
 			<key>hash2</key>
 			<data>
-			mhrt6/cbLrjXePyD475Hz4BNyS3Q7rr52YyEVlwGjqw=
+			r3PYhKZk5LPtfU6uVfu5AMBmHRBgJOaDyi0AdKn4hrI=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_AdColony.framework/Resources/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+IlF0p7yAGsc/Ey1VtKOeeZZmOg=
+			xEoYT58xvdzZVkhv4vdaYYp4e7U=
 			</data>
 			<key>hash2</key>
 			<data>
-			NnhHcjoTs1i2BO999oQdIY7jmSdagPJv6iAfpzxL30c=
+			/d+znH7yrmrJyvdxmaRw4aeaRvDhIPRg8KhjywKSL7U=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_AppLovin.framework/Fyber_AppLovin</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2ltzDXfOVmrObpkfLPjdcca0w/8=
+			sPjFkilWQMa8CAJ/Fb3ZvmAdzqQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			SKIdUneVanqlNgBGIv13Y1Wr+880cNmuv05Pdhz6kVg=
+			KGpJxe0It6hunJ+6vMhUebtVW9ETgAP/rDo2SqeUzJo=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_AppLovin.framework/Resources/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			l46xdfYe4f8wdEogTG4efVAZbr4=
+			cW6bRDJf3pzbNS3LpDP3QfL7i9U=
 			</data>
 			<key>hash2</key>
 			<data>
-			xPIGCAStp14M9Xdx1WMioN99pKuUkcujJQwlG+2H9xs=
+			L0eazgezpoOXncWIKD6HAMjW3QL6ITDnKRYHrc5rYnY=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_UnityAds.framework/Fyber_UnityAds</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3h1neNKKeqW2zK71WtvEWxDOnDY=
+			scPkX5FsIycfkP403CnPu/o80iQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			G6ucytfH4bwpGA2t+x7TzfNASsb/ASrN3Bnkf9ko8uM=
+			YicgEKMOwZW4Yq8kbo4pWU0h1l8d8uNhOr4iX4MnSVI=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_UnityAds.framework/Resources/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			iSHF9pDKNlAbdloznX17qttfCWo=
+			8ka+ftc4nITtaHYY2dtjw6pFL60=
 			</data>
 			<key>hash2</key>
 			<data>
-			jO4Gffum9nX+9jqFAx5i+VnQU9rttr912fjL7MQ4mnI=
+			5WyO++lVtnPbNPanr/h8kwrFvCH80kP8oxB+IAUPFbw=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_UnityAds.framework/Resources/UnityAds.bundle/Info.plist</key>
@@ -475,11 +1090,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/QvWXOI09U4++fCbBJUYYjdLsVs=
+			WIYGe9v0/Vd9qzO22UWutHPAdTI=
 			</data>
 			<key>hash2</key>
 			<data>
-			BPwoHnSJuNbvQraEB1PyBt95wd7zl+KNDaRy9HGt7Rg=
+			vhAjveGAk3dGbAmXqUtmCqhL9lw2tARN0sOq+6MQncQ=
 			</data>
 		</dict>
 		<key>Frameworks/MMAdSDK.framework/MMAdSDK</key>
@@ -491,6 +1106,171 @@
 			<key>hash2</key>
 			<data>
 			B1bbYUvM2hCyL1XHZD9/vFHhUpFPDoh2XJUu+t13f/M=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/Info.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4TaaTtnrcYPS66p2zvn5iiFetJg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BTI00uoLXJp/YFsX8BIZvFriaL/MmG/xlpUAruxZluA=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/ZendeskProviderSDK</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			t2ALITwz2FWdzCfRsQmGmtbDy1I=
+			</data>
+			<key>hash2</key>
+			<data>
+			lGcXMb90w54N33Tt/54SOy58okxcHMfPO4+5G/A9c1s=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeDirectory</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wDp1NHU+UeP0AlEXsBFwN7hMRYc=
+			</data>
+			<key>hash2</key>
+			<data>
+			DtNR9UIyJw1VeTdMptYD7ipK9fC57GEqQfzcXqPqzMQ=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeRequirements</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v74Zl9cBUE2hi0yjz++vbjRE+Mk=
+			</data>
+			<key>hash2</key>
+			<data>
+			xgcV35ldtr47LJ+pYLVknL4aVAIe7v/dMUMioaatyH0=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeRequirements-1</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XBZeI8BYlNU5jnFtaIQdweuJRkc=
+			</data>
+			<key>hash2</key>
+			<data>
+			xx0s3jsorISzuWa962hh8nBCeFkcBtc4mj8JwAiNmAg=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			cBgvZpokz59Rk+TZQmeU4GW+kdI=
+			</data>
+			<key>hash2</key>
+			<data>
+			VR5boq2bXOpCk0P1QPdz1rEMWNlwVXEmh1Phc+Pn40M=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskProviderSDK.framework/_CodeSignature/CodeSignature</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AP1LRJxYOpL1RTi21LVL3ilThcQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			f611PylKyjsVcu2AW32yINtOHxHnG/L2KMN3gGQZDWE=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/Info.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XEgcYhz95vRR2ZFObL9PAbakObI=
+			</data>
+			<key>hash2</key>
+			<data>
+			HUy9IehBHyn907l4X6Afn7tf1Xgn6nYHTN0vE5oX1+k=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/ZendeskSDK</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0HCUzW/qogeFvUWK72/f1S3KeYo=
+			</data>
+			<key>hash2</key>
+			<data>
+			QgrlKwnBOJ1GdMt4CeQICvFw/m9obZLdTOZIGh+c+48=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeDirectory</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5w5NXccuW/BiVxKAISSYJxt10pw=
+			</data>
+			<key>hash2</key>
+			<data>
+			EfqKbR8Kj+eRj0TUjEggOitMccZCP/k54cnnZdacX0g=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeRequirements</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			w5i/gGp9s/zqD+pgTmbzAaI5VIU=
+			</data>
+			<key>hash2</key>
+			<data>
+			kxsYQhN1Mde1zkDs1Ksg7Cp9fvFL1tSEG1z+DDBClmc=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeRequirements-1</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kCFBfzU0JYN7vGvw3As+fbzZ6eA=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ibj+sFKfQFzy49G4smWSJ8EtmrRuNPxM/4ZX56geCCQ=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jp4z8BZKnDxts2jIceS/4WU+Jzo=
+			</data>
+			<key>hash2</key>
+			<data>
+			IaxiNLMAou/NNnid0t8CVHfJ1CBdTtvSIs3M22maxLo=
+			</data>
+		</dict>
+		<key>Frameworks/ZendeskSDK.framework/_CodeSignature/CodeSignature</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/q1G4vchTopNHD5kMtteeEH7VWQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			RUaXId0VOAYSkWzvkzcKRaWQxv6rJvH6GGSAP+FJEIU=
+			</data>
+		</dict>
+		<key>Frameworks/libAdIdAccess.a</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			j7vl67AnzxWYm66xODk2FEdORnw=
+			</data>
+			<key>hash2</key>
+			<data>
+			lG68fPvwA3XejQYSy+9VUAhg0wjl0VN4MK4pO40lKUw=
 			</data>
 		</dict>
 		<key>Frameworks/libAdMobMMAdapter.a</key>
@@ -530,22 +1310,77 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			7raVX7MNbs1TvH5WVH5xRLvx+eI=
+			mPCrWkrkXirCW8EJ6/pZbCT1xoo=
 			</data>
 			<key>hash2</key>
 			<data>
-			L4wtzThBrOhtqYYxoQzmb+djXY+Qz0bwwIpHQ8zGQyQ=
+			ywpCGvhcqHyeZpYqKmo6EWsY73wRCGL7zB9rrW5Sn/I=
+			</data>
+		</dict>
+		<key>Frameworks/libGoogleAnalyticsServices.a</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			//s4jecytyAgKUwKtRpZW89H2f4=
+			</data>
+			<key>hash2</key>
+			<data>
+			afM1kyurtgXG1Eu79yOx5cf+zuyW4C9Xw8aceNPkOmY=
+			</data>
+		</dict>
+		<key>Headers/GAI.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			UuSNXPo/6wEz7IQddrXIy76jBkw=
+			</data>
+			<key>hash2</key>
+			<data>
+			B9h0U2aNPKnjFUdCGQ87+smSCw7Zb52fsqZGVrshmU8=
+			</data>
+		</dict>
+		<key>Headers/GAILogger.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nOpJHoT7LPVo/OHSCrrUjB+gpbI=
+			</data>
+			<key>hash2</key>
+			<data>
+			8npJINfz7tPiN2bxbktumM9JOECNNlJTtSiGhhbBMSo=
+			</data>
+		</dict>
+		<key>Headers/GAITrackedViewController.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			27Vx25gXTUsOVIKRVUiUFL1k+sk=
+			</data>
+			<key>hash2</key>
+			<data>
+			e51QN8LztCp9IbvJbHwTc4r/RQctq7ztZjTiAaOYqQA=
+			</data>
+		</dict>
+		<key>Headers/GAITracker.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LDXEnQhyCGF4gDFo2/rJF1eKUwY=
+			</data>
+			<key>hash2</key>
+			<data>
+			1F0U9gpKJ2SL/ToBo8fMjY64nHCjTai2Iv7Ea+86hWw=
 			</data>
 		</dict>
 		<key>Headers/HookBridge.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			eedDCooxmhOewKmMgmAw5yHKrCg=
+			B+SCEr9EDkEifVW4tb1pFkDNYsw=
 			</data>
 			<key>hash2</key>
 			<data>
-			U23V+t9wTrXdENe3qcKl2kHgqwJrYmFzaCgeRDi0kvE=
+			plkZHwmay8M7jJpwHPeh5BhrHg7PTW0OChor/n6ai/s=
 			</data>
 		</dict>
 		<key>Headers/JsonUtil.h</key>
@@ -563,11 +1398,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5U202Iqt5SLzZ+IOLTEa6feu00E=
+			dg8NRHN/yJYGFT0LN2rk+3WT8HY=
 			</data>
 			<key>hash2</key>
 			<data>
-			oU8T5vhcNg9kBTJXBkYJABpwQjFMEGfP4H/dsT48w4Y=
+			CnfdjqOlhQdadaHenfh++Pb+vUHUUKi9TSyp/rquOeY=
 			</data>
 		</dict>
 		<key>LICENSE</key>
@@ -585,11 +1420,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MpAHDXNYqKhao6HaIBikuU1NqeM=
+			Ddzd7GFuwVMMPiaL4Iyl2UQKfsA=
 			</data>
 			<key>hash2</key>
 			<data>
-			BYsE3f5n7bqoyDfzNhxLosO+PTdUPGFAZAA6uT88z9k=
+			ydUt5S1sB1BeVZMu29Y3Oe2GJFFslY9VucexhluzX7c=
 			</data>
 		</dict>
 		<key>MPCloseBtn.png</key>
@@ -816,22 +1651,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			d5LXCJBKL+wM+otcjONjOEik+Jk=
+			37HZxAJBwPvjPFxZWzPAQ0/0Jt8=
 			</data>
 			<key>hash2</key>
 			<data>
-			siHyFkP9sTqnFJC8B6otLapAFs/oyjk00vEJGS+lucQ=
+			7dlsp1Xs6yzgvLVVqyyJlOell08Dt7MlOt7VMBEcNc8=
 			</data>
 		</dict>
 		<key>Settings.bundle/Root.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			R5trXMzLihmakv5+whC+JJSmTuU=
+			RUMNDxhhdLUWJdq6Czd0pWhtMh4=
 			</data>
 			<key>hash2</key>
 			<data>
-			7W7kFcHmc1e5mzlNOLxnkDR6CY4SsbZKlZ0v6nyPy0Q=
+			N3F18ftJEm8FF9ZK0ir/508CBwdX7oMAC/OQ5P70suA=
 			</data>
 		</dict>
 		<key>Settings.bundle/en.lproj/Root.strings</key>
@@ -843,6 +1678,1254 @@
 			<key>hash2</key>
 			<data>
 			xPAcxICNQBbDBBtwLDKt44Nt4Mwz+fFXkX51CNESm1k=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDK.bundle/Info.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			r2y4+H47gG4Ri/ZlOoL0B8CaKWo=
+			</data>
+			<key>hash2</key>
+			<data>
+			vAA6epfVJ2+gvpJIyLJbK9UgnzzDscmAdqswXFkrQ1U=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ModelIdentifier.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eaocA6PHre+7bluaGT87+lUOH6k=
+			</data>
+			<key>hash2</key>
+			<data>
+			qRvTjL3cthC2BPR3WRDq4uigvUkc9KhtJ8Mdqs308O0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CSRcsya9pmYMqggh6TytCDhiXms=
+			</data>
+			<key>hash2</key>
+			<data>
+			ehmNO2q2L7efB+k05iqW3YYJvQLLCIZIPVuZBEpSZBo=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KcbMQ3xYZd974Ww8qgfHxuTFT24=
+			</data>
+			<key>hash2</key>
+			<data>
+			QTwUS5ABAKqqzKgz3x+aA6+aBuAiqRTCKG6lp/vcwgQ=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HAXEwso1XacFrQvmiFSPeVkRoGM=
+			</data>
+			<key>hash2</key>
+			<data>
+			G3xqkF86eCZOjviHaSnKiz3yK5XU77VC0GWn0t/TE/I=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0pK+G4tcKXlaGEa+hbGjxdu1EEQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			4rR/GYP89WcPFn8YEuMWcGlyhlz4mEi1WkVDf3slCsU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nZ/lJzLHAYibykSbsug2kvALlgg=
+			</data>
+			<key>hash2</key>
+			<data>
+			mJudvPxRbiGshRVuDBdyY2fN4GkQZpLwz4Fu65nzy/g=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKCreateRequestViewController~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JYdy4Dv5FNivoXkTF5G0PhjUm74=
+			</data>
+			<key>hash2</key>
+			<data>
+			jY3CDIhxNGII1I/4MGyHdS2U1Jwn6IafE4HgEbvmEH4=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LhKGtHCICJyhhfklpHEuw19b760=
+			</data>
+			<key>hash2</key>
+			<data>
+			NU9WXz8Tm/1RHRxGtzHcyZa2q/WBz0Zl953GO5eiWdo=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YKzTr2Et4Ktv+taGZ8Nk32y4XQo=
+			</data>
+			<key>hash2</key>
+			<data>
+			xNau9tKizuQh//FdCCcI6YR/Ux9VGT5NzFerezNS7Sg=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			o8HngIQENSHXKOeRbWHFX2vs0bA=
+			</data>
+			<key>hash2</key>
+			<data>
+			xVjuaDz2IUiKxu4vOilxtZ7ILPQCfaFlx9DStwy7w2w=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v3pWv/Q7bTzW8WGt8U3/TqohGEA=
+			</data>
+			<key>hash2</key>
+			<data>
+			2A/LUezu8OnD2eTOj4jBihE9RndlSieYadV7/PFHsP8=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8BHfjbSQ6opWTv8ynfjjyVsjVhM=
+			</data>
+			<key>hash2</key>
+			<data>
+			i84IY6I6A4nToONO3Z79kh0oOU43XQ6DVqQxglwUQtA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewArticleTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YOkV3uHsjLKBdeiiPdnYe8M68/0=
+			</data>
+			<key>hash2</key>
+			<data>
+			71NHrZhkchFa2Iyk5AwLEjjkGg51EYJs9glp0q+jG5M=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QW3CGT+JoSzc/Qt+bCNOMmqbHx4=
+			</data>
+			<key>hash2</key>
+			<data>
+			iMZEr5eAoDsAOH3jE7FDT/iDv3Wz/XsRJF0ugn99odU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			J0CLc6Sk3GIMsuT8+aZo0xsPuYM=
+			</data>
+			<key>hash2</key>
+			<data>
+			STr2bc9HahAH7NbBUNkADED96u2BdoZ1UDMi5v32pKM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CjvKoXgfMVsdNhyeO02ehung4Ls=
+			</data>
+			<key>hash2</key>
+			<data>
+			nVYHx/u3tHHRQyDbZcaR/SBUJvKbnNfxEWcdtVpIR+E=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KKHhkA0wg/MECZ2XVV5kCaesdxE=
+			</data>
+			<key>hash2</key>
+			<data>
+			30o7fTUclL3W9d66CNbnzqd2PdmcKNRia2P2TeH6QT0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6KcGbDTCuP2Bh+t/cwEHUf4iNvo=
+			</data>
+			<key>hash2</key>
+			<data>
+			xxB1+ooFlPmEmfL0s6ooV8k6Tt3+MvwJxSFTzQmh3JU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewController~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			si/Yh4fQxMOnUQCZFG42oh19gx0=
+			</data>
+			<key>hash2</key>
+			<data>
+			0VVIE7evznWakIY8zYzlscsZZwvELwFRaqjjaYmLD7c=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			45z6D7t95dN8zdys4YHFwzE1Mqc=
+			</data>
+			<key>hash2</key>
+			<data>
+			jZ2kOBkjmZ86e/GFB1svD1h47lIBcEzVwjotXZ44NgE=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uQP5yTidYclBNZOdWATbZyEsjH0=
+			</data>
+			<key>hash2</key>
+			<data>
+			AXVcDgzQGo4C96EmPl/cWYTXwGX5tUCendobv0qKbT0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9jcnulwgWJfBc/bTXyAEplBoibU=
+			</data>
+			<key>hash2</key>
+			<data>
+			zQmh7FUnLB/oU+ymPv+AlOreenjmgjtgal1DMK1wYag=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sq3zwaHDBYrz5DCZbyQOSpZFj8M=
+			</data>
+			<key>hash2</key>
+			<data>
+			QQRfAnnvSExxn7dsK4b7nZhpp0Fn5NOuE5TQ1CmmXLI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			O7H5Xe8rSrpVKl4PQLradMH8ryM=
+			</data>
+			<key>hash2</key>
+			<data>
+			v5IsLhxK/I+deA3qlFEOvdKCoNMYcwifeIj+gLWKctE=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewFooterView~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Q5Jvc/n3qnY3W6Ec6nr8/Ww/gCk=
+			</data>
+			<key>hash2</key>
+			<data>
+			JMCjGZS9oKRbABmucXkgc73IRw2fW05vKV0wKSZmqD0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9Z5BgOLRG7v/5vPx1+5h1b/+SKU=
+			</data>
+			<key>hash2</key>
+			<data>
+			u5J2CHIVh3PcCPgEDX4Znozr5WunR6gpBifCdeeCW+0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MSG+WuYzKsfQuTESdF9rGeSomco=
+			</data>
+			<key>hash2</key>
+			<data>
+			BBavq6BQs878GOBvAa3sWzkp+54w6eKC/ublFc3g45k=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eA+7eYkj6skdH81OE4CkX6jXxC8=
+			</data>
+			<key>hash2</key>
+			<data>
+			OYQ7i6RK74cLGN5on0UkkwMV5J/2mrBgy9T2RzBc0Ck=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EmGmZD03FrSc5sbV+xgm91qLtow=
+			</data>
+			<key>hash2</key>
+			<data>
+			jnb8UVSmqY2uK+d47iLODphDR3f7uSCXpnch1sKYgKQ=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7N10kZ/f5vlRaQbcn2+KVTfEybY=
+			</data>
+			<key>hash2</key>
+			<data>
+			GT2F5YMnz85MLa7FWLTJ+86trODI5Gq3Pga2rbj3r0s=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewHeaderView~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6ooGHo3HekGcilHN4ZdKG74mj+k=
+			</data>
+			<key>hash2</key>
+			<data>
+			UNFZW/IccWIMv0nd/9M7DL5vjQHsjrKm17CVOpHy4kc=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CVihCsT5DlD/d5+p2J7hlyOnAuM=
+			</data>
+			<key>hash2</key>
+			<data>
+			jzMMLYja5TdfbetCwFjPAesf91nCKhEqicO/6BHVCqA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7cKRJe/+P3Ewu8IrZ89imk4Ph3M=
+			</data>
+			<key>hash2</key>
+			<data>
+			tSqaGBSKGfD0u6PAJV0CHGT6Y4QbE5VCo5e0w7RKgzE=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XpX4XJUEeUvqpAX2gjSpVHRYy/U=
+			</data>
+			<key>hash2</key>
+			<data>
+			JKo6tH5ETAuzmZb04tVtDrfMjY5Osl6dEV5FjnGUO+c=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			s0MWxPyC2HJassMv6oD2g2Uh23s=
+			</data>
+			<key>hash2</key>
+			<data>
+			XusJRsa8o7bSzP/F5ov+M9tbBME8EJ41hLcj6WIsEmI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			S1LcfKUnp2TuE+fcDfjbAgNKIGE=
+			</data>
+			<key>hash2</key>
+			<data>
+			KTjfoSWzwtV95oerBGk8vqG7iwCXIdO2M5w1DmLQgkI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewLoadingTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0phxfO3qG5NUw8a0u+Dc6l3r5eU=
+			</data>
+			<key>hash2</key>
+			<data>
+			aDkYFs3GefctymyPmow4uV3ZIk58qhB2lpiU1BM2PQA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tfOU+dsA/qhUWy+t9pVxGzSJDkE=
+			</data>
+			<key>hash2</key>
+			<data>
+			QQ8t1a9hipSiJ2anaU6tVihy4swwNTHfaU+4zXZeHlU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uootdZRUHPkpdB0CGiUD2QZi4c8=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZDnUmcDceJ+SrdTSxhRMyX/gdegE0Dhhe4O1qK1G7os=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kRL2oma4u+dN6Hf+wNVeJpT59ls=
+			</data>
+			<key>hash2</key>
+			<data>
+			1FKha4FlG++GvpMpfHsjiDIry4hBUV9GdlVBxxHIipI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			e+iTLqcayDsXVJ4gh1he+oyqLxk=
+			</data>
+			<key>hash2</key>
+			<data>
+			7GswJZsNzShtboEcl5YFVqhPdhvqJw9RFmrwmJAfjpI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			amsU+QfYnsme+FUtiscLB2CNihU=
+			</data>
+			<key>hash2</key>
+			<data>
+			wbUV7oKhyUrD9OWX+N3UTCh15C7wzY0hREp8NSKJnaM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSectionTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LIIuVKdweq/TEFeA41zC0JNSGXI=
+			</data>
+			<key>hash2</key>
+			<data>
+			dwSNkv1yCRgIKylRBv0+P9ulgmh3mIVKnjntqYIaOck=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vV/kxd6r5Y72klsxVnTSBQcjbSQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			JwkCDLa3Xs7fPX3ClacZJMrXV2DbGYUE2qYuvBN50iw=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ski14FGMLphWG+deDFW6PQii3/s=
+			</data>
+			<key>hash2</key>
+			<data>
+			sSrV4hezdVYeNI+Iaw4AnHVZN+GpJHy2OjlhtxCMpKg=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			g40mC9lT35jNR4aeNLcKY+3iLvM=
+			</data>
+			<key>hash2</key>
+			<data>
+			nRejponQeU3oOKe4ZJN9UzyFETTz5MDsSjuOZ+i1QzM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			mysXlgU1zCn2Cqh8OjLj2cRgOek=
+			</data>
+			<key>hash2</key>
+			<data>
+			NgSqaQytqCIyZ/4/kPrYZtoG0sHhvurJmThEzeqnP44=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			cuxuCW4p4gq8fKMc9zmD63MaBfs=
+			</data>
+			<key>hash2</key>
+			<data>
+			0q90+ARpDJLjGC/8mSwDEO2R8TNiFTjmkYmR3V/6sjM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSeeAllTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xswdlfSVXR0FelnusF/1DoGVvoA=
+			</data>
+			<key>hash2</key>
+			<data>
+			d1YBN/dNNpUtKtdY8arPHBQWmaqrGeRMhJJtfQCoFjs=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Sup4MlflSad8qtU1r5P3XI4ABJU=
+			</data>
+			<key>hash2</key>
+			<data>
+			T2sJmhBEw31p/dpkfEoIrw6Ju4YbrGTaTWFWo35mG6w=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			c3iCkSBHnO/x7GOcpTVyWpGHwgg=
+			</data>
+			<key>hash2</key>
+			<data>
+			Hoz3tz5y68zRmjZ0u5xAuhjs7z4ZElyC42ZwGkJDp88=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3rOHmXaT3V5IiVTXIW/W79Fc0gI=
+			</data>
+			<key>hash2</key>
+			<data>
+			R1ItNs/bAE1eEZWtQ2HmsmrQ8z7BZXgUOjy/F2jDjX4=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jadBRfht4yj94UqxUQqO1ER/fAQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			Zh7holDAn80JTnK+shCVDEeVDavkyyv0bQML4819GEQ=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Qz59OR4jhHvdK78d2FvDfJgIo8s=
+			</data>
+			<key>hash2</key>
+			<data>
+			DX4cC9r5AN5bTiRYxMr/gKGpMMLXiqv47WQEajQNzoA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterOverviewSpacerTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CeGBiziOdvltiZU18CWQEEwV754=
+			</data>
+			<key>hash2</key>
+			<data>
+			oU0ijDXc2gXO7OB8JylsDcv5tBqfD/cGaeEs2n99IWA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			R8EqUPEXfCQPFzZ1XV0h2udRT6A=
+			</data>
+			<key>hash2</key>
+			<data>
+			gTiFb/VrbtWf5IOsSLm5A/qa471wyW9FhDfY1qtmBLo=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QA6jhLqQ409caJ7zoihB7IkmECU=
+			</data>
+			<key>hash2</key>
+			<data>
+			dSeAOBZl2vL5y2h6lUiG62VhpdUJg1nocmYdO+8F3CU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tUuAjxfEk8Jjz7C3lsOAGPMIg0A=
+			</data>
+			<key>hash2</key>
+			<data>
+			/2Qqw5iBAJhryOOSxjiiYns3XBPunins8S2+leXDW0A=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uliVA6HdWrgFO4nWcsBjq30jF4A=
+			</data>
+			<key>hash2</key>
+			<data>
+			6QZymbfhj0BYBJA7SN93CCwOKQhtbV937ZMc8AW21Ho=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sdS2RgfF9/cVamYKOPFWrMpTbfY=
+			</data>
+			<key>hash2</key>
+			<data>
+			BKwtlTQ/4NCLNJKzV9LWj9Tawi+99bEHvr8MzRTwHnM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultTableViewCell~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lrc+07WCKXCC6osVsdk39gFFU7Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			T0JQeJYBQBKcEMNIe8V9XZGiiVwQUFgro5ipgkalFkc=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aBGEN1tn8ZnUbN6ZNIhhUuZlzP0=
+			</data>
+			<key>hash2</key>
+			<data>
+			d+Z0gy0UZ25NSurIuKNzSqmKYddo1WYmwBzg53Zx+rI=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vesKjtM92tqlDltFfj4jLw6Nan8=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ca2im0jn/vz9z4W7P1V/WZQ8lA9w3M7WL7HDjZuwPcg=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~ipad.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M8g9nuCQXLTxUpvnQKAvD1U86Lg=
+			</data>
+			<key>hash2</key>
+			<data>
+			YyEPyV019/3hHdOtmBJmew95mPXZ0K0eUQ3/MQUqmjY=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/objects-8.0+.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2gLbXWnr+GlK7K74QJDebqMweB8=
+			</data>
+			<key>hash2</key>
+			<data>
+			jm8MI5cXC++CBTT4YurwuoNGyJKbQSCh8h2IbTLDwig=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/objects.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ulszR50dqbFwaIB79lp+I4WSiDY=
+			</data>
+			<key>hash2</key>
+			<data>
+			c/wLlJyQKCzleXF+l9GI8Dymv8cQfOQHNFQawrta8Tg=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ZDKHelpCenterSearchResultViewController~iphone.nib/runtime.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9JGS8N7baSsdmxGa3znB3PuLlS0=
+			</data>
+			<key>hash2</key>
+			<data>
+			qUnpr6bZ2xmUzDwwZyR2Ti+HHvgXvdwZ/5A+OdgoIlA=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/btnAttach.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			A60sX8Y5CMG5CulTF6El0eAn6y4=
+			</data>
+			<key>hash2</key>
+			<data>
+			lUe8fFVwVh2giCicEO6BiWGalUXPDDoq5zREuUD6xMc=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/btnAttach@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			feQhTfUg3xn2zYO8LaLuyqbtS1g=
+			</data>
+			<key>hash2</key>
+			<data>
+			+tuq6fTuFNKRxPxGpnJFu8LnsHfTs6baCvXfA9clwN0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/btnAttach@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			G/a2kIABx/geEvCxYvFq+vojY28=
+			</data>
+			<key>hash2</key>
+			<data>
+			LoSunjzOtlXY7NiRyhZRaxKEAH5DOFX2+lMnMIN2jho=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/help_center_article_style.css</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PaECMdKpxTouNZE5xjHHhY9+UmY=
+			</data>
+			<key>hash2</key>
+			<data>
+			LMivzhu6/aTte8Wwfdm6nxzQqHzffCxcscc2JND9bKM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAdd.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zX0sCoD4p/QYvgxu3nrWJFYyM64=
+			</data>
+			<key>hash2</key>
+			<data>
+			efSXlFssC4o+EegMY3cBBfUob2NQ95vtlUJdE1ZarrU=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAdd@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3CLKLAgvdOXc/1RHKc5/KzDanIc=
+			</data>
+			<key>hash2</key>
+			<data>
+			4ItSO65GgxfAVM3bizBt5288w57wlFDzyroAfh+PD5k=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAdd@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gMD+W24QQ9kQGovoq7aD4WiFutA=
+			</data>
+			<key>hash2</key>
+			<data>
+			LVQuacJ02wvtw2gJGjcrAKSu+f8SwOBwYdWJQKMUEQw=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAttach.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6/buDEdP4BuLTdwzx+RBRK4BJ84=
+			</data>
+			<key>hash2</key>
+			<data>
+			mkXNxExw+kqL/afFW0+A5wK4ereaffXTdomlnZ3SqCs=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAttach@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6DB4ZKb3sm/jjYPbrUaYPfK24vE=
+			</data>
+			<key>hash2</key>
+			<data>
+			Z2S5A2vXw4b7eBLN/YfGTpA8KB5gPdjVSYuYHvSbHn4=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoAttach@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			mz6b6Ne7cQZUVHH+0LGs4oWPcCU=
+			</data>
+			<key>hash2</key>
+			<data>
+			oCdiowVJV+1wFeEEnJhGBewLZfnyU2xetawhOTHoIPQ=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoClose.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qShFL3iNeYsHucAAA2o4+ZgcNxU=
+			</data>
+			<key>hash2</key>
+			<data>
+			xfYDmccInsXTf2aK2w/oQT9wpQSAFoKNFo0tVPzVJ8s=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoClose@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9EePbZNoOpPb4TiBCCcERh4pJaM=
+			</data>
+			<key>hash2</key>
+			<data>
+			o+k+wntI6j4pKTrfaPRfQQfnu17Djv+ULRK/MBGt4wE=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoClose@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6FUjj3FvlYiJC/NPeMHbJcRHFIY=
+			</data>
+			<key>hash2</key>
+			<data>
+			7YLhCGzCm5hovjhON5APS4DzQ4lyYMCqUNKpJR11roo=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoDown.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			SBuT+PBdgCoC1upVejrhluN4eog=
+			</data>
+			<key>hash2</key>
+			<data>
+			A9NUhV1f0kJFZh5zzg9yc7nhZY/Mx+YDPkB6oOM0JyM=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoDown@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QZBvc+XaIiFNPNnYGTn9z4i5To4=
+			</data>
+			<key>hash2</key>
+			<data>
+			TDnfXNwnceYj/+ylNrDBNi1tymcHmNgQV+j+1YtzYgY=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/icoDown@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uTylllD83viWYzAoOy3lpZ8rpkw=
+			</data>
+			<key>hash2</key>
+			<data>
+			/Qq2dM3i0vc5LhvbjnBEJKHCC3CsXDjknS39nXNMp34=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_coversations.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			V4dI3qzw6UJjd8/tP3bnb9fQlNA=
+			</data>
+			<key>hash2</key>
+			<data>
+			jFijPTrS0Pojo6BCaTspo6oH+L6jg5oNUUPj8ub6Ahc=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_coversations@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fe0YVvznEMd9UdiL2SEkJDax2Ag=
+			</data>
+			<key>hash2</key>
+			<data>
+			1mU7xT4cVq0fDkjzpfMXQr7ZnRov34UNOsCao7oL5H0=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_coversations@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			opW6UMJn9J1Iw8f0IjmKobEYPpU=
+			</data>
+			<key>hash2</key>
+			<data>
+			qcXcFq0dTQnRKxDVIhmQlc4w+haaBKrIu6SDEUDBtfk=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_newticket.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			N5HroUPrAOvmsDbGUortxgAVP+A=
+			</data>
+			<key>hash2</key>
+			<data>
+			6ncuiBUPqaxvsxiBtGpT2Xnbzhta2DbyFimH7e070SE=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_newticket@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QWAzuT21nsQUG8QQyi9mPqnhBVQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			iMjGXfbtG7JyKrQBy6guDkdLCJKLhUb1oz3nAXHhm2c=
+			</data>
+		</dict>
+		<key>ZendeskSDK.bundle/ico_newticket@3x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			u687L/wWYQSF4oga62JCP8sdjp0=
+			</data>
+			<key>hash2</key>
+			<data>
+			sZiEjJ7V+qzve3Kg/hdWv/ZpVxkv/t61Fl40QsSvOtU=
+			</data>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/Info.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EMkQWQgbdatCVRP7o+yPlnhIuRU=
+			</data>
+			<key>hash2</key>
+			<data>
+			7d6IGbuLf1pFkoCiZVlMvAkDKHBAbobwZ0qKFfclokI=
+			</data>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/da.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xR+lTyTZ/QX4FoOZe60HhdjfycE=
+			</data>
+			<key>hash2</key>
+			<data>
+			Upul5yyHGiZQ43k2BJVYzQdK1w0A4ALSp9f0pxoW2wU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/de.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			isAFC6xT6xOtg+MAQqV/XgzKIi0=
+			</data>
+			<key>hash2</key>
+			<data>
+			vnQPYAewv2CdS/rCNj44lUDp92Uy1DGGGhAxSU8FGuQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/en-GB.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hPdmzH+yweCblX3i2rgDSDY5t6A=
+			</data>
+			<key>hash2</key>
+			<data>
+			h+V9xiAvC0672cQiJ+UYyhhQ/MZ9+8RYsHa2TAlXdH8=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hPdmzH+yweCblX3i2rgDSDY5t6A=
+			</data>
+			<key>hash2</key>
+			<data>
+			h+V9xiAvC0672cQiJ+UYyhhQ/MZ9+8RYsHa2TAlXdH8=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/es.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qQlEQahg/Km8Ly7cEQHODmWiNFI=
+			</data>
+			<key>hash2</key>
+			<data>
+			g067vAMV74MgDgh02HUpvzZvKOunuxHI8Wzi1emcpZc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/fi.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JKP2YUregcPXo5YZQ78X60bpxpc=
+			</data>
+			<key>hash2</key>
+			<data>
+			NffwZqJWn7RUi5E/h9NoDpkZs+w1WvGrzec4YPh2Dmw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/fr.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			k0+MTyWTZuUk5cv4QS3XQUDEfJw=
+			</data>
+			<key>hash2</key>
+			<data>
+			mkVtSnHvjl2SDqzDWxjZaRLfR4FycUXcmmE3pcspizA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/it.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			J5/0CulX37CWvJ+mMHra/KhJuLY=
+			</data>
+			<key>hash2</key>
+			<data>
+			/K7nLTrrwAaddLf6MnQvn3F2FXw5KXEsBwkf5lT3czo=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fqh0mSSoIQ5KxLTtZXADa8rAIsc=
+			</data>
+			<key>hash2</key>
+			<data>
+			5EAh+kdpXJcy0MuL8i1bGCp3NQxWiqTIPyjQlCLcJ9A=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PtqZKofteRTtq6gOZ13KooGi5eM=
+			</data>
+			<key>hash2</key>
+			<data>
+			KxWUnKchfeiCIvuqRUoHm0Tn7KDn4W8CF0a/WZwSw2E=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/nl.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eqkXuWgBQseC041ADonSRSHEwtY=
+			</data>
+			<key>hash2</key>
+			<data>
+			TCcMnMQrKaxIxLtAJkvfzAxq6Gd56fQBuQGnNPJCusA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/no.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4xEIXQGQ+KURmdsffJ+BLMZv34k=
+			</data>
+			<key>hash2</key>
+			<data>
+			Op0KmviBTjhtvag01p0LybxmPa2WUsSoVXkY8Zsky1E=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/pl.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6qcNuDwf+YYU/ZUygdOupBwqkAg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BMdvMwNJS3IBgh4O89lEhJSezff90A/td5UUwbapToA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/pt.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oH61e5GDz8oYUWR2IWT97UGq02k=
+			</data>
+			<key>hash2</key>
+			<data>
+			aAHmlEZ4g0m9V65jAHS3XE5qUgtRWlTo3JySGos4Ey0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/ru.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			m+1NmTdf+ookSFsX7w6kicl+RRg=
+			</data>
+			<key>hash2</key>
+			<data>
+			mhO+CxnOWN+qYYQAlrlwY5+DEXz3cVmfDunWV2iG7Hs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/sv.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JfHFbxqzkTifiqzWRRsnrzy7x/w=
+			</data>
+			<key>hash2</key>
+			<data>
+			gnMbm5AYvihsmhYSq6VE0qtSTx3VFIo3o2miU2SGrtE=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/tr.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HpU9fV9D4itaofm0e6/jYJ7bwzA=
+			</data>
+			<key>hash2</key>
+			<data>
+			eKbl8VynmxOIcFvFzGIDNDf+5jAmz0nwX2/Y4G4daIM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/zh-Hans.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NuXg0pv+Rdbhvcy3A2NnSsafPak=
+			</data>
+			<key>hash2</key>
+			<data>
+			LFNDbVzQbLme/CBKF6vdrznxakPGBHC74LTtBrrnLLs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ZendeskSDKStrings.bundle/zh-Hant.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			irX3+fpuPG+HmYQs9z5OJjsqpBk=
+			</data>
+			<key>hash2</key>
+			<data>
+			IY7mVMSutTQlrEhfMlc+wnI59aIFqFFaIXV2bJ9JP1g=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -873,11 +2956,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UmwqXfRsDs5tyCKus5/2fLjGJ4Y=
+			Velcp53nj0a5KsBMR6x2swQPtrI=
 			</data>
 			<key>hash2</key>
 			<data>
-			8hlLUmIFaLAydTOtevEHH9aHGJGStQqlDvC3Kt0WrSk=
+			8LAkPnRajqpPe+u+PpVOxt0UEgn6hu5+MnbLcXFvFoE=
 			</data>
 		</dict>
 	</dict>

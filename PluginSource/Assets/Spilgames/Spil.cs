@@ -176,5 +176,14 @@ namespace SpilGames.Unity
 		{
 			SpilUnityImplementationBase.fireGameStateError(message);
 		}
+
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void OpenGameShop()
+		{
+			SpilUnityImplementationBase.fireOpenGameShop();
+		}
     }
 }

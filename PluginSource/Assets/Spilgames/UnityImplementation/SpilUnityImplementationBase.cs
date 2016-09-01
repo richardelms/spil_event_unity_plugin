@@ -9,7 +9,7 @@ namespace SpilGames.Unity.Implementations
     public abstract class SpilUnityImplementationBase
     {
 	public static string PluginName = "Unity";
-	public static string PluginVersion = "2.2.1";
+	public static string PluginVersion = "2.2.2";
 
 	public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 

@@ -474,6 +474,15 @@ namespace SpilGames.Unity.Implementations
         }
 
         #endregion
+
+        #region Daily Bonus
+
+        public override void RequestDailyBonus ()
+	{
+	     CallNativeMethod("requestDailyBonus");
+	}
+
+	#endregion
     }
 //    #endif
 }

@@ -426,6 +426,18 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
 
+	#region Daily Bonus
+
+        public override void RequestDailyBonus ()
+	{
+	     //TODO
+	}
+
+	[DllImport("__Internal")]
+        private static extern void requestDailyBonus();
+
+	#endregion
+
 		#region Push notifications
 
         /// <summary>

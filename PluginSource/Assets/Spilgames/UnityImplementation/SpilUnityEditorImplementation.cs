@@ -435,6 +435,15 @@ namespace SpilGames.Unity.Implementations
             }
 
         #endregion
+
+	#region Daily Bonus
+
+        public override void RequestDailyBonus ()
+	{
+	     // TODO
+	}
+
+	#endregion
     }
 
 	public class TempUserInfo{

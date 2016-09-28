@@ -705,6 +705,13 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="userIdsJsonArray">User identifiers json array.</param>
 		public abstract void GetOtherUsersGameState(string provider, string userIdsJsonArray);
 
+		/// <summary>
+		/// Requests the daily bonus screen.
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="userIdsJsonArray">User identifiers json array.</param>
+		public abstract void RequestDailyBonus();
+
 		#region Spil Game Objects
 
 		public delegate void SpilGameDataAvailable();
@@ -866,7 +873,37 @@ namespace SpilGames.Unity.Implementations
 
 			if (Spil.Instance.OnOpenGameShop != null) { Spil.Instance.OnOpenGameShop(); } 	
 		}
-		
+
+		public delegate void ReceiveWebReward();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the reward is received from the web view.
+		/// The developer can subscribe to this event and provide the reward to the user.
+		/// </summary>
+		public event ReceiveWebReward OnReceiveWebReward;
+
+		public static void fireReceiveReward(String reward)
+		{
+			Debug.Log ("SpilSDK-Unity Received reward = " + reward);
+
+			if (Spil.Instance.OnReceiveWebReward != null) { Spil.Instance.OnReceiveWebReward(); } 	
+		}
+
+		public delegate void WebError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view encounters an error.
+		/// The developer can subscribe to this event and inspect the error.
+		/// </summary>
+		public event WebError OnWebError;
+
+		public static void fireWebError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Web Error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnWebError != null) { Spil.Instance.OnWebError(errorMessage); } 	
+		}
+
 		public abstract string GetWalletFromSdk();
 		
 		public abstract string GetInvetoryFromSdk();

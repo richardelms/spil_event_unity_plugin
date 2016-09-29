@@ -656,6 +656,11 @@ namespace SpilGames.Unity.Implementations
 		public abstract string GetSpilUserId();
 
 		/// <summary>
+		/// Updates the player data from the server.
+		/// </summary>
+		public abstract void UpdatePlayerData ();
+
+		/// <summary>
 		/// Sets the user identifier.
 		/// </summary>
 		/// <param name="providerId">Provider identifier.</param>
@@ -708,9 +713,12 @@ namespace SpilGames.Unity.Implementations
 		/// <summary>
 		/// Requests the daily bonus screen.
 		/// </summary>
-		/// <param name="provider">Provider.</param>
-		/// <param name="userIdsJsonArray">User identifiers json array.</param>
 		public abstract void RequestDailyBonus();
+
+		/// <summary>
+		/// Requests the splashscreen.
+		/// </summary>
+		public abstract void RequestSplashscreen ();
 
 		#region Spil Game Objects
 
@@ -763,7 +771,7 @@ namespace SpilGames.Unity.Implementations
 		#endregion
 		
 		#region Player Data
-		
+
 		public delegate void PlayerDataAvailable();
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been received from the server.
@@ -903,6 +911,30 @@ namespace SpilGames.Unity.Implementations
 
 			if (Spil.Instance.OnWebError != null) { Spil.Instance.OnWebError(errorMessage); } 	
 		}
+
+		public static void fireWebOpen() {
+			Debug.Log ("SpilSDK-Unity Web open");
+
+			if (Spil.Instance.OnWebOpen != null) { Spil.Instance.OnWebOpen(); } 
+		}
+
+		public delegate void WebOpen();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view opened.
+		/// </summary>
+		public event WebOpen OnWebOpen;
+
+		public static void fireWebClosed() {
+			Debug.Log ("SpilSDK-Unity Web closed");
+
+			if (Spil.Instance.OnWebClosed != null) { Spil.Instance.OnWebClosed(); } 
+		}
+
+		public delegate void WebClosed();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view closes.
+		/// </summary>
+		public event WebClosed OnWebClosed;
 
 		public abstract string GetWalletFromSdk();
 		

@@ -10,7 +10,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.0.8"
+#define SDK_VERSION @"2.1.0"
 
 @class Spil;
 @class UserProfile;
@@ -34,6 +34,13 @@
 // Notification events
 -(void)grantReward:(NSDictionary*)data;
 
+// Web events
+-(void)receiveWebReward:(NSDictionary*)data;
+-(void)openGameShop;
+-(void)webError:(NSString*)message;
+-(void)webOpen;
+-(void)webClosed;
+
 // Config events
 -(void)configUpdated;
 
@@ -53,9 +60,6 @@
 -(void)gameStateUpdated:(NSString*)access; // Access: private|public
 -(void)otherUsersGameStateLoaded:(NSDictionary*)data forProvider:(NSString*)provider; // Data: <NSString* userId, NSString* data>
 -(void)gameStateError:(NSString*)message;
-
-// Automated events
--(void)openGameShop;
 
 @end
 
@@ -374,6 +378,11 @@
 +(void)requestPlayerData;
 
 /**
+ * Request the player data
+ */
++(void)updatePlayerData;
+
+/**
  * Request the game data
  */
 +(void)requestGameData;
@@ -464,6 +473,18 @@
  */
 +(void)showHelpCenterWebview;
 
+#pragma mark Web
+
+/**
+ * Request the daily bonus screen
+ */
++(void)requestDailyBonus;
+
+/**
+ * Request a splash screen
+ */
++(void)requestSplashScreen;
+
 #pragma mark User data
 
 /**
@@ -531,5 +552,6 @@
 +(void)devShowRewardVideo:(NSString*)adProvider;
 +(void)devShowInterstitial:(NSString*)adProvider;
 +(void)devShowMoreApps:(NSString*)adProvider;
++(void)showBanner;
 
 @end

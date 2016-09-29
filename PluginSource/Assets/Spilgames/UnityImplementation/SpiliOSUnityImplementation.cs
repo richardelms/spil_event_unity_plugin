@@ -326,6 +326,14 @@ namespace SpilGames.Unity.Implementations
 
 		#region Player Data
 
+		public override void UpdatePlayerData ()
+		{
+			updatePlayerDataNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void updatePlayerDataNative();
+
 		public override string GetWalletFromSdk()
 		{
 			return getWalletNative();
@@ -426,15 +434,23 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
 
-	#region Daily Bonus
+	#region Web
 
         public override void RequestDailyBonus ()
-	{
-	     //TODO
-	}
+		{
+			requestDailyBonusNative ();
+		}
 
-	[DllImport("__Internal")]
-        private static extern void requestDailyBonus();
+		[DllImport("__Internal")]
+		private static extern void requestDailyBonusNative();
+
+		public override void RequestSplashscreen ()
+		{
+			requestSplashScreenNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestSplashScreenNative();
 
 	#endregion
 

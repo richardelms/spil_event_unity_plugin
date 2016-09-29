@@ -200,5 +200,21 @@ namespace SpilGames.Unity
 		{
 			SpilUnityImplementationBase.fireReceiveReward(reward);
 		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void WebOpen()
+		{
+			SpilUnityImplementationBase.fireWebOpen();
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void WebClosed()
+		{
+			SpilUnityImplementationBase.fireWebClosed();
+		}
     }
 }

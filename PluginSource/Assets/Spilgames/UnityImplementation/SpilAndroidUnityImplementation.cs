@@ -236,6 +236,11 @@ namespace SpilGames.Unity.Implementations
 			#endregion
 			
 			#region Player Data
+
+			public override void UpdatePlayerData ()
+			{
+				CallNativeMethod("updatePlayerData");
+			}
 			
 			public override string GetWalletFromSdk()
 			{
@@ -475,14 +480,19 @@ namespace SpilGames.Unity.Implementations
 
         #endregion
 
-        #region Daily Bonus
+        #region Web
 
         public override void RequestDailyBonus ()
-	{
-	     CallNativeMethod("requestDailyBonus");
-	}
+		{
+		     CallNativeMethod("requestDailyBonus");
+		}
 
-	#endregion
+		public override void RequestSplashscreen ()
+		{
+			CallNativeMethod("requestSplashscreen");
+		}
+
+		#endregion
     }
 //    #endif
 }

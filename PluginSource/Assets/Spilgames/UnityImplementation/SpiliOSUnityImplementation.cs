@@ -444,7 +444,7 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void requestDailyBonusNative();
 
-		public override void RequestSplashscreen ()
+		public override void RequestSplashScreen ()
 		{
 			requestSplashScreenNative ();
 		}

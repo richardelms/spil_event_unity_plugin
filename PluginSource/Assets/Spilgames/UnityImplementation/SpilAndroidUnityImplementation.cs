@@ -487,9 +487,9 @@ namespace SpilGames.Unity.Implementations
 		     CallNativeMethod("requestDailyBonus");
 		}
 
-		public override void RequestSplashscreen ()
+		public override void RequestSplashScreen ()
 		{
-			CallNativeMethod("requestSplashscreen");
+			CallNativeMethod("requestSplashScreen");
 		}
 
 		#endregion

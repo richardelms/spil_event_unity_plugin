@@ -446,7 +446,7 @@ namespace SpilGames.Unity.Implementations
 		     // TODO
 		}
 
-		public override void RequestSplashscreen() 
+		public override void RequestSplashScreen() 
 		{
 			// TODO
 		}

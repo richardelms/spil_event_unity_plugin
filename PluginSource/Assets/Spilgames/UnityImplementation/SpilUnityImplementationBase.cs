@@ -718,7 +718,7 @@ namespace SpilGames.Unity.Implementations
 		/// <summary>
 		/// Requests the splashscreen.
 		/// </summary>
-		public abstract void RequestSplashscreen ();
+		public abstract void RequestSplashScreen ();
 
 		#region Spil Game Objects
 

@@ -34,12 +34,17 @@
 // Notification events
 -(void)grantReward:(NSDictionary*)data;
 
-// Web events
--(void)receiveWebReward:(NSDictionary*)data;
--(void)openGameShop;
--(void)webError:(NSString*)message;
--(void)webOpen;
--(void)webClosed;
+// Splash screen events
+-(void)splashScreenOpen;
+-(void)splashScreenClosed;
+-(void)splashScreenOpenShop;
+-(void)splashScreenError:(NSString*)message;
+
+// Daily bonus screen events
+-(void)dailyBonusOpen;
+-(void)dailyBonusClosed;
+-(void)dailyBonusReward:(NSDictionary*)data;
+-(void)dailyBonusError:(NSString*)message;
 
 // Config events
 -(void)configUpdated;

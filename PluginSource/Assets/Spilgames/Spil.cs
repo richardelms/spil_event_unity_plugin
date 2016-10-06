@@ -188,6 +188,14 @@ namespace SpilGames.Unity
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// </summary>
+		public void SplashScreenNotAvailable()
+		{
+			SpilUnityImplementationBase.fireSplashScreenNotAvailable();
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
 		public void SplashScreenClosed()
 		{
 			SpilUnityImplementationBase.fireSplashScreenClosed();
@@ -215,6 +223,14 @@ namespace SpilGames.Unity
 		public void DailyBonusOpen()
 		{
 			SpilUnityImplementationBase.fireDailyBonusOpen();
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void DailyBonusNotAvailable()
+		{
+			SpilUnityImplementationBase.fireDailyBonusNotAvailable();
 		}
 
 		/// <summary>

@@ -880,6 +880,18 @@ namespace SpilGames.Unity.Implementations
 			if (Spil.Instance.OnSplashScreenOpen != null) { Spil.Instance.OnSplashScreenOpen(); } 
 		}
 
+		public delegate void SplashScreenNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the splash screen is not available.
+		/// </summary>
+		public event SplashScreenNotAvailable OnSplashScreenNotAvailable;
+
+		public static void fireSplashScreenNotAvailable() {
+			Debug.Log ("SpilSDK-Unity splash screen not available");
+
+			if (Spil.Instance.OnSplashScreenNotAvailable != null) { Spil.Instance.OnSplashScreenNotAvailable(); } 
+		}
+
 		public delegate void SplashScreenClosed();
 		/// <summary>
 		/// This is fired by the native Spil SDK when the web view closes.
@@ -932,6 +944,18 @@ namespace SpilGames.Unity.Implementations
 			Debug.Log ("SpilSDK-Unity Web open");
 
 			if (Spil.Instance.OnDailyBonusOpen != null) { Spil.Instance.OnDailyBonusOpen(); } 
+		}
+
+		public delegate void DailyBonusNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the dailybonus screen is not available.
+		/// </summary>
+		public event DailyBonusNotAvailable OnDailyBonusNotAvailable;
+
+		public static void fireDailyBonusNotAvailable() {
+			Debug.Log ("SpilSDK-Unity Daily bonus not available");
+
+			if (Spil.Instance.OnDailyBonusNotAvailable != null) { Spil.Instance.OnDailyBonusNotAvailable(); } 
 		}
 
 		public delegate void DailyBonusClosed();

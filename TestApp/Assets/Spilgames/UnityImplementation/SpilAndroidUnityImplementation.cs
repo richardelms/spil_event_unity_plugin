@@ -10,6 +10,10 @@ namespace SpilGames.Unity.Implementations
     {
         #region Inherited members
 
+        	public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			CallNativeMethod("setPluginInformation", new object[]{ PluginName, PluginVersion }, true);
+		}
             #region Game config
 
                 /// <summary>
@@ -75,10 +79,69 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-			internal override void spilInit(bool pushNotificationsEnabled)
+			internal override void SpilInit()
             {
-                RegisterDevice(Spil.GCMProject_ID);
+                RegisterDevice(Spil.Project_ID);
             }
+
+            public override void SetUserId(string providerId, string userId)
+            {
+			CallNativeMethod("setUserId", new object[]{ providerId, userId }, true);
+            }
+
+			public override string GetUserId()
+			{
+				return CallNativeMethod("getUserId");
+			}
+
+			/// <summary>
+			/// Gets the user provider.
+			/// </summary>
+			/// <returns>The user provider native.</returns>
+			public override string GetUserProvider() {
+				return CallNativeMethod("getUserProvider");
+			}
+
+			/// <summary>
+			/// Sets the state of the private game.
+			/// </summary>
+			/// <param name="privateData">Private data.</param>
+			public override void SetPrivateGameState(string privateData) {
+				CallNativeMethod("setPrivateGameState", new object[]{ privateData}, true);
+			}
+
+			/// <summary>
+			/// Gets the state of the private game.
+			/// </summary>
+			/// <returns>The private game state.</returns>
+			public override string GetPrivateGameState () {
+				return CallNativeMethod("getPrivateGameState");
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <param name="publicData">Public data.</param>
+			public override void SetPublicGameState (string publicData) {
+				CallNativeMethod("setPublicGameState", new object[]{ publicData}, true);
+			}
+
+			/// <summary>
+			/// Sets the public game state.
+			/// </summary>
+			/// <returns>The public game state.</returns>
+			public override string GetPublicGameState () {
+				return CallNativeMethod("getPublicGameState");
+			}
+
+			/// <summary>
+			/// Gets the public game state of other users.
+			/// </summary>
+			/// <param name="provider">Provider.</param>
+			/// <param name="userIdsJsonArray">User identifiers json array.</param>
+			public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
+				CallNativeMethod("getOtherUsersGameState", new object[]{ provider, userIdsJsonArray}, true);
+			}
 
             /// <summary>
             /// Sends an event to the native Spil SDK which will send a request to the back-end.
@@ -158,9 +221,9 @@ namespace SpilGames.Unity.Implementations
             /// customer support can help them properly. Please make this Id available for users
             /// in one of your game's screens.
             /// </summary>
-	        public override string GetSpilUID()
+			public override string GetSpilUserId()
             {
-                return CallNativeMethod("getSpilUID");
+				return CallNativeMethod("getSpilUserId");
             }
             
 			#region Spil Game Objects
@@ -173,6 +236,11 @@ namespace SpilGames.Unity.Implementations
 			#endregion
 			
 			#region Player Data
+
+			public override void UpdatePlayerData ()
+			{
+				CallNativeMethod("updatePlayerData");
+			}
 			
 			public override string GetWalletFromSdk()
 			{
@@ -392,6 +460,39 @@ namespace SpilGames.Unity.Implementations
             }
 
         #endregion
+
+        #region Customer support
+
+        public override void ShowHelpCenter() 
+        {
+            CallNativeMethod("showZendeskHelpCenter");
+        }
+
+        public override void ShowContactCenter()
+        {
+            CallNativeMethod("showContactZendeskCenter");
+        }
+
+        public override void ShowHelpCenterWebview()
+        {
+            CallNativeMethod("showZendeskWebViewHelpCenter");
+        }
+
+        #endregion
+
+        #region Web
+
+        public override void RequestDailyBonus ()
+		{
+		     CallNativeMethod("requestDailyBonus");
+		}
+
+		public override void RequestSplashScreen ()
+		{
+			CallNativeMethod("requestSplashScreen");
+		}
+
+		#endregion
     }
 //    #endif
 }

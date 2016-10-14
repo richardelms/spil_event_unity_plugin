@@ -796,13 +796,15 @@ namespace SpilGames.Unity.Implementations
 		
         public static void firePlayerDataUpdated(string data)
 		{
-            PlayerDataUpdatedData playerDataUpdatedData = JsonHelper.getObjectFromJson<PlayerDataUpdatedData>(data);
+			Debug.Log ("SpilSDK-Unity Player Data has been updated, data:" + data);
+
+			PlayerDataUpdatedData playerDataUpdatedData = JsonHelper.getObjectFromJson<PlayerDataUpdatedData>(data);
 
 			Spil.PlayerData.PlayerDataUpdatedHandler ();
 
-			Debug.Log ("SpilSDK-Unity Player Data has been updated");
-
-            if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(playerDataUpdatedData.reason, playerDataUpdatedData); }
+            if (Spil.Instance.OnPlayerDataUpdated != null) { 
+				Spil.Instance.OnPlayerDataUpdated(playerDataUpdatedData.reason, playerDataUpdatedData); 
+			}
 			
 		}
 		
@@ -971,6 +973,7 @@ namespace SpilGames.Unity.Implementations
 		}
 
 		public delegate void DailyBonusError(SpilErrorMessage errorMessage);
+
 		/// <summary>
 		/// This is fired by the native Spil SDK when the web view encounters an error.
 		/// The developer can subscribe to this event and inspect the error.

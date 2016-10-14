@@ -3,11 +3,14 @@ using UnityEngine;
 using System.Collections;
 using SpilGames.Unity.Implementations;
 using SpilGames.Unity.Helpers;
+using SpilGames.Unity.Utils.UnityEditor;
 
 namespace SpilGames.Unity.Utils.UnityEditor.Responses
 {
 	public class AdvertisementData : Data
 	{
+		#if UNITY_EDITOR
+
 		public static bool DFPEnabled = false;
 		public static bool FyberEnabled = false;
 		public static bool ChartboostEnabled = false;
@@ -145,6 +148,8 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 			public string currencyId;
 			public int reward;
 		}
+		#endif
 	}
+
 }
 #endif

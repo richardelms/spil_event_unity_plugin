@@ -2,12 +2,14 @@
 using UnityEngine;
 using System.Collections;
 using SpilGames.Unity.Implementations;
+using SpilGames.Unity.Utils.UnityEditor;
 
 namespace SpilGames.Unity.Utils.UnityEditor.Responses
 {
 
 	public class ConfigData : Data
 	{
+		#if UNITY_EDITOR
 
 		public static string GameConfigData;
 
@@ -43,7 +45,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 			return config;
 		}
 
-
+		#endif
 	
 	}
 

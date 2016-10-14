@@ -13,6 +13,25 @@ This version brings multiple features of the Spil SDK to the Editor Mode, the Da
  * Bug fixes, code cleanup and improvements (for more details regarding native, check the Android and iOS repositories)
 
 
+Version 2.2.2
+----------------------------
+Tweaks & bug fixes.
+ * iOS SpilSDK updated to v2.0.8.
+ * Android SpilSDK updated to v2.2.2.
+ * User gamestate added.
+ * Automated events implemented. (Splash screens etc).
+ * iOS Build script now also supports entitlements adding. (iCloud, push messages & app groups).
+ * Zendesk custom theme implemented. (iOS only)
+ * Wallet track event helper methods added.
+
+
+Version 2.2.1
+----------------------------
+Tweaks & bug fixes. minor updates and bugfixes.
+ * Tweaks & bug fixes.
+ * Android SpilSDK updated to v2.2.1.
+
+
 Version 2.2.0
 ----------------------------
 Version 2.2.0 is here and brings new features for analytics (Adjust, Google Analytics) and customer support (Zendesk) along with some minor updates and bugfixes.

@@ -10,9 +10,17 @@ namespace SpilGames.Unity.Implementations
 	#if UNITY_IPHONE
 	public class SpiliOSUnityImplementation : SpilUnityImplementationBase
 	{
-		protected bool pushNotificationsEnabled = false;
+        protected bool disableAutomaticRegisterForPushNotifications = false;
 
 		#region Inherited members
+
+		public override void SetPluginInformation (string PluginName, string PluginVersion)
+		{
+			setPluginInformationNative(PluginName, PluginVersion);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setPluginInformationNative(string pluginName, string pluginVersion);
 
 		#region Game config
 
@@ -91,17 +99,16 @@ namespace SpilGames.Unity.Implementations
 		/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
 		/// Internal method names start with a lower case so you can easily recognise and avoid them.
 		/// </summary>
-		internal override void spilInit(bool pushNotificationsEnabled)
+		internal override void SpilInit()
 		{
 			JSONObject options = new JSONObject();
 			options.AddField ("isUnity",true);
 			initEventTrackerWithOptions(options.ToString());
 			applicationDidBecomeActive();
 
-			this.pushNotificationsEnabled = pushNotificationsEnabled;
-			if (pushNotificationsEnabled) 
+            if (disableAutomaticRegisterForPushNotifications == false) 
 			{
-				RegisterForIosPushNotifications ();
+                RegisterForPushNotifications ();
 				CheckForRemoteNotifications();
 			}
 		}
@@ -194,7 +201,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void RequestMoreApps()
 		{
-			devRequestAdNative("ChartBoost", "moreApps", false);
+			devRequestAdNative("Chartboost", "moreApps", false);
 		}
 
 		[DllImport("__Internal")]
@@ -206,13 +213,104 @@ namespace SpilGames.Unity.Implementations
 		/// customer support can help them properly. Please make this Id available for users
 		/// in one of your game's screens.
 		/// </summary>
-		public override string GetSpilUID()
+		public override string GetSpilUserId()
 		{
-			return getSpilUIDNative();
+			return getSpilUserIdNative();
 		}
 
 		[DllImport("__Internal")]
-		private static extern string getSpilUIDNative();
+		private static extern string getSpilUserIdNative();
+
+		/// <summary>
+		/// Retrieves the custom User Id
+		/// </summary>
+		public override string GetUserId()
+		{
+			return getUserIdNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getUserIdNative();
+
+		/// <summary>
+		/// Sets the custom User Id for a provider
+		/// </summary>
+		/// <param name="providerId"></param>
+		/// <param name="userId"></param>
+		public override void SetUserId(string providerId, string userId)
+		{
+			setUserIdNative(providerId, userId);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setUserIdNative(string providerId, string userId);
+
+		/// <summary>
+		/// Gets the user provider.
+		/// </summary>
+		/// <returns>The user provider native.</returns>
+		public override string GetUserProvider() {
+			return getUserProviderNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getUserProviderNative();
+
+		/// <summary>
+		/// Sets the state of the private game.
+		/// </summary>
+		/// <param name="privateData">Private data.</param>
+		public override void SetPrivateGameState(string privateData) {
+			setPrivateGameStateNative (privateData);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setPrivateGameStateNative(string privateData);
+
+		/// <summary>
+		/// Gets the state of the private game.
+		/// </summary>
+		/// <returns>The private game state.</returns>
+		public override string GetPrivateGameState() {
+			return getPrivateGameStateNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getPrivateGameStateNative();
+
+		/// <summary>
+		/// Sets the public game state.
+		/// </summary>
+		/// <param name="publicData">Public data.</param>
+		public override void SetPublicGameState(string publicData) {
+			setPublicGameStateNative(publicData);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setPublicGameStateNative(string publicData);
+
+		/// <summary>
+		/// Gets the public game state.
+		/// </summary>
+		/// <returns>The public game state.</returns>
+		public override string GetPublicGameState() {
+			return getPublicGameStateNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getPublicGameStateNative();
+
+		/// <summary>
+		/// Gets the public game state of other users.
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="userIdsJsonArray">User identifiers json array.</param>
+		public override void GetOtherUsersGameState(string provider, string userIdsJsonArray) {
+			getOtherUsersGameStateNative(provider, userIdsJsonArray);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void getOtherUsersGameStateNative(string provider, string userIdsJsonArray);
 
 		#region Spil Game Objects
 
@@ -227,6 +325,14 @@ namespace SpilGames.Unity.Implementations
 		#endregion
 
 		#region Player Data
+
+		public override void UpdatePlayerData ()
+		{
+			updatePlayerDataNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void updatePlayerDataNative();
 
 		public override string GetWalletFromSdk()
 		{
@@ -302,7 +408,69 @@ namespace SpilGames.Unity.Implementations
 
 		#endregion
 
+        #region Customer support
+
+        public override void ShowHelpCenter() {
+            showHelpCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterNative();
+
+        public override void ShowContactCenter() {
+            showContactCenterNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showContactCenterNative();
+
+        public override void ShowHelpCenterWebview()
+        {
+            showHelpCenterWebviewNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void showHelpCenterWebviewNative();
+
+        #endregion
+
+	#region Web
+
+        public override void RequestDailyBonus ()
+		{
+			requestDailyBonusNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestDailyBonusNative();
+
+		public override void RequestSplashScreen ()
+		{
+			requestSplashScreenNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestSplashScreenNative();
+
+	#endregion
+
 		#region Push notifications
+
+        /// <summary>
+        /// Disables the automatic register for push notifications.
+        /// Should be called before SpilInit!
+        /// </summary>
+        public void DisableAutomaticRegisterForPushNotifications()
+        {
+            disableAutomaticRegisterForPushNotifications = true;
+            disableAutomaticRegisterForPushNotificationsNative();
+        }
+
+        [DllImport("__Internal")]
+        private static extern void disableAutomaticRegisterForPushNotificationsNative();
+
+        [DllImport("__Internal")]
+        private static extern void registerForPushNotifications();
 
 		[DllImport("__Internal")]
 		private static extern void setPushNotificationKey(string key);
@@ -310,8 +478,11 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void handlePushNotification(string notificationStringParams);
 
-		//register for ios push notifications
-		private void RegisterForIosPushNotifications()
+        /// <summary>
+        /// Registers for push notifications for iOS.
+        /// Can be used then the automatic registration was disabled using: DisableAutomaticRegisterForPushNotifications();
+        /// </summary>
+		public void RegisterForPushNotifications()
 		{
 			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
 	#if UNITY_IPHONE
@@ -452,10 +623,7 @@ namespace SpilGames.Unity.Implementations
 			if(!pauseStatus)
 			{
 				applicationDidBecomeActive();
-				if (pushNotificationsEnabled)
-				{
-					CheckForRemoteNotifications();
-				}
+				CheckForRemoteNotifications();
 			} else {
 				applicationDidEnterBackground();
 			}

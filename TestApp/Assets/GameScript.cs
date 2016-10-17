@@ -52,6 +52,30 @@ public class GameScript : MonoBehaviour
 
         Spil.Instance.OnSpilGameDataError -= SpilGameDataErrorHandler;
         Spil.Instance.OnSpilGameDataError += SpilGameDataErrorHandler;
+
+		// Splash screen events
+		Spil.Instance.OnSplashScreenOpen -= SplashScreenOpenHandler;
+		Spil.Instance.OnSplashScreenOpen += SplashScreenOpenHandler;
+		Spil.Instance.OnSplashScreenClosed -= SplashScreenClosedHandler;
+		Spil.Instance.OnSplashScreenClosed += SplashScreenClosedHandler;
+		Spil.Instance.OnSplashScreenError -= SplashScreenErrorHandler;
+		Spil.Instance.OnSplashScreenError += SplashScreenErrorHandler;
+		Spil.Instance.OnSplashScreenNotAvailable -= SplashScreenNotAvailabelHandler;
+		Spil.Instance.OnSplashScreenNotAvailable += SplashScreenNotAvailabelHandler;
+		Spil.Instance.OnSplashScreenOpenShop -= SplashScreenOpenShopHandler;
+		Spil.Instance.OnSplashScreenOpenShop += SplashScreenOpenShopHandler;
+
+		// Daily bonus screen events
+		Spil.Instance.OnDailyBonusOpen -= DailyBonusOpenHandler;
+		Spil.Instance.OnDailyBonusOpen += DailyBonusOpenHandler;
+		Spil.Instance.OnDailyBonusClosed -= DailyBonusClosedHandler;
+		Spil.Instance.OnDailyBonusClosed += DailyBonusClosedHandler;
+		Spil.Instance.OnDailyBonusError -= DailyBonusErrorHandler;
+		Spil.Instance.OnDailyBonusError += DailyBonusErrorHandler;
+		Spil.Instance.OnDailyBonusNotAvailable -= DailyBonusNotAvailabelHandler;
+		Spil.Instance.OnDailyBonusNotAvailable += DailyBonusNotAvailabelHandler;
+		Spil.Instance.OnDailyBonusReward -= DailyBonusRewardHandler;
+		Spil.Instance.OnDailyBonusReward += DailyBonusRewardHandler;
     }
 
     // When an ad is available it can be shown
@@ -74,7 +98,7 @@ public class GameScript : MonoBehaviour
         // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
     }
 
-    private void PlayerDataUpdatedHandler(string reason)
+	private void PlayerDataUpdatedHandler(string reason, PlayerDataUpdatedData updatedData)
     {
         if (reason.Equals(PlayerDataUpdateReasons.ItemBought))
         {
@@ -169,27 +193,28 @@ public class GameScript : MonoBehaviour
 
     public Text txtStatus1;
     public Text txtStatus2;
+	public Text txtWebStatus1;
+	public Text txtWebStatus2;
 
     int currentScreenShowing = 0;
 
     public GameObject panel1;
     public GameObject panel2;
     public GameObject panel3;
+	public GameObject panel4;
 
     public void btnPrevClick()
     {
-        currentScreenShowing -= 1;
-        if (currentScreenShowing < 0)
+        if (--currentScreenShowing < 0)
         {
-            currentScreenShowing = 2;
+            currentScreenShowing = 3;
         }
         setCurrentPanel();
     }
 
     public void btnNextClick()
     {
-        currentScreenShowing += 1;
-        if (currentScreenShowing > 2)
+        if (++currentScreenShowing > 3)
         {
             currentScreenShowing = 0;
         }
@@ -198,34 +223,29 @@ public class GameScript : MonoBehaviour
 
     private void setCurrentPanel()
     {
-        if (currentScreenShowing == 0)
-        {
-            panel1.SetActive(true);
-            panel2.SetActive(false);
-            panel3.SetActive(false);
-        }
-        else if (currentScreenShowing == 1)
-        {
-            panel1.SetActive(false);
-            panel2.SetActive(true);
-            panel3.SetActive(false);
+		panel1.SetActive(currentScreenShowing == 0);
+		panel2.SetActive(currentScreenShowing == 1);
+		panel3.SetActive(currentScreenShowing == 2);
+		panel4.SetActive(currentScreenShowing == 3);
 
-            updateUI();
-        }
-        else if (currentScreenShowing == 2)
-        {
-            panel1.SetActive(false);
-            panel2.SetActive(false);
-            panel3.SetActive(true);
-
-            updateUIShop();
-        }
+		switch (currentScreenShowing) {
+		case 0:
+			break;
+		case 1:
+			updateUI();
+			break;
+		case 2:
+			updateUIShop();
+			break;
+		case 3:
+			break;
+		}
     }
 
     public void RequestRewardVideo()
     {
         txtStatus1.text = "Requesting reward video";
-        Spil.Instance.SendrequestRewardVideoEvent();
+		Spil.Instance.SendRequestRewardVideoEvent();
     }
 
     public void RequestFyberRewardVideo()
@@ -1394,4 +1414,64 @@ public class GameScript : MonoBehaviour
     }
 
     #endregion
+
+	#region Web
+
+	public void btnRequestSplashScreenClick()
+	{
+		txtWebStatus1.text = "Requesting splashscreen";
+		txtWebStatus2.text = "";
+		Spil.Instance.RequestSplashScreen ();
+	}
+
+	public void btnRequestDailyBonusScreenClick()
+	{
+		txtWebStatus1.text = "Requesting dailybonus";
+		txtWebStatus2.text = "";
+		Spil.Instance.RequestDailyBonus();
+	}
+
+	// Splash screen events
+	public void SplashScreenOpenHandler() {
+		txtWebStatus2.text += "\nSplashscreen open";
+	}
+
+	public void SplashScreenClosedHandler() {
+		txtWebStatus2.text += "\nSplashscreen closed";
+	}
+
+	public void SplashScreenErrorHandler(SpilErrorMessage message) {
+		txtWebStatus2.text += "\nSplashscreen error: " + message;
+	}
+
+	public void SplashScreenNotAvailabelHandler() {
+		txtWebStatus2.text += "\nSplashscreen not available";
+	}
+
+	public void SplashScreenOpenShopHandler() {
+		txtWebStatus2.text += "\nSplashscreen open shop";
+	}
+
+	// Daily bonus screen events
+	public void DailyBonusOpenHandler() {
+		txtWebStatus2.text += "\nDailybonus open";
+	}
+
+	public void DailyBonusClosedHandler() {
+		txtWebStatus2.text += "\nDailybonus closed";
+	}
+
+	public void DailyBonusErrorHandler(SpilErrorMessage message) {
+		txtWebStatus2.text += "\nDailybonus error: " + message;
+	}
+
+	public void DailyBonusNotAvailabelHandler() {
+		txtWebStatus2.text += "\nDailybonus not available";
+	}
+
+	public void DailyBonusRewardHandler(String rewardList) {
+		txtWebStatus2.text = "Splashscreen reward: " + rewardList;
+	}
+
+	#endregion
 }

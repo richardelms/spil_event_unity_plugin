@@ -120,7 +120,7 @@ for library in requiredSystemLibraries:
 
 # add custom frameworks
 print 'Adding custom frameworks'
-requiredCustomFrameworks = ['AdjustSdk', 'Chartboost', 'FBAudienceNetwork', 'Fyber_AdColony', 'Fyber_AppLovin', 'Fyber_UnityAds', 'GoogleMobileAds', 'MMAdSDK', 'ZendeskSDK', 'ZendeskProviderSDK']
+requiredCustomFrameworks = ['AdjustSdk', 'Chartboost', 'FBAudienceNetwork', 'Fyber_AdColony', 'Fyber_AppLovin', 'Fyber_UnityAds', 'Fyber_Vungle', 'GoogleMobileAds', 'MMAdSDK', 'ZendeskSDK', 'ZendeskProviderSDK']
 project.add_file_if_doesnt_exist('Spil.framework', parent=frameworks, weak=False)
 for framework in requiredCustomFrameworks:
 	project.add_file_if_doesnt_exist('Spil.framework/Frameworks/' + framework + '.framework', parent=frameworks, weak=False)
@@ -133,11 +133,17 @@ print 'Copying resources and adding them to the XCode project'
 bundles = project.get_or_create_group('')
 addBundleResource(os.getcwd() + '/Spil.framework/Settings.bundle', os.getcwd() + '/Settings.bundle', bundles)
 addBundleResource(os.getcwd() + '/Spil.framework/Frameworks/Fyber_UnityAds.framework/Resources/UnityAds.bundle', os.getcwd() + '/UnityAds.bundle', bundles)
+addBundleResource(os.getcwd() + '/Spil.framework/MRAID.bundle', os.getcwd() + '/MRAID.bundle', bundles)
 addBundleResource(os.getcwd() + '/Data/Raw/defaultGameConfig.json', os.getcwd() + '/defaultGameConfig.json', bundles)
 addBundleResource(os.getcwd() + '/Data/Raw/defaultGameData.json', os.getcwd() + '/defaultGameData.json', bundles)
 addBundleResource(os.getcwd() + '/Data/Raw/defaultPlayerData.json', os.getcwd() + '/defaultPlayerData.json', bundles)
 addBundleResource(os.getcwd() + '/Spil.framework/ZendeskSDK.bundle', os.getcwd() + '/ZendeskSDK.bundle', bundles)
 addBundleResource(os.getcwd() + '/Spil.framework/ZendeskSDKStrings.bundle', os.getcwd() + '/ZendeskSDKStrings.bundle', bundles)
+
+# add png/xib resources
+for file in os.listdir(os.getcwd() + '/Spil.framework'):
+    if file.lower().endswith(".png") or file.lower().endswith(".xib"):
+        addBundleResource(os.getcwd() + '/Spil.framework/' + file, os.getcwd() + '/' + file, bundles)
 
 # change build settings
 print 'Modifying project build settings'
@@ -166,6 +172,21 @@ print 'Modifying info.plist'
 plist = plistlib.readPlist(currentPlistPath)
 plist['NSAppTransportSecurity'] = dict(NSAllowsArbitraryLoads = True)
 plist['UIBackgroundModes'] = ["remote-notification"]
+plist['NSCameraUsageDescription'] = "Used to take a photo."
+plist['NSCalendarsUsageDescription'] = "Used to access the calendar."
+plist['NSPhotoLibraryUsageDescription'] = "Used to access the photo library."
+plist['NSAppleMusicUsageDescription'] = "Used to access apple music."
+plist['NSBluetoothPeripheralUsageDescription'] = "Used to communicate between devices using Bluetooth."
+plist['NSContactsUsageDescription'] = "Used to access the phone contacts."
+plist['NSHealthShareUsageDescription'] = "Used to share data with the health app."
+plist['NSHomeKitUsageDescription'] = "Used to access the domotica app information."
+plist['NSLocationAlwaysUsageDescription'] = "Used to access the user location."
+plist['NSLocationWhenInUseUsageDescription'] = "Used to access the user location."
+plist['NSMicrophoneUsageDescription'] = "Used to access the microphone."
+plist['NSMotionUsageDescription'] = "Used to access the phones motion information."
+plist['NSRemindersUsageDescription'] = "Used to access the reminders app information."
+plist['NSSiriUsageDescription'] = "Siri is used for voice control."
+plist['NSSpeechRecognitionUsageDescription'] = "Used to enable speech recognition."
 
 # write plist
 print 'Saving info.plist'

@@ -9,7 +9,7 @@ namespace SpilGames.Unity.Implementations
     public abstract class SpilUnityImplementationBase
     {
 	public static string PluginName = "Unity";
-	public static string PluginVersion = "2.2.0";
+	public static string PluginVersion = "2.2.3";
 
 	public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 
@@ -244,14 +244,14 @@ namespace SpilGames.Unity.Implementations
                     if(currencyList != null)
                     {
 			string currencyListJSON = JsonHelper.getJSONFromObject(currencyList);
-			string wallet = "{\"currencies\":" + currencyListJSON + "}";
+			string wallet = "{\"currencies\":" + currencyListJSON + ", \"offset\":0}";
 			dictionary.Add("wallet", wallet);
                     }
 
 		    if(itemsList != null)
                     {
 			string itemsListJSON = JsonHelper.getJSONFromObject(itemsList);
-			string inventory = "{\"items\":" + itemsListJSON + "}";
+			string inventory = "{\"items\":" + itemsListJSON + ", \"offset\":0}";
 			dictionary.Add("inventory", inventory);
                     }
 
@@ -270,10 +270,9 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
-                /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                public void SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+                public void SendiapPurchasedEvent(string skuId, string transactionId)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }});
+			SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz") } });
                 }
 
 		/// <summary>
@@ -282,10 +281,9 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
-                /// <param name="purchaseDate">Please use a proper DateTime format!</param>
-                public void TrackIAPPurchasedEvent(string skuId, string transactionId, string purchaseDate)
+                public void TrackIAPPurchasedEvent(string skuId, string transactionId)
                 {
-                    SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", purchaseDate }});
+					SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")  }});
                 }
 
                 [Obsolete]
@@ -295,8 +293,8 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="originalTransactionId ">For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier</param>
-                /// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format!</param>
-                public void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
+				/// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format (RFC3339), for instance: "2016-08-30T11:54:48.5247936+02:00". If you have a DateTime object you can use: DateTimeObject.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")</param>                
+				public void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
                 {
                     SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "skuId", skuId }, { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
                 }
@@ -307,7 +305,7 @@ namespace SpilGames.Unity.Implementations
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="originalTransactionId ">For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier</param>
-                /// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format!</param>
+		/// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format (RFC3339), for instance: "2016-08-30T11:54:48.5247936+02:00". If you have a DateTime object you can use: DateTimeObject.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")</param>                
                 public void TrackIAPRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
                 {
                     SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "skuId", skuId }, { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
@@ -658,6 +656,11 @@ namespace SpilGames.Unity.Implementations
 		public abstract string GetSpilUserId();
 
 		/// <summary>
+		/// Updates the player data from the server.
+		/// </summary>
+		public abstract void UpdatePlayerData ();
+
+		/// <summary>
 		/// Sets the user identifier.
 		/// </summary>
 		/// <param name="providerId">Provider identifier.</param>
@@ -706,6 +709,16 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="provider">Provider.</param>
 		/// <param name="userIdsJsonArray">User identifiers json array.</param>
 		public abstract void GetOtherUsersGameState(string provider, string userIdsJsonArray);
+
+		/// <summary>
+		/// Requests the daily bonus screen.
+		/// </summary>
+		public abstract void RequestDailyBonus();
+
+		/// <summary>
+		/// Requests the splashscreen.
+		/// </summary>
+		public abstract void RequestSplashScreen ();
 
 		#region Spil Game Objects
 
@@ -758,7 +771,7 @@ namespace SpilGames.Unity.Implementations
 		#endregion
 		
 		#region Player Data
-		
+
 		public delegate void PlayerDataAvailable();
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been received from the server.
@@ -854,7 +867,140 @@ namespace SpilGames.Unity.Implementations
 
 			if (Spil.Instance.OnGameStateError != null) { Spil.Instance.OnGameStateError(errorMessage); } 	
 		}
-		
+
+		public delegate void SplashScreenOpen();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view opened.
+		/// </summary>
+		public event SplashScreenOpen OnSplashScreenOpen;
+
+		public static void fireSplashScreenOpen() {
+			Debug.Log ("SpilSDK-Unity Web open");
+
+			if (Spil.Instance.OnSplashScreenOpen != null) { Spil.Instance.OnSplashScreenOpen(); } 
+		}
+
+		public delegate void SplashScreenNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the splash screen is not available.
+		/// </summary>
+		public event SplashScreenNotAvailable OnSplashScreenNotAvailable;
+
+		public static void fireSplashScreenNotAvailable() {
+			Debug.Log ("SpilSDK-Unity splash screen not available");
+
+			if (Spil.Instance.OnSplashScreenNotAvailable != null) { Spil.Instance.OnSplashScreenNotAvailable(); } 
+		}
+
+		public delegate void SplashScreenClosed();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view closes.
+		/// </summary>
+		public event SplashScreenClosed OnSplashScreenClosed;
+
+		public static void fireSplashScreenClosed() {
+			Debug.Log ("SpilSDK-Unity Web closed");
+
+			if (Spil.Instance.OnSplashScreenClosed != null) { Spil.Instance.OnSplashScreenClosed(); } 
+		}
+
+		public delegate void SplashScreenOpenShop();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the game shop should be opened.
+		/// The developer can subscribe to this event and open there own shop implementation.
+		/// </summary>
+		public event SplashScreenOpenShop OnSplashScreenOpenShop;
+
+		public static void fireSplashScreenOpenShop()
+		{
+			Debug.Log ("SpilSDK-Unity Open Game Shop");
+
+			if (Spil.Instance.OnSplashScreenOpenShop != null) { Spil.Instance.OnSplashScreenOpenShop(); } 	
+		}
+
+		public delegate void SplashScreenError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view encounters an error.
+		/// The developer can subscribe to this event and inspect the error.
+		/// </summary>
+		public event SplashScreenError OnSplashScreenError;
+
+		public static void fireSplashScreenError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Web Error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnSplashScreenError != null) { Spil.Instance.OnSplashScreenError(errorMessage); } 	
+		}
+
+		public delegate void DailyBonusOpen();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view opened.
+		/// </summary>
+		public event DailyBonusOpen OnDailyBonusOpen;
+
+		public static void fireDailyBonusOpen() {
+			Debug.Log ("SpilSDK-Unity Web open");
+
+			if (Spil.Instance.OnDailyBonusOpen != null) { Spil.Instance.OnDailyBonusOpen(); } 
+		}
+
+		public delegate void DailyBonusNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the dailybonus screen is not available.
+		/// </summary>
+		public event DailyBonusNotAvailable OnDailyBonusNotAvailable;
+
+		public static void fireDailyBonusNotAvailable() {
+			Debug.Log ("SpilSDK-Unity Daily bonus not available");
+
+			if (Spil.Instance.OnDailyBonusNotAvailable != null) { Spil.Instance.OnDailyBonusNotAvailable(); } 
+		}
+
+		public delegate void DailyBonusClosed();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view closes.
+		/// </summary>
+		public event DailyBonusClosed OnDailyBonusClosed;
+
+		public static void fireDailyBonusClosed() {
+			Debug.Log ("SpilSDK-Unity Web closed");
+
+			if (Spil.Instance.OnDailyBonusClosed != null) { Spil.Instance.OnDailyBonusClosed(); } 
+		}
+
+		public delegate void DailyBonusError(SpilErrorMessage errorMessage);
+
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view encounters an error.
+		/// The developer can subscribe to this event and inspect the error.
+		/// </summary>
+		public event DailyBonusError OnDailyBonusError;
+
+		public static void fireDailyBonusError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Web Error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnDailyBonusError != null) { Spil.Instance.OnDailyBonusError(errorMessage); } 	
+		}
+
+		public delegate void DailyBonusReward(String rewardList);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the reward is received from the web view.
+		/// The developer can subscribe to this event and provide the reward to the user.
+		/// </summary>
+		public event DailyBonusReward OnDailyBonusReward;
+
+		public static void fireDailyBonusReward(String reward)
+		{
+			Debug.Log ("SpilSDK-Unity Received reward = " + reward);
+
+			if (Spil.Instance.OnDailyBonusReward != null) { Spil.Instance.OnDailyBonusReward(reward); } 	
+		}
+
 		public abstract string GetWalletFromSdk();
 		
 		public abstract string GetInvetoryFromSdk();

@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+      <HintPath>/Applications/Unity_5.4/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+      <HintPath>/Applications/Unity_5.4/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -57,13 +57,21 @@
      <Compile Include="Assets\Spilgames\UnityImplementation\SpiliOSUnityImplementation.cs" />
      <Compile Include="Assets\Spilgames\Utils\JSONObject.cs" />
      <Compile Include="Assets\Spilgames\Utils\SpilResponses.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\ResponseEvent.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\Responses\AdvertisementData.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\Responses\ConfigData.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\Responses\Data.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\Responses\GameStateData.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\Responses\PackagesData.cs" />
+     <Compile Include="Assets\Spilgames\Utils\UnityEditor\SpilEvent.cs" />
+     <None Include="Assets\Plugins\iOS\Spil.framework\Version.txt" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Unity_5.4/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>/Applications/Unity_5.4/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>/Users/sebastian/Work/AndroidProjects/spil_event_unity_plugin/PluginSource/Assets/Plugins/Newtonsoft.Json.dll</HintPath>

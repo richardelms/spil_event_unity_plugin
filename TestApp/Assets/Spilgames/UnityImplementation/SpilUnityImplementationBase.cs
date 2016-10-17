@@ -8,6 +8,11 @@ namespace SpilGames.Unity.Implementations
 { 
     public abstract class SpilUnityImplementationBase
     {
+	public static string PluginName = "Unity";
+	public static string PluginVersion = "2.2.2";
+
+	public abstract void SetPluginInformation(string PluginName, string PluginVersion);
+
         #region Misc.
 
             /// <summary>
@@ -15,7 +20,7 @@ namespace SpilGames.Unity.Implementations
             /// The Spil Unity SDK is not packaged as a seperate assembly yet so unfortunately this method is currently visible.
             /// Internal method names start with a lower case so you can easily recognise and avoid them.
             /// </summary>
-			internal abstract void spilInit(bool pushNotificationsEnabled);  
+			internal abstract void SpilInit();  
 
         #endregion
 
@@ -81,6 +86,7 @@ namespace SpilGames.Unity.Implementations
 
             #region Standard Spil events
 
+		[Obsolete]
                 /// <summary>
                 /// Sends the "milestoneAchieved" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -91,6 +97,17 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("milestoneAchieved", new Dictionary<string, string>() { { "name", name } });
                 }
 
+		/// <summary>
+                /// Sends the "milestoneAchieved" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="name"></param>
+                public void TrackMilestoneAchievedEvent(string name)
+                {
+                    SendCustomEvent("milestoneAchieved", new Dictionary<string, string>() { { "name", name } });
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "levelStart" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -101,6 +118,17 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("levelStart", new Dictionary<string, string>() { { "level", levelName } });
                 }
 
+		/// <summary>
+                /// Sends the "levelStart" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="levelName"></param>
+                public void TrackLevelStartEvent(string levelName)
+                {
+                    SendCustomEvent("levelStart", new Dictionary<string, string>() { { "level", levelName } });
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "levelComplete" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -111,6 +139,17 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
                 }
 
+		/// <summary>
+                /// Sends the "levelComplete" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="levelName"></param>
+                public void TrackLevelCompleteEvent(string levelName)
+                {
+                    SendCustomEvent("levelComplete", new Dictionary<string, string>() { { "level", levelName } });
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "levelFailed" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -121,6 +160,17 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("levelFailed", new Dictionary<string, string>() { { "level", levelName } });
                 }
 
+		/// <summary>
+                /// Sends the "levelFailed" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="levelName"></param>
+                public void TrackLevelFailedEvent(string levelName)
+                {
+                    SendCustomEvent("levelFailed", new Dictionary<string, string>() { { "level", levelName } });
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "playerDies" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -131,13 +181,23 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("playerDies", new Dictionary<string, string>() { { "level", levelName } });
                 }
 
+		/// <summary>
+                /// Sends the "playerDies" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="levelName"></param>
+                public void TrackPlayerDiesEvent(string levelName)
+                {
+                    SendCustomEvent("playerDies", new Dictionary<string, string>() { { "level", levelName } });
+                }
+
                 /// <summary>
                 /// Sends the "requestRewardVideo" event to the native Spil SDK which will send a request to the back-end.
                 /// When a response has been received from the back-end the SDK will fire either an "AdAvailable" or and "AdNotAvailable"
                 /// event to which the developer can subscribe and for instance call PlayVideo(); or PlayMoreApps();
-                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
                 /// </summary>
-                public void SendrequestRewardVideoEvent(string rewardType = null)
+                public void SendRequestRewardVideoEvent(string rewardType = null)
                 {
                     SendCustomEvent("requestRewardVideo", rewardType == null ? null : new Dictionary<string, string>() { { "rewardType", rewardType } });
                 }
@@ -154,6 +214,7 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("requestRewardVideo");
                 }
 
+                [Obsolete("Use the new TrackWalletInventoryEvent() instead!")]
                 /// <summary>
                 /// Sends the "walletUpdate" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -164,11 +225,45 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="source">(int) - 0 == premium</param>
                 /// <param name="item">item id or sku</param>
                 /// <param name="category">(int) - 0 = Consumable, 1 = Booster, 2 = Permanent</param>
-				public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
+		public void SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
                 {
                     SendCustomEvent("walletUpdate", new Dictionary<string, string>() { { "walletValue", walletValue }, { "itemValue", itemValue }, { "source", source }, { "item", item }});
                 }
 
+		/// <summary>
+                /// Sends the "updatePlayerData" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+		/// <param name="reason">The reason for which the event occured. You can also use the PlayerDataUpdateReasons class to pass one of the default reasons</param>
+                /// <param name="location">The location where the event occured (ex.: Shop Screen, End of the level)</param>
+                /// <param name="currencyList">A list of TrackingCurrency objects that defines all the currencies that have been changed with this event. This parameter can also be omited if no currencies have been updated</param>
+		/// <param name="itemsList">A list of TrackingItems objects that defines all the items that have been changed with this event. This parameter can also be omited if no items have been updated</param>
+		public void TrackWalletInventoryEvent(string reason, string location, List<TrackingCurrency> currencyList = null, List<TrackingItem> itemsList = null)
+                {
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    if(currencyList != null)
+                    {
+			string currencyListJSON = JsonHelper.getJSONFromObject(currencyList);
+			string wallet = "{\"currencies\":" + currencyListJSON + ", \"offset\":0}";
+			dictionary.Add("wallet", wallet);
+                    }
+
+		    if(itemsList != null)
+                    {
+			string itemsListJSON = JsonHelper.getJSONFromObject(itemsList);
+			string inventory = "{\"items\":" + itemsListJSON + ", \"offset\":0}";
+			dictionary.Add("inventory", inventory);
+                    }
+
+                    dictionary.Add("reason", reason);
+                    dictionary.Add("location", location);
+                    dictionary.Add("trackingOnly", "true");
+
+		    SendCustomEvent("updatePlayerData", dictionary);
+
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "iapPurchased" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -177,21 +272,46 @@ namespace SpilGames.Unity.Implementations
                 /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
                 public void SendiapPurchasedEvent(string skuId, string transactionId)
                 {
-					SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", System.Xml.XmlConvert.ToString(DateTime.Now, System.Xml.XmlDateTimeSerializationMode.Local) } });
+			SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz") } });
                 }
 
+		/// <summary>
+                /// Sends the "iapPurchased" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="skuId">The product identifier of the item that was purchased</param>
+                /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
+                public void TrackIAPPurchasedEvent(string skuId, string transactionId)
+                {
+					SendCustomEvent("iapPurchased", new Dictionary<string, string>() { { "skuId", skuId }, { "transactionId", transactionId }, { "purchaseDate", DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")  }});
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "iapRestored" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
                 /// </summary>
                 /// <param name="skuId">The product identifier of the item that was purchased</param>
                 /// <param name="originalTransactionId ">For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier</param>
-                /// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format!</param>
-                public void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
+				/// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format (RFC3339), for instance: "2016-08-30T11:54:48.5247936+02:00". If you have a DateTime object you can use: DateTimeObject.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")</param>                
+				public void SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
                 {
                     SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "skuId", skuId }, { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
                 }
 
+		/// <summary>
+                /// Sends the "iapRestored" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="skuId">The product identifier of the item that was purchased</param>
+                /// <param name="originalTransactionId ">For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier</param>
+		/// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format (RFC3339), for instance: "2016-08-30T11:54:48.5247936+02:00". If you have a DateTime object you can use: DateTimeObject.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")</param>                
+                public void TrackIAPRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
+                {
+                    SendCustomEvent("iapRestored", new Dictionary<string, string>() { { "skuId", skuId }, { "originalTransactionId", originalTransactionId }, { "originalPurchaseDate", originalPurchaseDate } });
+                }
+
+                [Obsolete]
                 /// <summary>
                 /// Sends the "iapFailed" event to the native Spil SDK which will send a request to the back-end.
                 /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
@@ -203,6 +323,124 @@ namespace SpilGames.Unity.Implementations
                     SendCustomEvent("iapFailed", new Dictionary<string, string>() { { "error", error }, { "skuId", skuId } });
                 }
 
+		/// <summary>
+                /// Sends the "iapFailed" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="error">Error description or error code</param>
+                /// <param name="skuId">The product identifier of the item that was purchased</param>
+                public void TrackIAPFailedEvent(string error, string skuId)
+                {
+                    SendCustomEvent("iapFailed", new Dictionary<string, string>() { { "error", error }, { "skuId", skuId } });
+                }
+
+                [Obsolete]
+                /// <summary>
+                /// Sends the "tutorialComplete" event to the native Spil SDK which will send a request to the back-end.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                public void SendtutorialCompleteEvent()
+                {
+                    SendCustomEvent("tutorialComplete");
+                }
+
+		/// <summary>
+                /// Sends the "tutorialComplete" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                public void TrackTutorialCompleteEvent()
+                {
+                    SendCustomEvent("tutorialComplete");
+                }
+
+                [Obsolete]
+                /// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                public void SendtutorialSkippedEvent()
+                {
+                    SendCustomEvent("tutorialSkipped");
+                }
+
+		/// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                public void TrackTutorialSkippedEvent()
+                {
+                    SendCustomEvent("tutorialSkipped");
+                }
+
+                [Obsolete]
+                /// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called after the user completes registration via email, Facebook, Google Plus or other available option. Registration option is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendregisterEvent(string platform)
+                {
+                    SendCustomEvent("register", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+		/// <summary>
+                /// Sends the "tutorialSkipped" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called after the user completes registration via email, Facebook, Google Plus or other available option. Registration option is assumed.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void TrackRegisterEvent(string platform)
+                {
+                    SendCustomEvent("register", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+                [Obsolete]
+                /// <summary>
+                /// Sends the "share" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user shares content on their social media accounts. Social media integration is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendshareEvent(string platform)
+                {
+                    SendCustomEvent("share", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+		/// <summary>
+                /// Sends the "share" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user shares content on their social media accounts. Social media integration is assumed.
+		/// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void TrackShareEvent(string platform)
+                {
+                    SendCustomEvent("share", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+                [Obsolete]
+                /// <summary>
+                /// Sends the "invite" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user invites another user. Respective function in-game is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void SendinviteEvent(string platform)
+                {
+                    SendCustomEvent("invite", new Dictionary<string, string>() { { "platform", platform } });
+                }
+
+		/// <summary>
+                /// Sends the "invite" event to the native Spil SDK which will send a request to the back-end.
+                /// Should be called every time the user invites another user. Respective function in-game is assumed.
+                /// See https://github.com/spilgames/spil_event_unity_plugin for more information on events.
+                /// </summary>
+                /// <param name="platform">A string like ‘facebook’ or ’email’</param>
+                public void TrackInviteEvent(string platform)
+                {
+                    SendCustomEvent("invite", new Dictionary<string, string>() { { "platform", platform } });
+                }				
+				
             #endregion
 
             [Obsolete("This method is obsolete and has been replaced by SendCustomEvent(string eventName). Please update any references, this method will be removed in the next version.")]
@@ -376,6 +614,22 @@ namespace SpilGames.Unity.Implementations
                     if (Spil.Instance.OnAdFinished != null) { Spil.Instance.OnAdFinished(responseObject); }
 	            }
 
+                public delegate void ConfigUpdatedEvent();
+                /// <summary>
+                /// This is fired by the native Spil SDK when the config was updated.
+                /// The developer can subscribe to this event and for instance re-enable the in-game sound.
+                /// </summary>
+                public event ConfigUpdatedEvent OnConfigUpdated;
+                /// <summary>
+                /// This is called by the native Spil SDK and will fire an ConfigUpdated event to which the developer 
+                /// can subscribe, it will only be called when the config values are different from the previous loaded config.
+                /// </summary>
+                public static void fireConfigUpdatedEvent()
+                {
+                    Debug.Log ("SpilSDK-Unity Config updated!");
+                    if (Spil.Instance.OnConfigUpdated != null) { Spil.Instance.OnConfigUpdated(); }
+                }
+
             #endregion
         
         #endregion
@@ -399,7 +653,72 @@ namespace SpilGames.Unity.Implementations
         /// customer support can help them properly. Please make this Id available for users
         /// in one of your game's screens.
         /// </summary>
-	    public abstract string GetSpilUID();
+		public abstract string GetSpilUserId();
+
+		/// <summary>
+		/// Updates the player data from the server.
+		/// </summary>
+		public abstract void UpdatePlayerData ();
+
+		/// <summary>
+		/// Sets the user identifier.
+		/// </summary>
+		/// <param name="providerId">Provider identifier.</param>
+		/// <param name="userId">User identifier.</param>
+		public abstract void SetUserId (string providerId, string userId);
+
+		/// <summary>
+		/// Gets the user identifier.
+		/// </summary>
+		/// <returns>The user identifier.</returns>
+		public abstract string GetUserId ();
+
+		/// <summary>
+		/// Gets the user provider.
+		/// </summary>
+		/// <returns>The user provider native.</returns>
+		public abstract string GetUserProvider();
+
+		/// <summary>
+		/// Sets the state of the private game.
+		/// </summary>
+		/// <param name="privateData">Private data.</param>
+		public abstract void SetPrivateGameState(string privateData);
+
+		/// <summary>
+		/// Gets the state of the private game.
+		/// </summary>
+		/// <returns>The private game state.</returns>
+		public abstract string GetPrivateGameState ();
+
+		/// <summary>
+		/// Sets the public game state.
+		/// </summary>
+		/// <param name="publicData">Public data.</param>
+		public abstract void SetPublicGameState (string publicData);
+
+		/// <summary>
+		/// Gets the public game state.
+		/// </summary>
+		/// <returns>The public game state.</returns>
+		public abstract string GetPublicGameState ();
+
+		/// <summary>
+		/// Gets the public game state of other users.
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="userIdsJsonArray">User identifiers json array.</param>
+		public abstract void GetOtherUsersGameState(string provider, string userIdsJsonArray);
+
+		/// <summary>
+		/// Requests the daily bonus screen.
+		/// </summary>
+		public abstract void RequestDailyBonus();
+
+		/// <summary>
+		/// Requests the splashscreen.
+		/// </summary>
+		public abstract void RequestSplashScreen ();
 
 		#region Spil Game Objects
 
@@ -452,7 +771,7 @@ namespace SpilGames.Unity.Implementations
 		#endregion
 		
 		#region Player Data
-		
+
 		public delegate void PlayerDataAvailable();
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been received from the server.
@@ -468,20 +787,22 @@ namespace SpilGames.Unity.Implementations
 			
 		}
 		
-		public delegate void PlayerDataUpdated(string reason);
+        public delegate void PlayerDataUpdated(string reason, PlayerDataUpdatedData updatedData);
 		/// <summary>
 		/// This is fired by the native Spil SDK after player data has been updated.
 		/// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
 		/// </summary>
 		public event PlayerDataUpdated OnPlayerDataUpdated;
 		
-		public static void firePlayerDataUpdated(string reason)
+        public static void firePlayerDataUpdated(string data)
 		{
+            PlayerDataUpdatedData playerDataUpdatedData = JsonHelper.getObjectFromJson<PlayerDataUpdatedData>(data);
+
 			Spil.PlayerData.PlayerDataUpdatedHandler ();
 
 			Debug.Log ("SpilSDK-Unity Player Data has been updated");
 
-			if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(reason); }
+            if (Spil.Instance.OnPlayerDataUpdated != null) { Spil.Instance.OnPlayerDataUpdated(playerDataUpdatedData.reason, playerDataUpdatedData); }
 			
 		}
 		
@@ -500,7 +821,185 @@ namespace SpilGames.Unity.Implementations
 
 			if (Spil.Instance.OnPlayerDataError != null) { Spil.Instance.OnPlayerDataError(errorMessage); } 	
 		}
-		
+
+		public delegate void GameStateUpdated(String access);
+		/// <summary>
+		/// This is fired by the native Spil SDK after game state was updated.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event GameStateUpdated OnGameStateUpdated;
+
+		public static void fireGameStateUpdated(String access)
+		{
+			Debug.Log ("SpilSDK-Unity Game State Data updated, access = " + access);
+
+			if (Spil.Instance.OnGameStateUpdated != null) { Spil.Instance.OnGameStateUpdated(access); } 	
+		}
+
+		public delegate void OtherUsersGameStateDataLoaded(OtherUsersGameStateData data);
+		/// <summary>
+		/// This is fired by the native Spil SDK after the game state data of other users was loaded.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event OtherUsersGameStateDataLoaded OnOtherUsersGameStateDataLoaded;
+
+		public static void fireOtherUsersGameStateLoaded(String message)
+		{
+			Debug.Log ("SpilSDK-Unity Other users game state data loaded, message = " + message);
+
+			OtherUsersGameStateData data = JsonHelper.getObjectFromJson<OtherUsersGameStateData>(message);
+
+			if (Spil.Instance.OnOtherUsersGameStateDataLoaded != null) { Spil.Instance.OnOtherUsersGameStateDataLoaded(data); } 	
+		}
+
+		public delegate void GameStateError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the game state has failed to be retrieved.
+		/// The developer can subscribe to this event and check the reason.
+		/// </summary>
+		public event GameStateError OnGameStateError;
+
+		public static void fireGameStateError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Game State Data error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnGameStateError != null) { Spil.Instance.OnGameStateError(errorMessage); } 	
+		}
+
+		public delegate void SplashScreenOpen();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view opened.
+		/// </summary>
+		public event SplashScreenOpen OnSplashScreenOpen;
+
+		public static void fireSplashScreenOpen() {
+			Debug.Log ("SpilSDK-Unity Web open");
+
+			if (Spil.Instance.OnSplashScreenOpen != null) { Spil.Instance.OnSplashScreenOpen(); } 
+		}
+
+		public delegate void SplashScreenNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the splash screen is not available.
+		/// </summary>
+		public event SplashScreenNotAvailable OnSplashScreenNotAvailable;
+
+		public static void fireSplashScreenNotAvailable() {
+			Debug.Log ("SpilSDK-Unity splash screen not available");
+
+			if (Spil.Instance.OnSplashScreenNotAvailable != null) { Spil.Instance.OnSplashScreenNotAvailable(); } 
+		}
+
+		public delegate void SplashScreenClosed();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view closes.
+		/// </summary>
+		public event SplashScreenClosed OnSplashScreenClosed;
+
+		public static void fireSplashScreenClosed() {
+			Debug.Log ("SpilSDK-Unity Web closed");
+
+			if (Spil.Instance.OnSplashScreenClosed != null) { Spil.Instance.OnSplashScreenClosed(); } 
+		}
+
+		public delegate void SplashScreenOpenShop();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the game shop should be opened.
+		/// The developer can subscribe to this event and open there own shop implementation.
+		/// </summary>
+		public event SplashScreenOpenShop OnSplashScreenOpenShop;
+
+		public static void fireSplashScreenOpenShop()
+		{
+			Debug.Log ("SpilSDK-Unity Open Game Shop");
+
+			if (Spil.Instance.OnSplashScreenOpenShop != null) { Spil.Instance.OnSplashScreenOpenShop(); } 	
+		}
+
+		public delegate void SplashScreenError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view encounters an error.
+		/// The developer can subscribe to this event and inspect the error.
+		/// </summary>
+		public event SplashScreenError OnSplashScreenError;
+
+		public static void fireSplashScreenError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Web Error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnSplashScreenError != null) { Spil.Instance.OnSplashScreenError(errorMessage); } 	
+		}
+
+		public delegate void DailyBonusOpen();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view opened.
+		/// </summary>
+		public event DailyBonusOpen OnDailyBonusOpen;
+
+		public static void fireDailyBonusOpen() {
+			Debug.Log ("SpilSDK-Unity Web open");
+
+			if (Spil.Instance.OnDailyBonusOpen != null) { Spil.Instance.OnDailyBonusOpen(); } 
+		}
+
+		public delegate void DailyBonusNotAvailable();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the dailybonus screen is not available.
+		/// </summary>
+		public event DailyBonusNotAvailable OnDailyBonusNotAvailable;
+
+		public static void fireDailyBonusNotAvailable() {
+			Debug.Log ("SpilSDK-Unity Daily bonus not available");
+
+			if (Spil.Instance.OnDailyBonusNotAvailable != null) { Spil.Instance.OnDailyBonusNotAvailable(); } 
+		}
+
+		public delegate void DailyBonusClosed();
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view closes.
+		/// </summary>
+		public event DailyBonusClosed OnDailyBonusClosed;
+
+		public static void fireDailyBonusClosed() {
+			Debug.Log ("SpilSDK-Unity Web closed");
+
+			if (Spil.Instance.OnDailyBonusClosed != null) { Spil.Instance.OnDailyBonusClosed(); } 
+		}
+
+		public delegate void DailyBonusError(SpilErrorMessage errorMessage);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the web view encounters an error.
+		/// The developer can subscribe to this event and inspect the error.
+		/// </summary>
+		public event DailyBonusError OnDailyBonusError;
+
+		public static void fireDailyBonusError(string reason)
+		{
+			Debug.Log ("SpilSDK-Unity Web Error with reason = " + reason);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
+
+			if (Spil.Instance.OnDailyBonusError != null) { Spil.Instance.OnDailyBonusError(errorMessage); } 	
+		}
+
+		public delegate void DailyBonusReward(String rewardList);
+		/// <summary>
+		/// This is fired by the native Spil SDK when the reward is received from the web view.
+		/// The developer can subscribe to this event and provide the reward to the user.
+		/// </summary>
+		public event DailyBonusReward OnDailyBonusReward;
+
+		public static void fireDailyBonusReward(String reward)
+		{
+			Debug.Log ("SpilSDK-Unity Received reward = " + reward);
+
+			if (Spil.Instance.OnDailyBonusReward != null) { Spil.Instance.OnDailyBonusReward(reward); } 	
+		}
+
 		public abstract string GetWalletFromSdk();
 		
 		public abstract string GetInvetoryFromSdk();
@@ -532,5 +1031,13 @@ namespace SpilGames.Unity.Implementations
 		public abstract void ConsumeBundle(int bundleId, string reason);
 		
 		#endregion
+
+        #region Customer support
+
+        public abstract void ShowHelpCenter();
+        public abstract void ShowContactCenter();
+        public abstract void ShowHelpCenterWebview();
+
+        #endregion
     }
 }

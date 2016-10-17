@@ -3,12 +3,11 @@
     {
       "currencies":[
         {
-          "id": 22,
+          "id": 25,
           "currentBalance": 0,
           "delta": 0
-        },
-        {
-          "id": 13,
+        },{
+          "id": 28,
           "currentBalance": 0,
           "delta": 0
         }

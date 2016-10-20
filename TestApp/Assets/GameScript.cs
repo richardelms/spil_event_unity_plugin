@@ -4,20 +4,30 @@ using UnityEngine.UI;
 using SpilGames.Unity.Utils;
 using SpilGames.Unity.Helpers;
 using System;
-using System.Threading;
 
 public class GameScript : MonoBehaviour
 {
-    #region Example code
-
     // Here's some example methods to show what can be done
 
     // Note: Be sure to include a defaultGameConfig.json file with your chartboost
     // id and signature in the /StreamingAssets directory. ChartBoost videos and 
     // more apps screens won't work without them. Instructions for creating a
     // defaultGameConfig.json are included in the SpilSDK documentation.
+    // A defaultGameData.json and defaultPlayerData.json file are required if
+    // you wish to use game data (currencies, promotions, shop data) and 
+    // player data (inventory & wallet).
+    // You can take a look at the files included in the /StreamingAssets
+    // folder of this app for examples.
 
-    // Call this method before showing ads, for instance in Awake()
+    // Attach the listeners and update the UI when the app starts
+    void Awake()
+    {
+        AttachListeners();
+        updateUI();
+    }
+
+    #region Events
+
     void AttachListeners()
     {
         // Make sure that any existing handlers are removed and add new ones
@@ -38,42 +48,63 @@ public class GameScript : MonoBehaviour
         Spil.Instance.OnAdFinished -= AdFinishedHandler;
         Spil.Instance.OnAdFinished += AdFinishedHandler;
 
-        Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
-        Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
-
+        // When the SpilSDK has retrieved playerdata from the back-end PlayerDataAvailable is called
         Spil.Instance.OnPlayerDataAvailable -= PlayerDataAvailableHandler;
         Spil.Instance.OnPlayerDataAvailable += PlayerDataAvailableHandler;
 
-        Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
-        Spil.Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
+        // When the player data (inventory or wallet) has been updated PlayerDataUpdated is called
+        Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
+        Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
 
+        // When something has gone wrong while retrieving or updating the player data OnPlayerDataError is called and contains information about the error
         Spil.Instance.OnPlayerDataError -= PlayerDataErrorHandler;
         Spil.Instance.OnPlayerDataError += PlayerDataErrorHandler;
 
+        // When tbe SpilSDK has retrieved game data (currencies, promotions, shop data) from the back-end SpilGameDataAvailable is called 
+        Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
+        Spil.Instance.OnSpilGameDataAvailable += SpilGameDataAvailableHandler;
+
+        // When something has gone wrong while retrieving or updating the game data SpilGameDataErrorHandler is called and contains information about the error
         Spil.Instance.OnSpilGameDataError -= SpilGameDataErrorHandler;
         Spil.Instance.OnSpilGameDataError += SpilGameDataErrorHandler;
 
-		// Splash screen events
-		Spil.Instance.OnSplashScreenOpen -= SplashScreenOpenHandler;
+        // When a splash screen is opened it will first call OnSplashScreenOpen so music can be muted etc
+        Spil.Instance.OnSplashScreenOpen -= SplashScreenOpenHandler;
 		Spil.Instance.OnSplashScreenOpen += SplashScreenOpenHandler;
-		Spil.Instance.OnSplashScreenClosed -= SplashScreenClosedHandler;
+
+        // When a splash screen closes it will call OnSplashScreenClosed so music can be re-enabled etc
+        Spil.Instance.OnSplashScreenClosed -= SplashScreenClosedHandler;
 		Spil.Instance.OnSplashScreenClosed += SplashScreenClosedHandler;
-		Spil.Instance.OnSplashScreenError -= SplashScreenErrorHandler;
+
+        // When a splash screen encountered an error while trying to open OnSplashScreenError is called and contains information about the error
+        Spil.Instance.OnSplashScreenError -= SplashScreenErrorHandler;
 		Spil.Instance.OnSplashScreenError += SplashScreenErrorHandler;
-		Spil.Instance.OnSplashScreenNotAvailable -= SplashScreenNotAvailabelHandler;
+
+        // When no Splash screen has been configured in the back-end or no internet connection is available OnSplashScreenNotAvailable is called
+        Spil.Instance.OnSplashScreenNotAvailable -= SplashScreenNotAvailabelHandler;
 		Spil.Instance.OnSplashScreenNotAvailable += SplashScreenNotAvailabelHandler;
+
+        // When a player taps on a button on the splash screen that should open the shop (for instance for a special promotion) OnSplashScreenOpenShop is called
 		Spil.Instance.OnSplashScreenOpenShop -= SplashScreenOpenShopHandler;
 		Spil.Instance.OnSplashScreenOpenShop += SplashScreenOpenShopHandler;
 
-		// Daily bonus screen events
-		Spil.Instance.OnDailyBonusOpen -= DailyBonusOpenHandler;
+        // When a daily bonus screen is opened it will first call OnDailyBonusOpen so music can be muted etc
+        Spil.Instance.OnDailyBonusOpen -= DailyBonusOpenHandler;
 		Spil.Instance.OnDailyBonusOpen += DailyBonusOpenHandler;
-		Spil.Instance.OnDailyBonusClosed -= DailyBonusClosedHandler;
+
+        // When a daily bonus screen closes it will call OnDailyBonusClosed so music can be re-enabled etc
+        Spil.Instance.OnDailyBonusClosed -= DailyBonusClosedHandler;
 		Spil.Instance.OnDailyBonusClosed += DailyBonusClosedHandler;
-		Spil.Instance.OnDailyBonusError -= DailyBonusErrorHandler;
+
+        // When a daily bonus screen encountered an error while trying to open OnDailyBonusError is called and contains information about the error
+        Spil.Instance.OnDailyBonusError -= DailyBonusErrorHandler;
 		Spil.Instance.OnDailyBonusError += DailyBonusErrorHandler;
-		Spil.Instance.OnDailyBonusNotAvailable -= DailyBonusNotAvailabelHandler;
+
+        // When no daily bonus screen has been configured in the back-end or no internet connection is available OnDailyBonusNotAvailable is called
+        Spil.Instance.OnDailyBonusNotAvailable -= DailyBonusNotAvailabelHandler;
 		Spil.Instance.OnDailyBonusNotAvailable += DailyBonusNotAvailabelHandler;
+
+        // When the user has earned a daily bonus reward OnDailyBonusReward is called and contains information about the reward
 		Spil.Instance.OnDailyBonusReward -= DailyBonusRewardHandler;
 		Spil.Instance.OnDailyBonusReward += DailyBonusRewardHandler;
     }
@@ -98,50 +129,10 @@ public class GameScript : MonoBehaviour
         // Interstitials do trigger OnAdStarted and OnAdFinished events when they play.
     }
 
-	private void PlayerDataUpdatedHandler(string reason, PlayerDataUpdatedData updatedData)
-    {
-        if (reason.Equals(PlayerDataUpdateReasons.ItemBought))
-        {
-            txtErrorMessage.text = "Transaction successfull";
-            pnlErrorMessage.SetActive(true);
-        }
-
-        updateUI();
-    }
-
-    private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
-    {
-        txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
-        pnlErrorMessage.SetActive(true);
-
-        updateUI();
-        updateUIShop();
-    }
-
-    private void SpilGameDataErrorHandler(SpilErrorMessage errorMessage)
-    {
-        txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
-        pnlErrorMessage.SetActive(true);
-
-        updateUI();
-        updateUIShop();
-    }
-
-    private void PlayerDataAvailableHandler()
-    {
-        updateUI();
-    }
-
-    private void SpilGameDataAvailableHandler()
-    {
-        updateUI();
-    }
-
     // When an ad is not available the UI may have to be updated,
     // for instance to hide a button.
     void AdNotAvailableHandler(enumAdType adType)
     {
-        //Debug.Log("Ad was not available");
         txtStatus1.text = adType.ToString() + " was not available";
     }
 
@@ -164,16 +155,98 @@ public class GameScript : MonoBehaviour
         }
     }
 
-    #endregion
-
-    void Awake()
+    private void PlayerDataAvailableHandler()
     {
-        Debug.Log("SpilSDK-Unity Init 2");
+        updateUI();
+    }
 
-        AttachListeners();
+    private void PlayerDataUpdatedHandler(string reason, PlayerDataUpdatedData updatedData)
+    {
+        if (reason.Equals(PlayerDataUpdateReasons.ItemBought))
+        {
+            txtErrorMessage.text = "Transaction successfull";
+            pnlErrorMessage.SetActive(true);
+        }
 
         updateUI();
     }
+
+    private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
+    {
+        txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+        pnlErrorMessage.SetActive(true);
+
+        updateUI();
+        updateUIShop();
+    }
+
+    private void SpilGameDataAvailableHandler()
+    {
+        updateUI();
+    }
+
+    private void SpilGameDataErrorHandler(SpilErrorMessage errorMessage)
+    {
+        txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
+        pnlErrorMessage.SetActive(true);
+
+        updateUI();
+        updateUIShop();
+    }
+
+    public void SplashScreenOpenHandler()
+    {
+        txtWebStatus2.text += "\nSplashscreen open";
+    }
+
+    public void SplashScreenClosedHandler()
+    {
+        txtWebStatus2.text += "\nSplashscreen closed";
+    }
+
+    public void SplashScreenErrorHandler(SpilErrorMessage message)
+    {
+        txtWebStatus2.text += "\nSplashscreen error: " + message;
+    }
+
+    public void SplashScreenNotAvailabelHandler()
+    {
+        txtWebStatus2.text += "\nSplashscreen not available";
+    }
+
+    public void SplashScreenOpenShopHandler()
+    {
+        txtWebStatus2.text += "\nSplashscreen open shop";
+    }
+
+    public void DailyBonusOpenHandler()
+    {
+        txtWebStatus2.text += "\nDailybonus open";
+    }
+
+    public void DailyBonusClosedHandler()
+    {
+        txtWebStatus2.text += "\nDailybonus closed";
+    }
+
+    public void DailyBonusErrorHandler(SpilErrorMessage message)
+    {
+        txtWebStatus2.text += "\nDailybonus error: " + message;
+    }
+
+    public void DailyBonusNotAvailabelHandler()
+    {
+        txtWebStatus2.text += "\nDailybonus not available";
+    }
+
+    public void DailyBonusRewardHandler(String rewardList)
+    {
+        txtWebStatus2.text = "Splashscreen reward: " + rewardList;
+    }
+
+    #endregion
+
+    #region Main navigation
 
     public GameObject pnlErrorMessage;
     public Text txtErrorMessage;
@@ -183,25 +256,12 @@ public class GameScript : MonoBehaviour
         pnlErrorMessage.SetActive(false);
     }
 
-    public Button btnRequestRewardVideo;
-    public Button btnFyberRewardVideo;
-    public Button btnChartBoostRewardVideo;
-    public Button btnMoreApps;
-    public Button btnDFPInterstitial;
-    public Button btnChartBoostInterstitial;
-    public Button btnCake;
-
-    public Text txtStatus1;
-    public Text txtStatus2;
-	public Text txtWebStatus1;
-	public Text txtWebStatus2;
-
     int currentScreenShowing = 0;
 
     public GameObject panel1;
     public GameObject panel2;
     public GameObject panel3;
-	public GameObject panel4;
+    public GameObject panel4;
 
     public void btnPrevClick()
     {
@@ -223,404 +283,40 @@ public class GameScript : MonoBehaviour
 
     private void setCurrentPanel()
     {
-		panel1.SetActive(currentScreenShowing == 0);
-		panel2.SetActive(currentScreenShowing == 1);
-		panel3.SetActive(currentScreenShowing == 2);
-		panel4.SetActive(currentScreenShowing == 3);
+        panel1.SetActive(currentScreenShowing == 0);
+        panel2.SetActive(currentScreenShowing == 1);
+        panel3.SetActive(currentScreenShowing == 2);
+        panel4.SetActive(currentScreenShowing == 3);
 
-		switch (currentScreenShowing) {
-		case 0:
-			break;
-		case 1:
-			updateUI();
-			break;
-		case 2:
-			updateUIShop();
-			break;
-		case 3:
-			break;
-		}
+        switch (currentScreenShowing)
+        {
+            case 0:
+                break;
+            case 1:
+                updateUI();
+                break;
+            case 2:
+                updateUIShop();
+                break;
+            case 3:
+                break;
+        }
     }
 
-    public void RequestRewardVideo()
-    {
-        txtStatus1.text = "Requesting reward video";
-		Spil.Instance.SendRequestRewardVideoEvent();
-    }
+    #endregion
 
-    public void RequestFyberRewardVideo()
-    {
-        txtStatus1.text = "Requesting Fyber reward video";
-#if UNITY_ANDROID
-        Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
-#endif
-#if UNITY_IPHONE
-				Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
-#endif
-    }
+    #region Tab 1: Ads and tracking
 
-    public void RequestChartBoostRewardVideo()
-    {
-        txtStatus1.text = "Requesting ChartBoost reward video";
-#if UNITY_ANDROID
-        Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
-#endif
-#if UNITY_IPHONE
-				Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
-#endif
-    }
+    public Button btnRequestRewardVideo;
+    public Button btnFyberRewardVideo;
+    public Button btnChartBoostRewardVideo;
+    public Button btnMoreApps;
+    public Button btnDFPInterstitial;
+    public Button btnChartBoostInterstitial;
+    public Button btnCake;
 
-    public void RequestMoreApps()
-    {
-        txtStatus1.text = "Requesting more apps";
-        Spil.Instance.RequestMoreApps();
-    }
-
-    public void RequestDFPInterstitial()
-    {
-        txtStatus1.text = "Requesting DFP interstitial";
-#if UNITY_ANDROID
-        Spil.Instance.TestRequestAd("DFP", "interstitial", false);
-#endif
-#if UNITY_IPHONE
-				Spil.Instance.TestRequestAd("DFP", "interstitial", false);
-#endif
-    }
-
-    public void RequestChartBoostInterstitial()
-    {
-        txtStatus1.text = "Requesting ChartBoost interstitial";
-#if UNITY_ANDROID
-        Spil.Instance.TestRequestAd("chartboost", "interstitial", false);
-#endif
-#if UNITY_IPHONE
-				Spil.Instance.TestRequestAd("ChartBoost", "interstitial", false);
-#endif
-    }
-
-    public void RequestCake()
-    {
-        txtStatus1.text = "The cake is a lie";
-
-        //Spil.Instance.SendCustomEvent("URL Encoded Key & Value", new Dictionary<string, string>() { { "URL Encoded Key & Value", "I l|k3 u$|ng l*ts #f w31rd ch@r@cters" } });
-        Spil.Instance.SendlevelCompleteEvent("Level1");
-
-        //DoTest();
-    }
-
-    public void DoTest()
-    {
-#if UNITY_ANDROID
-        toggleUIEnabled(false);
-        txtStatus1.text = "Test running";
-
-        txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\")";
-        Spil.Instance.clearLog();
-        Debug.Log("LOG CLEARED");
-        try
-        {
-            Spil.Instance.SendlevelStartEvent("Level1");
-        }
-        catch (Exception ex)
-        {
-            txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 1";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        Thread.Sleep(500);
-
-        string s = Spil.Instance.getLog();
-        if (!s.Contains(": track_event levelStart") || !s.Contains(": name=levelStart"))
-        {
-            Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 2";
-            toggleUIEnabled(true);
-            return;
-        }
-        // Event was properly dispatched by SpilSDK native, now check for response
-        else if (!s.Contains("eventReceived: name=levelStart;"))
-        {
-            Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendlevelStartEvent(\"Level1\") FAILED 3";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        //txtBox2.text =  "Testing SendlevelCompleteEvent(\"Level1\")";
-        //Spil.Instance.clearLog();
-        //Debug.Log("LOG CLEARED");
-        //try
-        //{
-        //    Spil.Instance.SendlevelCompleteEvent("Level1");
-        //}
-        //catch (Exception ex)
-        //{
-        //    txtBox2.text =  "Testing SendlevelCompleteEvent(\"Level1\") FAILED 1";
-        //    btnStart.gameObject.SetActive(true);
-        //    return;
-        //}
-
-        //Thread.Sleep(1000);
-
-        //s = Spil.Instance.getLog();
-        //if (!s.Contains(": track_event levelComplete") || !s.Contains(": name=levelComplete"))
-        //{
-        //    Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-        //    txtBox2.text =  "Testing SendlevelCompleteEvent(\"Level1\") FAILED 2";
-        //    btnStart.gameObject.SetActive(true);
-        //    return;
-        //}
-        //// Event was properly dispatched by SpilSDK native, now check for response
-        //else if (!s.Contains("eventReceived: name=levelComplete;"))
-        //{
-        //    Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-        //    txtBox2.text =  "Testing SendlevelCompleteEvent(\"Level1\") FAILED 3";
-        //    btnStart.gameObject.SetActive(true);
-        //    return;
-        //}
-
-        txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\")";
-
-        Spil.Instance.clearLog();
-        Debug.Log("LOG CLEARED");
-        try
-        {
-            Spil.Instance.SendlevelFailedEvent("Level1");
-        }
-        catch (Exception ex)
-        {
-            txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 1";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        Thread.Sleep(500);
-
-        s = Spil.Instance.getLog();
-        if (!s.Contains(": track_event levelFailed") || !s.Contains(": name=levelFailed"))
-        {
-            Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 2";
-            toggleUIEnabled(true);
-            return;
-        }
-        // Event was properly dispatched by SpilSDK native, now check for response
-        else if (!s.Contains("eventReceived: name=levelFailed;"))
-        {
-            Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendlevelFailedEvent(\"Level1\") FAILED 3";
-            toggleUIEnabled(true);
-            return;
-        }
-        txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\")";
-
-        Spil.Instance.clearLog();
-        Debug.Log("LOG CLEARED");
-        try
-        {
-            Spil.Instance.SendplayerDiesEvent("Level1");
-        }
-        catch (Exception ex)
-        {
-            txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 1";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        Thread.Sleep(500);
-
-        s = Spil.Instance.getLog();
-        if (!s.Contains(": track_event playerDies") || !s.Contains(": name=playerDies"))
-        {
-            Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 2";
-            toggleUIEnabled(true);
-            return;
-        }
-        // Event was properly dispatched by SpilSDK native, now check for response
-        else if (!s.Contains("eventReceived: name=playerDies;"))
-        {
-            Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendplayerDiesEvent(\"Level1\") FAILED 3";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        //txtBox2.text = "Testing SendrequestRewardVideoEvent()";
-        //Spil.Instance.clearLog();
-        //Debug.Log("LOG CLEARED");
-        //try
-        //{
-        //    Spil.Instance.SendrequestRewardVideoEvent();
-        //}
-        //catch (Exception ex)
-        //{
-        //    txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 1";
-        //    btn4.gameObject.SetActive(true);
-        //    return;
-        //}
-        //Thread.Sleep(1000);
-        //s = Spil.Instance.getLog();
-        //if (!s.Contains(": track_event requestRewardVideo") || !s.Contains(": name=requestRewardVideo"))
-        //{
-        //    Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-        //    txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 2";
-        //    btn4.gameObject.SetActive(true);
-        //    return;
-        //}
-        //// Event was properly dispatched by SpilSDK native, now check for response
-        //else if (!s.Contains("eventReceived: name=; action=show; type=advertisement;"))
-        //{
-        //    Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-        //    txtBox2.text = "Testing SendrequestRewardVideoEvent() FAILED 3";
-        //    btn4.gameObject.SetActive(true);
-        //    return;
-        //}
-
-        txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\")";
-
-
-        Spil.Instance.clearLog();
-        Debug.Log("LOG CLEARED");
-        try
-        {
-            Spil.Instance.SendmilestoneAchievedEvent("Test executed");
-        }
-        catch (Exception ex)
-        {
-            txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 1";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        Thread.Sleep(500);
-
-        s = Spil.Instance.getLog();
-        if (!s.Contains(": track_event milestoneAchieved") || !s.Contains(": name=milestoneAchieved"))
-        {
-            Debug.Log("Couldnt find string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 2";
-            toggleUIEnabled(true);
-            return;
-        }
-        // Event was properly dispatched by SpilSDK native, now check for response
-        else if (!s.Contains("eventReceived: name=milestoneAchieved;"))
-        {
-            Debug.Log("Couldnt find server response string in: " + s + " -ENDLOG");
-            txtStatus2.text = "Testing SendmilestoneAchievedEvent(\"Test executed\") FAILED 3";
-            toggleUIEnabled(true);
-            return;
-        }
-
-        txtStatus2.text = "Testing getPackagesAll()";
-
-        //try
-        {
-            PackagesHelper packages = Spil.Instance.GetPackagesAndPromotions();
-            if (packages == null)
-            {
-                txtStatus2.text = "Testing getPackagesAll FAILED 2";
-                toggleUIEnabled(true);
-                return;
-            }
-            else
-            {
-                if (packages.Packages == null)
-                {
-                    txtStatus2.text = "Testing getPackagesAll FAILED 3";
-                    toggleUIEnabled(true);
-                    return;
-                }
-                else
-                {
-
-                    Debug.Log("Packages count: " + packages.Packages.Count);
-                    Debug.Log("Packages[0].Items count: " + packages.Packages[0].Items.Count);
-                    Debug.Log("Packages[1].Items count: " + packages.Packages[1].Items.Count);
-
-                    Debug.Log("Packages[0].Id: " + packages.Packages[0].Id);
-                    Debug.Log("Packages[1].Id: " + packages.Packages[1].Id);
-
-                    Debug.Log("Packages[0].Id: " + packages.Packages[0].OriginalDiscountLabel);
-                    Debug.Log("Packages[1].Id: " + packages.Packages[1].OriginalDiscountLabel);
-
-                    Debug.Log("Packages[0].Id: " + packages.Packages[0].PromotionBeginDate);
-                    Debug.Log("Packages[1].Id: " + packages.Packages[1].PromotionBeginDate);
-
-                    Debug.Log("Packages[0].Id: " + packages.Packages[0].PromotionDiscountLabel);
-                    Debug.Log("Packages[1].Id: " + packages.Packages[1].PromotionDiscountLabel);
-
-                    Debug.Log("Packages[0].Id: " + packages.Packages[0].PromotionEndDate);
-                    Debug.Log("Packages[1].Id: " + packages.Packages[1].PromotionEndDate);
-
-                    Debug.Log("Packages[0].Items[0] id: " + packages.Packages[0].Items[0].Id);
-                    Debug.Log("Packages[1].Items[0] id: " + packages.Packages[1].Items[0].Id);
-
-                    Debug.Log("Packages[0].Items[0] PromotionValue: " + packages.Packages[0].Items[0].PromotionValue);
-                    Debug.Log("Packages[1].Items[0] PromotionValue: " + packages.Packages[1].Items[0].PromotionValue);
-
-                    Debug.Log("Packages[0].Items[0] OriginalValue: " + packages.Packages[0].Items[0].OriginalValue);
-                    Debug.Log("Packages[1].Items[0] OriginalValue: " + packages.Packages[1].Items[0].OriginalValue);
-
-                    //Debug.Log("Packages[0].Items[1] id: " + packages.Packages[0].Items[1].Id);
-                    //Debug.Log("Packages[1].Items[1] id: " + packages.Packages[1].Items[1].Id);
-
-                    //Debug.Log("Packages[0].Items[1] PromotionValue: " + packages.Packages[0].Items[1].PromotionValue);
-                    //Debug.Log("Packages[1].Items[1] PromotionValue: " + packages.Packages[1].Items[1].PromotionValue);
-
-                    //Debug.Log("Packages[0].Items[1] OriginalValue: " + packages.Packages[0].Items[1].OriginalValue);
-                    //Debug.Log("Packages[1].Items[1] OriginalValue: " + packages.Packages[1].Items[1].OriginalValue);
-
-                    //if (packages.Packages.Count != 2)
-                    //{
-                    //    Debug.Log("Packages count: " + packages.Packages.Count);
-                    //    txtBox2.text =  "Testing getPackagesAll FAILED 4";
-                    //    StartButtonEnabled =true);
-                    //    return;
-                    //}
-
-                    //if (packages.Packages[0].Items.Count != 2)
-                    //{
-                    //    txtBox2.text =  "Testing getPackagesAll FAILED 5";
-                    //    StartButtonEnabled =true);
-                    //    return;
-                    //}
-
-                    //if (packages.Packages[1].Items.Count != 2)
-                    //{
-                    //    txtBox2.text =  "Testing getPackagesAll FAILED 6";
-                    //    StartButtonEnabled =true);
-                    //    return;
-                    //}
-                }
-            }
-        }
-        //catch (Exception ex)
-        {
-            //Spil.ExecuteOnMainThread.Enqueue(() =>
-            //    {
-            //        txtBox2.text =  "Testing getPackagesAll FAILED 1";
-            //        btnStart.gameObject.SetActive(true);
-            //    }
-            //);
-            //return;
-        }
-
-        txtStatus2.text = "";
-        txtStatus1.text = "Test successful!";
-        toggleUIEnabled(true);
-
-        //Spil.Instance.SendwalletUpdateEvent(string walletValue, string itemValue, string source, string item, string category)
-        //Spil.Instance.SendiapPurchasedEvent(string skuId, string transactionId, string purchaseDate)
-        //Spil.Instance.SendiapRestoredEvent(string skuId, string originalTransactionId, string originalPurchaseDate)
-        //Spil.Instance.SendiapFailedEvent(string error, string skuId)
-
-        // }
-        //).Start();
-
-#endif
-    }
+    public Text txtStatus1;
+    public Text txtStatus2;
 
     public void toggleUIEnabled(bool enabled)
     {
@@ -633,9 +329,7 @@ public class GameScript : MonoBehaviour
             btnDFPInterstitial.gameObject.SetActive(true);
             btnChartBoostInterstitial.gameObject.SetActive(true);
             btnCake.gameObject.SetActive(true);
-        }
-        else
-        {
+        } else {
             btnRequestRewardVideo.gameObject.SetActive(false);
             btnFyberRewardVideo.gameObject.SetActive(false);
             btnChartBoostRewardVideo.gameObject.SetActive(false);
@@ -646,32 +340,93 @@ public class GameScript : MonoBehaviour
         }
     }
 
-    #region PlayerData
+    public void RequestRewardVideo()
+    {
+        txtStatus1.text = "Requesting reward video";
+        Spil.Instance.SendRequestRewardVideoEvent();
+    }
+
+    public void RequestFyberRewardVideo()
+    {
+        txtStatus1.text = "Requesting Fyber reward video";
+
+        Spil.Instance.TestRequestAd("Fyber", "rewardVideo", false);
+    }
+
+    public void RequestChartBoostRewardVideo()
+    {
+        txtStatus1.text = "Requesting ChartBoost reward video";
+        Spil.Instance.TestRequestAd("ChartBoost", "rewardVideo", false);
+    }
+
+    public void RequestMoreApps()
+    {
+        txtStatus1.text = "Requesting more apps";
+        Spil.Instance.RequestMoreApps();
+    }
+
+    public void RequestDFPInterstitial()
+    {
+        txtStatus1.text = "Requesting DFP interstitial";
+        Spil.Instance.TestRequestAd("DFP", "interstitial", false);
+    }
+
+    public void RequestChartBoostInterstitial()
+    {
+        txtStatus1.text = "Requesting ChartBoost interstitial";
+        //#if UNITY_ANDROID
+        Spil.Instance.TestRequestAd("chartboost", "interstitial", false);
+        //#endif
+        //#if UNITY_IPHONE
+        //Spil.Instance.TestRequestAd("ChartBoost", "interstitial", false);
+        //#endif
+    }
+
+    public void RequestCake()
+    {
+        // The cake button has no set purpose and is changed often for testing miscellaneous stuff, put anything you'd like to test here!
+
+        txtStatus1.text = "The cake is a lie";
+
+        Spil.Instance.SendlevelCompleteEvent("Level1");
+    }
+
+    #endregion
+
+    #region Tab 2: Wallet & inventory
+
+    // Wallet panels and buttons and
+    // Add/subtract Item and Buy Bundle panel
+
+    public Text txtPnlSelectItemsId1;
+    public Text txtPnlSelectItemsId2;
+    public Text txtPnlSelectItemsId3;
+    public Text txtPnlSelectItemsId4;
+
+    public Text txtPnlSelectItemsAmount1;
+    public Text txtPnlSelectItemsAmount2;
+    public Text txtPnlSelectItemsAmount3;
+    public Text txtPnlSelectItemsAmount4;
+
+    public Text txtPnlSelectItems1;
+    public Text txtPnlSelectItems2;
+    public Text txtPnlSelectItems3;
+    public Text txtPnlSelectItems4;
+
+    public Text txtPnlSelectItemsCurrencyAmount1;
+    public Text txtPnlSelectItemsCurrencyAmount2;
+    public Text txtPnlSelectItemsCurrencyAmount3;
+    public Text txtPnlSelectItemsCurrencyAmount4;
+
+    public Text txtPnlSelectItemsCurrency1;
+    public Text txtPnlSelectItemsCurrency2;
+    public Text txtPnlSelectItemsCurrency3;
+    public Text txtPnlSelectItemsCurrency4;
 
     public Text txtFirstCurrencyName;
     public Text txtFirstCurrencyValue;
     public Text txtSecondCurrencyName;
     public Text txtSecondCurrencyValue;
-
-    public void addFirstCurrencyValue()
-    {
-        Spil.PlayerData.Wallet.Add(Spil.PlayerData.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.LevelComplete);
-    }
-
-    public void subtractFirstCurrencyValue()
-    {
-        Spil.PlayerData.Wallet.Subtract(Spil.PlayerData.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.Trade);
-    }
-
-    public void addSecondCurrencyValue()
-    {
-        Spil.PlayerData.Wallet.Add(Spil.PlayerData.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.LevelComplete);
-    }
-
-    public void subtractSecondCurrencyValue()
-    {
-        Spil.PlayerData.Wallet.Subtract(Spil.PlayerData.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.Trade);
-    }
 
     public GameObject pnlItems;
     public Text txtItemsMenuTitle;
@@ -731,30 +486,25 @@ public class GameScript : MonoBehaviour
         }
     }
 
-    public Text txtPnlSelectItemsId1;
-    public Text txtPnlSelectItemsId2;
-    public Text txtPnlSelectItemsId3;
-    public Text txtPnlSelectItemsId4;
+    public void addFirstCurrencyValue()
+    {
+        Spil.PlayerData.Wallet.Add(Spil.PlayerData.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.LevelComplete);
+    }
 
-    public Text txtPnlSelectItemsAmount1;
-    public Text txtPnlSelectItemsAmount2;
-    public Text txtPnlSelectItemsAmount3;
-    public Text txtPnlSelectItemsAmount4;
+    public void subtractFirstCurrencyValue()
+    {
+        Spil.PlayerData.Wallet.Subtract(Spil.PlayerData.Wallet.Currencies[0].Id, 100, PlayerDataUpdateReasons.Trade);
+    }
 
-    public Text txtPnlSelectItems1;
-    public Text txtPnlSelectItems2;
-    public Text txtPnlSelectItems3;
-    public Text txtPnlSelectItems4;
+    public void addSecondCurrencyValue()
+    {
+        Spil.PlayerData.Wallet.Add(Spil.PlayerData.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.LevelComplete);
+    }
 
-    public Text txtPnlSelectItemsCurrencyAmount1;
-    public Text txtPnlSelectItemsCurrencyAmount2;
-    public Text txtPnlSelectItemsCurrencyAmount3;
-    public Text txtPnlSelectItemsCurrencyAmount4;
-
-    public Text txtPnlSelectItemsCurrency1;
-    public Text txtPnlSelectItemsCurrency2;
-    public Text txtPnlSelectItemsCurrency3;
-    public Text txtPnlSelectItemsCurrency4;
+    public void subtractSecondCurrencyValue()
+    {
+        Spil.PlayerData.Wallet.Subtract(Spil.PlayerData.Wallet.Currencies[1].Id, 100, PlayerDataUpdateReasons.Trade);
+    }
 
     private void showItemSelectList()
     {
@@ -844,14 +594,10 @@ public class GameScript : MonoBehaviour
                 if (Adding)
                 {
                     Spil.PlayerData.Inventory.Add(Spil.GameData.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.ItemBought);
-                }
-                else
-                {
+                } else {
                     Spil.PlayerData.Inventory.Subtract(Spil.GameData.Items[pnlSelectItemCurrentPage * 4].Id, 1, PlayerDataUpdateReasons.Trade);
                 }
-            }
-            else
-            {
+            } else {
                 Spil.PlayerData.ConsumeBundle(Spil.GameData.Bundles[pnlSelectItemCurrentPage * 4].Id, PlayerDataUpdateReasons.ItemBought);
             }
             pnlItems.SetActive(false);
@@ -868,14 +614,10 @@ public class GameScript : MonoBehaviour
                 if (Adding)
                 {
                     Spil.PlayerData.Inventory.Add(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.ItemBought);
-                }
-                else
-                {
+                } else {
                     Spil.PlayerData.Inventory.Subtract(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 1].Id, 1, PlayerDataUpdateReasons.Trade);
                 }
-            }
-            else
-            {
+            } else {
                 Spil.PlayerData.ConsumeBundle(Spil.GameData.Bundles[pnlSelectItemCurrentPage * 4 + 1].Id, PlayerDataUpdateReasons.ItemBought);
             }
             pnlItems.SetActive(false);
@@ -892,14 +634,10 @@ public class GameScript : MonoBehaviour
                 if (Adding)
                 {
                     Spil.PlayerData.Inventory.Add(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.ItemBought);
-                }
-                else
-                {
+                } else {
                     Spil.PlayerData.Inventory.Subtract(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 2].Id, 1, PlayerDataUpdateReasons.Trade);
                 }
-            }
-            else
-            {
+            } else {
                 Spil.PlayerData.ConsumeBundle(Spil.GameData.Bundles[pnlSelectItemCurrentPage * 4 + 2].Id, PlayerDataUpdateReasons.ItemBought);
             }
             pnlItems.SetActive(false);
@@ -916,14 +654,10 @@ public class GameScript : MonoBehaviour
                 if (Adding)
                 {
                     Spil.PlayerData.Inventory.Add(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.ItemBought);
-                }
-                else
-                {
+                } else {
                     Spil.PlayerData.Inventory.Subtract(Spil.GameData.Items[pnlSelectItemCurrentPage * 4 + 3].Id, 1, PlayerDataUpdateReasons.Trade);
                 }
-            }
-            else
-            {
+            } else {
                 Spil.PlayerData.ConsumeBundle(Spil.GameData.Bundles[pnlSelectItemCurrentPage * 4 + 3].Id, PlayerDataUpdateReasons.ItemBought);
             }
             pnlItems.SetActive(false);
@@ -950,45 +684,6 @@ public class GameScript : MonoBehaviour
             pnlItemsCurrentPage = 0;
         }
     }
-
-    /*
-    private void showBundlesList()
-    {
-        ArrayList<com.spilgames.spilsdk.gamedata.bundles.Bundle> bundles = MainActivity.spilGameData.getBundles();
-
-        MaterialDialog dialog = new MaterialDialog.Builder(getContext())
-        .title("Spil SDK Game Bundles")
-        .customView(R.layout.dialog_bundle_layout, false)
-        .negativeText("Cancel")
-        .titleColor(Color.WHITE)
-        .negativeColor(Color.WHITE)
-        .backgroundColor(getActivity().getResources().getColor(R.color.colorPrimary))
-        .onNegative(new MaterialDialog.SingleButtonCallback()
-        {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which)
-            {
-                dialog.dismiss();
-            }
-        })
-        .build();
-
-        View view = dialog.getCustomView();
-
-        if(view != null)
-        {
-            RecyclerView mListView = (RecyclerView)view.findViewById(R.id.gameBundleList);
-
-            GameBundleListAdapter mAdapter = new GameBundleListAdapter(getContext(), R.layout.list_gamebundle_item, bundles, dialog);
-
-            mListView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-            mListView.setItemAnimator(new DefaultItemAnimator());
-
-            mListView.setAdapter(mAdapter);
-        }
-        dialog.show();
-    }
-    */
 
     public void updateUI()
     {
@@ -1032,23 +727,21 @@ public class GameScript : MonoBehaviour
         if (playerFirstCurrency != null)
         {
             txtFirstCurrencyValue.text = playerFirstCurrency.CurrentBalance.ToString();
-        }
-        else
-        {
+        } else {
             txtFirstCurrencyValue.text = "";
         }
 
         if (playerSecondCurrency != null)
         {
             txtSecondCurrencyValue.text = playerSecondCurrency.CurrentBalance.ToString();
-        }
-        else
-        {
+        } else {
             txtSecondCurrencyValue.text = "";
         }
 
         showInventory();
     }
+
+    // Inventory
 
     public Text txtPnlItemsId1;
     public Text txtPnlItemsId2;
@@ -1116,7 +809,7 @@ public class GameScript : MonoBehaviour
 
     #endregion
 
-    #region Shop
+    #region Tab 3: Shop
 
     public Text txtPnlShopItemId1;
     public Text txtPnlShopItemId2;
@@ -1415,63 +1108,25 @@ public class GameScript : MonoBehaviour
 
     #endregion
 
-	#region Web
+    #region Tab 4: Splash screen and Daily Bonus
 
-	public void btnRequestSplashScreenClick()
-	{
-		txtWebStatus1.text = "Requesting splashscreen";
-		txtWebStatus2.text = "";
-		Spil.Instance.RequestSplashScreen ();
-	}
+    public Text txtWebStatus1;
+    public Text txtWebStatus2;
 
-	public void btnRequestDailyBonusScreenClick()
-	{
-		txtWebStatus1.text = "Requesting dailybonus";
-		txtWebStatus2.text = "";
-		Spil.Instance.RequestDailyBonus();
-	}
+    public void btnRequestSplashScreenClick()
+    {
+        txtWebStatus1.text = "Requesting Splash screen";
+        txtWebStatus2.text = "";
+        Spil.Instance.RequestSplashScreen();
+    }
 
-	// Splash screen events
-	public void SplashScreenOpenHandler() {
-		txtWebStatus2.text += "\nSplashscreen open";
-	}
+    public void btnRequestDailyBonusScreenClick()
+    {
+        txtWebStatus1.text = "Requesting Daily Bonus";
+        txtWebStatus2.text = "";
+        Spil.Instance.RequestDailyBonus();
+    }
 
-	public void SplashScreenClosedHandler() {
-		txtWebStatus2.text += "\nSplashscreen closed";
-	}
+    #endregion
 
-	public void SplashScreenErrorHandler(SpilErrorMessage message) {
-		txtWebStatus2.text += "\nSplashscreen error: " + message;
-	}
-
-	public void SplashScreenNotAvailabelHandler() {
-		txtWebStatus2.text += "\nSplashscreen not available";
-	}
-
-	public void SplashScreenOpenShopHandler() {
-		txtWebStatus2.text += "\nSplashscreen open shop";
-	}
-
-	// Daily bonus screen events
-	public void DailyBonusOpenHandler() {
-		txtWebStatus2.text += "\nDailybonus open";
-	}
-
-	public void DailyBonusClosedHandler() {
-		txtWebStatus2.text += "\nDailybonus closed";
-	}
-
-	public void DailyBonusErrorHandler(SpilErrorMessage message) {
-		txtWebStatus2.text += "\nDailybonus error: " + message;
-	}
-
-	public void DailyBonusNotAvailabelHandler() {
-		txtWebStatus2.text += "\nDailybonus not available";
-	}
-
-	public void DailyBonusRewardHandler(String rewardList) {
-		txtWebStatus2.text = "Splashscreen reward: " + rewardList;
-	}
-
-	#endregion
 }

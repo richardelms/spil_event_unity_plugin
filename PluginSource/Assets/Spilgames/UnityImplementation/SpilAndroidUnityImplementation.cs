@@ -81,7 +81,9 @@ namespace SpilGames.Unity.Implementations
             /// </summary>
 			internal override void SpilInit()
             {
+			#if UNITY_ANDROID
                 RegisterDevice(Spil.Project_ID);
+			#endif
             }
 
             public override void SetUserId(string providerId, string userId)

@@ -9,7 +9,7 @@ namespace SpilGames.Unity.Implementations
     public abstract class SpilUnityImplementationBase
     {
 	public static string PluginName = "Unity";
-	public static string PluginVersion = "2.2.2";
+	public static string PluginVersion = "2.2.3";
 
 	public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 
@@ -971,6 +971,7 @@ namespace SpilGames.Unity.Implementations
 		}
 
 		public delegate void DailyBonusError(SpilErrorMessage errorMessage);
+
 		/// <summary>
 		/// This is fired by the native Spil SDK when the web view encounters an error.
 		/// The developer can subscribe to this event and inspect the error.

@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 2.2.4 *(20-10-2016)*
+----------------------------
+ * Fixed an iOS export issue.
+
+
 Version 2.2.3 *(14-10-2016)*
 ----------------------------
 This version brings multiple features of the Spil SDK to the Editor Mode, the Daily Bonus screen functionality as well as several bug fixes for both Android and iOS

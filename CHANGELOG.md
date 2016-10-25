@@ -4,6 +4,7 @@ Change Log
 Version 2.2.4 *(20-10-2016)*
 ----------------------------
  * Fixed an iOS export issue.
+ * + 1-5 fire damage.
 
 
 Version 2.2.3 *(14-10-2016)*

@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+Version 2.2.5 *(26-10-2016)*
+----------------------------
+This version only has a few hotfixes for both Android and iOS
+ * Added Custom Bundle Indentifier support for iOS
+ * Fixed sending format for the TrackWalletInventoryEvent
+ * iOS Spil SDK updated to v2.1.2
+ * Android Spil SDK updated to v2.2.4
+
+
 Version 2.2.4 *(20-10-2016)*
 ----------------------------
  * Fixed an iOS export issue.

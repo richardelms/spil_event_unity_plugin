@@ -9,7 +9,7 @@ namespace SpilGames.Unity.Implementations
     public abstract class SpilUnityImplementationBase
     {
 	public static string PluginName = "Unity";
-	public static string PluginVersion = "2.2.3";
+	public static string PluginVersion = "2.2.5";
 
 	public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 
@@ -672,6 +672,13 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <returns>The user identifier.</returns>
 		public abstract string GetUserId ();
+
+		/// <summary>
+		/// Sets the custom bundle identifier.
+		/// Use this when the bundle id used to connect to our backend differs from the one used to build.
+		/// </summary>
+		/// <param name="bundleId">Bundle identifier.</param>
+		public abstract void SetCustomBundleId (string bundleId);
 
 		/// <summary>
 		/// Gets the user provider.

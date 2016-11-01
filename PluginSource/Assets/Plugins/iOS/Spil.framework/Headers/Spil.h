@@ -10,7 +10,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.1.0"
+#define SDK_VERSION @"2.1.2"
 
 @class Spil;
 @class UserProfile;
@@ -30,6 +30,7 @@
 -(void)adNotAvailable:(NSString*)type; // An ad is unavailable or did fail to load
 -(void)adStart; // An ad has started
 -(void)adFinished:(NSString*)type reason:(NSString*)reason reward:(NSString*)reward network:(NSString*)network; // An ad has finished (dismissed or an reward was granted)
+-(void)openParentalGate; // The ad requires a parental gate check to continue, present the parental gate in this method and call the closedParentalGate method to pass the result back to the Spil SDK.
 
 // Notification events
 -(void)grantReward:(NSDictionary*)data;
@@ -99,6 +100,22 @@
  *  @param advancedLoggingEnabled Enables or disables the advanced log printing
  */
 +(void)setAdvancedLoggingEnabled:(BOOL)advancedLoggingEnabled;
+
+/**
+ *  Helper method to log a message to the console
+ *  Especially useful when building a wrapped games (e.g. Unity) where the log messages are sometimes stripped out.
+ *  This method gives the oppertunity to log the message at the native layer instead.
+ *
+ *  @param The message to log
+ */
++(void)log:(NSString*)message;
+
+/**
+ *  Method to set a custom bundle id, useful during debugging.
+ *
+ *  @param The custom bundle id to use
+ */
++(void)setCustomBundleId:(NSString*)bundleId;
 
 /**
  *  Get the Spil user id
@@ -376,6 +393,11 @@
  *  Show a toast when a reward is unlocked
  */
 +(void)showToastOnVideoReward:(BOOL)enabled;
+
+/**
+ *  Call to inform the SDK that the parental gate was (not) passes
+ */
++(void)closedParentalGate:(BOOL)pass;
 
 #pragma mark UserData & GameData
 

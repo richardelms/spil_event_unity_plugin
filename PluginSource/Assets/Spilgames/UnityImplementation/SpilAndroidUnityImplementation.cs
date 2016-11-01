@@ -290,6 +290,14 @@ namespace SpilGames.Unity.Implementations
 				
 			}
 
+			/// <summary>
+			/// Call to inform the SDK that the parental gate was (not) passes
+			/// </summary>
+			public override void closedParentalGate(bool pass)
+			{
+				// TODO
+			}
+
         #endregion
 
         #region Non inherited members (Android only members)

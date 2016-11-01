@@ -72,6 +72,8 @@ extern "C" {
     
     // --- Util ---
     
+    void setCustomBundleIdNative(const char* bundleId);
+    
     void UnitySendMessage(const char* obj, const char* method, const char* msg);
     
     char* cStringCopy(const char* string);
@@ -111,6 +113,8 @@ extern "C" {
     void devShowMoreAppsNative(const char* providerName);
 
     void showToastOnVideoReward(const bool enabled);
+    
+    void closedParentalGateNative(const bool pass);
     
     // --- Game & Player data ---
     

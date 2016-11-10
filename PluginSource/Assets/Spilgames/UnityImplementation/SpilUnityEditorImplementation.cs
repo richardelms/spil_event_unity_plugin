@@ -254,7 +254,7 @@ namespace SpilGames.Unity.Implementations
 		/// <summary>
 		/// Call to inform the SDK that the parental gate was (not) passes
 		/// </summary>
-		public override void closedParentalGate(bool pass)
+		public override void ClosedParentalGate(bool pass)
 		{
 			
 		}

@@ -47,7 +47,7 @@ namespace SpilGames.Unity.Helpers
         {
             try
             {
-                return JsonConvert.SerializeObject(_object);
+				return JsonConvert.SerializeObject(_object, Formatting.None);
             }
             catch (System.MissingMethodException ex)
             {

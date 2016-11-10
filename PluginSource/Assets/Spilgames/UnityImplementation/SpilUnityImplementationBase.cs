@@ -477,7 +477,7 @@ namespace SpilGames.Unity.Implementations
 				/// <summary>
 				/// Call to inform the SDK that the parental gate was (not) passes
 				/// </summary>
-				public abstract void closedParentalGate(bool pass);
+				public abstract void ClosedParentalGate(bool pass);
 
                 /// <summary>
                 /// This is fired by the native Spil SDK after it receives a response from the back-end.

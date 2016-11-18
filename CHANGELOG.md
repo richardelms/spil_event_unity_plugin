@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+Version 2.2.6 *(18-10-2016)*
+----------------------------
+This version includes a full implementation of the Editor Mode for the Spil SDK, a permission request system for Android, several improvements in the configuration window as well as clearer issue checking
+ * Chartboost parental gate implemented in iOS
+ * Slight adjustments to the event sending for push notificaitons
+ * Added automatic event sending for when an ad is displayed, clicked, dismissed and closed
+ * Added permission request system for Android. The SDK now automatically request dangerous permissions at start-up (similar to how unity was doing it), but now a rationale is include for each permission. You also have the ability to disable this system and request the permissions manually when you need them during runtime.
+ * A new look for the Spil SDK configuration windows have been added. You now have several tabs for each section, two new windows for documentation and release, as well as better build check-up for Android (hopefuly less issue will be reported now :) )
+
+
 Version 2.2.5 *(26-10-2016)*
 ----------------------------
 This version only has a few hotfixes for both Android and iOS

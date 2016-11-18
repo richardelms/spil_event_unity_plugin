@@ -7,15 +7,17 @@ using SpilGames.Unity.Helpers;
 using SpilGames.Unity.Utils.UnityEditor;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace SpilGames.Unity.Utils.UnityEditor.Responses
 {
-	public class PlayerData : Data
+	public class PlayerDataResponse : Response
 	{
+
 		public WalletData Wallet;
 		public InventoryData Inventory;
 
-		public void ProcessPlayerData (ResponseEvent response)
+		public void ProcessPlayerDataResponse (ResponseEvent response)
 		{
 
 			WalletData receivedWallet = null;
@@ -63,7 +65,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 						PlayerItemData item = new PlayerItemData ();
 
 						item.id = (int)itemsJSON.list [i].GetField ("id").n;
-						item.amount = (int)itemsJSON.list [i].GetField ("ammount").n;
+						item.amount = (int)itemsJSON.list [i].GetField ("amount").n;
 						item.delta = (int)itemsJSON.list [i].GetField ("delta").n;
 
 						receivedInventory.items.Add (item);
@@ -83,8 +85,16 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 		{
 
 			if (Wallet == null) {
-				string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
-				TempUserInfo temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
+				TempUserInfo temp;
+				try{
+					string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
+					temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
+				} catch(FileNotFoundException e){
+					Debug.Log("defaultPlayerData.json not found. Creating a placeholder!" + e.ToString());
+					string placeholder = "{\"wallet\":{\"currencies\":[],\"offset\": 0,\"logic\": \"CLIENT\"},\"inventory\":{\"items\":[],\"offset\":0,\"logic\": \"\"}}";
+					temp = JsonHelper.getObjectFromJson<TempUserInfo> (placeholder);
+				}
+
 
 				return temp.wallet;
 			}
@@ -96,8 +106,17 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 		{
 
 			if (Inventory == null) {
-				string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
-				TempUserInfo temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
+				TempUserInfo temp;
+				try{
+					string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
+					temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
+				} catch(FileNotFoundException e){
+					Debug.Log("defaultPlayerData.json not found. Creating a placeholder! " + e.ToString());
+					string placeholder = "{\"wallet\":{\"currencies\":[],\"offset\": 0,\"logic\": \"CLIENT\"},\"inventory\":{\"items\":[],\"offset\":0,\"logic\": \"\"}}";
+					temp = JsonHelper.getObjectFromJson<TempUserInfo> (placeholder);
+				}
+
+
 				return temp.inventory;
 			}
 
@@ -206,7 +225,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 			if (updated) {
 				updatedData.reason = PlayerDataUpdateReasons.ServerUpdate;
 
-				SpilUnityImplementationBase.firePlayerDataUpdated (JsonUtility.ToJson (updatedData));
+				SpilUnityImplementationBase.firePlayerDataUpdated (JsonHelper.getJSONFromObject (updatedData));
 			}
 
 		}
@@ -262,7 +281,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 				updatedData.currencies.Add (currency);
 				updatedData.reason = reason;
 
-				SpilUnityImplementationBase.firePlayerDataUpdated (JsonUtility.ToJson (updatedData));
+				SpilUnityImplementationBase.firePlayerDataUpdated (JsonHelper.getJSONFromObject (updatedData));
 
 				SendUpdatePlayerDataEvent (reason);
 
@@ -339,7 +358,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 			updatedData.items.Add(item);
 			updatedData.reason = reason;
 
-			SpilUnityImplementationBase.firePlayerDataUpdated (JsonUtility.ToJson (updatedData));
+			SpilUnityImplementationBase.firePlayerDataUpdated (JsonHelper.getJSONFromObject (updatedData));
 
 			SendUpdatePlayerDataEvent(item, reason);
 
@@ -347,8 +366,6 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 		}
 
 		private SpilItemData GetItemFromObjects(int itemId){
-			Debug.Log(itemId);
-			Debug.Log(JsonUtility.ToJson(SpilUnityEditorImplementation.gData.items));
 			for(int i = 0; i < SpilUnityEditorImplementation.gData.items.Count; i++){
 				if(SpilUnityEditorImplementation.gData.items[i].id == itemId){
 					return SpilUnityEditorImplementation.gData.items[i];
@@ -481,7 +498,7 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 
 			updatedData.reason = reason;
 
-			SpilUnityImplementationBase.firePlayerDataUpdated (JsonUtility.ToJson (updatedData));
+			SpilUnityImplementationBase.firePlayerDataUpdated (JsonHelper.getJSONFromObject (updatedData));
 
 			SendUpdatePlayerDataEvent(bundle, reason);
 		}
@@ -551,12 +568,58 @@ namespace SpilGames.Unity.Utils.UnityEditor.Responses
 
 		private void SendUpdatePlayerDataEvent (PlayerItemData item, string reason)
 		{
-			
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "updatePlayerData";
+
+			JSONObject walletJSON = new JSONObject();
+			walletJSON.AddField("offset", Wallet.offset);
+
+			spilEvent.customData.AddField("wallet", walletJSON);
+
+			JSONObject inventoryJSON = new JSONObject();
+
+			JSONObject itemsJSON = new JSONObject(JsonHelper.getJSONFromObject(Inventory.items));
+
+			inventoryJSON.AddField("items", itemsJSON);
+			inventoryJSON.AddField("offset", Inventory.offset);
+
+			spilEvent.customData.AddField("inventory", inventoryJSON);
+
+			spilEvent.customData.AddField("item", new JSONObject(JsonHelper.getJSONFromObject(item)));
+
+			spilEvent.customData.AddField("reason", reason);
+
+			spilEvent.Send();
 		}
 
 		private void SendUpdatePlayerDataEvent (SpilBundleData bundle, string reason)
 		{
-			
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "updatePlayerData";
+
+			JSONObject walletJSON = new JSONObject();
+
+			JSONObject currenciesJSON = new JSONObject(JsonHelper.getJSONFromObject(Wallet.currencies));
+
+			walletJSON.AddField("currencies", currenciesJSON);
+			walletJSON.AddField("offset", Wallet.offset);
+
+			spilEvent.customData.AddField("wallet", walletJSON);
+
+			JSONObject inventoryJSON = new JSONObject();
+
+			JSONObject itemsJSON = new JSONObject(JsonHelper.getJSONFromObject(Inventory.items));
+
+			inventoryJSON.AddField("items", itemsJSON);
+			inventoryJSON.AddField("offset", Inventory.offset);
+
+			spilEvent.customData.AddField("inventory", inventoryJSON);
+
+			spilEvent.customData.AddField("bundle", new JSONObject(JsonHelper.getJSONFromObject(bundle)));
+
+			spilEvent.customData.AddField("reason", reason);
+
+			spilEvent.Send();
 		}
 
 		public class TempUserInfo

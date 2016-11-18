@@ -20,5 +20,10 @@
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent-filter>
     </activity>
+    
+    <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />
+    <!--    Uncomment the code below if you want to disable automatic permission requesting from the Spil SDK-->
+    <!--    <meta-data android:name="spil.permissions.DisableAutoRequest" android:value="true" />-->
+    
   </application>
 </manifest>

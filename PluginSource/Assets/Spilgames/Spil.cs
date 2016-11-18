@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.2.4
+ * Version 2.2.6
  * 
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -19,21 +19,23 @@ namespace SpilGames.Unity
 	public class Spil : MonoBehaviour
 	{
 
+		private SpilGameDataHelper GameDataObject;
 		public static SpilGameDataHelper GameData;
+
+		private PlayerDataHelper PlayerDataObject;
 		public static PlayerDataHelper PlayerData;
 
 		[Header("Android Settings")]
 
 		#if UNITY_ANDROID || UNITY_EDITOR
-		[SerializeField]
-		private string projectId;
-
 		/// <summary>
 		/// The project ID assigned to your project by Spil games.
 		/// You can get your project id from your contact person.
 		/// The project ID is used for push notifications.
 		/// </summary>
-		public static string Project_ID { get; private set; }
+		[SerializeField]
+		public string ProjectId = "";
+
 		#endif
 
 		[Header("iOS Settings")]
@@ -43,11 +45,11 @@ namespace SpilGames.Unity
 		[Header("Editor Settings")]
 
 		[SerializeField]
-		private string spilUserIdEditor;
+		public string spilUserIdEditor;
 		public static string SpilUserIdEditor { get; private set; }
 
 		[SerializeField]
-		private string bundleIdEditor;
+		public string bundleIdEditor;
 		public static string BundleIdEditor { get; private set; }
 
 		[Header("Reward Video Settings")]
@@ -63,6 +65,24 @@ namespace SpilGames.Unity
 		[SerializeField]
 		private int reward = 0;
 		public static int Reward { get; private set; }
+	
+
+		[Header("Daily Bonus Settings")]
+
+		[SerializeField]
+		private int dailyBonusId;
+		public static int DailyBonusId { get; private set; }
+
+		[SerializeField]
+		private string dailyBonusExternalId;
+		public static string DailyBonusExternalId { get; private set; }
+
+		[SerializeField]
+		private int dailyBonusAmount;
+		public static int DailyBonusAmount { get; private set; }
+
+		public enum DailyBonusRewardTypeEnum { CURRENCY, ITEM, EXTERNAL };
+		public DailyBonusRewardTypeEnum DailyBonusRewardType;
 
 		public static Spil MonoInstance { get { return GameObject.Find ("SpilSDK").GetComponent<Spil> (); } }
 
@@ -103,21 +123,26 @@ namespace SpilGames.Unity
 
 			CurrencyName = currencyName;
 			CurrencyId = currencyId;
-		Reward = reward;
-			#endif
+			Reward = reward;
 
-			#if UNITY_ANDROID || UNITY_EDITOR
-			if(projectId != null){
-				Project_ID = projectId;
-			} else{
-				Debug.LogError("Project ID not set!! Please set your Project Id with the id provided by the Spil representative!");
-			}
+			DailyBonusId = dailyBonusId;
+			DailyBonusExternalId = dailyBonusExternalId;
+			DailyBonusAmount = dailyBonusAmount;
 			#endif
 
 			#if UNITY_IOS
 			if (!string.IsNullOrEmpty(CustomBundleId)) {
 				Instance.SetCustomBundleId(CustomBundleId);
 			}
+			#endif
+
+			#if UNITY_ANDROID
+
+			//Check if Project Id is set
+			if(ProjectId == null){
+				throw new UnityException("Project ID not set!! Please set your Project Id with the id provided by the Spil representative!");
+			}
+
 			#endif
 
 			Debug.Log ("SpilSDK-Unity Init");
@@ -128,8 +153,15 @@ namespace SpilGames.Unity
 
 			Instance.UpdatePackagesAndPromotions ();
 
-			GameData = new SpilGameDataHelper (Instance);
-			PlayerData = new PlayerDataHelper (Instance);
+			GameDataObject = new SpilGameDataHelper (Instance);
+			GameData = GameDataObject;
+
+			PlayerDataObject = new PlayerDataHelper (Instance);
+			PlayerData = PlayerDataObject;
+		}
+
+		void Start(){
+
 		}
 
 		/// <summary>
@@ -166,15 +198,6 @@ namespace SpilGames.Unity
 		public void AdNotAvailable (string type)
 		{
 			SpilUnityImplementationBase.fireAdNotAvailableEvent (type);
-		}
-
-		/// <summary>
-		/// This method is called by the native Spil SDK, it should not be used by developers.
-		/// Developers can subscribe to the Spil.Instance.OpenParentalGate event.
-		/// </summary>
-		public void OpenParentalGate ()
-		{
-			SpilUnityImplementationBase.fireOpenParentalGateEvent ();
 		}
 
 		/// <summary>

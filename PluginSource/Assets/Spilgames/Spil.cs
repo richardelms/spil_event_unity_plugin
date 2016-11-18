@@ -202,6 +202,15 @@ namespace SpilGames.Unity
 
 		/// <summary>
 		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// Developers can subscribe to the Spil.Instance.OpenParentalGate event.
+		/// </summary>
+		public void OpenParentalGate ()
+		{
+			SpilUnityImplementationBase.fireOpenParentalGateEvent ();
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
 		/// Developers can subscribe to the Spil.Instance.ConfigUpdated event.
 		/// </summary>
 		public void ConfigUpdated ()

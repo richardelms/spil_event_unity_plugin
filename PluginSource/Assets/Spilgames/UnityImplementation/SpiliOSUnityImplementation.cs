@@ -613,7 +613,7 @@ namespace SpilGames.Unity.Implementations
 								}
 							}
 
-							String notificationJsonForNative = notificationPayload.ToString().Replace("\"","'");
+							String notificationJsonForNative = notificationPayload.ToString().Replace("'","\"");
 							if(!proccessedNotifications){									
 								SendCustomEvent("notificationReceived", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
 								proccessedNotifications = true;

@@ -9,6 +9,7 @@ using SpilGames.Unity.Implementations;
 using SpilGames.Unity.Utils;
 using SpilGames.Unity.Helpers;
 using System.Collections;
+using SpilGames.Unity.Utils.UnityEditor.Responses;
 
 namespace SpilGames.Unity.Utils.UnityEditor
 {
@@ -60,17 +61,18 @@ namespace SpilGames.Unity.Utils.UnityEditor
 			this.data.AddField("apiVersion", SpilUnityImplementationBase.PluginVersion);
 			this.data.AddField("osVersion", "1.0");
 			this.data.AddField("os", "android");
-			this.data.AddField("osVersion", "6.0");
 			this.data.AddField("deviceModel", "Editor");
 			this.data.AddField("timezoneOffset", "0");
 			this.data.AddField("tto", "200");
 			this.data.AddField("packageName", Spil.BundleIdEditor);
 			this.data.AddField ("sessionId", "deadbeef");
+			this.data.AddField("pluginName", Response.pluginName);
+			this.data.AddField("pluginVersion", Response.pluginVersion);
 
-			if(Data.provider != null && Data.externalId != null){
+			if(Response.provider != null && Response.externalId != null){
 				JSONObject externalUserIdJson = new JSONObject();
-				externalUserIdJson.AddField("provider", Data.provider);
-				externalUserIdJson.AddField("userId", Data.externalId);
+				externalUserIdJson.AddField("provider", Response.provider);
+				externalUserIdJson.AddField("userId", Response.externalId);
 
 				this.data.AddField("externalUserId", externalUserIdJson);
 			}

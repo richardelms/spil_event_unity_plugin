@@ -32,6 +32,19 @@ namespace SpilGames.Unity.Helpers
 			}
 		}
 
+		public void RefreshData(SpilUnityImplementationBase Instance){
+			string spilGameDataString = Instance.GetSpilGameDataFromSdk ();
+			if (spilGameDataString != null) {
+				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData> (spilGameDataString);
+				if (spilGameData != null) {
+					AddDataToHelper (spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
+					Debug.Log ("Spil GameData Refreshed");
+				} else {
+					Debug.Log ("Spil GameData not created, Instance.GetSpilGameDataFromsdk() did not return any data.");
+				}				
+			}
+		}
+
 		/// <summary>
 		/// Helper method that returns the Bundle for a given bundleId
 		/// Returns null if no bundle was found
@@ -513,7 +526,7 @@ namespace SpilGames.Unity.Helpers
 		public int delta;
 
 		/// <summary>
-		/// The type of item. Should be 100 or higher
+		/// The type of item. Should be -1 - +99
 		/// </summary>
 		public int type;
 	}

@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+Version 2.2.7 *(30-11-2016)*
+----------------------------
+This version only has a few hotfixes for Android and updates for the Ad Libaries
+ * Fixed crash for IAP events
+ * Updated Ad Libraries for Android (Fyber, DFP and Chartboost)
+ * Other minor bug fixes for Android
+ * Android Spil SDK updated to v2.2.6
+
+
 Version 2.2.6 *(18-10-2016)*
 ----------------------------
 This version includes a full implementation of the Editor Mode for the Spil SDK, a permission request system for Android, several improvements in the configuration window as well as clearer issue checking

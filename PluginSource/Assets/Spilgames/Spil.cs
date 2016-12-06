@@ -96,7 +96,7 @@ namespace SpilGames.Unity
 			public static SpilAndroidUnityImplementation Instance = new SpilAndroidUnityImplementation();
 
 		
-		#elif UNITY_IPHONE
+		#elif UNITY_IPHONE || UNITY_TVOS
 		
 			/// <summary>
 			/// Use this object to access all Spil related functionality.
@@ -130,7 +130,7 @@ namespace SpilGames.Unity
 			DailyBonusAmount = dailyBonusAmount;
 			#endif
 
-			#if UNITY_IOS
+			#if UNITY_IOS || UNITY_TVOS
 			if (!string.IsNullOrEmpty(CustomBundleId)) {
 				Instance.SetCustomBundleId(CustomBundleId);
 			}

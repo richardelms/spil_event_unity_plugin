@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Formatters;
 
 namespace SpilGames.Unity.Implementations
 {
-	#if UNITY_IPHONE
+	#if UNITY_IPHONE || UNITY_TVOS
 	public class SpiliOSUnityImplementation : SpilUnityImplementationBase
 	{
         protected bool disableAutomaticRegisterForPushNotifications = false;
@@ -538,7 +538,7 @@ namespace SpilGames.Unity.Implementations
 		public void RegisterForPushNotifications()
 		{
 			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
-	#if UNITY_IPHONE
+	#if UNITY_IPHONE || UNITY_TVOS
 	#if UNITY_5
 			UnityEngine.iOS.NotificationServices.RegisterForNotifications(
 				UnityEngine.iOS.NotificationType.Alert |
@@ -559,7 +559,7 @@ namespace SpilGames.Unity.Implementations
 		private void CheckForRemoteNotifications()
 		{
 	bool proccessedNotifications = false;
-	#if UNITY_IPHONE
+	#if UNITY_IPHONE || UNITY_TVOS
 	#if UNITY_5
 			if (UnityEngine.iOS.NotificationServices.remoteNotificationCount > 0)
 			{			
@@ -615,7 +615,7 @@ namespace SpilGames.Unity.Implementations
 
 							String notificationJsonForNative = notificationPayload.ToString().Replace("'","\"");
 							if(!proccessedNotifications){									
-								SendCustomEvent("notificationReceived", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
+								SendCustomEvent("notificationOpened", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
 								proccessedNotifications = true;
 							}
 						}
@@ -642,7 +642,7 @@ namespace SpilGames.Unity.Implementations
 		{
 			if (!tokenSent)
 			{
-	#if UNITY_IPHONE
+	#if UNITY_IPHONE || UNITY_TVOS
 	#if UNITY_5
 				byte[] token = UnityEngine.iOS.NotificationServices.deviceToken;
 	#else

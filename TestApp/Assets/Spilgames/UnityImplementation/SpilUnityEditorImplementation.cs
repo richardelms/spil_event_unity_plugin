@@ -16,11 +16,23 @@ namespace SpilGames.Unity.Implementations
 	public class SpilUnityEditorImplementation : SpilUnityImplementationBase
 	{
 
+		public static PlayerDataResponse pData;
+		public static GameObjectsResponse gData;
+
+		public SpilUnityEditorImplementation(){
+			pData = new PlayerDataResponse();
+			gData = new GameObjectsResponse();
+
+			SetPluginInformation(PluginName, PluginVersion);
+		}
+
+
 		#region Inherited members
 
 		public override void SetPluginInformation (string PluginName, string PluginVersion)
 		{
-			
+			Response.pluginName = PluginName;
+			Response.pluginVersion = PluginVersion;
 		}
 
 		#region Game config
@@ -32,7 +44,7 @@ namespace SpilGames.Unity.Implementations
 		/// <returns></returns>     
 		public override string GetConfigAll ()
 		{
-			return ConfigData.getConfigAll();
+			return ConfigResponse.getConfigAll();
 		}
 
 		/// <summary>
@@ -42,7 +54,7 @@ namespace SpilGames.Unity.Implementations
 		/// <returns></returns>
 		public override string GetConfigValue (string key)
 		{
-			return ConfigData.getConfigValue(key);
+			return ConfigResponse.getConfigValue(key);
 		}
 
 		#endregion
@@ -63,12 +75,12 @@ namespace SpilGames.Unity.Implementations
 
 		protected override string GetAllPackages ()
 		{
-			return  JsonHelper.getJSONFromObject (PackagesData.GamePackagesData);
+			return  JsonHelper.getJSONFromObject (PackagesResponse.GamePackagesData);
 		}
 
 		protected override string GetPackage (string key)
 		{
-			return PackagesData.getPackage (key);
+			return PackagesResponse.getPackage (key);
 		}
 
 		/// <summary>
@@ -78,7 +90,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		internal override string getPromotion (string key)
 		{
-			return PackagesData.getPromotion (key);
+			return PackagesResponse.getPromotion (key);
 		}
 
 		#endregion
@@ -90,17 +102,11 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		internal override void SpilInit ()
 		{
-			RequestPackages ();
 			RequestConfig ();
 			RequestGameData ();
 			RequestPlayerData ();
 			RequestGameState ();
 			AdvertisementInit ();
-		}
-
-		internal void RequestPackages ()
-		{
-
 		}
 
 		internal void RequestConfig ()
@@ -113,12 +119,29 @@ namespace SpilGames.Unity.Implementations
 
 		internal void RequestGameData ()
 		{
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "requestGameData";
 
+			spilEvent.Send ();
 		}
 
 		internal void RequestPlayerData ()
 		{
+			pData.Wallet = pData.InitWallet();
+			pData.Inventory = pData.InitInventory();
 			
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "requestPlayerData";
+
+			JSONObject j1 = new JSONObject();
+			j1.AddField("offset", pData.Wallet.offset);
+			spilEvent.customData.AddField("wallet", j1);
+
+			JSONObject j2 = new JSONObject();
+			j2.AddField("offset", pData.Inventory.offset);
+			spilEvent.customData.AddField("inventory", j2);
+
+			spilEvent.Send ();
 		}
 
 		internal void RequestGameState ()
@@ -129,7 +152,7 @@ namespace SpilGames.Unity.Implementations
 			JSONObject json = new JSONObject (JSONObject.Type.ARRAY);
 			json.Add ("private");
 
-			if (Data.externalId != null && Data.provider != null) {
+			if (Response.externalId != null && Response.provider != null) {
 				json.Add ("public");
 			}
 
@@ -166,8 +189,21 @@ namespace SpilGames.Unity.Implementations
 			spilEvent.eventName = eventName;
 
 			if (dict != null) {
+				if(dict.ContainsKey("trackingOnly")){
+					spilEvent.customData.AddField ("trackingOnly", (dict["trackingOnly"].Equals("true")));
+					dict.Remove("trackingOnly");
+				}
 				foreach (KeyValuePair<string, string> dictValue in dict) {
-					spilEvent.customData.AddField (dictValue.Key, dictValue.Value);
+
+					if(dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")){
+						JSONObject json = new JSONObject(dictValue.Value);
+						spilEvent.customData.AddField(dictValue.Key, json);
+					} else{
+						spilEvent.customData.AddField (dictValue.Key, dictValue.Value);
+					}
+
+
+
 				}
 			}
 
@@ -183,7 +219,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void PlayVideo ()
 		{
-			AdvertisementData.PlayVideo();	
+			AdvertisementResponse.PlayVideo();	
 		}
 
 		/// <summary>
@@ -194,7 +230,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void PlayMoreApps ()
 		{
-				
+			AdvertisementResponse.PlayMoreApps();	
 		}
 
 		/// <summary>
@@ -204,7 +240,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void RequestMoreApps ()
 		{
-				
+			SpilUnityImplementationBase.fireAdAvailableEvent ("moreApps");	
 		}
 
 		/// <summary>
@@ -215,8 +251,17 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		public override void SetShowToastOnVideoReward (bool value)
 		{
-               
+               		
 		}
+
+		/// <summary>
+		/// Call to inform the SDK that the parental gate was (not) passes
+		/// </summary>
+		public override void ClosedParentalGate(bool pass)
+		{
+
+		}
+
 
 		#endregion
 
@@ -224,8 +269,7 @@ namespace SpilGames.Unity.Implementations
 
 		public override string GetSpilGameDataFromSdk ()
 		{
-			string gameData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultGameData.json");
-			return gameData;
+			return gData.GetGameObjects();
 		}
 
 		#endregion
@@ -234,63 +278,42 @@ namespace SpilGames.Unity.Implementations
 
 		public override void UpdatePlayerData ()
 		{
+			
 		}
 
 		public override string GetWalletFromSdk ()
 		{
-			string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
-			TempUserInfo temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
-			string wallet = JsonHelper.getJSONFromObject (temp.wallet);
-			return wallet;
+			return JsonHelper.getJSONFromObject(pData.Wallet);
 		}
 
 		public override string GetInvetoryFromSdk ()
 		{
-			string playerData = System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultPlayerData.json");
-			TempUserInfo temp = JsonHelper.getObjectFromJson<TempUserInfo> (playerData);
-			string inventory = JsonHelper.getJSONFromObject (temp.inventory);
-			return inventory;
+			return JsonHelper.getJSONFromObject(pData.Inventory);
 		}
 
 		public override void AddCurrencyToWallet (int currencyId, int amount, string reason)
 		{
-			CallNativeMethod ("addCurrencyToWallet", new object[] {
-				currencyId,
-				amount,
-				reason
-			});
+			pData.WalletOperation("add", currencyId, amount, reason);
 		}
 
 		public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason)
 		{
-			CallNativeMethod ("subtractCurrencyFromWallet", new object[] {
-				currencyId,
-				amount,
-				reason
-			});
+			pData.WalletOperation("subtract", currencyId, amount, reason);
 		}
 
 		public override void AddItemToInventory (int itemId, int amount, string reason)
 		{
-			CallNativeMethod ("addItemToInventory", new object[] {
-				itemId,
-				amount,
-				reason
-			});
+			pData.InventoryOperation("add", itemId, amount, reason);
 		}
 
 		public override void SubtractItemFromInventory (int itemId, int amount, string reason)
 		{
-			CallNativeMethod ("subtractItemFromInventory", new object[] {
-				itemId,
-				amount,
-				reason
-			});
+			pData.InventoryOperation("subtract", itemId, amount, reason);
 		}
 
 		public override void ConsumeBundle (int bundleId, string reason)
 		{
-			CallNativeMethod ("consumeBundle", new object[]{ bundleId, reason });
+			pData.ConsumeBundle(bundleId, reason);
 		}
 
 		#endregion
@@ -403,13 +426,17 @@ namespace SpilGames.Unity.Implementations
 
 		public override void SetUserId (string providerId, string userId)
 		{
-			Data.provider = providerId;
-			Data.externalId = userId;
+			Response.provider = providerId;
+			Response.externalId = userId;
 		}
 
 		public override string GetUserId ()
 		{
-			return Data.externalId;
+			return Response.externalId;
+		}
+
+		public override void SetCustomBundleId (string bundleId) {
+			// TODO
 		}
 
 		/// <summary>
@@ -418,7 +445,7 @@ namespace SpilGames.Unity.Implementations
 		/// <returns>The user provider native.</returns>
 		public override string GetUserProvider ()
 		{
-			return Data.provider;
+			return Response.provider;
 		}
 
 		/// <summary>
@@ -427,7 +454,7 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="privateData">Private data.</param>
 		public override void SetPrivateGameState (string privateData)
 		{
-			GameStateData.SetPrivateGameState (privateData);
+			GameStateResponse.SetPrivateGameState (privateData);
 		}
 
 		/// <summary>
@@ -436,7 +463,7 @@ namespace SpilGames.Unity.Implementations
 		/// <returns>The private game state.</returns>
 		public override string GetPrivateGameState ()
 		{
-			return GameStateData.PrivateGameStateData;
+			return GameStateResponse.PrivateGameStateData;
 		}
 
 		/// <summary>
@@ -445,7 +472,7 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="publicData">Public data.</param>
 		public override void SetPublicGameState (string publicData)
 		{
-			GameStateData.SetPublicGameState (publicData);
+			GameStateResponse.SetPublicGameState (publicData);
 		}
 
 		/// <summary>
@@ -454,7 +481,7 @@ namespace SpilGames.Unity.Implementations
 		/// <returns>The public game state.</returns>
 		public override string GetPublicGameState ()
 		{
-			return GameStateData.PublicGameStateData;
+			return GameStateResponse.PublicGameStateData;
 		}
 
 		/// <summary>
@@ -547,21 +574,29 @@ namespace SpilGames.Unity.Implementations
 
 		public override void RequestDailyBonus ()
 		{
-			// TODO
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "requestDailyBonus";
+
+			spilEvent.Send ();
 		}
 
 		public override void RequestSplashScreen ()
 		{
-			// TODO
+			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
+			spilEvent.eventName = "requestSplashscreen";
+
+			spilEvent.Send ();
 		}
 
 		#endregion
-	}
 
-	public class TempUserInfo
-	{
-		public WalletData wallet;
-		public InventoryData inventory;
+		#region Permissions
+
+		public void RequestDangerousPermission(string permission, string rationale){
+			Debug.Log("Requested permission: " + permission);
+		}
+
+		#endregion
 	}
 
 }

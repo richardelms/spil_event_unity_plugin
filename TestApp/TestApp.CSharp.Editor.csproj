@@ -141,8 +141,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\IOSBuildPostProcess.cs" />
-    <Compile Include="Assets\Editor\SpilEditor.cs" />
+    <Compile Include="Assets\Editor\SpilAndroidBuildPostProcess.cs" />
+    <Compile Include="Assets\Editor\SpilEditorConfig.cs" />
+    <Compile Include="Assets\Editor\SpilEditorDocumentation.cs" />
+    <Compile Include="Assets\Editor\SpilEditorReleases.cs" />
+    <Compile Include="Assets\Editor\SpilIOSBuildPostProcess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />

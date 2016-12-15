@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 2.2.8 *(15-12-2016)*
+----------------------------
+* iOS Spil SDK updated to v2.1.6.
+* All 3rd party libraries updated.
+* Many event tracking improvements.
+* General improvements and bug fixes.
+* tvOS support added.
+
 Version 2.2.7 *(30-11-2016)*
 ----------------------------
 This version only has a few hotfixes for Android and updates for the Ad Libaries

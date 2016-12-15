@@ -3,11 +3,18 @@ Change Log
 
 Version 2.2.8 *(15-12-2016)*
 ----------------------------
+This version brings updates to the way you are sending events via the SDK, 3rd part library updates for iOS and bug fixes for several key aspects of the SDK
 * iOS Spil SDK updated to v2.1.6.
+* Android Spil SDK updated to v2.2.7
 * All 3rd party libraries updated.
 * Many event tracking improvements.
 * General improvements and bug fixes.
 * tvOS support added.
+* Fixed Chartboost ads not showing for Android
+* Push notifications fixes
+* Fixed recreating the default JSON files. Now they will always be recreated when you push the button in the Editor Window
+* Fixed Editor Mode issue regarding persistent data over multiple instance. Remember to use the same UID that you set on the SpilSDK object
+
 
 Version 2.2.7 *(30-11-2016)*
 ----------------------------

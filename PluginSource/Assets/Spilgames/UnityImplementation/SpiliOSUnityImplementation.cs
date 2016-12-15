@@ -129,7 +129,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <param name="eventName"></param>
 		/// <param name="dict"></param>
-		public override void SendCustomEvent(string eventName, Dictionary<string,string> dict)
+		public override void SendCustomEvent(string eventName, Dictionary<string, object> dict)
 		{
 			if (dict != null)
 			{
@@ -143,17 +143,41 @@ namespace SpilGames.Unity.Implementations
 					jsonString += "\"" + key + "\":";
 
 					// Detect the value type
-					try {
-						string jsonInputString = item.Value.Replace("\\\"", "\"").Trim(new char[]{'\"'});
-						JSONObject inputJsonObject = new JSONObject(jsonInputString);
-						if (inputJsonObject.IsArray || inputJsonObject.IsObject) {
-							jsonString += jsonInputString;
+					if (value != null) {
+						if (value is String) {
+							// Determine if there is nested json included in the json, in that case reformat it
+							try {
+								string jsonInputString = ((string)item.Value).Replace ("\\\"", "\"").Trim (new char[]{ '\"' });
+								JSONObject inputJsonObject = new JSONObject (jsonInputString);
+								if (inputJsonObject.IsArray || inputJsonObject.IsObject) {
+									jsonString += jsonInputString;
+								} else {
+									jsonString += "\"" + value + "\"";
+								}
+							} catch (Exception e) {
+								Debug.Log ("---JSON DETECTION FAILED" + e.Message);
+								jsonString += "\"" + value + "\"";
+							}
+						} else if (value is bool) {
+							// Value is a bool, add it without quotes
+							jsonString += (bool)value ? "true" : "false";
+						} else if (value is int || value is float || value is double || value is long) {
+							// Value is a number, add it without quotes
+							jsonString += value.ToString ();
+						} else if (value is JSONObject) {
+							jsonString += ((JSONObject)value).Print();
 						} else {
-							jsonString += "\"" + value + "\"";
+							try {
+								jsonString += JsonHelper.getJSONFromObject(value);
+							} catch (Exception) {
+								// Value is unknown or not supported
+								jsonString += "\"INVALID PARAMETER TYPE\"";
+								Debug.LogError ("---INVALID JSON FOR KEY: " + key + ", expected type: string, bool, int, float, double, long");
+							}
 						}
-					} catch (Exception e) {
-						Debug.Log ("---JSON DETECTION FAILED" + e.Message);
-						jsonString += "\"" + value + "\"";
+					} else {
+						// Value is empty
+						jsonString += "\"\"";
 					}
 
 					jsonString += ",";
@@ -435,13 +459,13 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void subtractItemFromInventoryNative (int itemId, int amount, string reason);
 
-		public override void ConsumeBundle (int bundleId, string reason)
+		public override void BuyBundle (int bundleId, string reason)
 		{
-			consumeBundleNative(bundleId, reason);
+			buyBundleNative(bundleId, reason);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void consumeBundleNative (int bundleId, string reason);
+		private static extern void buyBundleNative (int bundleId, string reason);
 
 		#endregion
 
@@ -556,7 +580,7 @@ namespace SpilGames.Unity.Implementations
 	#endif
 		}
 
-		private void CheckForRemoteNotifications()
+		internal void CheckForRemoteNotifications()
 		{
 	bool proccessedNotifications = false;
 	#if UNITY_IPHONE || UNITY_TVOS
@@ -615,7 +639,7 @@ namespace SpilGames.Unity.Implementations
 
 							String notificationJsonForNative = notificationPayload.ToString().Replace("'","\"");
 							if(!proccessedNotifications){									
-								SendCustomEvent("notificationOpened", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
+								SendCustomEvent("notificationOpened", new Dictionary<string, object>() { { "notificationPayload", notificationJsonForNative}});
 								proccessedNotifications = true;
 							}
 						}

@@ -182,7 +182,7 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <param name="eventName"></param>
 		/// <param name="dict"></param>
-		public override void SendCustomEvent (string eventName, Dictionary<string, string> dict)
+		public override void SendCustomEvent (string eventName, Dictionary<string, object> dict)
 		{
 			Debug.Log ("SpilSDK-Unity SendCustomEvent " + eventName);
 			SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent> ();
@@ -193,13 +193,13 @@ namespace SpilGames.Unity.Implementations
 					spilEvent.customData.AddField ("trackingOnly", (dict["trackingOnly"].Equals("true")));
 					dict.Remove("trackingOnly");
 				}
-				foreach (KeyValuePair<string, string> dictValue in dict) {
+				foreach (KeyValuePair<string, object> dictValue in dict) {
 
 					if(dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")){
-						JSONObject json = new JSONObject(dictValue.Value);
+						JSONObject json = new JSONObject((string)dictValue.Value);
 						spilEvent.customData.AddField(dictValue.Key, json);
 					} else{
-						spilEvent.customData.AddField (dictValue.Key, dictValue.Value);
+						spilEvent.customData.AddField (dictValue.Key, dictValue.Value.ToString());
 					}
 
 
@@ -311,7 +311,7 @@ namespace SpilGames.Unity.Implementations
 			pData.InventoryOperation("subtract", itemId, amount, reason);
 		}
 
-		public override void ConsumeBundle (int bundleId, string reason)
+		public override void BuyBundle (int bundleId, string reason)
 		{
 			pData.ConsumeBundle(bundleId, reason);
 		}

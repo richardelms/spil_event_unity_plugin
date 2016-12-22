@@ -14,6 +14,7 @@ This version brings updates to the way you are sending events via the SDK, 3rd p
 * Push notifications fixes
 * Fixed recreating the default JSON files. Now they will always be recreated when you push the button in the Editor Window
 * Fixed Editor Mode issue regarding persistent data over multiple instance. Remember to use the same UID that you set on the SpilSDK object
+* Removed deprecated methods (such as all "SendXEvent" methods, which have been renamed to "TrackXEvent").
 
 
 Version 2.2.7 *(30-11-2016)*

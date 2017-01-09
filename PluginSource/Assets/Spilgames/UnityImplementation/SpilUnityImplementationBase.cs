@@ -1228,15 +1228,21 @@ namespace SpilGames.Unity.Implementations
 		//			return helper;
 		//		}
 		
-		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason);
+		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason, string location);
 
-		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason);
+		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location);
 
-		public abstract void AddItemToInventory (int itemId, int amount, string reason);
+		public abstract void AddItemToInventory (int itemId, int amount, string reason, string location);
 
-		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason);
+		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason, string location);
 
-		public abstract void BuyBundle (int bundleId, string reason);
+		public abstract void BuyBundle (int bundleId, string reason, string location);
+
+		public abstract void ResetPlayerData ();
+
+		public abstract void ResetInventory ();
+
+		public abstract void ResetWallet ();
 
 		#endregion
 

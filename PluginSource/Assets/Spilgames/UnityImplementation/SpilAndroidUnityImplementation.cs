@@ -319,17 +319,17 @@ namespace SpilGames.Unity.Implementations
 
 		public override void ResetPlayerData () 
 		{
-			// TODO
+			CallNativeMethod ("resetPlayerData");
 		}
 
 		public override void ResetInventory () 
 		{
-			// TODO
+			CallNativeMethod ("resetInventory");
 		}
 
 		public override void ResetWallet () 
 		{
-			// TODO
+			CallNativeMethod ("resetWallet");
 		}
 
 		#endregion

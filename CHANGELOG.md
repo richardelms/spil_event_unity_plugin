@@ -5,7 +5,7 @@ Version 2.2.9 *(25-01-2017)*
 ----------------------------
 This version brings a lot of wallet and inventory improvements. Next to Apple TV and Editor mode improvements
 * iOS Spil SDK updated to v2.1.8.
-* Android Spil SDK updated to v2.2.8.
+* Android Spil SDK updated to v2.2.8. (change logs can be found <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">here</a>)
 * Replaced JSONModel library because of serialization issues.
 * Added initial value support for items & currencies.
 * Implemented reset methods for the inventory, wallet and entire player data.

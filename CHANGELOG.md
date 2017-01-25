@@ -3,7 +3,7 @@ Change Log
 
 Version 2.2.9 *(25-01-2017)*
 ----------------------------
-This version brings updates to the way you are sending events via the SDK, 3rd part library updates for iOS and bug fixes for several key aspects of the SDK
+This version brings a lot of wallet and inventory improvements. Next to Apple TV and Editor mode improvements
 * iOS Spil SDK updated to v2.1.8.
 * Android Spil SDK updated to v2.2.8.
 * Replaced JSONModel library because of serialization issues.

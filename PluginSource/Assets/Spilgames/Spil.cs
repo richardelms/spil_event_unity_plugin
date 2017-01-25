@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.2.7
+ * Version 2.2.9
  * 
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -123,7 +123,7 @@ namespace SpilGames.Unity
 
 		
 		
-		#elif UNITY_IPHONE
+		#elif UNITY_IPHONE || UNITY_TVOS
 		
 		/// <summary>
 		/// Use this object to access all Spil related functionality.
@@ -200,11 +200,13 @@ namespace SpilGames.Unity
 
 			Instance.UpdatePackagesAndPromotions ();
 
+			#if !UNITY_EDITOR
 			GameDataObject = new SpilGameDataHelper (Instance);
 			GameData = GameDataObject;
 
 			PlayerDataObject = new PlayerDataHelper (Instance);
 			PlayerData = PlayerDataObject;
+			#endif
 		}
 
 		void Start ()

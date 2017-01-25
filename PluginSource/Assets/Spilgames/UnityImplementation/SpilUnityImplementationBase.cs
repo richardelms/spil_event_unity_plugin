@@ -9,10 +9,10 @@ namespace SpilGames.Unity.Implementations
 	public abstract class SpilUnityImplementationBase
 	{
 		public static string PluginName = "Unity";
-		public static string PluginVersion = "2.2.8";
+		public static string PluginVersion = "2.2.9";
 
-		public static string AndroidVersion = "2.2.7";
-		public static string iOSVersion = "2.1.6";
+		public static string AndroidVersion = "2.2.8";
+		public static string iOSVersion = "2.1.7";
 
 		public abstract void SetPluginInformation (string PluginName, string PluginVersion);
 
@@ -111,22 +111,10 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="turns">Turns.</param>
 		/// <param name="customCreated">If set to <c>true</c> custom created.</param>
 		/// <param name="creatorId">Creator identifier.</param>
-		public void TrackLevelStartEvent (string levelName, double score = 0, int stars = 0, int turns = 0, bool customCreated = false, string creatorId = null)
+		public void TrackLevelStartEvent (string levelName, bool customCreated = false, string creatorId = null)
 		{
 			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelName", levelName);
-
-			if(score != 0){
-				dict.Add("score", score);
-			}
-
-			if(stars != 0){
-				dict.Add("stars", stars);
-			}
-
-			if(turns != 0){
-				dict.Add("turns", turns);
-			}
+			dict.Add("level", levelName);
 
 			if(customCreated){
 				dict.Add("customCreated", customCreated);
@@ -152,7 +140,7 @@ namespace SpilGames.Unity.Implementations
 		public void TrackLevelCompleteEvent (string levelName, double score = 0, int stars = 0, int turns = 0, bool customCreated = false, string creatorId = null)
 		{
 			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelName", levelName);
+			dict.Add("level", levelName);
 
 			if(score != 0){
 				dict.Add("score", score);
@@ -196,7 +184,7 @@ namespace SpilGames.Unity.Implementations
 		public void TrackLevelFailedEvent (string levelName, double score = 0, int stars = 0, int turns = 0, bool customCreated = false, string creatorId = null)
 		{
 			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelName", levelName);
+			dict.Add("level", levelName);
 
 			if(score != 0){
 				dict.Add("score", score);
@@ -408,7 +396,7 @@ namespace SpilGames.Unity.Implementations
 
 			dictionary.Add ("reason", reason);
 			dictionary.Add ("location", location);
-			dictionary.Add ("trackingOnly", "true");
+			dictionary.Add ("trackingOnly", true);
 
 			SendCustomEvent ("updatePlayerData", dictionary);
 
@@ -1228,15 +1216,21 @@ namespace SpilGames.Unity.Implementations
 		//			return helper;
 		//		}
 		
-		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason);
+		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason, string location);
 
-		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason);
+		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location);
 
-		public abstract void AddItemToInventory (int itemId, int amount, string reason);
+		public abstract void AddItemToInventory (int itemId, int amount, string reason, string location);
 
-		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason);
+		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason, string location);
 
-		public abstract void BuyBundle (int bundleId, string reason);
+		public abstract void BuyBundle (int bundleId, string reason, string location);
+
+		public abstract void ResetPlayerData ();
+
+		public abstract void ResetInventory ();
+
+		public abstract void ResetWallet ();
 
 		#endregion
 

@@ -149,6 +149,7 @@ namespace SpilGames.Unity.Utils
 	{
 		public int id;
 		public string name;
+		public int initialValue;
 		public int type;
 	}
 
@@ -156,6 +157,7 @@ namespace SpilGames.Unity.Utils
 	{
 		public int id;
 		public string name;
+		public int initialValue;
 		public int type;
 	}
 
@@ -267,6 +269,7 @@ namespace SpilGames.Unity.Utils
 
 	public class PlayerDataUpdatedData
 	{
+		public string location;
 		public string reason;
 		public List<PlayerItemData> items = new List<PlayerItemData>();
 		public List<PlayerCurrencyData> currencies = new List<PlayerCurrencyData>();

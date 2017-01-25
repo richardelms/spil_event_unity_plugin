@@ -106,9 +106,9 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 		string data = "";
 		WWWForm form = GetFormData ();
 		form.AddField ("name", type);
-		WWW request = new WWW ("https://apptracker.spilgames.com/android_event", form);
-		while (!request.isDone)
-			;
+		WWW request = new WWW ("https://apptracker.spilgames.com/apple_event", form);
+		while (!request.isDone);
+
 		if (request.error != null) {
 			UnityEngine.Debug.LogError ("Error getting game data: " + request.error);  
 		} else { 
@@ -125,7 +125,7 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 		dummyData.AddField ("locale", "en");
 		dummyData.AddField ("appVersion", "1");
 		dummyData.AddField ("apiVersion", "1");
-		dummyData.AddField ("os", "Android");
+		dummyData.AddField ("os", "ios");
 		dummyData.AddField ("osVersion", "1");
 		dummyData.AddField ("deviceModel", "Backend");
 		dummyData.AddField ("packageName", PlayerSettings.bundleIdentifier);

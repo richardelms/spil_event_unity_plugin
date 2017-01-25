@@ -1,6 +1,20 @@
 Change Log
 ==========
 
+Version 2.2.9 *(25-01-2017)*
+----------------------------
+This version brings updates to the way you are sending events via the SDK, 3rd part library updates for iOS and bug fixes for several key aspects of the SDK
+* iOS Spil SDK updated to v2.1.8.
+* Android Spil SDK updated to v2.2.8.
+* Replaced JSONModel library because of serialization issues.
+* Added initial value support for items & currencies.
+* Implemented reset methods for the inventory, wallet and entire player data.
+* Apple TV support improved.
+* General improvements and bug fixes.
+* Default Spil events added.
+* Editor Mode support fixes.
+
+
 Version 2.2.8 *(15-12-2016)*
 ----------------------------
 This version brings updates to the way you are sending events via the SDK, 3rd part library updates for iOS and bug fixes for several key aspects of the SDK

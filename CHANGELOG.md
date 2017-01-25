@@ -3,6 +3,7 @@ Change Log
 Change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
+
 ----------------------------
 
 Version 2.2.9 *(25-01-2017)*

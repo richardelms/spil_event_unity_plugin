@@ -8,6 +8,11 @@ Change logs for the native SDKs:
 
 Version 2.2.9 *(25-01-2017)*
 ----------------------------
+***Known Issue***
+In Editor Mode, the ConfigResponse.cs has an issue. In order to get the correct Config for the game in Editor mode change the following code at line 33 in ConfigResponse.cs:
+if(config.HasField("key")) to if(config.HasField(key))
+
+
 This version brings a lot of wallet and inventory improvements. Next to Apple TV and Editor mode improvements
 * iOS Spil SDK updated to v2.1.8.
 * Android Spil SDK updated to v2.2.8.

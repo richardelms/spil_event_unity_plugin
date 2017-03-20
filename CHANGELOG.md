@@ -6,6 +6,23 @@ Change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.2.10 *(21-03-2017)*
+----------------------------
+This version brings image processing, additional parameters for updating user information,
+* iOS Spil SDK updated to v2.1.9.
+* Android Spil SDK updated to v2.2.9.
+* Added image processing and loading logic for items, bundles and external images (see: for more information).
+* Added "reasonDetails" optional parameter to the methods that update the player's wallet and inventory.
+* Added "transactionId" optional parameter to the methods that update the player's wallet and inventory.
+* Added iOS Firebase Deeplinking support.
+* Updated 3rd party libraries for iOS and Android.
+* Bug fix for iOS config file being to big.
+* Bug fix for iOS regarding GameState feature sending unnecessary events.
+* Bug fix for Android with Adjust not initialising properly for pre Android 5 Devices
+* Bug fix for Android with Fyber not sending Ad Finished in certain conditions.
+* Editor Mode bug fixes.
+
+
 Version 2.2.9 *(25-01-2017)*
 ----------------------------
 ***Known Issue***
@@ -13,7 +30,7 @@ In Editor Mode, the ConfigResponse.cs has an issue. In order to get the correct 
 if(config.HasField("key")) to if(config.HasField(key))
 
 
-This version brings a lot of wallet and inventory improvements. Next to Apple TV and Editor mode improvements
+This version brings a lot of wallet and inventory improvements, next to Apple TV and Editor mode improvements
 * iOS Spil SDK updated to v2.1.8.
 * Android Spil SDK updated to v2.2.8.
 * Replaced JSONModel library because of serialization issues.

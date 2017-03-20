@@ -3,16 +3,17 @@ using System;
 using UnityEngine;
 using SpilGames.Unity.Helpers;
 using SpilGames.Unity.Utils;
+using System.Collections;
 
 namespace SpilGames.Unity.Implementations
 {
 	public abstract class SpilUnityImplementationBase
 	{
 		public static string PluginName = "Unity";
-		public static string PluginVersion = "2.2.9";
+		public static string PluginVersion = "2.2.10";
 
-		public static string AndroidVersion = "2.2.8";
-		public static string iOSVersion = "2.1.7";
+		public static string AndroidVersion = "2.2.9";
+		public static string iOSVersion = "2.1.9";
 
 		public abstract void SetPluginInformation (string PluginName, string PluginVersion);
 
@@ -98,7 +99,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("milestoneAchieved", new Dictionary<string, object> () { {
 					"name",
 					name
-				} });
+				}
+			});
 		}
 
 		/// <summary>
@@ -113,15 +115,15 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="creatorId">Creator identifier.</param>
 		public void TrackLevelStartEvent (string levelName, bool customCreated = false, string creatorId = null)
 		{
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("level", levelName);
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("level", levelName);
 
-			if(customCreated){
-				dict.Add("customCreated", customCreated);
+			if (customCreated) {
+				dict.Add ("customCreated", customCreated);
 			}
 
-			if(creatorId != null){
-				dict.Add("creatorId", creatorId);
+			if (creatorId != null) {
+				dict.Add ("creatorId", creatorId);
 			}
 
 			SendCustomEvent ("levelStart", dict);
@@ -139,37 +141,31 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="creatorId">Creator identifier.</param>
 		public void TrackLevelCompleteEvent (string levelName, double score = 0, int stars = 0, int turns = 0, bool customCreated = false, string creatorId = null)
 		{
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("level", levelName);
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("level", levelName);
 
-			if(score != 0){
-				dict.Add("score", score);
+			if (score != 0) {
+				dict.Add ("score", score);
 			}
 
-			if(stars != 0){
-				dict.Add("stars", stars);
+			if (stars != 0) {
+				dict.Add ("stars", stars);
 			}
 
-			if(turns != 0){
-				dict.Add("turns", turns);
+			if (turns != 0) {
+				dict.Add ("turns", turns);
 			}
 
-			if(customCreated){
-				dict.Add("customCreated", customCreated);
+			if (customCreated) {
+				dict.Add ("customCreated", customCreated);
 			}
 
-			if(creatorId != null){
-				dict.Add("creatorId", creatorId);
+			if (creatorId != null) {
+				dict.Add ("creatorId", creatorId);
 			}
 
 			SendCustomEvent ("levelComplete", dict);
 		}
-
-		/// <summary>
-
-		/// </summary>
-		/// <param name="levelName"></param>
-
 
 		/// <summary>
 		/// Sends the "levelFailed" event to the native Spil SDK which will send a request to the back-end.
@@ -183,27 +179,27 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="creatorId">Creator identifier.</param>
 		public void TrackLevelFailedEvent (string levelName, double score = 0, int stars = 0, int turns = 0, bool customCreated = false, string creatorId = null)
 		{
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("level", levelName);
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("level", levelName);
 
-			if(score != 0){
-				dict.Add("score", score);
+			if (score != 0) {
+				dict.Add ("score", score);
 			}
 
-			if(stars != 0){
-				dict.Add("stars", stars);
+			if (stars != 0) {
+				dict.Add ("stars", stars);
 			}
 
-			if(turns != 0){
-				dict.Add("turns", turns);
+			if (turns != 0) {
+				dict.Add ("turns", turns);
 			}
 
-			if(customCreated){
-				dict.Add("customCreated", customCreated);
+			if (customCreated) {
+				dict.Add ("customCreated", customCreated);
 			}
 
-			if(creatorId != null){
-				dict.Add("creatorId", creatorId);
+			if (creatorId != null) {
+				dict.Add ("creatorId", creatorId);
 			}
 
 			SendCustomEvent ("levelFailed", dict);
@@ -216,14 +212,15 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="level">Level.</param>
 		/// <param name="objectId">Object identifier.</param>
 		/// <param name="skillId">Skill identifier.</param>
-		public void TrackLevelUpEvent(string level, string objectId, string skillId = null){
+		public void TrackLevelUpEvent (string level, string objectId, string skillId = null)
+		{
 
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("level", level);
-			dict.Add("objectId", objectId);
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("level", level);
+			dict.Add ("objectId", objectId);
 
-			if(skillId != null){
-				dict.Add("skillId", skillId);
+			if (skillId != null) {
+				dict.Add ("skillId", skillId);
 			}
 
 			SendCustomEvent ("levelUp", dict);
@@ -236,10 +233,11 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <param name="equippedItem">Equipped item.</param>
 		/// <param name="equippedTo">Equipped to.</param>
-		public void TrackEquipEvent(string equippedItem, string equippedTo){
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("equippedItem", equippedItem);
-			dict.Add("equippedTo", equippedTo);
+		public void TrackEquipEvent (string equippedItem, string equippedTo)
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("equippedItem", equippedItem);
+			dict.Add ("equippedTo", equippedTo);
 
 			SendCustomEvent ("equip", dict);
 		}
@@ -252,17 +250,18 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="level">Level.</param>
 		/// <param name="reason">Reason.</param>
 		/// <param name="iteration">Iteration.</param>
-		public void TrackUpgradeEvent(string upgradeId, string level, string reason = null, int iteration = 0){
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("upgradeId", upgradeId);
-			dict.Add("level", level);
+		public void TrackUpgradeEvent (string upgradeId, string level, string reason = null, int iteration = 0)
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("upgradeId", upgradeId);
+			dict.Add ("level", level);
 
-			if(reason != null){
-				dict.Add("reason", reason);
+			if (reason != null) {
+				dict.Add ("reason", reason);
 			}
 
-			if(iteration != 0){
-				dict.Add("iteration", iteration);
+			if (iteration != 0) {
+				dict.Add ("iteration", iteration);
 			}
 
 			SendCustomEvent ("upgrade", dict);
@@ -274,10 +273,11 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <param name="levelId">Level identifier.</param>
 		/// <param name="creatorId">Creator identifier.</param>
-		public void TrackLevelCreateEvent(string levelId, string creatorId){
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelId", levelId);
-			dict.Add("creatorId", creatorId);
+		public void TrackLevelCreateEvent (string levelId, string creatorId)
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("levelId", levelId);
+			dict.Add ("creatorId", creatorId);
 
 			SendCustomEvent ("levelCreate", dict);
 		}
@@ -289,13 +289,14 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="levelId">Level identifier.</param>
 		/// <param name="creatorId">Creator identifier.</param>
 		/// <param name="rating">Rating.</param>
-		public void TrackLevelDownloadEvent(string levelId, string creatorId, double rating = 0){
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelId", levelId);
-			dict.Add("creatorId", creatorId);
+		public void TrackLevelDownloadEvent (string levelId, string creatorId, double rating = 0)
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("levelId", levelId);
+			dict.Add ("creatorId", creatorId);
 
-			if(rating != 0){
-				dict.Add("rating", rating);
+			if (rating != 0) {
+				dict.Add ("rating", rating);
 			}
 
 			SendCustomEvent ("levelDownload", dict);
@@ -308,13 +309,14 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="levelId">Level identifier.</param>
 		/// <param name="creatorId">Creator identifier.</param>
 		/// <param name="rating">Rating.</param>
-		public void TrackLevelRateEvent(string levelId, string creatorId, double rating = 0){
-			Dictionary<string, object> dict = new Dictionary<string, object>();
-			dict.Add("levelId", levelId);
-			dict.Add("creatorId", creatorId);
+		public void TrackLevelRateEvent (string levelId, string creatorId, double rating = 0)
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object> ();
+			dict.Add ("levelId", levelId);
+			dict.Add ("creatorId", creatorId);
 
-			if(rating != 0){
-				dict.Add("rating", rating);
+			if (rating != 0) {
+				dict.Add ("rating", rating);
 			}
 
 			SendCustomEvent ("levelRate", dict);
@@ -339,7 +341,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("endlessModeEnd", new Dictionary<string, object> () { {
 					"distance",
 					distance
-				} });
+				}
+			});
 		}
 
 		/// <summary>
@@ -352,7 +355,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("playerDies", new Dictionary<string, object> () { {
 					"level",
 					levelName
-				} });
+				}
+			});
 		}
 
 
@@ -368,7 +372,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("requestRewardVideo", rewardType == null ? null : new Dictionary<string, object> () { {
 					"rewardType",
 					rewardType
-				} });
+				}
+			});
 		}
 
 		/// <summary>
@@ -377,9 +382,11 @@ namespace SpilGames.Unity.Implementations
 		/// </summary>
 		/// <param name="reason">The reason for which the event occured. You can also use the PlayerDataUpdateReasons class to pass one of the default reasons</param>
 		/// <param name="location">The location where the event occured (ex.: Shop Screen, End of the level)</param>
+		/// <param name="reasonDetails">Additional parameter used to describe the details of why the event happened</param>
+		/// <param name="transactionId">The transactionId if the update was due to an IAP</param>
 		/// <param name="currencyList">A list of TrackingCurrency objects that defines all the currencies that have been changed with this event. This parameter can also be omited if no currencies have been updated</param>
 		/// <param name="itemsList">A list of TrackingItems objects that defines all the items that have been changed with this event. This parameter can also be omited if no items have been updated</param>
-		public void TrackWalletInventoryEvent (string reason, string location, List<TrackingCurrency> currencyList = null, List<TrackingItem> itemsList = null)
+		public void TrackWalletInventoryEvent (string reason, string location, List<TrackingCurrency> currencyList = null, List<TrackingItem> itemsList = null,  string reasonDetails = null, string transactionId = null)
 		{
 			Dictionary<string, object> dictionary = new Dictionary<string, object> ();
 			if (currencyList != null) {
@@ -398,6 +405,14 @@ namespace SpilGames.Unity.Implementations
 			dictionary.Add ("location", location);
 			dictionary.Add ("trackingOnly", true);
 
+			if(reasonDetails != null){
+				dictionary.Add("reasonDetails", reasonDetails);
+			}
+
+			if(transactionId != null){
+				dictionary.Add ("transactionId", transactionId);
+			}
+
 			SendCustomEvent ("updatePlayerData", dictionary);
 
 		}
@@ -410,16 +425,13 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
 		public void TrackIAPPurchasedEvent (string skuId, string transactionId)
 		{
-			SendCustomEvent ("iapPurchased", new Dictionary<string, object> () {
-				{
+			SendCustomEvent ("iapPurchased", new Dictionary<string, object> () { {
 					"skuId",
 					skuId
-				},
-				{
+				}, {
 					"transactionId",
 					transactionId
-				},
-				{
+				}, {
 					"purchaseDate",
 					DateTime.Now.ToString ("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")
 				}
@@ -435,16 +447,13 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="originalPurchaseDate">For a transaction that restores a previous transaction, the date of the original transaction. Please use a proper DateTime format (RFC3339), for instance: "2016-08-30T11:54:48.5247936+02:00". If you have a DateTime object you can use: DateTimeObject.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")</param>                
 		public void TrackIAPRestoredEvent (string skuId, string originalTransactionId, string originalPurchaseDate)
 		{
-			SendCustomEvent ("iapRestored", new Dictionary<string, object> () {
-				{
+			SendCustomEvent ("iapRestored", new Dictionary<string, object> () { {
 					"skuId",
 					skuId
-				},
-				{
+				}, {
 					"originalTransactionId",
 					originalTransactionId
-				},
-				{
+				}, {
 					"originalPurchaseDate",
 					originalPurchaseDate
 				}
@@ -459,12 +468,10 @@ namespace SpilGames.Unity.Implementations
 		/// <param name="skuId">The product identifier of the item that was purchased</param>
 		public void TrackIAPFailedEvent (string error, string skuId)
 		{
-			SendCustomEvent ("iapFailed", new Dictionary<string, object> () {
-				{
+			SendCustomEvent ("iapFailed", new Dictionary<string, object> () { {
 					"error",
 					error
-				},
-				{
+				}, {
 					"skuId",
 					skuId
 				}
@@ -500,7 +507,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("register", new Dictionary<string, object> () { {
 					"platform",
 					platform
-				} });
+				}
+			});
 		}
 
 		/// <summary>
@@ -514,7 +522,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("share", new Dictionary<string, object> () { {
 					"platform",
 					platform
-				} });
+				}
+			});
 		}
 
 		/// <summary>
@@ -528,7 +537,8 @@ namespace SpilGames.Unity.Implementations
 			SendCustomEvent ("invite", new Dictionary<string, object> () { {
 					"platform",
 					platform
-				} });
+				}
+			});
 		}
 
 		#endregion
@@ -574,8 +584,6 @@ namespace SpilGames.Unity.Implementations
 		public static void OnResponseReceived (string response)
 		{
 			Debug.Log ("SpilSDK-Unity OnResponseReceived " + response);
-
-			// Rewards are now received via the AdFinished event (in Android). Leave this in for now for iOS and legacy users (?)
 
 			SpilResponse spilResponse = JsonHelper.getObjectFromJson<SpilResponse> (response);
 
@@ -764,7 +772,6 @@ namespace SpilGames.Unity.Implementations
 
 		#endregion
 
-
 		/// <summary>
 		/// Method that requests the "more apps" activity
 		/// </summary>
@@ -896,19 +903,6 @@ namespace SpilGames.Unity.Implementations
 		}
 
 		public abstract string GetSpilGameDataFromSdk ();
-		
-		//		public SpilGameDataHelper GetSpilGameData()
-		//		{
-		//			SpilGameDataHelper helper = null;
-		//			string spilGameDataString = GetSpilGameDataFromSdk();
-		//			Debug.Log ("Spil Game Data: " + spilGameDataString);
-		//			if(spilGameDataString != null)
-		//			{
-		//				SpilGameData spilGameData = JsonHelper.getObjectFromJson<SpilGameData>(spilGameDataString);
-		//				helper = new SpilGameDataHelper(spilGameData.currencies, spilGameData.items, spilGameData.bundles, spilGameData.shop, spilGameData.promotions);
-		//			}
-		//			return helper;
-		//		}
 
 		#endregion
 
@@ -946,7 +940,7 @@ namespace SpilGames.Unity.Implementations
 
 			Spil.PlayerData.PlayerDataUpdatedHandler ();
 
-			Debug.Log ("SpilSDK-Unity Player Data has been updated");
+			Debug.Log ("SpilSDK-Unity Player Data has been updated with data: " + data);
 
 			if (Spil.Instance.OnPlayerDataUpdated != null) {
 				Spil.Instance.OnPlayerDataUpdated (playerDataUpdatedData.reason, playerDataUpdatedData);
@@ -1196,35 +1190,145 @@ namespace SpilGames.Unity.Implementations
 			} 	
 		}
 
+		#region Image loading
+
+		/// <summary>
+		/// Used to get the image from the cache, based on the url provided.
+		/// </summary>
+		public abstract string GetImagePath (string url);
+
+		/// <summary>
+		/// Used to get the image from the cache, based on the url provided.ImageContext will be imageType = custom when it's not provided as parameter
+		/// </summary>
+		public abstract void RequestImage (string url, int id, string imageType);
+
+		//Get the image URL of the item.
+		/// <summary>
+		/// This method is a convenience method for the developers to easily load a locally stored image file into a Texture2d. Loaded images will be passed back to the developer via the OnImageLoaded event.
+		/// </summary>
+		public void LoadImage (MonoBehaviour gameObject, string localPath, int width = 4096, int height = 4096, TextureFormat textureFormat = TextureFormat.RGB24, bool mipMap = false)
+		{
+			gameObject.StartCoroutine (getImageFromURL (localPath, width, height, textureFormat, mipMap));
+		}
+
+		private IEnumerator getImageFromURL (string localPath, int width = 4096, int height = 4096, TextureFormat textureFormat = TextureFormat.RGB24, bool mipMap = false)
+		{
+			Texture2D tex = new Texture2D (width, height, textureFormat, mipMap);
+			//try to load images in this way.it should takes exactly 48MB per texture, 
+			Debug.Log("Loading image texture from path: " + localPath);
+			WWW www = new WWW (localPath);
+			yield return www;
+
+			// calling this function with StartCoroutine solves the problem
+			//Debug.Log("Why on earth is this never called?");
+
+			www.LoadImageIntoTexture (tex);
+			www.Dispose ();
+			www = null;
+
+			fireImageLoaded (tex, localPath);
+		}
+
+		/// <summary>
+		/// Clears the cache, useful in case when a lot of items have been updated.
+		/// </summary>
+		public abstract void ClearDiskCache ();
+
+		/// <summary>
+		/// This method loops through all the items and bundles and adds urls to images (if any) to a download queue if those images have not yet been download and saved to local storage.
+		/// </summary>
+		public abstract void PreloadItemAndBundleImages ();
+
+		public delegate void ImageLoaded (Texture2D image,string localPath);
+
+		/// <summary>
+		/// This event is called when an image has been loaded from Disk and contains the Texture2D object for the image.
+		/// </summary>
+		public event ImageLoaded OnImageLoaded;
+
+		public static void fireImageLoaded (Texture2D image, string localPath)
+		{
+			Debug.Log ("SpilSDK-Unity fireImageLoaded");
+
+			if (Spil.Instance.OnImageLoaded != null) {
+				Spil.Instance.OnImageLoaded (image, localPath);
+			}
+		}
+
+		public delegate void ImageLoadSuccess (string localPath,ImageContext imageContext);
+
+		/// <summary>
+		/// This event is called when an image has been loaded.
+		/// </summary>
+		public event ImageLoadSuccess OnImageLoadSuccess;
+
+		public static void fireImageLoadSuccess (string response)
+		{
+			Debug.Log ("SpilSDK-Unity fireImageLoadSuccess " + response);
+
+			JSONObject responseJSON = new JSONObject(response);
+
+			String localPath = responseJSON.GetField("localPath").str;
+
+			ImageContext imageContextObj = JsonHelper.getObjectFromJson<ImageContext> (responseJSON.GetField("imageContext").Print(false));
+
+			if (Spil.Instance.OnImageLoadSuccess != null) {
+				Spil.Instance.OnImageLoadSuccess (localPath, imageContextObj);
+			}
+		}
+
+		public delegate void ImageLoadFailed (ImageContext imageContext, SpilErrorMessage errorMessage);
+
+		/// <summary>
+		/// This event is called when an image has failed to load.
+		/// </summary>
+		public event ImageLoadFailed OnImageLoadFailed;
+
+		public static void fireImageLoadFailed (string response)
+		{
+			Debug.Log ("SpilSDK-Unity fireImageLoadFailed error: " + response);
+
+			JSONObject responseJSON = new JSONObject(response);
+
+			ImageContext imageContextObj = JsonHelper.getObjectFromJson<ImageContext> (responseJSON.GetField("imageContext").Print(false));
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage> (responseJSON.GetField("errorCode").Print(false));
+
+			if (Spil.Instance.OnImageLoadFailed != null) {
+				Spil.Instance.OnImageLoadFailed (imageContextObj, errorMessage);
+			}
+		}
+
+		public delegate void ImagePreloadingCompleted ();
+
+		/// <summary>
+		/// This event indicates that the operation for preloading item and bundle images has been completed.
+		/// </summary>
+		public event ImagePreloadingCompleted OnImagePreloadingCompleted;
+
+		public static void fireImagePreloadingCompleted ()
+		{
+			Debug.Log ("SpilSDK-Unity fireImagePreloadingCompleted");
+
+			if (Spil.Instance.OnImagePreloadingCompleted != null) {
+				Spil.Instance.OnImagePreloadingCompleted ();
+			}
+		}
+
+		#endregion
+
 		public abstract string GetWalletFromSdk ();
 
 		public abstract string GetInvetoryFromSdk ();
 		
-		//		public PlayerDataHelper GetPlayerData()
-		//		{
-		//			PlayerDataHelper helper = null;
-		//			string walletString = GetWalletFromSdk();
-		//			string inventoryString = GetInvetoryFromSdk();
-		//			if(walletString != null && inventoryString != null)
-		//			{
-		//				WalletData walletData = JsonHelper.getObjectFromJson<WalletData>(walletString);
-		//				InventoryData inventoryData = JsonHelper.getObjectFromJson<InventoryData>(inventoryString);
-		//
-		//				helper = new PlayerDataHelper(walletData, inventoryData);
-		//
-		//			}
-		//			return helper;
-		//		}
-		
-		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason, string location);
+		public abstract void AddCurrencyToWallet (int currencyId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null);
 
-		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location);
+		public abstract void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null);
 
-		public abstract void AddItemToInventory (int itemId, int amount, string reason, string location);
+		public abstract void AddItemToInventory (int itemId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null);
 
-		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason, string location);
+		public abstract void SubtractItemFromInventory (int itemId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null);
 
-		public abstract void BuyBundle (int bundleId, string reason, string location);
+		public abstract void BuyBundle (int bundleId, string reason, string location, string reasonDetails = null, string transactionId = null);
 
 		public abstract void ResetPlayerData ();
 

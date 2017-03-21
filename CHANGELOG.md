@@ -8,17 +8,18 @@ Change logs for the native SDKs:
 
 Version 2.2.10 *(21-03-2017)*
 ----------------------------
-This version brings image processing, additional parameters for updating user information,
+This version brings image processing, additional parameters for updating user information, 3rd party SDK updates and bug fixes.
 * iOS Spil SDK updated to v2.1.9.
 * Android Spil SDK updated to v2.2.9.
 * Added image processing and loading logic for items, bundles and external images (see: for more information).
 * Added "reasonDetails" optional parameter to the methods that update the player's wallet and inventory.
 * Added "transactionId" optional parameter to the methods that update the player's wallet and inventory.
 * Added iOS Firebase Deeplinking support.
+* Added button in Unity for reporting issues with the SDK.
 * Updated 3rd party libraries for iOS and Android.
 * Bug fix for iOS config file being to big.
 * Bug fix for iOS regarding GameState feature sending unnecessary events.
-* Bug fix for Android with Adjust not initialising properly for pre Android 5 Devices
+* Bug fix for Android with Adjust not initialising properly for pre Android 5 Devices.
 * Bug fix for Android with Fyber not sending Ad Finished in certain conditions.
 * Editor Mode bug fixes.
 

@@ -10,12 +10,10 @@ using System.Runtime.Serialization.Formatters;
 
 namespace SpilGames.Unity.Implementations
 {
-	#if UNITY_IPHONE || UNITY_TVOS
+#if UNITY_IPHONE || UNITY_TVOS
 	public class SpiliOSUnityImplementation : SpilUnityImplementationBase
 	{
-        protected bool disableAutomaticRegisterForPushNotifications = false;
-
-		#region Inherited members
+    #region Inherited members
 
 		public override void SetPluginInformation (string PluginName, string PluginVersion)
 		{
@@ -25,7 +23,7 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void setPluginInformationNative(string pluginName, string pluginVersion);
 
-		#region Game config
+    #region Game config
 
 		/// <summary>
 		/// Returns the game config as a json string.
@@ -47,9 +45,9 @@ namespace SpilGames.Unity.Implementations
 			return getConfigValueNative(key);
 		}
 
-		#endregion
+    #endregion
 
-		#region Packages and promotions
+    #region Packages and promotions
 
 		/// <summary>
 		/// Method that requests packages and promotions from the server.
@@ -95,7 +93,7 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern string getPromotionNative(string keyName);
 
-		#endregion
+    #endregion
 
 		/// <summary>
 		/// This method is marked as internal and should not be exposed to developers.
@@ -108,12 +106,6 @@ namespace SpilGames.Unity.Implementations
 			options.AddField ("isUnity",true);
 			initEventTrackerWithOptions(options.ToString());
 			applicationDidBecomeActive();
-
-            if (disableAutomaticRegisterForPushNotifications == false) 
-			{
-                RegisterForPushNotifications ();
-				CheckForRemoteNotifications();
-			}
 		}
 
 		/// <summary>
@@ -389,7 +381,7 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void getOtherUsersGameStateNative(string provider, string userIdsJsonArray);
 
-		#region Spil Game Objects
+    #region Spil Game Objects
 
 		public override string GetSpilGameDataFromSdk ()
 		{
@@ -399,9 +391,63 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern string getSpilGameDataNative();
 
-		#endregion
 
-		#region Player Data
+    #region Image loading
+
+        /// <summary>
+        /// Used to get the image from the cache, based on the url provided.
+        /// </summary>
+        public override string GetImagePath(string url)
+        {
+			if (!string.IsNullOrEmpty (getImagePathNative (url))) {
+				return "file://" + getImagePathNative (url);
+			} else {
+				return null;
+			}
+        }
+
+    	[DllImport("__Internal")]
+		private static extern string getImagePathNative(string url);
+
+        /// <summary>
+        /// Used to get the image from the cache, based on the url provided.ImageContext will be imageType = custom when it's not provided as parameter
+        /// </summary>
+        public override void RequestImage(string url, int id, string imageType)
+        {
+            requestImageNative(url, id, imageType);
+        }
+
+    	[DllImport("__Internal")]
+		private static extern void requestImageNative(string url, int id, string imageType);
+
+        /// <summary>
+        /// Clears the cache, useful in case when a lot of items have been updated.
+        /// </summary>
+        public override void ClearDiskCache()
+        {
+			clearDiskCacheNative ();
+        }
+
+    	[DllImport("__Internal")]
+		private static extern void clearDiskCacheNative();
+
+        /// <summary>
+        /// This method loops through all the items and bundles and adds urls to images (if any) to a download queue if those images have not yet been download and saved to local storage.
+        /// </summary>
+        public override void PreloadItemAndBundleImages()
+        {
+            preloadItemAndBundleImagesNative();
+        }
+
+    	[DllImport("__Internal")]
+		private static extern void preloadItemAndBundleImagesNative();
+
+
+    #endregion
+
+    #endregion
+
+    #region Player Data
 
 		public override void UpdatePlayerData ()
 		{
@@ -427,45 +473,45 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern string getInventoryNative();
 
-		public override void AddCurrencyToWallet (int currencyId, int amount, string reason, string location)
+		public override void AddCurrencyToWallet (int currencyId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null)
 		{
-			addCurrencyToWalletNative(currencyId, amount, reason, location);
+			addCurrencyToWalletNative(currencyId, amount, reason, location, reasonDetails, transactionId);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void addCurrencyToWalletNative(int currencyId, int amount, string reason, string location);
+		private static extern void addCurrencyToWalletNative(int currencyId, int amount, string reason, string location, string reasonDetails, string transactionId);
 
-		public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location)
+		public override void SubtractCurrencyFromWallet (int currencyId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null)
 		{
-			subtractCurrencyFromWalletNative(currencyId, amount, reason, location);
+			subtractCurrencyFromWalletNative(currencyId, amount, reason, location, reasonDetails, transactionId);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void subtractCurrencyFromWalletNative(int currencyId, int amount, string reason, string location);
+		private static extern void subtractCurrencyFromWalletNative(int currencyId, int amount, string reason, string location, string reasonDetails, string transactionId);
 
-		public override void AddItemToInventory (int itemId, int amount, string reason, string location)
+		public override void AddItemToInventory (int itemId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null)
 		{
-			addItemToInventoryNative(itemId, amount, reason, location);
+			addItemToInventoryNative(itemId, amount, reason, location, reasonDetails, transactionId);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void addItemToInventoryNative (int itemId, int amount, string reason, string location);
+		private static extern void addItemToInventoryNative (int itemId, int amount, string reason, string location, string reasonDetails, string transactionId);
 
-		public override void SubtractItemFromInventory (int itemId, int amount, string reason, string location)
+		public override void SubtractItemFromInventory (int itemId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null)
 		{
-			subtractItemFromInventoryNative(itemId, amount, reason, location);
+			subtractItemFromInventoryNative(itemId, amount, reason, location, reasonDetails, transactionId);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void subtractItemFromInventoryNative (int itemId, int amount, string reason, string location);
+		private static extern void subtractItemFromInventoryNative (int itemId, int amount, string reason, string location, string reasonDetails = null, string transactionId = null);
 
-		public override void BuyBundle (int bundleId, string reason, string location)
+		public override void BuyBundle (int bundleId, string reason, string location, string reasonDetails, string transactionId)
 		{
-			buyBundleNative(bundleId, reason, location);
+			buyBundleNative(bundleId, reason, location, reasonDetails, transactionId);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void buyBundleNative (int bundleId, string reason, string location);
+		private static extern void buyBundleNative (int bundleId, string reason, string location, string reasonDetails = null, string transactionId = null);
 
 		public override void ResetPlayerData () 
 		{
@@ -491,15 +537,15 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void resetWalletNative ();
 
-		#endregion
+    #endregion
 
-		#endregion
+    #endregion
 
 
 
-		#region Non inherited members (iOS only members)
+    #region Non inherited members (iOS only members)
 
-		#region Game config
+    #region Game config
 
 		[DllImport("__Internal")]
 		private static extern string getConfigNative();
@@ -507,9 +553,9 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern string getConfigValueNative(string keyName);
 
-		#endregion
+    #endregion
 
-        #region Customer support
+    #region Customer support
 
         public override void ShowHelpCenter() {
             showHelpCenterNative();
@@ -533,9 +579,9 @@ namespace SpilGames.Unity.Implementations
         [DllImport("__Internal")]
         private static extern void showHelpCenterWebviewNative();
 
-        #endregion
+    #endregion
 
-	#region Web
+    #region Web
 
         public override void RequestDailyBonus ()
 		{
@@ -553,9 +599,9 @@ namespace SpilGames.Unity.Implementations
 		[DllImport("__Internal")]
 		private static extern void requestSplashScreenNative();
 
-	#endregion
+    #endregion
 
-		#region Push notifications
+    #region Push notifications
 
         /// <summary>
         /// Disables the automatic register for push notifications.
@@ -563,21 +609,13 @@ namespace SpilGames.Unity.Implementations
         /// </summary>
         public void DisableAutomaticRegisterForPushNotifications()
         {
-            disableAutomaticRegisterForPushNotifications = true;
+			Debug.Log ("UNITY: DisableAutomaticRegisterForPushNotifications");
+
             disableAutomaticRegisterForPushNotificationsNative();
         }
 
         [DllImport("__Internal")]
         private static extern void disableAutomaticRegisterForPushNotificationsNative();
-
-        [DllImport("__Internal")]
-        private static extern void registerForPushNotifications();
-
-		[DllImport("__Internal")]
-		private static extern void setPushNotificationKey(string key);
-
-		[DllImport("__Internal")]
-		private static extern void handlePushNotification(string notificationStringParams);
 
         /// <summary>
         /// Registers for push notifications for iOS.
@@ -585,133 +623,17 @@ namespace SpilGames.Unity.Implementations
         /// </summary>
 		public void RegisterForPushNotifications()
 		{
-			Debug.Log ("UNITY: REGISTERING FOR PUSH NOTIFICATIONS");
-	#if UNITY_IPHONE || UNITY_TVOS
-	#if UNITY_5
-			UnityEngine.iOS.NotificationServices.RegisterForNotifications(
-				UnityEngine.iOS.NotificationType.Alert |
-				UnityEngine.iOS.NotificationType.Badge |
-				UnityEngine.iOS.NotificationType.Sound,
-				true
-			);
-	#else
-	NotificationServices.RegisterForRemoteNotificationTypes (
-	RemoteNotificationType.Alert|
-	RemoteNotificationType.Badge|
-	RemoteNotificationType.Sound
-	);
-	#endif
-	#endif
+			Debug.Log ("UNITY: RegisterForPushNotifications");
+
+			registerForPushNotifications ();
 		}
 
-		internal void CheckForRemoteNotifications()
-		{
-	bool proccessedNotifications = false;
-	#if UNITY_IPHONE || UNITY_TVOS
-	#if UNITY_5
-			if (UnityEngine.iOS.NotificationServices.remoteNotificationCount > 0)
-			{			
-				foreach(UnityEngine.iOS.RemoteNotification notification in 	UnityEngine.iOS.NotificationServices.remoteNotifications)
-				{
-	#else
-	if (UnityEngine.NotificationServices.remoteNotificationCount > 0)
-	{			
-	foreach(UnityEngine.RemoteNotification notification in 	UnityEngine.NotificationServices.remoteNotifications)
-	{
-	#endif
-					foreach(var key in notification.userInfo.Keys)
-					{
-						if(notification.userInfo[key].GetType() == typeof(Hashtable))
-						{
-							Hashtable userInfo = (Hashtable) notification.userInfo[key];
-							JSONObject notificationPayload = new JSONObject();
-							foreach(var pKey in userInfo.Keys)
-							{
-								if(userInfo[pKey].GetType() == typeof(string))
-								{
-									string keyStr = pKey.ToString();
-									string value = userInfo[pKey].ToString();
-									notificationPayload.AddField(keyStr,value);
-								}
-								if(userInfo[pKey].GetType() == typeof(Hashtable))
-								{
-									JSONObject innerJson = new JSONObject();
-									Hashtable innerTable = (Hashtable)userInfo[pKey];
-									foreach(var iKey in innerTable.Keys)
-									{
-										string iKeyStr = iKey.ToString();
-										if(innerTable[iKey].GetType() == typeof(Hashtable))
-										{
-											Hashtable innerTableB = (Hashtable)innerTable[iKey];
-											JSONObject innerJsonB = new JSONObject();
-											foreach(var bKey in innerTableB.Keys)
-											{
-												innerJsonB.AddField(bKey.ToString(),innerTableB[bKey].ToString());
-											}
-											innerJson.AddField(iKeyStr,innerJsonB);
-										}
-										if(innerTable[iKey].GetType() == typeof(string))
-										{
-											string iValue = innerTable[iKey].ToString();
-											innerJson.AddField(iKeyStr,iValue);
-										}
-									}
-									string keyStr = pKey.ToString();
-									notificationPayload.AddField(keyStr,innerJson);
-								}
-							}
+		[DllImport("__Internal")]
+		private static extern void registerForPushNotifications();
 
-							String notificationJsonForNative = notificationPayload.ToString().Replace("'","\"");
-							if(!proccessedNotifications){									
-								SendCustomEvent("notificationOpened", new Dictionary<string, object>() { { "notificationPayload", notificationJsonForNative}});
-								proccessedNotifications = true;
-							}
-						}
-					}
-				}
-	#if UNITY_5
-				UnityEngine.iOS.NotificationServices.ClearRemoteNotifications();
-	#else
-	UnityEngine.NotificationServices.ClearRemoteNotifications();
-	#endif
-			} else {
-				Debug.Log("NO REMOTE NOTIFICATIONS FOUND");
-			}
-	#endif
-		}
+    #endregion
 
-		//is the IOS notification service token sent
-		private bool tokenSent;
-
-		/// This method is marked as internal and should not be exposed to developers.
-		/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
-		/// Internal method names start with a lower case so you can easily recognise and avoid them.
-		internal void SendNotificationTokenToSpil()
-		{
-			if (!tokenSent)
-			{
-	#if UNITY_IPHONE || UNITY_TVOS
-	#if UNITY_5
-				byte[] token = UnityEngine.iOS.NotificationServices.deviceToken;
-	#else
-	byte[] token = UnityEngine.NotificationServices.deviceToken;
-	#endif
-				if (token != null)
-				{
-					// send token to a provider
-					string tokenToBeSent = System.BitConverter.ToString (token).Replace ("-", "");
-					Dictionary<string,string> param = new Dictionary<string, string> ();
-					param.Add ("regId", tokenToBeSent);
-					setPushNotificationKey (tokenToBeSent);
-					tokenSent = true;
-				}
-	#endif
-			}
-		}
-
-		#endregion
-
-		#region App lifecycle handlers
+    #region App lifecycle handlers
 
 		[DllImport("__Internal")]
 		private static extern void applicationDidEnterBackground();
@@ -724,13 +646,12 @@ namespace SpilGames.Unity.Implementations
 			if(!pauseStatus)
 			{
 				applicationDidBecomeActive();
-				CheckForRemoteNotifications();
 			} else {
 				applicationDidEnterBackground();
 			}
 		}
 
-		#endregion
+    #endregion
 
 		[DllImport("__Internal")]
 		private static extern void initEventTrackerWithOptions(string options);	
@@ -740,7 +661,7 @@ namespace SpilGames.Unity.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void trackEventWithParamsNative(string eventName, string jsonStringParams);
-		#endregion
+    #endregion
 	}        
-	#endif
+#endif
 }

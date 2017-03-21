@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpilGames.Unity.Utils;
 using System.Collections;
+using SpilGames.Unity.Helpers;
+using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters;
 
 namespace SpilGames.Unity.Implementations
 {
@@ -130,13 +133,45 @@ namespace SpilGames.Unity.Implementations
 		{
 			if (dict != null)
 			{
-				//creat a json object using the JSONobject library
-				JSONObject jsonString = new JSONObject(JSONObject.Type.STRING);
-				foreach(var item in dict)
-				{
-					jsonString.AddField(item.Key,item.Value);
+				// Create a new dict json string
+				string jsonString = "{";
+
+				// Add each passed kv to the json dict
+				foreach (var item in dict) {
+					string key = item.Key;
+					object value = item.Value;
+					jsonString += "\"" + key + "\":";
+
+					// Detect the value type
+					try {
+						string jsonInputString = item.Value.Replace("\\\"", "\"").Trim(new char[]{'\"'});
+						JSONObject inputJsonObject = new JSONObject(jsonInputString);
+						if (inputJsonObject.IsArray || inputJsonObject.IsObject) {
+							jsonString += jsonInputString;
+						} else {
+							jsonString += "\"" + value + "\"";
+						}
+					} catch (Exception e) {
+						Debug.Log ("---JSON DETECTION FAILED" + e.Message);
+						jsonString += "\"" + value + "\"";
+					}
+
+					jsonString += ",";
 				}
-				trackEventWithParamsNative (eventName, jsonString.ToString());
+
+				// Close the json dict
+				if (jsonString.EndsWith(",")){
+					jsonString = jsonString.Substring(0, jsonString.Length - 1);
+				}
+				jsonString += "}";
+
+				Debug.Log ("---JSON BUILDED:" + jsonString);
+
+				if (jsonString != "{}") {
+					trackEventWithParamsNative (eventName, jsonString);
+				} else {
+					trackEventNative(eventName);
+				}
 			} else {
 				trackEventNative(eventName);
 			}
@@ -169,6 +204,17 @@ namespace SpilGames.Unity.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void showToastOnVideoReward(bool show);		
+
+		/// <summary>
+		/// Call to inform the SDK that the parental gate was (not) passes
+		/// </summary>
+		public override void ClosedParentalGate(bool pass)
+		{
+			closedParentalGateNative (pass);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void closedParentalGateNative(bool pass);
 
 		/// <summary>
 		/// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
@@ -241,6 +287,13 @@ namespace SpilGames.Unity.Implementations
 		{
 			setUserIdNative(providerId, userId);
 		}
+
+		public override void SetCustomBundleId (string bundleId) {
+			setCustomBundleIdNative (bundleId);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void setCustomBundleIdNative(string bundleId);
 
 		[DllImport("__Internal")]
 		private static extern void setUserIdNative(string providerId, string userId);
@@ -560,7 +613,7 @@ namespace SpilGames.Unity.Implementations
 								}
 							}
 
-							String notificationJsonForNative = notificationPayload.ToString().Replace("\"","'");
+							String notificationJsonForNative = notificationPayload.ToString().Replace("'","\"");
 							if(!proccessedNotifications){									
 								SendCustomEvent("notificationReceived", new Dictionary<string, string>() { { "notificationPayload", notificationJsonForNative}});
 								proccessedNotifications = true;
@@ -639,7 +692,6 @@ namespace SpilGames.Unity.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void trackEventWithParamsNative(string eventName, string jsonStringParams);
-
 		#endregion
 	}        
 	#endif

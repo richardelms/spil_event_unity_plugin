@@ -1,32 +1,90 @@
 Change Log
 ==========
+Change logs for the native SDKs:
+* <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
+* <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
+
+----------------------------
+
+Version 2.2.10 *(21-03-2017)*
+----------------------------
+This version brings image processing, additional parameters for updating user information, 3rd party SDK updates and bug fixes.
+* iOS Spil SDK updated to v2.1.9.
+* Android Spil SDK updated to v2.2.9.
+* Added image processing and loading logic for items, bundles and external images (see: for more information).
+* Added "reasonDetails" optional parameter to the methods that update the player's wallet and inventory.
+* Added "transactionId" optional parameter to the methods that update the player's wallet and inventory.
+* Added iOS Firebase Deeplinking support.
+* Added button in Unity for reporting issues with the SDK.
+* Updated 3rd party libraries for iOS and Android.
+* Bug fix for iOS config file being to big.
+* Bug fix for iOS regarding GameState feature sending unnecessary events.
+* Bug fix for Android with Adjust not initialising properly for pre Android 5 Devices.
+* Bug fix for Android with Fyber not sending Ad Finished in certain conditions.
+* Editor Mode bug fixes.
+
+
+Version 2.2.9 *(25-01-2017)*
+----------------------------
+***Known Issue***
+In Editor Mode, the ConfigResponse.cs has an issue. In order to get the correct Config for the game in Editor mode change the following code at line 33 in ConfigResponse.cs:
+if(config.HasField("key")) to if(config.HasField(key))
+
+
+This version brings a lot of wallet and inventory improvements, next to Apple TV and Editor mode improvements
+* iOS Spil SDK updated to v2.1.8.
+* Android Spil SDK updated to v2.2.8.
+* Replaced JSONModel library because of serialization issues.
+* Added initial value support for items & currencies.
+* Implemented reset methods for the inventory, wallet and entire player data.
+* Apple TV support improved.
+* General improvements and bug fixes.
+* Default Spil events added.
+* Editor Mode support fixes.
+
+
+Version 2.2.8 *(15-12-2016)*
+----------------------------
+This version brings updates to the way you are sending events via the SDK, 3rd part library updates for iOS and bug fixes for several key aspects of the SDK.
+* iOS Spil SDK updated to v2.1.6.
+* Android Spil SDK updated to v2.2.7.
+* All 3rd party libraries updated.
+* Many event tracking improvements.
+* General improvements and bug fixes.
+* tvOS support added.
+* Fixed Chartboost ads not showing for Android.
+* Push notifications fixes.
+* Fixed recreating the default JSON files. Now they will always be recreated when you push the button in the Editor Window.
+* Fixed Editor Mode issue regarding persistent data over multiple instance. Remember to use the same UID that you set on the SpilSDK object.
+* Removed deprecated methods (such as all "SendXEvent" methods, which have been renamed to "TrackXEvent" and "ConsumeBundle" which has been renamed to "BuyBundle").
+
 
 Version 2.2.7 *(30-11-2016)*
 ----------------------------
-This version only has a few hotfixes for Android and updates for the Ad Libaries
- * Fixed crash for IAP events
- * Updated Ad Libraries for Android (Fyber, DFP and Chartboost)
- * Other minor bug fixes for Android
- * Android Spil SDK updated to v2.2.6
+This version only has a few hotfixes for Android and updates for the Ad Libaries.
+ * Fixed crash for IAP events.
+ * Updated Ad Libraries for Android (Fyber, DFP and Chartboost).
+ * Other minor bug fixes for Android.
+ * Android Spil SDK updated to v2.2.6.
 
 
 Version 2.2.6 *(18-10-2016)*
 ----------------------------
-This version includes a full implementation of the Editor Mode for the Spil SDK, a permission request system for Android, several improvements in the configuration window as well as clearer issue checking
- * Chartboost parental gate implemented in iOS
- * Slight adjustments to the event sending for push notificaitons
- * Added automatic event sending for when an ad is displayed, clicked, dismissed and closed
+This version includes a full implementation of the Editor Mode for the Spil SDK, a permission request system for Android, several improvements in the configuration window as well as clearer issue checking.
+ * Chartboost parental gate implemented in iOS.
+ * Slight adjustments to the event sending for push notificaitons.
+ * Added automatic event sending for when an ad is displayed, clicked, dismissed and closed.
  * Added permission request system for Android. The SDK now automatically request dangerous permissions at start-up (similar to how unity was doing it), but now a rationale is include for each permission. You also have the ability to disable this system and request the permissions manually when you need them during runtime.
- * A new look for the Spil SDK configuration windows have been added. You now have several tabs for each section, two new windows for documentation and release, as well as better build check-up for Android (hopefuly less issue will be reported now :) )
+ * A new look for the Spil SDK configuration windows have been added. You now have several tabs for each section, two new windows for documentation and release, as well as better build check-up for Android (hopefuly less issues will be reported now :) ).
 
 
 Version 2.2.5 *(26-10-2016)*
 ----------------------------
-This version only has a few hotfixes for both Android and iOS
- * Added Custom Bundle Indentifier support for iOS
- * Fixed sending format for the TrackWalletInventoryEvent
- * iOS Spil SDK updated to v2.1.2
- * Android Spil SDK updated to v2.2.4
+This version only has a few hotfixes for both Android and iOS.
+ * Added Custom Bundle Indentifier support for iOS.
+ * Fixed sending format for the TrackWalletInventoryEvent.
+ * iOS Spil SDK updated to v2.1.2.
+ * Android Spil SDK updated to v2.2.4.
 
 
 Version 2.2.4 *(20-10-2016)*
@@ -37,14 +95,14 @@ Version 2.2.4 *(20-10-2016)*
 
 Version 2.2.3 *(14-10-2016)*
 ----------------------------
-This version brings multiple features of the Spil SDK to the Editor Mode, the Daily Bonus screen functionality as well as several bug fixes for both Android and iOS
- * iOS Spil SDK updated to v2.1.0
- * Android Spil SDK updated to v2.2.3
- * Added the following Spil SDK functionalities to the Unity Editor Mode: Game State, Packages, Config, Advertisement and Event Tracking. More will follow!
- * Several bug fixes for Android regarding the Wallet functionality
- * Added Vungle ad network inside Fyber
- * Updated Google Play Services to 9.6.1 (included also Google Play Games library in case you need it)
- * Bug fixes, code cleanup and improvements (for more details regarding native, check the Android and iOS repositories)
+This version brings multiple features of the Spil SDK to the Editor Mode, the Daily Bonus screen functionality as well as several bug fixes for both Android and iOS.
+ * iOS Spil SDK updated to v2.1.0.
+ * Android Spil SDK updated to v2.2.3.
+ * Added the following Spil SDK functionalities to the Unity Editor Mode: Game State, Packages, Config, Advertisement and Event Tracking. More will follow!.
+ * Several bug fixes for Android regarding the Wallet functionality.
+ * Added Vungle ad network inside Fyber.
+ * Updated Google Play Services to 9.6.1 (included also Google Play Games library in case you need it).
+ * Bug fixes, code cleanup and improvements (for more details regarding native, check the Android and iOS repositories).
 
 
 Version 2.2.2

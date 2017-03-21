@@ -4,7 +4,6 @@ PluginSource/obj
 PluginSource.userprefs
 export
 google-play-services_lib.meta
-TestApp/Assets/Plugins/iOS
 TestApp/Temp
 TestApp/Library
 Assembly-CSharp-Editor.csproj

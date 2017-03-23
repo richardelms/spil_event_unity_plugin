@@ -65,6 +65,24 @@ namespace SpilGames.Unity.Helpers
 		}
 
 		/// <summary>
+		/// Helper method that returns the Bundle for a given name
+		/// Returns null if no bundle was found
+		/// </summary>
+		public Bundle GetBundle (string name)
+		{
+			if (Bundles != null) {
+				foreach (Bundle bundle in Bundles) {
+					if (bundle.Name == name) {
+						return bundle;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		/// <summary>
 		/// Helper method that returns the Item for a given itemId
 		/// Returns null if no item was found
 		/// </summary>
@@ -83,6 +101,24 @@ namespace SpilGames.Unity.Helpers
 		}
 
 		/// <summary>
+		/// Helper method that returns the Item for a given name
+		/// Returns null if no item was found
+		/// </summary>
+		public Item GetItem (string name)
+		{
+			if (Items != null) {
+				foreach (Item item in Items) {
+					if (item.Name == name) {
+						return item;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		/// <summary>
 		/// Helper method that returns the Currency for a given currencyId
 		/// Returns null if no currency was found
 		/// </summary>
@@ -91,6 +127,24 @@ namespace SpilGames.Unity.Helpers
 			if (Currencies != null) {
 				foreach (Currency currency in Currencies) {
 					if (currency.Id == currencyId) {
+						return currency;
+					}
+				}
+				return null;
+			} else {
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Helper method that returns the Currency for a given name
+		/// Returns null if no currency was found
+		/// </summary>
+		public Currency GetCurrency (string name)
+		{
+			if (Currencies != null) {
+				foreach (Currency currency in Currencies) {
+					if (currency.Name == name) {
 						return currency;
 					}
 				}

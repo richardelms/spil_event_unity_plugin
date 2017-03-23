@@ -106,7 +106,7 @@ namespace SpilGames.Unity.Helpers
 
 			if (currencies != null) {
 				foreach (SpilCurrencyData spilCurrencyData in currencies) {
-					Currencies.Add (new Currency (spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.type));
+					Currencies.Add (new Currency (spilCurrencyData.id, spilCurrencyData.name, spilCurrencyData.type, spilCurrencyData.imageUrl, spilCurrencyData.displayName, spilCurrencyData.displayDescription));
 				}
 			}
 
@@ -114,7 +114,7 @@ namespace SpilGames.Unity.Helpers
 
 			if (items != null) {
 				foreach (SpilItemData spilItemsData in items) {
-					Items.Add (new Item (spilItemsData.id, spilItemsData.name, spilItemsData.type, spilItemsData.imageUrl));
+					Items.Add (new Item (spilItemsData.id, spilItemsData.name, spilItemsData.type, spilItemsData.imageUrl, spilItemsData.displayName, spilItemsData.displayDescription));
 				}
 			}
 
@@ -122,7 +122,7 @@ namespace SpilGames.Unity.Helpers
 
 			if (bundles != null) {
 				foreach (SpilBundleData spilBundleData in bundles) {
-					Bundles.Add (new Bundle (spilBundleData.id, spilBundleData.name, spilBundleData.prices, spilBundleData.items, spilBundleData.imageUrl));
+					Bundles.Add (new Bundle (spilBundleData.id, spilBundleData.name, spilBundleData.prices, spilBundleData.items, spilBundleData.imageUrl, spilBundleData.displayName, spilBundleData.displayDescription));
 				}
 			}
 
@@ -180,11 +180,57 @@ namespace SpilGames.Unity.Helpers
 
 		public int _Type;
 
-		public Currency (int id, string name, int type)
+		private string _imageURL;
+
+		private string _displayName;
+
+		private string _displayDescription;
+
+		/// <summary>
+		/// Get the local image path of the currency. (disk cache)
+		/// </summary>
+		public string GetImagePath ()
+		{
+			string imagePath = Spil.Instance.GetImagePath (_imageURL);
+
+			if(imagePath != null){
+				return imagePath;
+			} else {
+				Spil.Instance.RequestImage(_imageURL, _Id, "currency");
+				return null;
+			} 
+		}
+
+		/// <summary>
+		/// Checks if there is an image defined for the currency.
+		/// </summary>
+		public bool HasImage ()
+		{
+			return !String.IsNullOrEmpty (_imageURL);
+		}
+
+		/// <summary>
+		/// Gets the display name of the currency.
+		/// </summary>
+		public string GetDisplayName() {
+			return _displayName;
+		}
+
+		/// <summary>
+		/// Gets the display description of the currency.
+		/// </summary>
+		public string GetDisplayDescription() {
+			return _displayDescription;
+		}
+
+		public Currency (int id, string name, int type, string imageUrl, string displayName, string displayDescription)
 		{
 			_Id = id;
 			_Name = name;
 			_Type = type;
+			_imageURL = imageUrl;
+			_displayName = displayName;
+			_displayDescription = displayDescription;
 		}
 	}
 
@@ -216,6 +262,10 @@ namespace SpilGames.Unity.Helpers
 
 		private string _imageURL;
 
+		private string _displayName;
+
+		private string _displayDescription;
+
 		/// <summary>
 		/// Get the local image path of the item. (disk cache)
 		/// </summary>
@@ -239,12 +289,28 @@ namespace SpilGames.Unity.Helpers
 			return !String.IsNullOrEmpty (_imageURL);
 		}
 
-		public Item (int id, string name, int type, string imageURL)
+		/// <summary>
+		/// Gets the display name of the item.
+		/// </summary>
+		public string GetDisplayName() {
+			return _displayName;
+		}
+
+		/// <summary>
+		/// Gets the display description of the item.
+		/// </summary>
+		public string GetDisplayDescription() {
+			return _displayDescription;
+		}
+
+		public Item (int id, string name, int type, string imageURL, string displayName, string displayDescription)
 		{
 			_Id = id;
 			_Name = name;
 			_Type = type;
 			_imageURL = imageURL;
+			_displayName = displayName;
+			_displayDescription = displayDescription;
 		}
 	}
 
@@ -283,6 +349,10 @@ namespace SpilGames.Unity.Helpers
 
 		private string _imageURL;
 
+		private string _displayName;
+
+		private string _displayDescription;
+
 		/// <summary>
 		/// Get the local image path of the item. (disk cache)
 		/// </summary>
@@ -306,12 +376,28 @@ namespace SpilGames.Unity.Helpers
 			return !String.IsNullOrEmpty (_imageURL);
 		}
 
-		public Bundle (int id, string name, List<SpilBundlePriceData> prices, List<SpilBundleItemData> items, string imageURL)
+		/// <summary>
+		/// Gets the display name of the bundle.
+		/// </summary>
+		public string GetDisplayName() {
+			return _displayName;
+		}
+
+		/// <summary>
+		/// Gets the display description of the bundle.
+		/// </summary>
+		public string GetDisplayDescription() {
+			return _displayDescription;
+		}
+
+		public Bundle (int id, string name, List<SpilBundlePriceData> prices, List<SpilBundleItemData> items, string imageURL, string displayName, string displayDescription)
 		{
 			_Id = id;
 			_Name = name;
 			_imageURL = imageURL;
-					
+			_displayName = displayName;
+			_displayDescription = displayDescription;
+
 			//Adding Prices for Bundle
 			if (prices != null) {
 				foreach (SpilBundlePriceData bundlePriceData in prices) {

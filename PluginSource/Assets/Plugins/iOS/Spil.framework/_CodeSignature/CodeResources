@@ -18,19 +18,19 @@
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		FDe6CXIQEwt0gU7UOmuDP4tT6AI=
+		MgAbJQAc4Yrey8//IKl5UevL02I=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<data>
-		fDEYYwEEoGAopGIGUb/AKTLhmCM=
+		33Wvayr+cYDZR99ynWhdnFERGAU=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		9VQHE8vaK/VU2Xh+OmlgxlqZTNU=
+		VYNo2P2aGKUYeI9rIjRvvZB3jr0=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<data>
-		19sSPaED/L5XI59lZlIXINV0YgM=
+		eZBtG4tg/MeMlDcu+2M6bTJJ864=
 		</data>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
 		<data>
@@ -229,6 +229,22 @@
 		<data>
 		wEZAPByQFEExFVCHwu+d3oxWnks=
 		</data>
+		<key>Headers/Bundle.h</key>
+		<data>
+		nVgkKtOA5jntODx4a9g+XZOLp6Y=
+		</data>
+		<key>Headers/BundleItem.h</key>
+		<data>
+		98EGHc/LD4qywZV/HB9Pun0J0Pg=
+		</data>
+		<key>Headers/BundlePrice.h</key>
+		<data>
+		kkXobtCzh1c4uMpX4iWn9XlCD1o=
+		</data>
+		<key>Headers/Currency.h</key>
+		<data>
+		QasW/GpduqSEcVS1VcmZE7y5SHQ=
+		</data>
 		<key>Headers/GAI.h</key>
 		<data>
 		5fr84HTy9iWMjRaaC8b0+AzLjoo=
@@ -253,6 +269,14 @@
 		<data>
 		E4eI8zz5lv68eL+xrtbkMusK8Lc=
 		</data>
+		<key>Headers/Inventory.h</key>
+		<data>
+		sKZi6TlylG8d2+Ywj7qEv6bvzdI=
+		</data>
+		<key>Headers/Item.h</key>
+		<data>
+		KdqgFTMQxf7jl6s3Ng7/ZYR7kjs=
+		</data>
 		<key>Headers/JsonUtil.h</key>
 		<data>
 		+DbTRQaGFl2B8QeVoXZocaLRs98=
@@ -261,9 +285,29 @@
 		<data>
 		73R/2zEr+iIlcrab2/GzOOx/Pfo=
 		</data>
+		<key>Headers/PlayerCurrency.h</key>
+		<data>
+		z2lLOl+OtqWjYWtxSkY6L8PcgX4=
+		</data>
+		<key>Headers/PlayerItem.h</key>
+		<data>
+		nm6vBsIhZ4uPtwKAgBuFBW+gUK8=
+		</data>
+		<key>Headers/ShopEntry.h</key>
+		<data>
+		VDKyycwq0dDv20oPF8p3rbS7vA0=
+		</data>
+		<key>Headers/ShopPromotion.h</key>
+		<data>
+		iqaG3ToAqD/5CtQxa9UvahlvpHs=
+		</data>
+		<key>Headers/ShopTab.h</key>
+		<data>
+		FM4iu18H+4OzKOAJ4WJxYUK1KLE=
+		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		yrLYdjNxdaBL654xuLZhUpUaPX0=
+		0Sqc7kzqOAlzFel5IitIMK9BjMY=
 		</data>
 		<key>Headers/SpilActionHandler.h</key>
 		<data>
@@ -271,11 +315,15 @@
 		</data>
 		<key>Headers/SpilEventTracker.h</key>
 		<data>
-		EjwZCR1s6xlCbqbz/hW6FRxHfZw=
+		NiT5M130feVK2V0cx1fobWpyeto=
+		</data>
+		<key>Headers/Wallet.h</key>
+		<data>
+		4micT3BUP/Nnjv76Cz5kID5QQkQ=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+jqpYKXkzyLVMo3SjzD+U5bdTDw=
+		MEoNNI9+AVmQZa/SkZMbWY2nozE=
 		</data>
 		<key>LICENSE</key>
 		<data>
@@ -283,7 +331,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		bsE5fwQSZ/lZLhbim6oxowTZ7kE=
+		BUldB2QBQWATEAGjMho4+jdzttM=
 		</data>
 		<key>MPAdBrowserController.xib</key>
 		<data>
@@ -1009,44 +1057,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FDe6CXIQEwt0gU7UOmuDP4tT6AI=
+			MgAbJQAc4Yrey8//IKl5UevL02I=
 			</data>
 			<key>hash2</key>
 			<data>
-			r7uDM80HP7I9S+v+OebCrA6hUtRw/1caRit1GVLssHc=
+			c+PH+C4T4HNQ2ttKqMvkPLd//3CYkFUNssbFcMNo5+s=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			fDEYYwEEoGAopGIGUb/AKTLhmCM=
+			33Wvayr+cYDZR99ynWhdnFERGAU=
 			</data>
 			<key>hash2</key>
 			<data>
-			Of9DCtHCMVxqSwdat9qxH45xj0TUAKIBh/ksf6vXiIo=
+			wblmYNGXGp3Ik09Y26Y6dWw9KEg1zgobS7QTwyhtjcA=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9VQHE8vaK/VU2Xh+OmlgxlqZTNU=
+			VYNo2P2aGKUYeI9rIjRvvZB3jr0=
 			</data>
 			<key>hash2</key>
 			<data>
-			85YhlboubVBqGlQUBdhMSciAE6wvhzD2dh2pWsUkfdU=
+			a5kccx+eqBVMhLVCgi/qcKe+wYS9ZBfnxqnaJJSkEU4=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			19sSPaED/L5XI59lZlIXINV0YgM=
+			eZBtG4tg/MeMlDcu+2M6bTJJ864=
 			</data>
 			<key>hash2</key>
 			<data>
-			OAfhiFe234SQJaHF3cTnMxIkcmd8o25O/DelD4nNsrE=
+			enRwrZm2JS0UnzhVgnOKHYgJ+NUmMWhLYMikTn3Ylbg=
 			</data>
 		</dict>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
@@ -1579,6 +1627,50 @@
 			fB9IS9v2UDjmCSQnn6A9giG2JFA0kya1zncBCyIxkSE=
 			</data>
 		</dict>
+		<key>Headers/Bundle.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nVgkKtOA5jntODx4a9g+XZOLp6Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			eCCwgB/o1Vkv6yAdpHmUUCy7P4bow90IuXD8E0Hl2d4=
+			</data>
+		</dict>
+		<key>Headers/BundleItem.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			98EGHc/LD4qywZV/HB9Pun0J0Pg=
+			</data>
+			<key>hash2</key>
+			<data>
+			6FoHfRelvN28fCurMpzNJqw5Wx/UCPcaHNXkZ8g2vHQ=
+			</data>
+		</dict>
+		<key>Headers/BundlePrice.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kkXobtCzh1c4uMpX4iWn9XlCD1o=
+			</data>
+			<key>hash2</key>
+			<data>
+			7j/A5Czq5nKcR88FkSqvrw6cCHhzURJXZLT8EpX93Xg=
+			</data>
+		</dict>
+		<key>Headers/Currency.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QasW/GpduqSEcVS1VcmZE7y5SHQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			+WDBwo4giUZtYyQoc+eSMobXK/grCHsMHxP4wYCa2o0=
+			</data>
+		</dict>
 		<key>Headers/GAI.h</key>
 		<dict>
 			<key>hash</key>
@@ -1645,6 +1737,28 @@
 			OUcYn9YTgK57epSmAl2BboYfZwF3S5Wk3M3zR47uuEQ=
 			</data>
 		</dict>
+		<key>Headers/Inventory.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sKZi6TlylG8d2+Ywj7qEv6bvzdI=
+			</data>
+			<key>hash2</key>
+			<data>
+			X/WnSNIH2HUH5AFZEilmoEkgT+HOiT3Js87r5BEwYig=
+			</data>
+		</dict>
+		<key>Headers/Item.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KdqgFTMQxf7jl6s3Ng7/ZYR7kjs=
+			</data>
+			<key>hash2</key>
+			<data>
+			di4kumhVqfE8ZtNMudcC/ygXCulmVzoMAaWdZcD7Qnw=
+			</data>
+		</dict>
 		<key>Headers/JsonUtil.h</key>
 		<dict>
 			<key>hash</key>
@@ -1667,15 +1781,70 @@
 			hLsk3S/RnPx8n/yoUWCQ1UE6Fo2Q6ES7szkf8m5IEGg=
 			</data>
 		</dict>
+		<key>Headers/PlayerCurrency.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			z2lLOl+OtqWjYWtxSkY6L8PcgX4=
+			</data>
+			<key>hash2</key>
+			<data>
+			53hVSR9PVMGor69sb0UtopsYCoKTGFYki0XtgtiqiHw=
+			</data>
+		</dict>
+		<key>Headers/PlayerItem.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nm6vBsIhZ4uPtwKAgBuFBW+gUK8=
+			</data>
+			<key>hash2</key>
+			<data>
+			bp3kTm1si7ho5TdFYFNtvxIWqF4JiOO0RNVELJyMUKw=
+			</data>
+		</dict>
+		<key>Headers/ShopEntry.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VDKyycwq0dDv20oPF8p3rbS7vA0=
+			</data>
+			<key>hash2</key>
+			<data>
+			npx72b5zg9P8Fp+HDiKPAIlrxCfa/OflE3DKQS1KpEw=
+			</data>
+		</dict>
+		<key>Headers/ShopPromotion.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			iqaG3ToAqD/5CtQxa9UvahlvpHs=
+			</data>
+			<key>hash2</key>
+			<data>
+			/io8OfGheZU+42ZEooZgxKf/j8lVmXt5tA6UlL+sTcU=
+			</data>
+		</dict>
+		<key>Headers/ShopTab.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FM4iu18H+4OzKOAJ4WJxYUK1KLE=
+			</data>
+			<key>hash2</key>
+			<data>
+			qfPpgO92hyJPcSqmsz1SLwsTv/dW6fXv8AD0ojE5pu4=
+			</data>
+		</dict>
 		<key>Headers/Spil.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yrLYdjNxdaBL654xuLZhUpUaPX0=
+			0Sqc7kzqOAlzFel5IitIMK9BjMY=
 			</data>
 			<key>hash2</key>
 			<data>
-			sGKrQN4FSxCrXekhFqzH1DudGhI8VvwUycT6a9G6Mks=
+			6btiOTRGV77Z+udNOY/+Yu3Y70z72QHXlEcQe40Fc5c=
 			</data>
 		</dict>
 		<key>Headers/SpilActionHandler.h</key>
@@ -1693,11 +1862,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EjwZCR1s6xlCbqbz/hW6FRxHfZw=
+			NiT5M130feVK2V0cx1fobWpyeto=
 			</data>
 			<key>hash2</key>
 			<data>
-			GcXm4UwnhKuJKLalMbCMz8ggEveG0vAKkncFIvk4ZaI=
+			YBD/jqVgDXoK5uQt6JEtNbWPYGfARNaQ3pPWsBEre4o=
+			</data>
+		</dict>
+		<key>Headers/Wallet.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4micT3BUP/Nnjv76Cz5kID5QQkQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			stCTJXsLy7LV95N4b0/Hrx6/cVoI7MoO9Q4naF6ua3U=
 			</data>
 		</dict>
 		<key>LICENSE</key>
@@ -1715,11 +1895,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bsE5fwQSZ/lZLhbim6oxowTZ7kE=
+			BUldB2QBQWATEAGjMho4+jdzttM=
 			</data>
 			<key>hash2</key>
 			<data>
-			Zv1/1z/erVBw/hbGUNfjclMsSKN9EatLTMrmZCyQ49o=
+			d6l2CApxCBtW5PVk9iEqtpSJI0auXSfgN6KkF41ZDJ4=
 			</data>
 		</dict>
 		<key>MPAdBrowserController.xib</key>

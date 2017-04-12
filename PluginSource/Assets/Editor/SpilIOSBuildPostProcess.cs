@@ -5,12 +5,60 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
-using SpilGames.Unity.Utils;
-using SpilGames.Unity.Implementations;
+using SpilGames.Unity.Base.Implementations;
 using SpilGames.Unity;
+using SpilGames.Unity.Json;
 
 public class SpilIOSBuildPostProcess : MonoBehaviour
 {
+	#if UNITY_5_6_OR_NEWER
+	private static string bundleIdentifier = PlayerSettings.applicationIdentifier;
+	#elif UNITY_5_3_OR_NEWER
+	private static string bundleIdentifier = PlayerSettings.bundleIdentifier;
+	#endif
+
+	#region Python path
+
+	private static readonly string PYTHON2_ENV_VAR = "PYTHON2_EXE"; //$PYTHON2_EXE
+	private static readonly string PYTHON2_LOCAL_BIN = "/usr/local/bin/python2";
+	private static readonly string PYTHON2_BIN = "/usr/bin/python2";
+	private static readonly string PYTHON_LOCAL_BIN = "/usr/local/bin/python";
+	private static readonly string PYTHON_BIN = "/usr/bin/python";
+
+	private static string GetPythonInterpreter()
+	{
+		string retval = Environment.GetEnvironmentVariable(PYTHON2_ENV_VAR);
+
+		PossiblySetString(ref retval, PYTHON2_LOCAL_BIN);
+		PossiblySetString(ref retval, PYTHON2_BIN);
+		PossiblySetString(ref retval, PYTHON_LOCAL_BIN);
+		PossiblySetString(ref retval, PYTHON_BIN);
+
+		if (string.IsNullOrEmpty(retval))
+		{
+			UnityEngine.Debug.LogError("IOSBuildPostProcess::GetPythonInterpreter::Couldn't retrieve python path");
+		}
+		else
+		{
+			UnityEngine.Debug.Log("IOSBuildPostProcess::GetPythonInterpreter::Retrieved python at '" + retval + "'");
+		}
+
+		return retval;
+	}
+
+	private static void PossiblySetString(ref string aPythonPath, string aValue)
+	{
+		if (string.IsNullOrEmpty(aPythonPath))
+		{
+			if (File.Exists(aValue))
+			{
+				aPythonPath = aValue;
+			}
+		}
+	}
+
+	#endregion
+
 	[PostProcessBuild]
 	public static void OnPostprocessBuild (BuildTarget target, string pathToBuildProject)
 	{
@@ -39,7 +87,7 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 			UnityEngine.Debug.Log ("[SPIL] Executing: python " + pathToBuildProject + "/Spil.framework/setup.py " + arguments);
 			Process setupProcess = new Process ();
 			setupProcess.StartInfo.WorkingDirectory = pathToBuildProject;
-			setupProcess.StartInfo.FileName = "python";
+			setupProcess.StartInfo.FileName = GetPythonInterpreter();
 			setupProcess.StartInfo.Arguments = "Spil.framework/setup.py " + arguments;
 			setupProcess.StartInfo.UseShellExecute = false;
 			setupProcess.StartInfo.RedirectStandardOutput = true;
@@ -107,11 +155,11 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 		string data = "";
 		WWWForm form = GetFormData ();
 		form.AddField ("name", type);
-		WWW request = new WWW ("https://apptracker.spilgames.com/v1/native-events/event/ios/" + PlayerSettings.bundleIdentifier + "/" + type, form);
-		while (!request.isDone)
-			;
+		WWW request = new WWW ("https://apptracker.spilgames.com/v1/native-events/event/ios/" + bundleIdentifier + "/" + type, form);
+		while (!request.isDone);
+
 		if (request.error != null) {
-			UnityEngine.Debug.LogError ("Error getting game data: " + request.error);  
+			UnityEngine.Debug.LogWarning ("Error getting game data: " + request.error);  
 		} else { 
 			UnityEngine.Debug.Log (type + " Data returned: " + request.text);
 			JSONObject serverResponce = new JSONObject (request.text);
@@ -129,7 +177,7 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 		dummyData.AddField ("os", "ios");
 		dummyData.AddField ("osVersion", "1");
 		dummyData.AddField ("deviceModel", "Editor");
-		dummyData.AddField ("bundleId", PlayerSettings.bundleIdentifier);
+		dummyData.AddField ("bundleId", bundleIdentifier);
 		dummyData.AddField ("tto", "0");
 		dummyData.AddField ("sessionId", "deadbeef");
 		dummyData.AddField ("timezoneOffset", "0");

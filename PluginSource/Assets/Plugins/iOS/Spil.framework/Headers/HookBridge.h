@@ -2,8 +2,7 @@
 //  HookBridge.h
 //  SpilStaticLib
 //
-//  Created by Martijn van der Gun on 6/22/15.
-//  Copyright (c) 2015 Martijn van der Gun. All rights reserved.
+//  Copyright (c) 2015 Spil Games. All rights reserved.
 //
 
 
@@ -26,7 +25,7 @@ extern "C" {
     
     void trackEventWithParamsNative(const char* eventName, const char* jsonStringParams);
     
-    // --- Default events (Not used by the unity plugin, it uses the generic track event methods ---
+    // --- Default events (Not used by the unity plugin, it uses the generic track event methods) ---
     
     void trackMilestoneAchievedEvent(const char* name);
     
@@ -82,6 +81,10 @@ extern "C" {
     
     void handlePushNotification(const char* notificationStringParams);
     
+    // --- Token claiming ---
+    
+    void claimTokenNative(const char* token, const char* rewardType);
+    
     // --- App flow ---
     
     // Not used
@@ -96,13 +99,17 @@ extern "C" {
     void setCustomBundleIdNative(const char* bundleId);
     
     void UnitySendMessage(const char* obj, const char* method, const char* msg);
-    
+
     char* cStringCopy(const char* string);
     
     char* getSpilUserIdNative();
     
     void setPluginInformationNative(const char* pluginName, const char* pluginVersion);
 
+    char* getLocalSecretEx();
+    
+    void requestServerTimeNative();
+    
     // --- Config ---
     
     char* getConfigNative();
@@ -171,7 +178,7 @@ extern "C" {
     
     void showContactCenterNative();
     
-    void showHelpCenterWebviewNative();
+    void showHelpCenterWebviewNative(char* url);
     
     // --- Web ---
     
@@ -211,5 +218,6 @@ extern "C" {
 #endif
 
 + (void)sendMessage:(NSString*)messageName toObject:(NSString*)objectName withParameter:(NSString*)parameterString;
++ (NSString*) getLocalSecret;
 
 @end

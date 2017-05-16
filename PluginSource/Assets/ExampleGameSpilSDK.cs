@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using SpilGames.Unity;
 using UnityEngine.UI;
-using SpilGames.Unity.Utils;
-using SpilGames.Unity.Helpers;
 using System;
+using SpilGames.Unity.Base.SDK;
+using SpilGames.Unity.Helpers.PlayerData;
+using SpilGames.Unity.Helpers.GameData;
 
 public class ExampleGameSpilSDK : MonoBehaviour
 {

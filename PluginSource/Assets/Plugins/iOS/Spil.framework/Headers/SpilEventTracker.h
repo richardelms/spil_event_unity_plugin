@@ -2,8 +2,7 @@
 //  SpilEventTracker.h
 //  trackerSample
 //
-//  Created by Martijn van der Gun on 5/28/15.
-//  Copyright (c) 2015 Martijn van der Gun. All rights reserved.
+//  Copyright (c) 2015 Spil Games. All rights reserved.
 //
 
 
@@ -11,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SpilEventTracker : NSObject
+
+@property (nonatomic, retain) NSString *adjustId;
 
 +(SpilEventTracker*)sharedInstance;
 
@@ -45,9 +46,12 @@
 -(void)UnityListenerDidReceiveRemoteNotification:(NSNotification *)note;
 #endif
 
+-(NSString*)getPushKey;
 -(void)setPushKey:(NSString*)pushKey;
 
 -(void)isUnity:(BOOL)unityEnabled;
 -(BOOL)isUnity;
+
+-(void)checkForNewSubdomain;
 
 @end

@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.2.9
+ * Version 2.3.0
  *
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -8,10 +8,10 @@
 */
 
 using UnityEngine;
-using SpilGames.Unity.Implementations;
-using SpilGames.Unity.Utils;
-using SpilGames.Unity.Helpers;
+using SpilGames.Unity.Base.Implementations;
+using SpilGames.Unity.Helpers.GameData;
 using System;
+using SpilGames.Unity.Helpers.PlayerData;
 
 namespace SpilGames.Unity
 {
@@ -48,6 +48,9 @@ namespace SpilGames.Unity
 		[Header ("Editor Settings")]
 
 		[SerializeField]
+		public bool EditorLogging = true;
+
+		[SerializeField]
 		public string spilUserIdEditor;
 
 		public static string SpilUserIdEditor { get; private set; }
@@ -74,7 +77,6 @@ namespace SpilGames.Unity
 
 		public static int Reward { get; private set; }
 
-
 		[Header ("Daily Bonus Settings")]
 
 		[SerializeField]
@@ -96,9 +98,8 @@ namespace SpilGames.Unity
 		{
 			CURRENCY,
 			ITEM,
-			EXTERNAL}
-
-		;
+			EXTERNAL
+		};
 
 		public DailyBonusRewardTypeEnum DailyBonusRewardType;
 
@@ -116,15 +117,12 @@ namespace SpilGames.Unity
 
 		public static SpilUnityEditorImplementation Instance = new SpilUnityEditorImplementation ();
 
-
 		#elif UNITY_ANDROID
 
-			public static SpilAndroidUnityImplementation Instance = new SpilAndroidUnityImplementation();
+		public static SpilAndroidUnityImplementation Instance = new SpilAndroidUnityImplementation();
 
 		#elif UNITY_IPHONE || UNITY_TVOS
-		/// <summary>
-		/// Use this object to access all Spil related functionality.
-		/// </summary>
+
 		public static SpiliOSUnityImplementation Instance = new SpiliOSUnityImplementation();
 
 		#endif
@@ -138,7 +136,50 @@ namespace SpilGames.Unity
 
 		public void Initialize ()
 		{
+			Debug.Log ("SpilSDK-Unity Init");
+
+			Instance.SetPluginInformation (SpilUnityImplementationBase.PluginName, SpilUnityImplementationBase.PluginVersion);
+
 			#if UNITY_EDITOR
+
+			InitEditor();
+
+			#endif
+
+			#if UNITY_IOS
+
+			if (!string.IsNullOrEmpty (CustomBundleId)) {
+				Instance.SetCustomBundleId (CustomBundleId);
+			}
+
+			#endif
+
+			#if UNITY_ANDROID
+
+			//Check if Project Id is set
+			if (ProjectId == null) {
+				throw new UnityException ("Project ID not set!! Please set your Project Id with the id provided by the Spil representative!");
+			}
+
+			#endif
+
+			Instance.SpilInit ();
+			DontDestroyOnLoad (gameObject);
+			gameObject.name = "SpilSDK";
+
+			#if !UNITY_EDITOR
+
+			GameDataObject = new SpilGameDataHelper (Instance);
+			GameData = GameDataObject;
+
+			PlayerDataObject = new PlayerDataHelper (Instance);
+			PlayerData = PlayerDataObject;
+
+			#endif
+		}
+
+		public void InitEditor()
+		{
 			if (String.IsNullOrEmpty (spilUserIdEditor)) {
 				spilUserIdEditor = Guid.NewGuid ().ToString ();
 			}
@@ -157,45 +198,6 @@ namespace SpilGames.Unity
 			DailyBonusId = dailyBonusId;
 			DailyBonusExternalId = dailyBonusExternalId;
 			DailyBonusAmount = dailyBonusAmount;
-			#endif
-
-			#if UNITY_IOS
-			if (!string.IsNullOrEmpty (CustomBundleId)) {
-				Instance.SetCustomBundleId (CustomBundleId);
-			}
-			#endif
-
-			#if UNITY_ANDROID
-
-			//Check if Project Id is set
-			if (ProjectId == null) {
-				throw new UnityException ("Project ID not set!! Please set your Project Id with the id provided by the Spil representative!");
-			}
-
-			#endif
-
-			Debug.Log ("SpilSDK-Unity Init");
-
-			Instance.SetPluginInformation (SpilUnityImplementationBase.PluginName, SpilUnityImplementationBase.PluginVersion);
-
-			Instance.SpilInit ();
-			DontDestroyOnLoad (gameObject);
-			gameObject.name = "SpilSDK";
-
-			Instance.UpdatePackagesAndPromotions ();
-
-			#if !UNITY_EDITOR
-			GameDataObject = new SpilGameDataHelper (Instance);
-			GameData = GameDataObject;
-
-			PlayerDataObject = new PlayerDataHelper (Instance);
-			PlayerData = PlayerDataObject;
-			#endif
-		}
-
-		void Start ()
-		{
-
 		}
 
 		/// <summary>
@@ -250,6 +252,15 @@ namespace SpilGames.Unity
 		public void ConfigUpdated ()
 		{
 			SpilUnityImplementationBase.fireConfigUpdatedEvent ();
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// Developers can subscribe to the Spil.Instance.ConfigUpdated event.
+		/// </summary>
+		public void ConfigError (string error)
+		{
+			SpilUnityImplementationBase.fireConfigError (error);
 		}
 
 		/// <summary>
@@ -405,6 +416,30 @@ namespace SpilGames.Unity
 		}
 
 		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void RewardTokenReceived (string response)
+		{
+			SpilUnityImplementationBase.fireRewardTokenReceived (response);
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void RewardTokenClaimed (string response)
+		{
+			SpilUnityImplementationBase.fireRewardTokenClaimed (response);
+		}
+
+		/// <summary>
+		/// This method is called by the native Spil SDK, it should not be used by developers.
+		/// </summary>
+		public void RewardTokenClaimFailed (string response)
+		{
+			SpilUnityImplementationBase.fireRewardTokenClaimFailed (response);
+		}
+
+		/// <summary>
 		/// This event will be called when an image has been downloaded.
 		/// </summary>
 		public void ImageLoadSuccess (string response)
@@ -426,6 +461,46 @@ namespace SpilGames.Unity
 		public void ImagePreloadingCompleted ()
 		{
 			SpilUnityImplementationBase.fireImagePreloadingCompleted ();
+		}
+
+		/// <summary>
+		/// This event indicates that the IAP has been validated with the SLOT backend.
+		/// </summary>
+		public void IAPValid (string data)
+		{
+			SpilUnityImplementationBase.fireIAPValid (data);
+		}
+
+		/// <summary>
+		/// This event indicates that the IAP was invalid when checked with the SLOT backend.
+		/// </summary>
+		public void IAPInvalid (string message)
+		{
+			SpilUnityImplementationBase.fireIAPInvalid (message); 
+		}
+
+		/// <summary>
+		/// This event indicates that the IAP was invalid when checked with the SLOT backend.
+		/// </summary>
+		public void IAPServerError (string error)
+		{
+			SpilUnityImplementationBase.fireIAPServerError (error); 
+		}
+
+		/// <summary>
+		/// This event indicates that the IAP was invalid when checked with the SLOT backend.
+		/// </summary>
+		public void ServerTimeRequestSuccess (string time)
+		{
+			SpilUnityImplementationBase.fireServerTimeRequestSuccess (time); 
+		}
+
+		/// <summary>
+		/// This event indicates that the IAP was invalid when checked with the SLOT backend.
+		/// </summary>
+		public void ServerTimeRequestFailed (string error)
+		{
+			SpilUnityImplementationBase.fireServerTimeRequestFailed (error); 
 		}
 	}
 }

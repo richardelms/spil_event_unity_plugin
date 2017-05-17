@@ -2,6 +2,7 @@
 //  PlayerCurrency.h
 //  Spil
 //
+//  Created by Frank Slofstra on 17/05/16.
 //  Copyright © 2016 Spil Games. All rights reserved.
 //
 

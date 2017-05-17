@@ -158,11 +158,14 @@
  *  @param pluginVersion The plugin version
  */
 +(void)setPluginInformation:(nonnull NSString*)pluginName pluginVersion:(nonnull NSString*)pluginVersion;
+<<<<<<< HEAD
+=======
 
 /**
  *  Request the server timestamp
  */
 +(void)requestServerTime;
+>>>>>>> development
 
 #pragma mark App flow
 
@@ -443,6 +446,8 @@
  */
 +(void) trackEvent:(nonnull NSString*)name withParameters:(nonnull NSDictionary *)params onResponse:(void (^)(id response))block;
 
+<<<<<<< HEAD
+=======
 /**
  *  Track an error event
  *
@@ -452,6 +457,7 @@
  */
 +(void) trackErrorWithType:(NSString*)type withAction:(NSString*)action withMessage:(NSString*)message;
 
+>>>>>>> development
 #pragma clang diagnostic pop
 
 #pragma mark Send message
@@ -491,6 +497,8 @@
  *  Helper function to forward the app delegate listener on the deviceToken
  */
 +(void)didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData*)deviceToken;
+<<<<<<< HEAD
+=======
 
 #pragma mark Token claiming
 
@@ -500,6 +508,7 @@
  *  @param rewardType The reward type to which the token belongs
  */
 +(void)claimToken:(nonnull NSString*)token withRewardType:(nonnull NSString*)rewardType;
+>>>>>>> development
 
 #pragma mark Config
 

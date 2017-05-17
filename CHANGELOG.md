@@ -40,7 +40,7 @@ Version 2.2.10 *(21-03-2017)*
 This version brings image processing, additional parameters for updating user information, 3rd party SDK updates and bug fixes.
 * iOS Spil SDK updated to v2.1.9.
 * Android Spil SDK updated to v2.2.9.
-* Added image processing and loading logic for items, bundles and external images (see: for more information).
+* Added image processing and loading logic for items, bundles and external images (see: http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-wallet-shop-inventory/ for more information).
 * Added "reasonDetails" optional parameter to the methods that update the player's wallet and inventory.
 * Added "transactionId" optional parameter to the methods that update the player's wallet and inventory.
 * Added iOS Firebase Deep linking support.

@@ -6,6 +6,35 @@ Change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.3.0 *(16-05-2017)*
+----------------------------
+**IMPORTANT! Make sure that you remove the Spil Plugin files that were located in the Editor folder! These files are now directly present under the Spilgames folder!**
+
+**New Features**
+ * _Game Data Localisation_: New parameters were added to the Game Items, which include a "displayName" and "displayDescription" which gives you the possibility to localize the items, currencies and bundles inside your game from SLOT. By retrieving the information for one of the three, you will get this additional information. The information for these values is based on the user's phone localization settings.
+ * _Firebase Deep Linking_: Deep Linking has been added to the Spil SDK. It uses the Google Firebase implementation at it's core, while also integrating SLOT rewards for the games.
+ * _Server Time_: A method for requesting server time from SLOT has been added to th SDK. This is intended primarily as a means for preventing cheating in the game. 
+ * _IAP Validation_: The Spil SDK now supports server IAP validation. The validation is done when an "iapPurchased" event is tracked and all the correct parameters have been sent to the server.
+ * _Local Storage Encryption_: Encryption has been added to all the values that are stored locally on the phone by the SDK. This is done internally and no further actions are need by the developer.
+ * _iOS Spil SDK updated to v2.2.0_
+ * _Android Spil SDK updated to v2.3.0_
+
+**Bug Fixes**
+ * Android: Fixed issue with Unity Push Notification crashing the game in certain conditions
+ * Android: Fixed IAP validation data processing issue
+ * Android: Fixed issue with UpdatedData not being sent correctly to Unity
+ * Android: Fixed Adjust issue that would prevent Adjust from initialising for Android version between 5 and 6
+ * Android: Fixed crash caused by cast exception when the Game/SDK was resumed in certain cases
+ * iOS: Fixed private gamestate sending issue
+ * iOS: Fixed a wallet updating issue
+ * iOS: Fixed currency type issue
+ * Fixed several issues with Editor Mode
+
+**Other**
+ * Updated Third Party Libraries
+ * Restructured plugin structure
+
+
 Version 2.2.10 *(21-03-2017)*
 ----------------------------
 This version brings image processing, additional parameters for updating user information, 3rd party SDK updates and bug fixes.
@@ -14,7 +43,7 @@ This version brings image processing, additional parameters for updating user in
 * Added image processing and loading logic for items, bundles and external images (see: http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-wallet-shop-inventory/ for more information).
 * Added "reasonDetails" optional parameter to the methods that update the player's wallet and inventory.
 * Added "transactionId" optional parameter to the methods that update the player's wallet and inventory.
-* Added iOS Firebase Deeplinking support.
+* Added iOS Firebase Deep linking support.
 * Added button in Unity for reporting issues with the SDK.
 * Updated 3rd party libraries for iOS and Android.
 * Bug fix for iOS config file being to big.
@@ -61,7 +90,7 @@ This version brings updates to the way you are sending events via the SDK, 3rd p
 
 Version 2.2.7 *(30-11-2016)*
 ----------------------------
-This version only has a few hotfixes for Android and updates for the Ad Libaries.
+This version only has a few hotfixes for Android and updates for the Ad Libraries.
  * Fixed crash for IAP events.
  * Updated Ad Libraries for Android (Fyber, DFP and Chartboost).
  * Other minor bug fixes for Android.
@@ -72,16 +101,16 @@ Version 2.2.6 *(18-10-2016)*
 ----------------------------
 This version includes a full implementation of the Editor Mode for the Spil SDK, a permission request system for Android, several improvements in the configuration window as well as clearer issue checking.
  * Chartboost parental gate implemented in iOS.
- * Slight adjustments to the event sending for push notificaitons.
+ * Slight adjustments to the event sending for push notifications.
  * Added automatic event sending for when an ad is displayed, clicked, dismissed and closed.
  * Added permission request system for Android. The SDK now automatically request dangerous permissions at start-up (similar to how unity was doing it), but now a rationale is include for each permission. You also have the ability to disable this system and request the permissions manually when you need them during runtime.
- * A new look for the Spil SDK configuration windows have been added. You now have several tabs for each section, two new windows for documentation and release, as well as better build check-up for Android (hopefuly less issues will be reported now :) ).
+ * A new look for the Spil SDK configuration windows have been added. You now have several tabs for each section, two new windows for documentation and release, as well as better build check-up for Android (hopefully less issues will be reported now :) ).
 
 
 Version 2.2.5 *(26-10-2016)*
 ----------------------------
 This version only has a few hotfixes for both Android and iOS.
- * Added Custom Bundle Indentifier support for iOS.
+ * Added Custom Bundle Identifier support for iOS.
  * Fixed sending format for the TrackWalletInventoryEvent.
  * iOS Spil SDK updated to v2.1.2.
  * Android Spil SDK updated to v2.2.4.
@@ -119,7 +148,7 @@ Tweaks & bug fixes.
 
 Version 2.2.1
 ----------------------------
-Tweaks & bug fixes. minor updates and bugfixes.
+Tweaks & bug fixes. minor updates and bug fixes.
  * Tweaks & bug fixes.
  * Android SpilSDK updated to v2.2.1.
 
@@ -149,7 +178,7 @@ Version 2.1.0 is here and brings new "Shop", "Wallet" and "Inventory" features t
  * Updated test app to include Wallet, Inventory and Shop features (See the TestApp directory).
  * TestRequest methods for testing advertisements are now also available for iOS.
  * Improved logging for iOS.
- * AndroidManifest.xml for google play measurements now intentionally crashes build untill it is updated by user (how to notes are included).
+ * AndroidManifest.xml for google play measurements now intentionally crashes build until it is updated by user (how to notes are included).
  * Various minor bugfixes and improvements for ease of use.
  * 150% damage vs dragons
 

@@ -2,7 +2,6 @@
 //  Spil.h
 //  Spil
 //
-//  Created by Martijn van der Gun on 10/1/15.
 //  Copyright © 2015 Spil Games. All rights reserved.
 //
 
@@ -81,6 +80,19 @@
 -(void)imageLoadFailed:(nonnull ImageContext*)imageContext withError:(nonnull NSString*)error;
 -(void)imagePreloadingCompleted;
 
+// IAP validation
+-(void)iapValid:(nonnull NSArray*)items;
+-(void)iapInvalid:(nonnull NSString*)message;
+
+// Token claiming
+-(void)rewardTokenReceived:(nonnull NSString*)token rewardData:(nonnull NSArray*)rewardJsonObject withRewardType:(nonnull NSString*)rewardType;
+-(void)rewardTokenClaimed:(nonnull NSString*)rewardType reward:(nonnull NSArray*)reward;
+-(void)rewardTokenClaimFailed:(nonnull NSString*)rewardType error:(nonnull NSString*)error;
+
+// Server time
+-(void)serverTimeRequestSuccess:(nonnull NSString*)unixTimestamp;
+-(void)serverTimeRequestFailed:(nonnull NSString*)error;
+
 @end
 
 @interface Spil : NSObject {
@@ -146,6 +158,14 @@
  *  @param pluginVersion The plugin version
  */
 +(void)setPluginInformation:(nonnull NSString*)pluginName pluginVersion:(nonnull NSString*)pluginVersion;
+<<<<<<< HEAD
+=======
+
+/**
+ *  Request the server timestamp
+ */
++(void)requestServerTime;
+>>>>>>> development
 
 #pragma mark App flow
 
@@ -426,6 +446,18 @@
  */
 +(void) trackEvent:(nonnull NSString*)name withParameters:(nonnull NSDictionary *)params onResponse:(void (^)(id response))block;
 
+<<<<<<< HEAD
+=======
+/**
+ *  Track an error event
+ *
+ *  @param type    The error type (e.g. "adjust")
+ *  @param action  The error action (e.g. "intall")
+ *  @param message The error message (e.g. "no connection")
+ */
++(void) trackErrorWithType:(NSString*)type withAction:(NSString*)action withMessage:(NSString*)message;
+
+>>>>>>> development
 #pragma clang diagnostic pop
 
 #pragma mark Send message
@@ -465,6 +497,18 @@
  *  Helper function to forward the app delegate listener on the deviceToken
  */
 +(void)didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData*)deviceToken;
+<<<<<<< HEAD
+=======
+
+#pragma mark Token claiming
+
+/**
+ *  Used to claim the reward token from the backend
+ *  @param token      The token to claim
+ *  @param rewardType The reward type to which the token belongs
+ */
++(void)claimToken:(nonnull NSString*)token withRewardType:(nonnull NSString*)rewardType;
+>>>>>>> development
 
 #pragma mark Config
 
@@ -720,8 +764,9 @@
 
 /**
  * Shows the help center webview version
+ * @param url   The url to open
  */
-+(void)showHelpCenterWebview;
++(void)showHelpCenterWebview:(nonnull NSString*)url;
 
 #pragma mark Web
 

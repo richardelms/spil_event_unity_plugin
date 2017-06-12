@@ -6,6 +6,23 @@ Change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.3.1 *(09-06-2017)*
+----------------------------
+**IMPORTANT! We've added an optional parameter for the "token"(purchaseToken) for "TrackIAPPurchasedEvent". It is strongly advised to use it especially for Android as we have had issues with retrieving this internally.**
+
+**Bug Fixes**
+ * Android: Fixed issue with Google Advertisement Id not being retrieved/stored correctly
+ * Android: Implemented option for developer to pass IAP token for the "iapPurchased" event
+ * Android: Fixed issue with Firebase Deeplinking import into Unity
+ * Android/iOS: Deeplinking now tracks internally the URL
+ * Android: Fixed issue with OOM if the Event custom data would be too large
+ * Android: Fixed issue with Initial Value being tracked more than once
+ * Android: Fixed issue with Reset Updated Data crashing the game for Unity
+ * iOS: Fixes for Fyber reward videos
+
+**Other**
+ * Updated Third Party Libraries
+
 Version 2.3.0 *(16-05-2017)*
 ----------------------------
 **IMPORTANT! Make sure that you remove the Spil Plugin files that were located in the Editor folder! These files are now directly present under the Spilgames folder!**

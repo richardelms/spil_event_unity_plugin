@@ -2,10 +2,6 @@
 //  Wallet.h
 //  Spil
 //
-<<<<<<< HEAD
-//  Created by Frank Slofstra on 17/05/16.
-=======
->>>>>>> development
 //  Copyright © 2016 Spil Games. All rights reserved.
 //
 

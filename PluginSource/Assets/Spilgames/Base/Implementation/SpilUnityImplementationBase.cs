@@ -400,9 +400,11 @@ namespace SpilGames.Unity.Base.Implementations
 			dictionary.Add("transactionId", transactionId);
 			dictionary.Add("purchaseDate", DateTime.Now.ToString ("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"));
 
+			#if UNITY_ANDROID
 			if(token != null){
 				dictionary.Add("token", token);
 			}
+			#endif
 
 			SendCustomEvent ("iapPurchased", dictionary);
 		}

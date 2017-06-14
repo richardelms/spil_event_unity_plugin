@@ -9,7 +9,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.2.1"
+#define SDK_VERSION @"2.2.2"
 
 @class ImageContext;
 @class Spil;

@@ -700,7 +700,7 @@ namespace SpilGames.Unity.Base.Implementations
 
 		public override void RequestServerTime ()
 		{	
-			int currentTime = (int)(TimeZoneInfo.ConvertTimeToUtc(DateTime.Now) - new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
+			double currentTime = (int)(TimeZoneInfo.ConvertTimeToUtc(DateTime.Now) - new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalMilliSeconds;
 			string time = currentTime.ToString();
 			fireServerTimeRequestSuccess(time);
 		}

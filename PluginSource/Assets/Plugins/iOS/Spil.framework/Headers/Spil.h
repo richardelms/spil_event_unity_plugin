@@ -142,6 +142,11 @@
 +(void)setCustomBundleId:(nonnull NSString*)bundleId;
 
 /**
+ * Get the current app id
+ */
++(nullable NSString*)getAppId;
+
+/**
  *  Get the Spil user id
  */
 +(nullable NSString*)getSpilUserId;

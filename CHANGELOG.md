@@ -8,7 +8,7 @@ Change logs for the native SDKs:
 
 Version 2.3.1 *(09-06-2017)*
 ----------------------------
-**IMPORTANT! We've added an optional parameter for the "token"(purchaseToken) for "TrackIAPPurchasedEvent". It is strongly advised to use it especially for Android as we have had issues with retrieving this internally.**
+**IMPORTANT! We've added an optional parameter for the "token"(purchaseToken) for "TrackIAPPurchasedEvent". It is strongly advised to use it for Android as we have had issues with retrieving this internally. For iOS it is not required.**
 
 **Bug Fixes**
  * Android: Fixed issue with Google Advertisement Id not being retrieved/stored correctly

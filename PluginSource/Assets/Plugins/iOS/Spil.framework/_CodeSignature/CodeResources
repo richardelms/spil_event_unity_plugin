@@ -18,19 +18,19 @@
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		tzDVlUXhz9tW+fiH13f4h3GuaQw=
+		EZDiFZmoPzF/5Zva58WVNd7n0R8=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<data>
-		Lq0fg+tQpSDoLDTGQ+qP+rQsOHc=
+		AHu2QI5y6ehPrZQ1rYIuVifb/jg=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		oYO5rmLWl6pK3jxtQlFVOlISdAU=
+		jVDmF5tdY8Q3UpElj/srsuWwZqg=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<data>
-		/jqI561rQpOWoOqT6SPktD5KEvo=
+		MowwQ51aK+AtabbfwV9WMjKBLGc=
 		</data>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Frameworks/FBAudienceNetwork.framework/FBAudienceNetwork</key>
 		<data>
-		+PEm7uUwTXev1CLzZguKbDAN+7E=
+		5Y+fQKMcIoVUCgCZkflb4+1Dy2s=
 		</data>
 		<key>Frameworks/FBAudienceNetwork.framework/Info.plist</key>
 		<data>
-		YbSvgQlJ7ADV0BVb/A6BV/XicG8=
+		4l+fGFQ06ZwTflnOwg7Ld40PnhE=
 		</data>
 		<key>Frameworks/FacebookAdapter.framework/FacebookAdapter</key>
 		<data>
@@ -75,14 +75,6 @@
 		<key>Frameworks/Fyber_AdColony.framework/Resources/Info.plist</key>
 		<data>
 		8+aqE+rTWgQJQ+8X7FtRsENKCtw=
-		</data>
-		<key>Frameworks/Fyber_AppLovin.framework/Fyber_AppLovin</key>
-		<data>
-		8QwLaS5b7ux9AzttuvqQwaRmd08=
-		</data>
-		<key>Frameworks/Fyber_AppLovin.framework/Resources/Info.plist</key>
-		<data>
-		nF3BNlR8Grx1wDT5XBU8VDs0JAQ=
 		</data>
 		<key>Frameworks/Fyber_UnityAds.framework/Frameworks/UnityAds.framework/Info.plist</key>
 		<data>
@@ -167,7 +159,7 @@
 		</data>
 		<key>Frameworks/GoogleMobileAds.framework/GoogleMobileAds</key>
 		<data>
-		CdBjcY3579yg9JPRd5JqjFHZ6K8=
+		uPvZx/QokibOEehl8BZkqM/j8aQ=
 		</data>
 		<key>Frameworks/GoogleToolboxForMac.framework/GoogleToolboxForMac</key>
 		<data>
@@ -259,7 +251,7 @@
 		</data>
 		<key>Headers/HookBridge.h</key>
 		<data>
-		wrOFeFUPo64vQSmvoyFGGn0Lc+0=
+		DkVPSFI8FhGEom+gwuYlmbCNcg4=
 		</data>
 		<key>Headers/ImageContext.h</key>
 		<data>
@@ -299,11 +291,11 @@
 		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		tfGQZg8kmmdYTTv5C+DizGokc5s=
+		qdfg5CBB/nSEVijj4pQLa+TsS9Q=
 		</data>
 		<key>Headers/SpilActionHandler.h</key>
 		<data>
-		COhn7UsA3OywbeT5ILRiI1k6qkg=
+		M2w6chVxmQb+yZqrPdLXt5vVYME=
 		</data>
 		<key>Headers/SpilEventTracker.h</key>
 		<data>
@@ -323,7 +315,7 @@
 		</data>
 		<key>MPAdBrowserController.nib</key>
 		<data>
-		9Ghdo7Vc4QR+3FV1pShK9t6dGuw=
+		yqoYC2Hu/k2V96jkbFyC/La/5P8=
 		</data>
 		<key>MPAdBrowserController.xib</key>
 		<data>
@@ -987,7 +979,7 @@
 		</data>
 		<key>setup.py</key>
 		<data>
-		KkQyxN1WFuGg4xSWwoQoHqBXIvs=
+		n9RsvrBmQF64bT60dueKERGYJs4=
 		</data>
 		<key>vg_close.png</key>
 		<data>
@@ -1049,44 +1041,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tzDVlUXhz9tW+fiH13f4h3GuaQw=
+			EZDiFZmoPzF/5Zva58WVNd7n0R8=
 			</data>
 			<key>hash2</key>
 			<data>
-			DXCtDPcjj4EmNDBfHerSzYFwCf+6ZlRliyXFYN6H55c=
+			jd8uRqZSiuOSHkY0qJnOpAEZoCduchMneFuSp//7wqY=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Lq0fg+tQpSDoLDTGQ+qP+rQsOHc=
+			AHu2QI5y6ehPrZQ1rYIuVifb/jg=
 			</data>
 			<key>hash2</key>
 			<data>
-			MpLItZc2/Hc0JN9tnGhVjFFLn2fZGQcaX1O+/Y166js=
+			HXzPBpnb6bD4axEVzEDGx+R0VR531Kn/REho9vUkMlQ=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oYO5rmLWl6pK3jxtQlFVOlISdAU=
+			jVDmF5tdY8Q3UpElj/srsuWwZqg=
 			</data>
 			<key>hash2</key>
 			<data>
-			DofPx1r09S4JxruzqUhaM3/V24V0kObVIcmxHJZsg/A=
+			hK3WXbW2g0NG7qnYhZmqaL+Mf2wBaBac/OfjUS29t7I=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/jqI561rQpOWoOqT6SPktD5KEvo=
+			MowwQ51aK+AtabbfwV9WMjKBLGc=
 			</data>
 			<key>hash2</key>
 			<data>
-			dLl/OWdAyjZHw6nDj77nua7vIqkYASVZ6/YUgWFJD/M=
+			Kp2m6UMrBwFgUUpMJuOP/0dCa/tjqk+00AXg5cAd/z0=
 			</data>
 		</dict>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
@@ -1115,22 +1107,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+PEm7uUwTXev1CLzZguKbDAN+7E=
+			5Y+fQKMcIoVUCgCZkflb4+1Dy2s=
 			</data>
 			<key>hash2</key>
 			<data>
-			y23p7MXoWdAXOCw0g/DKIm3gJlAvmB11MaOBfkGzOiE=
+			iUcdR3G7iOXdT92kED2z+a/s5dbXlrGldoUaWJNt8kU=
 			</data>
 		</dict>
 		<key>Frameworks/FBAudienceNetwork.framework/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YbSvgQlJ7ADV0BVb/A6BV/XicG8=
+			4l+fGFQ06ZwTflnOwg7Ld40PnhE=
 			</data>
 			<key>hash2</key>
 			<data>
-			2ptY64rZYwuqn9/qKMTT3B++cF3kibTsPyjeaPJWArk=
+			2AVsDYy4NUXI54hCV+OapflDbUX3/e/fUJymZQPI47o=
 			</data>
 		</dict>
 		<key>Frameworks/FacebookAdapter.framework/FacebookAdapter</key>
@@ -1208,28 +1200,6 @@
 			<key>hash2</key>
 			<data>
 			uRvFCVmu2P9huZEuxGo7t4qEZYCyFtovoLwH2j6S9L4=
-			</data>
-		</dict>
-		<key>Frameworks/Fyber_AppLovin.framework/Fyber_AppLovin</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			8QwLaS5b7ux9AzttuvqQwaRmd08=
-			</data>
-			<key>hash2</key>
-			<data>
-			nGgcDmS6TenjKfsonrpman2OBIx//DlOmycGNBQM0LI=
-			</data>
-		</dict>
-		<key>Frameworks/Fyber_AppLovin.framework/Resources/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			nF3BNlR8Grx1wDT5XBU8VDs0JAQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			Zkqi1YHwnn5vUeMoiP+UwHVjnDCdZjh5TXF7ZD2vu3Y=
 			</data>
 		</dict>
 		<key>Frameworks/Fyber_UnityAds.framework/Frameworks/UnityAds.framework/Info.plist</key>
@@ -1447,11 +1417,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CdBjcY3579yg9JPRd5JqjFHZ6K8=
+			uPvZx/QokibOEehl8BZkqM/j8aQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			wBwKnanVZl+nC/Gze6Zz+XRwRAyHF42JoGPIOEp5BY8=
+			PFzrZUdIMTj/PaYZVy3Y3URdAGWfecp/LxqEf01vUWk=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleToolboxForMac.framework/GoogleToolboxForMac</key>
@@ -1700,11 +1670,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wrOFeFUPo64vQSmvoyFGGn0Lc+0=
+			DkVPSFI8FhGEom+gwuYlmbCNcg4=
 			</data>
 			<key>hash2</key>
 			<data>
-			EyDBPl1g2cVXyRtQYHbWhtYfNKkLo/Q3bq4vCZXTwHk=
+			BXXNxMv/XftkvpWJUKeOOms3kPx9oeSVUNlN4T5G5Ks=
 			</data>
 		</dict>
 		<key>Headers/ImageContext.h</key>
@@ -1810,22 +1780,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tfGQZg8kmmdYTTv5C+DizGokc5s=
+			qdfg5CBB/nSEVijj4pQLa+TsS9Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			xQLw8jLr9d6zNZZagoOXkca0CiYafNwxx4hEX3FOCbg=
+			WZvFGeW6kCitneeC69e7/ahvFkXXGkiq9MEVq/DI8Uk=
 			</data>
 		</dict>
 		<key>Headers/SpilActionHandler.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			COhn7UsA3OywbeT5ILRiI1k6qkg=
+			M2w6chVxmQb+yZqrPdLXt5vVYME=
 			</data>
 			<key>hash2</key>
 			<data>
-			kT0Q5nLqwuPjtaAKh3QxY8DEZrCrN3u6XyTPBT7R1lo=
+			Zv24PvOoPveTEGbLtrshWL06tLa1PxSqwpxHH9U72q0=
 			</data>
 		</dict>
 		<key>Headers/SpilEventTracker.h</key>
@@ -1865,11 +1835,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9Ghdo7Vc4QR+3FV1pShK9t6dGuw=
+			yqoYC2Hu/k2V96jkbFyC/La/5P8=
 			</data>
 			<key>hash2</key>
 			<data>
-			gMnxWOhd9onf6I8Sfwfok1eBEdi/FoCl2B3yVESftrw=
+			S2o9NIpt556QJQwcVRVT0yrdjzxKiGj3kcxHfaqwN5o=
 			</data>
 		</dict>
 		<key>MPAdBrowserController.xib</key>
@@ -3456,11 +3426,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KkQyxN1WFuGg4xSWwoQoHqBXIvs=
+			n9RsvrBmQF64bT60dueKERGYJs4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ngBsxgRTxJJrf2uoq+52BO1kQzfFlCAvpjvlgszgcxQ=
+			aKg8rkD68wGeahdLB/HHHZ5q28Xgsz4IXqw820W6Ce8=
 			</data>
 		</dict>
 		<key>vg_close.png</key>

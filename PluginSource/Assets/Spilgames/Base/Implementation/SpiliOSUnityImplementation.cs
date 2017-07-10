@@ -80,9 +80,9 @@ namespace SpilGames.Unity.Base.Implementations
 		/// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
 		/// Internal method names start with a lower case so you can easily recognise and avoid them.
 		/// </summary>
-		internal override string GetPromotion(string key)
+		internal override string GetPromotions(string key)
 		{
-			return getPromotionNative(key);
+			return getPromotionsNative(key);
 		}
 
 		[DllImport("__Internal")]
@@ -95,7 +95,7 @@ namespace SpilGames.Unity.Base.Implementations
 		private static extern string getPackageNative(string keyName);
 
 		[DllImport("__Internal")]
-		private static extern string getPromotionNative(string keyName);
+		private static extern string getPromotionsNative(string keyName);
 
     
 		#endregion
@@ -592,6 +592,49 @@ namespace SpilGames.Unity.Base.Implementations
 		{
 			requestServerTimeNative();
 		}
+
+		#endregion
+
+		#region Live Event
+
+		public override void RequestLiveEvent()
+		{
+			requestLiveEventNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestLiveEventNative();
+
+		public override void OpenLiveEvent() {
+			openLiveEventNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void openLiveEventNative();
+
+		public override string GetLiveEventConfig()
+		{
+			return getLiveEventConfigNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getLiveEventConfigNative();
+
+		public override long GetLiveEventStartDate()
+		{
+			return Convert.ToInt64(getLiveEventStartDateNative());
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getLiveEventStartDateNative();
+
+		public override long GetLiveEventEndDate()
+		{
+			return Convert.ToInt64(getLiveEventEndDateNative());
+		}
+
+		[DllImport("__Internal")]
+		private static extern string getLiveEventEndDateNative();
 
 		#endregion
 

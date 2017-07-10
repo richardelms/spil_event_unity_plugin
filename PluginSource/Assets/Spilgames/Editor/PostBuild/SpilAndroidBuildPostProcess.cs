@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEditor.Callbacks;
 using UnityEditor;
@@ -13,6 +14,7 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour
 {
 
 	private static string androidFolder = "Assets/Plugins/Android/";
+	private static Spil spil;
 
 	#if UNITY_5_6_OR_NEWER
 	private static string bundleIdentifier = PlayerSettings.applicationIdentifier;
@@ -22,7 +24,6 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour
 
 	[PostProcessBuild]
 	public static void OnPostprocessBuild (BuildTarget target, string pathToBuildProject){
-
 		if(target == BuildTarget.Android){
 			Debug.Log("Starting verification step for Android Spil SDK");
 
@@ -147,6 +148,7 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour
 	}
 
 	public static void CheckSlotGameConifg(){
+		spil = GameObject.FindObjectOfType<Spil>();
 		JSONObject slotConfigJSON = new JSONObject(GetData("requestConfig"));
 		JSONObject localConfigJSON = new JSONObject(System.IO.File.ReadAllText (Application.streamingAssetsPath + "/defaultGameConfig.json"));
 		if(slotConfigJSON.HasField("androidSdkConfig") && localConfigJSON.HasField("androidSdkConfig")){
@@ -155,6 +157,7 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour
 
 			if(!localConfig.Equals(slotConfig)){
 				UnityEngine.Debug.Log("The local \"defaultGameConfig.json\" file is out-of-sync with the SLOT configuration. Please make sure to update your file with the latest changes from SLOT before building!");
+				Debug.Log("The check done at this stage only verifies if you have data correctly for the Live environment and not the Debug/Testing one!");
 			}
 		} 
 	}
@@ -200,7 +203,7 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour
 		form.AddField ("data", dummyData.ToString ());
 		form.AddField ("customData", dummyCustomData.ToString ());
 		form.AddField ("ts", "1470057439857");
-		form.AddField ("queued", "0");
+		form.AddField ("queued", 0);
 		return form;
 	}
 

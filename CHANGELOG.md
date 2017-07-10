@@ -6,6 +6,24 @@ Change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.4.0 *(10-07-2017)*
+----------------------------
+Version 2.4.0 includes the new feature Live Event, overall improvements to the native SDKs and it's features and bug fixes.
+
+**New Features**
+ * _Live Event_: A feature which allows the game to display custom events defined in SLOT, which require the user to consume one of his Inventory item in order to get rewards at the end of the event.
+
+**Bug Fixes**
+ * Android: Fixed potential issue with OOM caused by large Game State events
+ * Android: Improved Web View performance for all types: Splash Screens, Daily Bonus and Live Event
+ * iOS: Fixed an issue with the Fyber loader displaying incorrectly
+ * iOS: Fixed issue with OnUpdateGameState not being called on the first initialization
+
+**Other**
+ * Android/iOS: Added new WebView loader added
+ * Android/iOS: Added new callbacks for receiving information from a WebView and detecting if a WebView requests an IAP
+ 
+
 Version 2.3.1 *(09-06-2017)*
 ----------------------------
 **IMPORTANT! We've added an optional parameter for the "token"(purchaseToken) for "TrackIAPPurchasedEvent". It is strongly advised to use it for Android as we have had issues with retrieving this internally. For iOS it is not required.**

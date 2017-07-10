@@ -9,7 +9,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.2.2"
+#define SDK_VERSION @"2.4.0"
 
 @class ImageContext;
 @class Spil;
@@ -47,6 +47,7 @@
 -(void)splashScreenClosed;
 -(void)splashScreenOpenShop;
 -(void)splashScreenError:(nonnull NSString*)message;
+-(void)splashScreenData:(nonnull NSString*)payload;
 
 // Daily bonus screen events
 -(void)dailyBonusOpen;
@@ -54,6 +55,9 @@
 -(void)dailyBonusClosed;
 -(void)dailyBonusReward:(nonnull NSDictionary*)data;
 -(void)dailyBonusError:(nonnull NSString*)message;
+
+// Webview events
+-(void)iapRequestPurchase:(nonnull NSString*)skuId;
 
 // Config events
 -(void)configUpdated;
@@ -92,6 +96,17 @@
 // Server time
 -(void)serverTimeRequestSuccess:(nonnull NSString*)unixTimestamp;
 -(void)serverTimeRequestFailed:(nonnull NSString*)error;
+
+// Live events
+-(void)liveEventStageOpen;
+-(void)liveEventStageClosed;
+-(void)liveEventAvailable;
+-(void)liveEventNotAvailable;
+-(void)liveEventError:(nonnull NSString*)error;
+-(void)liveEventMetRequirements:(BOOL)metRequirements;
+-(void)liveEventUsedExternalItems:(nonnull NSArray*)externalItem;
+-(void)liveEventReward:(nonnull NSArray*)rewardList;
+-(void)liveEventCompleted;
 
 @end
 
@@ -548,12 +563,12 @@
 +(nullable NSArray*)getAllPromotions;
 
 /**
- * Get a specific promotion from the store
+ * Get all promotion for a package
  *
  * @param Name of the key. Type must be NSString.
- * @return returns the store promotion, or nil if not found
+ * @return returns a promotions list for the package id
  */
-+(nullable NSDictionary*)getPromotionByID:(nonnull NSString*)keyString;
++(nullable NSArray*)getPromotionsByID:(nonnull NSString*)keyString;
 
 /**
  * Refresh the package and promotion data
@@ -859,6 +874,33 @@
  *  Automatically preloads all images for all items and bundles
  */
 +(void)preloadItemAndBundleImages;
+
+#pragma live events
+
+/**
+ *  Request the live event
+ */
++(void)requestLiveEvent;
+
+/**
+ *  Open the live event
+ */
++(void)openLiveEvent;
+
+/**
+ *  Request the live event start
+ */
++(int)getLiveEventStartDate;
+
+/**
+ *  Request the live event end time
+ */
++(int)getLiveEventEndDate;
+
+/**
+ *  Request the live event config
+ */
++(nonnull NSDictionary*)getLiveEventConfig;
 
 #pragma test methods (dev)
 

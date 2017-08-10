@@ -375,6 +375,13 @@ namespace SpilGames.Unity {
         /// <summary>
         /// This method is called by the native Spil SDK, it should not be used by developers.
         /// </summary>
+        public void PlayerDataEmptyGacha() {
+            SpilUnityImplementationBase.firePlayerDataEmptyGacha();
+        }
+
+        /// <summary>
+        /// This method is called by the native Spil SDK, it should not be used by developers.
+        /// </summary>
         public void PlayerDataError(string reason) {
             SpilUnityImplementationBase.firePlayerDataError(reason);
         }
@@ -432,7 +439,7 @@ namespace SpilGames.Unity {
         /// This method is called by the native Spil SDK, it should not be used by developers.
         /// </summary>
         public void SplashScreenData(string payload) {
-            
+            SpilUnityImplementationBase.fireSplashScreenData(payload);
         }
 
         /// <summary>

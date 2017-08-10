@@ -72,9 +72,9 @@ namespace SpilGames.Unity.Base.Implementations {
         /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
         /// Internal method names start with a lower case so you can easily recognise and avoid them.
         /// </summary>
-		internal override string GetPromotions (string key) {
-			return PackagesResponse.getPromotions (key);
-		}
+        internal override string GetPromotions(string key) {
+            return PackagesResponse.getPromotions(key);
+        }
 
         #endregion
 
@@ -188,13 +188,23 @@ namespace SpilGames.Unity.Base.Implementations {
                     if (dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")) {
                         JSONObject json = new JSONObject((string) dictValue.Value);
                         spilEvent.customData.AddField(dictValue.Key, json);
-                    }
-                    else {
-                        spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
+                    } else {
+                        if (dictValue.Value is int) {
+                            spilEvent.customData.AddField(dictValue.Key, (int) dictValue.Value);
+                        } else if (dictValue.Value is string) {
+                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
+                        } else if (dictValue.Value is bool) {
+                            spilEvent.customData.AddField(dictValue.Key, (bool) dictValue.Value);
+                        } else if (dictValue.Value is float) {
+                            spilEvent.customData.AddField(dictValue.Key, (float) dictValue.Value);
+                        } else if (dictValue.Value is JSONObject) {
+                            spilEvent.customData.AddField(dictValue.Key, (JSONObject) dictValue.Value);
+                        } else {
+                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
+                        }
                     }
                 }
             }
-
 
             spilEvent.Send();
         }
@@ -327,6 +337,10 @@ namespace SpilGames.Unity.Base.Implementations {
             pData.BuyBundle(bundleId, reason, reasonDetails, location, transactionId);
         }
 
+        public override void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null) {
+            pData.OpenGacha(gachaId, reason, reasonDetails, location);
+        }
+
         public override void ResetPlayerData() {
             pData.ResetPlayerData();
             pData.SendUpdatePlayerDataEvent(true, true, PlayerDataUpdateReasons.Reset);
@@ -451,6 +465,10 @@ namespace SpilGames.Unity.Base.Implementations {
         /// <returns>The user provider native.</returns>
         public override string GetUserProvider() {
             return Response.provider;
+        }
+
+        public override void RequestMyGameState() {
+            RequestGameState();
         }
 
         /// <summary>
@@ -583,17 +601,17 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #region Reward
 
-        public override void ClaimToken(string token, string rewardType) {         
+        public override void ClaimToken(string token, string rewardType) {
             SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent>();
             spilEvent.eventName = "claimToken";
-            
+
             spilEvent.customData.AddField("token", Spil.RewardToken);
-            
+
             Spil.RewardFeatureTypeEnum tokenType = Spil.MonoInstance.RewardFeatureType;
             if (tokenType.Equals(Spil.RewardFeatureTypeEnum.DEEPLINK)) {
                 spilEvent.customData.AddField("rewardType", "deepLink");
-            } 
-            
+            }
+
             spilEvent.Send();
         }
 

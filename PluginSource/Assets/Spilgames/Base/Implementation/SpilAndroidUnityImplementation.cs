@@ -108,6 +108,13 @@ namespace SpilGames.Unity.Base.Implementations {
         }
 
         /// <summary>
+        /// Request to the SDK the latest Private and Public Game State.
+        /// </summary>
+        public override void RequestMyGameState() {
+            CallNativeMethod("requestMyGameState");
+        }
+
+        /// <summary>
         /// Sets the state of the private game.
         /// </summary>
         /// <param name="privateData">Private data.</param>
@@ -300,6 +307,15 @@ namespace SpilGames.Unity.Base.Implementations {
                 location,
                 reasonDetails,
                 transactionId
+            }, true);
+        }
+
+        public override void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null) {
+            CallNativeMethod("openGacha", new object[] {
+                gachaId,
+                reason,
+                location,
+                reasonDetails
             }, true);
         }
 
@@ -600,10 +616,11 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #region Permissions
 
-        public void RequestDangerousPermission(string permission, string rationale) {
+        public void RequestDangerousPermission(string permission, string rationale, string denyRationale) {
             CallNativeMethod("requestDangerousPermission", new object[] {
                 permission,
-                rationale
+                rationale,
+                denyRationale
             }, true);
         }
 

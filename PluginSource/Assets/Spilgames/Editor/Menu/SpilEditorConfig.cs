@@ -150,10 +150,7 @@ public class SpilEditorConfig : EditorWindow {
 
         string customUserId = "<< Spil component not found in scene! >>";
         bool exportDefaultEntitlements = EditorPrefs.GetBool("exportDefaultEntitlements");
-        bool useICloudContainer = EditorPrefs.GetBool("useICloudContainer");
         bool useICloudKV = EditorPrefs.GetBool("useICloudKV");
-        bool usePushNotifications = EditorPrefs.GetBool("usePushNotifications");
-
 
         if (spil != null) {
             customUserId = spil.CustomBundleId;
@@ -166,14 +163,10 @@ public class SpilEditorConfig : EditorWindow {
         GUILayout.Space(4);
         GUILayout.Label("Entitlements:", EditorStyles.boldLabel);
         exportDefaultEntitlements = GUILayout.Toggle(exportDefaultEntitlements, "Export Spil Games entitlements");
-        useICloudContainer = GUILayout.Toggle(useICloudContainer, "Use iCloud project container");
         useICloudKV = GUILayout.Toggle(useICloudKV, "Use iCloud key-value store");
-        usePushNotifications = GUILayout.Toggle(usePushNotifications, "Use push notifications");
 
         EditorPrefs.SetBool("exportDefaultEntitlements", exportDefaultEntitlements);
-        EditorPrefs.SetBool("useICloudContainer", useICloudContainer);
         EditorPrefs.SetBool("useICloudKV", useICloudKV);
-        EditorPrefs.SetBool("usePushNotifications", usePushNotifications);
 
         if (spil != null) {
             spil.CustomBundleId = customUserId;
@@ -448,7 +441,7 @@ public class SpilEditorConfig : EditorWindow {
             WWW request = new WWW("https://apptracker.spilgames.com/v1/native-events/event/android/" + bundleIdentifier + "/" + type, form);
             while (!request.isDone)
                 ;
-            if (request.error != null) {
+            if (request.error != null && !request.error.Equals("")) {
                 Debug.LogError("Error getting game data: " + request.error);
                 combined.AddField("androidSdkConfig", "");
             }
@@ -461,7 +454,7 @@ public class SpilEditorConfig : EditorWindow {
             WWW request2 = new WWW("https://apptracker.spilgames.com/v1/native-events/event/ios/" + bundleIdentifier + "/" + type, form2);
             while (!request2.isDone)
                 ;
-            if (request2.error != null) {
+            if (request.error != null && !request.error.Equals("")) {
                 Debug.LogError("Error getting game data: " + request2.error);
                 combined.AddField("iosSdkConfig", "");
             }
@@ -479,7 +472,7 @@ public class SpilEditorConfig : EditorWindow {
             WWW request = new WWW("https://apptracker.spilgames.com/v1/native-events/event/" + EditorUserBuildSettings.activeBuildTarget.ToString().Trim().ToLower() + "/" + bundleIdentifier + "/" + type, form);
             while (!request.isDone)
                 ;
-            if (request.error != null) {
+            if (request.error != null && !request.error.Equals("")) {
                 Debug.LogError("Error getting game data: " + request.error + " " + request.text);
             }
             else {

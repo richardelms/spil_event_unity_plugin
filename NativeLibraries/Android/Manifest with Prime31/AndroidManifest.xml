@@ -30,6 +30,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:host="YOUR_HOST_NAME" android:scheme="http" />
         <data android:host="YOUR_HOST_NAME" android:scheme="https" />
+        <data android:scheme="YOUR_ADJUST_SCHEME" />
       </intent-filter>
  -->
     </activity>

@@ -79,15 +79,13 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 			MoveDirectory (pathToBuildProject + "/Frameworks/Plugins/iOS/Spil.framework", pathToBuildProject + "/Spil.framework");
 
 			bool exportDefaultEntitlements = EditorPrefs.GetBool ("exportDefaultEntitlements");
-			bool useICloudContainer = EditorPrefs.GetBool ("useICloudContainer");
 			bool useICloudKV = EditorPrefs.GetBool ("useICloudKV");
-			bool usePushNotifications = EditorPrefs.GetBool ("usePushNotifications");
 
 			String arguments = "Unity-iPhone " +
 								   exportDefaultEntitlements + " " +
-								   useICloudContainer + " " +
+								   false + " " +
 				                   useICloudKV + " " +
-				                   usePushNotifications;
+				                   false;
 
 			UnityEngine.Debug.Log ("[SPIL] Executing: python " + pathToBuildProject + "/Spil.framework/setup.py " + arguments);
 			Process setupProcess = new Process ();
@@ -132,7 +130,7 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 
 		while (!request.isDone);
 
-		if(request.error == null){
+		if(request.error == null || request.error.Equals("")){
 			JSONObject response = new JSONObject(request.text);
 
 			string GitHubReleaseTag = response.GetField("tag_name").Print(false);
@@ -163,7 +161,7 @@ public class SpilIOSBuildPostProcess : MonoBehaviour
 		WWW request = new WWW ("https://apptracker.spilgames.com/v1/native-events/event/ios/" + bundleIdentifier + "/" + type, form);
 		while (!request.isDone)
 			;
-		if (request.error != null) {
+		if (request.error != null && !request.error.Equals("")) {
 			UnityEngine.Debug.LogWarning ("Error getting game data: " + request.error);  
 		} else { 
 			UnityEngine.Debug.Log (type + " Data returned: " + request.text);

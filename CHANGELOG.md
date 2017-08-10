@@ -1,10 +1,34 @@
 Change Log
 ==========
-Change logs for the native SDKs:
+Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
 ----------------------------
+Version 2.5.0 *(09-08-2017)*
+----------------------------
+Version 2.5.0 includes Gacha box feature, Android improved permission flow, Adjust Deep Linking, additional methods for Splash Screens and several bug fixes.
+
+**New Features**
+ * _Gacha Box_: This feature allows for the configuration of Gacha box items through the SLOT system. It gives the opportunity to configure items that can be gained through a roll system. The Gacha acts like an item so it can be added to the Inventory and bought through the Bundle system. An additional method for opening the gacha has been added.
+
+**Bug Fixes**
+ * Android: Fixed issue with initial values not being stored correctly when the game was offline
+ * Android: Fixed crash when trying to initialise deep linking
+ * Android: Fixed crash when a web view was not finding a certain resource
+ * Android: Fixed crash when checking for external permissions
+ * iOS: Aligned issue with OnGameStateError not being called if there is no internet connection
+ * Editor: Fixed issue with sending event with custom data not having the correct type
+ * Unity: Updated SDK to Unity 2017.1 and fixed issue with sending events in Editor
+
+**Other**
+ * Android/iOS: Added additional methods for Splash Screen which includes buying bundles and adding items and currency to the user
+ * Android: Improved Permission flow by always requesting a Permission Rationale before the permission request and showing a Deny Rationale in case the user denied the permission
+ * Android: Added option to localize and configure the Permission Rationale and Deny Rationale via Game Config (SLOT)
+ * Android/iOS: Added "updatePlayerData" event trigger when receiving updates from SLOT for Player Data
+ * Android/iOS: Added Adjust Deep Linking which uses the same flow as Firebase Deep Linking
+ * Android/iOS: Added method "requestMyGameSate" to request the game states manually. Use this only in case of game state error
+
 
 Version 2.4.0 *(10-07-2017)*
 ----------------------------

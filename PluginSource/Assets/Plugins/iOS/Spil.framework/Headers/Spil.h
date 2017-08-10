@@ -9,7 +9,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.4.0"
+#define SDK_VERSION @"2.5.0"
 
 @class ImageContext;
 @class Spil;
@@ -61,6 +61,7 @@
 
 // Config events
 -(void)configUpdated;
+-(void)configError:(nonnull NSString*)error;
 
 // Package events
 -(void)packagesLoaded;
@@ -73,6 +74,7 @@
 -(void)playerDataAvailable;
 -(void)playerDataError:(nonnull NSString*)message;
 -(void)playerDataUpdated:(nonnull NSString*)reason updatedData:(nonnull NSString*)updatedData;
+-(void)playerDataEmptyGacha;
 
 // User data events
 -(void)gameStateUpdated:(nonnull NSString*)access; // Access: private|public
@@ -96,6 +98,7 @@
 // Server time
 -(void)serverTimeRequestSuccess:(nonnull NSString*)unixTimestamp;
 -(void)serverTimeRequestFailed:(nonnull NSString*)error;
+-(void)gameStateServerError:(nonnull NSString*)error;
 
 // Live events
 -(void)liveEventStageOpen;
@@ -716,6 +719,15 @@
 +(void)buyBundle:(int)bundleId withReason:(nonnull NSString*)reason withReasonDetails:(nullable NSString*)reasonDetails withLocation:(nullable NSString*)location withTransactionId:(nullable NSString*)transactionId;
 
 /**
+ * Open the gacha and add the content to the inventory
+ * @param itemId        The id of the gacha
+ * @param reason        The bundle reason
+ * @param reasonDetails The bundle reasonDetails
+ * @param location      The location where the event happened, for example level1
+ */
++(void)openGacha:(int)itemId withReason:(nonnull NSString*)reason withReasonDetails:(nullable NSString*)reasonDetails withLocation:(nullable NSString*)location;
+
+/**
  * Get all the shop tabs
  *
  * Returns an array with ShopTab objects
@@ -844,6 +856,11 @@
  *  @param userIds The user ids
  */
 +(void)getOtherUsersGameState:(nonnull NSString*)provider userIds:(nonnull NSArray*)userIds;
+
+/**
+ *  Request the private gamestate.
+ */
++(void)requestMyGameState;
 
 #pragma image cache
 

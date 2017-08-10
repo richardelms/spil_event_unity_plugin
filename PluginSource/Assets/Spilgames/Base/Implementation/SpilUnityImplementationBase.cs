@@ -10,10 +10,10 @@ using SpilGames.Unity.Helpers.IAPPackages;
 namespace SpilGames.Unity.Base.Implementations {
     public abstract class SpilUnityImplementationBase {
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.4.0";
+        public static string PluginVersion = "2.5.0";
 
-        public static string AndroidVersion = "2.4.0";
-        public static string iOSVersion = "2.4.0";
+        public static string AndroidVersion = "2.5.0";
+        public static string iOSVersion = "2.5.0";
 
         #region Game config
 
@@ -793,6 +793,22 @@ namespace SpilGames.Unity.Base.Implementations {
             }
         }
 
+        public delegate void PlayerDataEmptyGacha();
+
+        /// <summary>
+        /// This is fired by the native Spil SDK after player data has been received from the server.
+        /// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
+        /// </summary>
+        public event PlayerDataEmptyGacha OnPlayerDataEmptyGacha;
+
+        public static void firePlayerDataEmptyGacha() {
+            Debug.Log("SpilSDK-Unity Received nothing from gacha box!");
+
+            if (Spil.Instance.OnPlayerDataEmptyGacha != null) {
+                Spil.Instance.OnPlayerDataEmptyGacha();
+            }
+        }
+        
         public delegate void PlayerDataError(SpilErrorMessage errorMessage);
 
         /// <summary>
@@ -1560,6 +1576,11 @@ namespace SpilGames.Unity.Base.Implementations {
         #region Game State
 
         /// <summary>
+        /// Request the users Private and Public Game State.
+        /// </summary>
+        public abstract void RequestMyGameState();
+        
+        /// <summary>
         /// Sets the state of the private game.
         /// </summary>
         /// <param name="privateData">Private data.</param>
@@ -1648,6 +1669,8 @@ namespace SpilGames.Unity.Base.Implementations {
 
         public abstract void BuyBundle(int bundleId, string reason, string location, string reasonDetails = null, string transactionId = null);
 
+        public abstract void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null);
+        
         public abstract void ResetPlayerData();
 
         public abstract void ResetInventory();

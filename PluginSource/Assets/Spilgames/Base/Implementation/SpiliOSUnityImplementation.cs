@@ -386,8 +386,17 @@ namespace SpilGames.Unity.Base.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void getOtherUsersGameStateNative(string provider, string userIdsJsonArray);
-
     
+		/// <summary>
+		/// Request to the SDK the latest Private and Public Game State.
+		/// </summary>
+		public override void RequestMyGameState() {
+			requestMyGameStateNative ();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestMyGameStateNative();
+
 		#region Spil Game Objects
 	
 		public override string GetSpilGameDataFromSdk ()
@@ -397,8 +406,6 @@ namespace SpilGames.Unity.Base.Implementations
 
 		[DllImport("__Internal")]
 		private static extern string getSpilGameDataNative();
-
-
     
 		#region Image loading
 	
@@ -523,6 +530,13 @@ namespace SpilGames.Unity.Base.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void buyBundleNative (int bundleId, string reason, string location, string reasonDetails, string transactionId);
+
+		public override void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null) {
+			openGachaNative(gachaId, reason, reasonDetails, location);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void openGachaNative (int bundleId, string reason, string reasonDetails, string location);
 
 		public override void ResetPlayerData () 
 		{

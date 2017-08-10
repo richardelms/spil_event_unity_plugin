@@ -168,6 +168,8 @@ extern "C" {
     
     void buyBundleNative(int itemId, char* reasonName, char* location, char* reasonDetails, char* transactionId);
     
+    void openGachaNative(int itemId, char* reasonName, char* reasonDetails, char* location);
+    
     void resetPlayerDataNative();
     
     void resetInventoryNative();
@@ -205,6 +207,8 @@ extern "C" {
     char* getPublicGameStateNative();
 
     void getOtherUsersGameStateNative(const char* provider, const char* userIdsJsonArray);
+    
+    void requestMyGameStateNative();
     
     // --- Image cache ---
     

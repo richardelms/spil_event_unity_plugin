@@ -5,6 +5,38 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
 ----------------------------
+
+Version 2.6.1 *(26-09-2017)*
+----------------------------
+Version 2.6.1 brings Spil More Apps, ability to configure an image for the permission dialogs for Android, new event tracking implementation and bug fixes.
+
+**New Features**
+ * _Spil More Apps_: This feature replaces the Chartboost more apps and allows the setting up of a more apps screen using the SLOT system. The flow of requesting and showing the Spil More Apps screen is the same as with the previous implementation.
+
+**Bug Fixes**
+ * Android: Fixed issue with inventory initialisation not picking up correctly the initial values in offline mode
+ * Android: Fixed WAKE_LOCK issue by replacing the offline queueing library (old Trigger - new Android Job)
+ * Android: Fixed issue with deep linking being processed twice when using Firebase
+ * Android: Fixed issue with ConcurrentModification crash when sending update events to the Inventory
+ * iOS: Minor deeplink improvements to handle deeplink more reliable
+ * iOS: Fixed an offline gamestate syncing issue
+ * iOS: Fixed an rare crash which could happen when in offline mode packages and promotion where requested
+
+**Other**
+ * iOS: iCloud is now no longer used to store the Spil User ID, keychain access is now used instead
+ * iOS: It’s now possible to reset the Spil User ID through the settings menu
+ * iOS: Switching between debug, production and staging environment now also cleans up all previous stored configs/states
+ * iOS: Reorganised the Spil SDK settings app menu to make the functionality more clear
+ * iOS: The event tracker has been optimized, it’s now using less memory and processes events faster
+ * iOS: The SDK initialization code has been optimized, the SDK does now finish loading sooner
+ * Android: Added possibility to configure images for permission rationale and permission deny
+ * Android: Added permission response callback
+ * Android/iOS: Added optional location and reward type parameters for reward videos
+ * Android/iOS: Updated Fyber Ad Networks
+ * Android/iOS: Updated DFP Ad Networks
+ * Android: Updated Google Play Services to 11.0.4
+ 
+
 Version 2.5.0 *(09-08-2017)*
 ----------------------------
 Version 2.5.0 includes Gacha box feature, Android improved permission flow, Adjust Deep Linking, additional methods for Splash Screens and several bug fixes.

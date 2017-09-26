@@ -180,30 +180,32 @@ namespace SpilGames.Unity.Base.Implementations {
             spilEvent.eventName = eventName;
 
             if (dict != null) {
+                spilEvent.customData = JsonHelper.DictToJSONObject(dict);
                 if (dict.ContainsKey("trackingOnly")) {
+                    spilEvent.customData.RemoveField("trackingOnly");
                     spilEvent.customData.AddField("trackingOnly", true);
                     dict.Remove("trackingOnly");
                 }
-                foreach (KeyValuePair<string, object> dictValue in dict) {
-                    if (dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")) {
-                        JSONObject json = new JSONObject((string) dictValue.Value);
-                        spilEvent.customData.AddField(dictValue.Key, json);
-                    } else {
-                        if (dictValue.Value is int) {
-                            spilEvent.customData.AddField(dictValue.Key, (int) dictValue.Value);
-                        } else if (dictValue.Value is string) {
-                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
-                        } else if (dictValue.Value is bool) {
-                            spilEvent.customData.AddField(dictValue.Key, (bool) dictValue.Value);
-                        } else if (dictValue.Value is float) {
-                            spilEvent.customData.AddField(dictValue.Key, (float) dictValue.Value);
-                        } else if (dictValue.Value is JSONObject) {
-                            spilEvent.customData.AddField(dictValue.Key, (JSONObject) dictValue.Value);
-                        } else {
-                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
-                        }
-                    }
-                }
+//                foreach (KeyValuePair<string, object> dictValue in dict) {
+//                    if (dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")) {
+//                        JSONObject json = new JSONObject((string) dictValue.Value);
+//                        spilEvent.customData.AddField(dictValue.Key, json);
+//                    } else {
+//                        if (dictValue.Value is int) {
+//                            spilEvent.customData.AddField(dictValue.Key, (int) dictValue.Value);
+//                        } else if (dictValue.Value is string) {
+//                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
+//                        } else if (dictValue.Value is bool) {
+//                            spilEvent.customData.AddField(dictValue.Key, (bool) dictValue.Value);
+//                        } else if (dictValue.Value is float) {
+//                            spilEvent.customData.AddField(dictValue.Key, (float) dictValue.Value);
+//                        } else if (dictValue.Value is JSONObject) {
+//                            spilEvent.customData.AddField(dictValue.Key, (JSONObject) dictValue.Value);
+//                        } else {
+//                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
+//                        }
+//                    }
+//                }
             }
 
             spilEvent.Send();
@@ -215,7 +217,7 @@ namespace SpilGames.Unity.Base.Implementations {
         /// When calling this method "SendrequestRewardVideoEvent()" must first have been called to request and cache a video.
         /// If no video is available then nothing will happen.
         /// </summary>
-        public override void PlayVideo() {
+		public override void PlayVideo(string location = null, string rewardType = null) {
             AdvertisementResponse.PlayVideo();
         }
 
@@ -236,6 +238,27 @@ namespace SpilGames.Unity.Base.Implementations {
         /// </summary>
         public override void RequestMoreApps() {
             SpilUnityImplementationBase.fireAdAvailableEvent("moreApps");
+        }
+        
+        /// <summary>
+        /// Sends the "requestRewardVideo" event to the native Spil SDK which will send a request to the back-end.
+        /// When a response has been received from the back-end the SDK will fire either an "AdAvailable" or and "AdNotAvailable"
+        /// event to which the developer can subscribe and for instance call PlayVideo();
+        /// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
+        /// </summary>
+		public override void RequestRewardVideo(string location = null, string rewardType = null) {
+            SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent>();
+            spilEvent.eventName = "requestRewardVideo";
+
+            if (location != null) {
+                spilEvent.customData.AddField("location", location);
+            }
+
+            if (rewardType != null) {
+                spilEvent.customData.AddField("rewardType", rewardType);
+            }
+
+            spilEvent.Send();
         }
 
         /// <summary>

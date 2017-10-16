@@ -9,7 +9,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SDK_VERSION @"2.5.0"
+#define SPIL_SDK_VERSION @"2.6.1"
 
 @class ImageContext;
 @class Spil;
@@ -125,23 +125,11 @@
 #pragma mark General
 
 /**
- * Initiates the API
- */
-+(void)start;
-
-/**
  *  Initiates the API with options
  *
- *  @param options holds a dictionary with options like "isUnity"
+ *  @param Optional, options holds a dictionary with options like "isUnity"
  */
-+(void)startWithOptions:(nonnull NSDictionary*)options;
-
-/**
- *  Show advanced debug logs
- *
- *  @param advancedLoggingEnabled Enables or disables the advanced log printing
- */
-+(void)setAdvancedLoggingEnabled:(BOOL)advancedLoggingEnabled;
++(void)startWithOptions:(nullable NSDictionary*)options;
 
 /**
  *  Helper method to log a message to the console
@@ -158,11 +146,6 @@
  *  @param The custom bundle id to use
  */
 +(void)setCustomBundleId:(nonnull NSString*)bundleId;
-
-/**
- * Get the current app id
- */
-+(nullable NSString*)getAppId;
 
 /**
  *  Get the Spil user id
@@ -581,6 +564,11 @@
 #pragma mark Ads
 
 /**
+ * Requests the more apps screen
+ */
++(void)requestMoreApps;
+
+/**
  * Show the more apps screen
  */
 +(void)showMoreApps;
@@ -589,13 +577,16 @@
  * Request a reward video
  *
  * @param rewardType    The expected reward type (optional)
+ * @param location      The location the reward video was requested from (optional)
  */
-+(void)requestRewardVideo:(nonnull NSString*)rewardType;
++(void)requestRewardVideo:(nullable NSString*)rewardType withLocation:(nullable NSString*)location;
 
 /**
  * Show the last requested reward video
+ * @param rewardType    The expected reward type (optional)
+ * @param location      The location the reward video was requested from (optional)
  */
-+(void)playRewardVideo;
++(void)playRewardVideo:(nullable NSString*)rewardType withLocation:(nullable NSString*)location;
 
 /**
  * Helper method to determine if the ad provider is initialized
@@ -808,12 +799,12 @@
 /**
  * Get the custom user id
  */
-+(nullable NSString*)getUserId;
++(nullable NSString*)getExternalUserId;
 
 /**
  * Get the custom provider id
  */
-+(nullable NSString*)getUserProvider;
++(nullable NSString*)getExternalUserProvider;
 
 /**
  *  Set a custom user id for a specified service.
@@ -821,7 +812,7 @@
  *  @param userId The social user id to use
  *  @param providerId The id of the service (e.g. facebook)
  */
-+(void)setUserId:(nonnull NSString*)userId forProviderId:(nonnull NSString*)providerId;
++(void)setExternalUserId:(nonnull NSString*)userId forProviderId:(nonnull NSString*)providerId;
 
 /**
  *  Set private game state data.
@@ -929,9 +920,6 @@
  */
 
 +(void)devRequestAd:(nonnull NSString*)provider withAdType:(nonnull NSString*)adType withParentalGate:(BOOL)parentalGate;
-+(void)devShowRewardVideo:(nonnull NSString*)adProvider;
-+(void)devShowInterstitial:(nonnull NSString*)adProvider;
-+(void)devShowMoreApps:(nonnull NSString*)adProvider;
 +(nullable NSString*)getRawAdProvidersData;
 
 @end

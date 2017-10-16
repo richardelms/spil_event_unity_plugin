@@ -344,7 +344,7 @@ public class ExampleGameSpilSDK : MonoBehaviour
     public void RequestRewardVideo()
     {
         txtStatus1.text = "Requesting reward video";
-        Spil.Instance.SendRequestRewardVideoEvent();
+        Spil.Instance.RequestRewardVideo();
     }
 
     public void RequestFyberRewardVideo()

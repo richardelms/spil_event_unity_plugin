@@ -24,7 +24,8 @@ namespace SpilGames.Unity.Base.Implementations
 		[DllImport("__Internal")]
 		private static extern void setPluginInformationNative(string pluginName, string pluginVersion);
 
-    
+		#endregion
+
 		#region Game config
 	
 		/// <summary>
@@ -89,10 +90,10 @@ namespace SpilGames.Unity.Base.Implementations
 		private static extern void requestPackagesNative();
 
 		[DllImport("__Internal")]
-		private static extern string getAllPackagesNative();
+		private static extern string getPackageNative(string keyName);
 
 		[DllImport("__Internal")]
-		private static extern string getPackageNative(string keyName);
+		private static extern string getAllPackagesNative();
 
 		[DllImport("__Internal")]
 		private static extern string getPromotionsNative(string keyName);
@@ -110,7 +111,6 @@ namespace SpilGames.Unity.Base.Implementations
 			JSONObject options = new JSONObject();
 			options.AddField ("isUnity",true);
 			initEventTrackerWithOptions(options.ToString());
-			applicationDidBecomeActive();
 			UpdatePackagesAndPromotions();
 		}
 
@@ -129,68 +129,16 @@ namespace SpilGames.Unity.Base.Implementations
 		/// <param name="dict"></param>
 		public override void SendCustomEvent(string eventName, Dictionary<string, object> dict)
 		{
+			Debug.Log("SpilSDK-Unity SendCustomEvent \"" + eventName + "\"" + (dict == null ? "" : " params: " + JsonHelper.DictToJSONObject(dict).ToString()));
+
+			string parameters = null;
+
 			if (dict != null)
 			{
-				// Create a new dict json string
-				string jsonString = "{";
-
-				// Add each passed kv to the json dict
-				foreach (var item in dict) {
-					string key = item.Key;
-					object value = item.Value;
-					jsonString += "\"" + key + "\":";
-
-					// Detect the value type
-					if (value != null) {
-						if (value is String) {
-							// Determine if there is nested json included in the json, in that case reformat it
-							try {
-								string jsonInputString = ((string)item.Value).Replace ("\\\"", "\"").Trim (new char[]{ '\"' });
-								JSONObject inputJsonObject = new JSONObject (jsonInputString);
-								if (inputJsonObject.IsArray || inputJsonObject.IsObject) {
-									jsonString += jsonInputString;
-								} else {
-									jsonString += "\"" + value + "\"";
-								}
-							} catch (Exception e) {
-								Debug.Log ("---JSON DETECTION FAILED" + e.Message);
-								jsonString += "\"" + value + "\"";
-							}
-						} else if (value is bool) {
-							// Value is a bool, add it without quotes
-							jsonString += (bool)value ? "true" : "false";
-						} else if (value is int || value is float || value is double || value is long) {
-							// Value is a number, add it without quotes
-							jsonString += value.ToString ();
-						} else if (value is JSONObject) {
-							jsonString += ((JSONObject)value).Print();
-						} else {
-							try {
-								jsonString += JsonHelper.getJSONFromObject(value);
-							} catch (Exception) {
-								// Value is unknown or not supported
-								jsonString += "\"INVALID PARAMETER TYPE\"";
-								Debug.LogError ("---INVALID JSON FOR KEY: " + key + ", expected type: string, bool, int, float, double, long");
-							}
-						}
-					} else {
-						// Value is empty
-						jsonString += "\"\"";
-					}
-
-					jsonString += ",";
-				}
-
-				// Close the json dict
-				if (jsonString.EndsWith(",")){
-					jsonString = jsonString.Substring(0, jsonString.Length - 1);
-				}
-				jsonString += "}";
-
-				Debug.Log ("---JSON BUILDED:" + jsonString);
-
-				if (jsonString != "{}") {
-					trackEventWithParamsNative (eventName, jsonString);
+				parameters = JsonHelper.DictToJSONObject(dict).ToString();
+				if (parameters != "{}")
+				{
+					trackEventWithParamsNative (eventName, parameters);
 				} else {
 					trackEventNative(eventName);
 				}
@@ -199,19 +147,26 @@ namespace SpilGames.Unity.Base.Implementations
 			}
 		}
 
+		public override void RequestRewardVideo(string location = null, string rewardType = null) {
+			requestRewardVideoNative(location, rewardType);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestRewardVideoNative(string location, string rewardType);
+
 		/// <summary>
 		/// This can be called to show a video, for instance after calling "SendrequestRewardVideoEvent()"
 		/// and receiving an "AdAvailable" event the developer could call this method from the event handler.
 		/// When calling this method "SendrequestRewardVideoEvent()" must first have been called to request and cache a video.
 		/// If no video is available then nothing will happen.
 		/// </summary>
-		public override void PlayVideo()
+		public override void PlayVideo(string location = null, string rewardType = null)
 		{
-			playRewardVideoNative();
+			playRewardVideoNative(location, rewardType);
 		}
 
 		[DllImport("__Internal")]
-		private static extern void playRewardVideoNative();
+		private static extern void playRewardVideoNative(string location, string rewardType);
 
 		/// <summary>
 		/// When Fyber has shown a reward video and the user goes back to the game to receive his/her reward Fyber can
@@ -239,6 +194,19 @@ namespace SpilGames.Unity.Base.Implementations
 		private static extern void closedParentalGateNative(bool pass);
 
 		/// <summary>
+		/// Sends the "requestAd" event with the "moreApps" parameter to the native Spil SDK which will send a request to the back-end.
+		/// When a response has been received from the back-end the SDK will fire either an "AdAvailable" or and "AdNotAvailable"
+		/// event to which the developer can subscribe and for instance call PlayVideo(); or PlayMoreApps();
+		/// </summary>
+		public override void RequestMoreApps()
+		{
+			requestMoreAppsNative();
+		}
+
+		[DllImport("__Internal")]
+		private static extern void requestMoreAppsNative();
+
+		/// <summary>
 		/// This can be called to show the "more apps" activity, for instance after calling "RequestMoreApps()"
 		/// and receiving an "AdAvailable" event the developer could call this method from the event handler.
 		/// When calling this method "RequestMoreApps()" must first have been called to request and cache a video.
@@ -249,6 +217,9 @@ namespace SpilGames.Unity.Base.Implementations
 			showMoreAppsNative();
 		}
 
+		[DllImport("__Internal")]
+		private static extern void showMoreAppsNative();
+
 		/// <summary>
 		/// Method that initiaties a Test Ad.
 		/// This is not essential for developers so could be hidden but it might be handy for some developers so we left it in.
@@ -257,19 +228,6 @@ namespace SpilGames.Unity.Base.Implementations
 		public override void TestRequestAd(string providerName, string adType, bool parentalGate)
 		{
 			devRequestAdNative(providerName, adType, parentalGate);
-		}
-
-		[DllImport("__Internal")]
-		private static extern void showMoreAppsNative();
-
-		/// <summary>
-		/// Sends the "requestAd" event with the "moreApps" parameter to the native Spil SDK which will send a request to the back-end.
-		/// When a response has been received from the back-end the SDK will fire either an "AdAvailable" or and "AdNotAvailable"
-		/// event to which the developer can subscribe and for instance call PlayVideo(); or PlayMoreApps();
-		/// </summary>
-		public override void RequestMoreApps()
-		{
-			devRequestAdNative("Chartboost", "moreApps", false);
 		}
 
 		[DllImport("__Internal")]
@@ -285,7 +243,6 @@ namespace SpilGames.Unity.Base.Implementations
 		{
 			return getSpilUserIdNative();
 		}
-
 		[DllImport("__Internal")]
 		private static extern string getSpilUserIdNative();
 
@@ -294,11 +251,20 @@ namespace SpilGames.Unity.Base.Implementations
 		/// </summary>
 		public override string GetUserId()
 		{
-			return getUserIdNative();
+			return getExternalUserIdNative();
 		}
-
 		[DllImport("__Internal")]
-		private static extern string getUserIdNative();
+		private static extern string getExternalUserIdNative();
+
+		/// <summary>
+		/// Gets the user provider.
+		/// </summary>
+		/// <returns>The user provider native.</returns>
+		public override string GetUserProvider() {
+			return getExternalUserProviderNative ();
+		}
+		[DllImport("__Internal")]
+		private static extern string getExternalUserProviderNative();
 
 		/// <summary>
 		/// Sets the custom User Id for a provider
@@ -307,29 +273,16 @@ namespace SpilGames.Unity.Base.Implementations
 		/// <param name="userId"></param>
 		public override void SetUserId(string providerId, string userId)
 		{
-			setUserIdNative(providerId, userId);
+			setExternalUserIdNative(providerId, userId);
 		}
+		[DllImport("__Internal")]
+		private static extern void setExternalUserIdNative(string providerId, string userId);
 
 		public override void SetCustomBundleId (string bundleId) {
 			setCustomBundleIdNative (bundleId);
 		}
-
 		[DllImport("__Internal")]
 		private static extern void setCustomBundleIdNative(string bundleId);
-
-		[DllImport("__Internal")]
-		private static extern void setUserIdNative(string providerId, string userId);
-
-		/// <summary>
-		/// Gets the user provider.
-		/// </summary>
-		/// <returns>The user provider native.</returns>
-		public override string GetUserProvider() {
-			return getUserProviderNative ();
-		}
-
-		[DllImport("__Internal")]
-		private static extern string getUserProviderNative();
 
 		/// <summary>
 		/// Sets the state of the private game.
@@ -406,7 +359,9 @@ namespace SpilGames.Unity.Base.Implementations
 
 		[DllImport("__Internal")]
 		private static extern string getSpilGameDataNative();
-    
+
+		#endregion
+
 		#region Image loading
 	
 	        /// <summary>
@@ -456,14 +411,8 @@ namespace SpilGames.Unity.Base.Implementations
 
     		[DllImport("__Internal")]
 		private static extern void preloadItemAndBundleImagesNative();
-
-
     
 		#endregion
-	
-    
-		#endregion
-	
     
 		#region Player Data
 	
@@ -562,17 +511,7 @@ namespace SpilGames.Unity.Base.Implementations
 		[DllImport("__Internal")]
 		private static extern void resetWalletNative ();
 
-    
 		#endregion
-	
-    
-		#endregion
-	
-
-
-    
-		#region Non inherited members (iOS only members)
-	
     
 		#region Game config
 	
@@ -731,31 +670,10 @@ namespace SpilGames.Unity.Base.Implementations
 
 		[DllImport("__Internal")]
 		private static extern void registerForPushNotifications();
-
     
 		#endregion
-	
-    
-		#region App lifecycle handlers
-	
-		[DllImport("__Internal")]
-		private static extern void applicationDidEnterBackground();
 
-		[DllImport("__Internal")]
-		private static extern void applicationDidBecomeActive();
-
-		private void OnApplicationPause(bool pauseStatus)
-		{
-			if(!pauseStatus)
-			{
-				applicationDidBecomeActive();
-			} else {
-				applicationDidEnterBackground();
-			}
-		}
-
-    
-		#endregion
+		#region event tracker
 	
 		[DllImport("__Internal")]
 		private static extern void initEventTrackerWithOptions(string options);	
@@ -768,5 +686,5 @@ namespace SpilGames.Unity.Base.Implementations
     
 		#endregion
 	}        
-#endif
+	#endif
 }

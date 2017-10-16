@@ -16,6 +16,9 @@
 -(void)syncSpilUserId;
 -(NSString*)getSpilUserId;
 
+// Device id
+-(NSString*)getDeviceId;
+
 // Reset
 
 -(void)resetUID;

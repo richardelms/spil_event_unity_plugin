@@ -6,7 +6,7 @@ Full change logs for the native SDKs:
 
 ----------------------------
 
-Version 2.6.1 *(26-09-2017)*
+Version 2.6.1 *(16-10-2017)*
 ----------------------------
 Version 2.6.1 brings Spil More Apps, ability to configure an image for the permission dialogs for Android, new event tracking implementation and bug fixes.
 

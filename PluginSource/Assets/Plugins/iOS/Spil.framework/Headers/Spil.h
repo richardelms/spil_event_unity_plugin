@@ -9,7 +9,7 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-#define SPIL_SDK_VERSION @"2.6.1"
+#define SPIL_SDK_VERSION @"2.7.1"
 
 @class ImageContext;
 @class Spil;
@@ -71,15 +71,12 @@
 -(void)spilGameDataError:(nonnull NSString*)message;
 
 // Player data events
--(void)playerDataAvailable;
--(void)playerDataError:(nonnull NSString*)message;
 -(void)playerDataUpdated:(nonnull NSString*)reason updatedData:(nonnull NSString*)updatedData;
 -(void)playerDataEmptyGacha;
 
 // User data events
 -(void)gameStateUpdated:(nonnull NSString*)access; // Access: private|public
 -(void)otherUsersGameStateLoaded:(nonnull NSDictionary*)data forProvider:(nonnull NSString*)provider; // Data: <NSString* userId, NSString* data>
--(void)gameStateError:(nonnull NSString*)message;
 
 // Image cache
 -(void)imageLoadSuccess:(nonnull NSString*)localPath imageContext:(nonnull ImageContext*)imageContext;
@@ -98,7 +95,6 @@
 // Server time
 -(void)serverTimeRequestSuccess:(nonnull NSString*)unixTimestamp;
 -(void)serverTimeRequestFailed:(nonnull NSString*)error;
--(void)gameStateServerError:(nonnull NSString*)error;
 
 // Live events
 -(void)liveEventStageOpen;
@@ -110,6 +106,24 @@
 -(void)liveEventUsedExternalItems:(nonnull NSArray*)externalItem;
 -(void)liveEventReward:(nonnull NSArray*)rewardList;
 -(void)liveEventCompleted;
+
+// Login
+-(void)onLoginSuccessful:(BOOL)resetData withSocialProvider:(nullable NSString*)socialProvider withSocialId:(nullable NSString*)socialId isGuest:(BOOL)isGuest;
+-(void)onLoginFailed:(nonnull NSString*)error;
+-(void)onLogoutSuccessful;
+-(void)onLogoutFailed:(nonnull NSString*)error;
+-(void)onAuthError:(nonnull NSString*)error;
+-(void)onRequestLogin;
+
+// Userdata syncing
+-(void)userDataAvailable;
+-(void)userDataError:(nonnull NSString*)error;
+-(void)userDataMergeConflict:(nonnull NSString*)localData remoteData:(nonnull NSString*)remoteData;
+-(void)userDataMergeSuccessful;
+-(void)userDataMergeFailed:(nonnull NSString*)mergeData mergeType:(nonnull NSString*)mergeType;
+-(void)userDataHandleMerge:(nonnull NSString*)mergeType; // Called when a merge conflict option button was pressed
+-(void)userDataSyncError;
+-(void)userDatalockError;
 
 @end
 
@@ -125,90 +139,93 @@
 #pragma mark General
 
 /**
- *  Initiates the API with options
- *
- *  @param Optional, options holds a dictionary with options like "isUnity"
+ * Initiates the SDK
+ * @param Optional, options holds a dictionary with options like "isUnity"
  */
 +(void)startWithOptions:(nullable NSDictionary*)options;
 
 /**
- *  Helper method to log a message to the console
- *  Especially useful when building a wrapped games (e.g. Unity) where the log messages are sometimes stripped out.
- *  This method gives the oppertunity to log the message at the native layer instead.
- *
- *  @param The message to log
+ * Helper method to log a message to the console
+ * Especially useful when building a wrapped games (e.g. Unity) where the log messages are sometimes stripped out.
+ * This method gives the oppertunity to log the message at the native layer instead.
+ * @param The message to log
  */
 +(void)log:(nonnull NSString*)message;
 
 /**
- *  Method to set a custom bundle id, useful during debugging.
- *
- *  @param The custom bundle id to use
+ * Method to set a custom bundle id, useful during debugging.
+ * @param The custom bundle id to use
  */
 +(void)setCustomBundleId:(nonnull NSString*)bundleId;
 
 /**
- *  Get the Spil user id
+ * Get the Spil user id
+ * @returns The Spil user id
  */
 +(nullable NSString*)getSpilUserId;
 
 /**
- *  Get the registered push notification token
+ * Get the registered push notification token
+ * @returns The registered push notification token
  */
 +(nullable NSString*)getPushToken;
 
 /**
- *  Set a plugin name and version for the current session.
- *
- *  @param pluginName The plugin name
- *  @param pluginVersion The plugin version
+ * Set a plugin name and version for the current session.
+ * @param pluginName The plugin name
+ * @param pluginVersion The plugin version
  */
 +(void)setPluginInformation:(nonnull NSString*)pluginName pluginVersion:(nonnull NSString*)pluginVersion;
 
 /**
- *  Request the server timestamp
+ * Request the server timestamp
  */
 +(void)requestServerTime;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+
+/**
+ * Shows a simple dialog, useful while debugging
+ */
++(void)showDialog:(NSString*)title withMessage:(NSString*)message withOkButton:(NSString*)okButtonText handler:(void (^ __nullable)(UIAlertAction *action))handler;
+
+#pragma clang diagnostic pop
 
 #pragma mark App flow
 
 /**
  * Forwarding Delegate method to let the Spil framework know when the app was launched
- *
- *  @param application Delegate application to be passed
- *  @param launchOptions Dictionary with launch options
+ * @param application Delegate application to be passed
+ * @param launchOptions Dictionary with launch options
  */
 +(void)application:(nullable UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions;
 
 /**
- *  Forwarding Delegate method to let the Spil framework know when the app went to the background
- *
- *  @param application Delegate application to be passed
+ * Forwarding Delegate method to let the Spil framework know when the app went to the background
+ * @param application Delegate application to be passed
  */
 +(void)applicationDidEnterBackground:(nullable UIApplication *)application;
 
 /**
- *  Forwarding Delegate method to let the Spil framework know when the app became active again after running in background
- *
- *  @param application Delegate application to be passed
+ * Forwarding Delegate method to let the Spil framework know when the app became active again after running in background
+ * @param application Delegate application to be passed
  */
 +(void)applicationDidBecomeActive:(nullable UIApplication *)application;
 
 /**
- *  Handle remote notification packages
- *
- *  @param Application     Reference to the UIApplication object
- *  @param userInfo        Reference to the push notification payload
+ * Handle remote notification packages
+ * @param Application     Reference to the UIApplication object
+ * @param userInfo        Reference to the push notification payload
  */
 +(void)application:(nullable UIApplication *)application didReceiveRemoteNotification:(nullable NSDictionary *)userInfo;
 
 /**
- *  Forwarding Delegate method to let the Spil framework handle deeplinks
- *
- *  @param Application          Reference to the UIApplication object
- *  @param openURL              The deeplink url
- *  @param sourceApplication    The app name which triggered the deeplink
- *  @param annotation           The anotation of the deeplink
+ * Forwarding Delegate method to let the Spil framework handle deeplinks
+ * @param Application          Reference to the UIApplication object
+ * @param openURL              The deeplink url
+ * @param sourceApplication    The app name which triggered the deeplink
+ * @param annotation           The anotation of the deeplink
  */
 +(BOOL)application:(nullable UIApplication *)application openURL:(nullable NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nullable id)annotation;
 
@@ -216,11 +233,10 @@
 #pragma clang diagnostic ignored "-Wnullability-completeness"
 
 /**
- *  Forwarding Delegate method to let the Spil framework handle deeplinks
- *
- *  @param Application          Reference to the UIApplication object
- *  @param continueUserActivity The user activity object
- *  @param restorationHandler   The restoration handler
+ * Forwarding Delegate method to let the Spil framework handle deeplinks
+ * @param Application          Reference to the UIApplication object
+ * @param continueUserActivity The user activity object
+ * @param restorationHandler   The restoration handler
  */
 +(BOOL)application:(nullable UIApplication *)application continueUserActivity:(nullable NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler;
 
@@ -230,14 +246,12 @@
 
 /**
  * Track a milstone achieved event
- *
  * @param name          The name of the milestone
  */
 +(void)trackMilestoneAchievedEvent:(nonnull NSString*)name;
 
 /**
  * Track a level start
- *
  * @param level         The name of the level
  * @param customCreated Indictating if the level was custom created
  * @param creatorId     The id of the creator of the level
@@ -246,7 +260,6 @@
 
 /**
  * Track a level complete
- *
  * @param level         The name of the level
  * @param score         The final score the player achieves at the end of the level
  * @param stars         The # of stars (or any other rating system) the player achieves at the end of the level
@@ -258,7 +271,6 @@
 
 /**
  * Track a level fail
- *
  * @param level         The name of the level
  * @param score         The final score the player achieves at the end of the level
  * @param stars         The # of stars (or any other rating system) the player achieves at the end of the level
@@ -270,7 +282,6 @@
 
 /**
  * Track a level up
- *
  * @param level         The name of the level
  * @param score         The final score the player achieves at the end of the level
  * @param objectId      The level up object identifier
@@ -280,7 +291,6 @@
 
 /**
  * Track an item equip
- *
  * @param equippedItem  The id of the equipped item
  * @param equippedTo    The id of were the item will be equipped to
  */
@@ -288,7 +298,6 @@
 
 /**
  * Track an item upgrade
- *
  * @param upgradeId     The id of the upgraded item
  * @param level         The level in which the upgrade happened
  * @param reason        The upgrade reason
@@ -298,7 +307,6 @@
 
 /**
  * Track a level create event
- *
  * @param levelId       The id of the created level
  * @param creatorId     The id of the level creator
  */
@@ -306,7 +314,6 @@
 
 /**
  * Track a download event
- *
  * @param levelId       The id of the downloaded level
  * @param creatorId     The id of the level creator
  * @param rating        The level rating
@@ -315,7 +322,6 @@
 
 /**
  * Track a level rate event
- *
  * @param levelId       The id of the rated level
  * @param creatorId     The id of the level creator
  * @param rating        The level rating
@@ -329,21 +335,18 @@
 
 /**
  * Track the end of an endless mode level
- *
  * @param level         The distance completed in the endless level
  */
 +(void)trackEndlessModeEndEvent:(int)distance;
 
 /**
  * Track a player dies event
- *
  * @param level         The name of the level in which the player dies
  */
 +(void)trackPlayerDiesEvent:(nonnull NSString*)level;
 
 /**
  * Track a wallet/inventory update
- *
  * @param reason        The reason for which the wallet or the inventory has been updated
  *                      A list of default resons can be found here: {@link com.spilgames.spilsdk.playerdata.PlayerDataUpdateReasons}
  * @param location      The location where the event occurred (ex.: Shop Screen, End of the level Screen)
@@ -356,7 +359,6 @@
 
 /**
  * Track a successful iap
- *
  * @param skuId             The product identifier of the item that was purchased
  * @param transactionId     The transaction identifier of the item that was purchased (also called orderId)
  * @param purchaseDate      The date and time that the item was purchased
@@ -365,7 +367,6 @@
 
 /**
  * Track a restored iap
- *
  * @param skuId                 The product identifier of the item that was purchased
  * @param originalTransactionId For a transaction that restores a previous transaction, the transaction identifier of the original transaction.
  *                              Otherwise, identical to the transaction identifier
@@ -375,7 +376,6 @@
 
 /**
  * Track a failed iap
- *
  * @param skuId     The product identifier of the item that was purchased
  * @param error     Error description or error code
  */
@@ -388,44 +388,38 @@
 
 /**
  * Track a skipped tutorial
- *
  * Track the skipping of a tutorial
  */
 +(void)trackTutorialSkippedEvent;
 
 /**
  * Track a register
- *
  * @param platform      The platform for which the registration occurred (ex.: Facebook)
  */
 +(void)trackRegisterEvent:(nonnull NSString*)platform;
 
 /**
  * Track a share
- *
  * @param platform      The platform for which the share occurred (ex.: Facebook)
  */
 +(void)trackShareEvent:(nonnull NSString*)platform;
 
 /**
  * Track an invite
- *
  * @param platform      The platform for which the invite occurred (ex.: Facebook)
  */
 +(void)trackInviteEvent:(nonnull NSString*)platform;
 
 /**
- *  Track a basic named event
- *
- *  @param name         The name of the event. Replace spaces with an underscore
+ * Track a basic named event
+ * @param name         The name of the event. Replace spaces with an underscore
  */
 +(void) trackEvent:(nonnull NSString*)name;
 
 /**
- *  Track a named events with a key / value object
- *
- *  @param name The name of the event. Replace spaces with an underscore
- *  @param params A key value dictionary holding the params
+ * Track a named events with a key / value object
+ * @param name The name of the event. Replace spaces with an underscore
+ * @param params A key value dictionary holding the params
  */
 +(void) trackEvent:(nonnull NSString*)name withParameters:(nullable NSDictionary *)params;
 
@@ -433,28 +427,25 @@
 #pragma clang diagnostic ignored "-Wnullability-completeness"
 
 /**
- *  Track a basic named event with a response
- *
- *  @param name  The name of the event. Replace spaces with an underscore
- *  @param block A block with response param that will be executed when the server sends a reponse on the tracked event
+ * Track a basic named event with a response
+ * @param name  The name of the event. Replace spaces with an underscore
+ * @param block A block with response param that will be executed when the server sends a reponse on the tracked event
  */
 +(void) trackEvent:(nonnull NSString*)name onResponse:(void (^)(id response))block;
 
 /**
- *  Track a named event params and a response
- *
- *  @param name   The name of the event. Replace spaces with an underscore
- *  @param params A key value dictionary holding the params
- *  @param block  A block with response param that will be executed when the server sends a reponse on the tracked event
+ * Track a named event params and a response
+ * @param name   The name of the event. Replace spaces with an underscore
+ * @param params A key value dictionary holding the params
+ * @param block  A block with response param that will be executed when the server sends a reponse on the tracked event
  */
 +(void) trackEvent:(nonnull NSString*)name withParameters:(nonnull NSDictionary *)params onResponse:(void (^)(id response))block;
 
 /**
- *  Track an error event
- *
- *  @param type    The error type (e.g. "adjust")
- *  @param action  The error action (e.g. "intall")
- *  @param message The error message (e.g. "no connection")
+ * Track an error event
+ * @param type    The error type (e.g. "adjust")
+ * @param action  The error action (e.g. "intall")
+ * @param message The error message (e.g. "no connection")
  */
 +(void) trackErrorWithType:(NSString*)type withAction:(NSString*)action withMessage:(NSString*)message;
 
@@ -463,62 +454,63 @@
 #pragma mark Send message
 
 /**
- *  Unity message sender
- *
- *  @param messageName     Name of the message, should match the function in unity
- *  @param objectName      The name of the spil object where the script is attached to. In most cases "SpilSDK"
- *  @param data            An object which can be serialized to json
+ * Unity message sender
+ * @param messageName     Name of the message, should match the function in unity
+ * @param objectName      The name of the spil object where the script is attached to. In most cases "SpilSDK"
+ * @param data            An object which can be serialized to json
  */
 +(void)sendMessage:(nonnull NSString*)messageName toObject:(nonnull NSString*)objectName withData:(nonnull id)data;
 
 /**
- *  Unity message sender
- *
- *  @param messageName     Name of the message, should match the function in unity
- *  @param objectName      The name of the spil object where the script is attached to. In most cases "SpilSDK"
- *  @param parameterString A json string holding the data to send
+ * Unity message sender
+ * @param messageName     Name of the message, should match the function in unity
+ * @param objectName      The name of the spil object where the script is attached to. In most cases "SpilSDK"
+ * @param parameterString A json string holding the data to send
  */
 +(void)sendMessage:(nonnull NSString*)messageName toObject:(nonnull NSString*)objectName withString:(nonnull NSString*)parameterString;
 
 #pragma mark Push notifications
 
 /**
- *  Disable the automated registration message for push notifications
- *  Should be called before [Spil start]
+ * Disable the automated registration message for push notifications
+ * Should be called before [Spil start]
  */
 +(void)disableAutomaticRegisterForPushNotifications;
 
 /**
- *  Helper function to register for push notifications
+ * Helper function to register for push notifications
  */
 +(void)registerPushNotifications;
 
 /**
- *  Helper function to forward the app delegate listener on the deviceToken
+ * Helper function to forward the app delegate listener on the deviceToken
  */
 +(void)didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData*)deviceToken;
 
 #pragma mark Token claiming
 
 /**
- *  Used to claim the reward token from the backend
- *  @param token      The token to claim
- *  @param rewardType The reward type to which the token belongs
+ * Used to claim the reward token from the backend
+ * @param token      The token to claim
+ * @param rewardType The reward type to which the token belongs
  */
 +(void)claimToken:(nonnull NSString*)token withRewardType:(nonnull NSString*)rewardType;
 
 #pragma mark Config
 
 /**
+ * Request the game config
+ */
++(void)requestGameConfig;
+
+/**
  * Get the latest stored game configuration, typically a synchronized json object coming from the server.
- *
  * @return NSDictionary object representation from the stored game configuration
  */
 +(nullable NSDictionary*)getConfig;
 
 /**
  * Get a specific value from a particular key from the game configuration
- * 
  * @param Name of the key. Type must be NSString.
  * @return returns the object from a key, only first hiergy
  */
@@ -528,14 +520,12 @@
 
 /**
  * Get the latest stored store packages.
- *
  * @return NSArray object representation from the stored store packages
  */
 +(nullable NSArray*)getAllPackages;
 
 /**
  * Get a specific package from the store
- *
  * @param Name of the key. Type must be NSString.
  * @return returns the store package, or nil if not found
  */
@@ -543,14 +533,12 @@
 
 /**
  * Get the latest stored store promotions.
- *
  * @return NSArray object representation from the stored store promotions
  */
 +(nullable NSArray*)getAllPromotions;
 
 /**
  * Get all promotion for a package
- *
  * @param Name of the key. Type must be NSString.
  * @return returns a promotions list for the package id
  */
@@ -575,7 +563,6 @@
 
 /**
  * Request a reward video
- *
  * @param rewardType    The expected reward type (optional)
  * @param location      The location the reward video was requested from (optional)
  */
@@ -594,21 +581,16 @@
 +(BOOL)isAdProviderInitialized:(nonnull NSString*)identifier;
 
 /**
- *  Show a toast when a reward is unlocked
+ * Show a toast when a reward is unlocked
  */
 +(void)showToastOnVideoReward:(BOOL)enabled;
 
 /**
- *  Call to inform the SDK that the parental gate was (not) passes
+ * Call to inform the SDK that the parental gate was (not) passes
  */
 +(void)closedParentalGate:(BOOL)pass;
 
 #pragma mark UserData & GameData
-
-/**
- * Request the player data
- */
-+(void)requestPlayerData;
 
 /**
  * Request the player data
@@ -720,7 +702,6 @@
 
 /**
  * Get all the shop tabs
- *
  * Returns an array with ShopTab objects
  */
 +(nonnull NSMutableArray*)getShopTabs;
@@ -728,7 +709,6 @@
 /**
  * Get a bundle by bundle id
  * @param bundleId      Id of the bundle
- *
  * Returns a bundle matching the provided bundle id
  */
 +(nullable Bundle*)getBundle:(int)bundleId;
@@ -736,7 +716,6 @@
 /**
  * Get an item by id
  * @param itemId        Id of the item
- *
  * Returns an item matching the provided item id
  */
 +(nullable PlayerItem*)getItem:(int)itemId;
@@ -744,7 +723,6 @@
 /**
  * Get a currency by the provided currency id
  * @param currencyId    Id of the currency
- *
  * Returns a currency matching the provided currency id
  */
 +(nullable PlayerCurrency*)getCurrency:(int)currencyId;
@@ -767,16 +745,6 @@
 #pragma mark Customer support
 
 /**
- * Shows the help center
- */
-+(void)showHelpCenter;
-
-/**
- * Shows the contact center
- */
-+(void)showContactCenter;
-
-/**
  * Shows the help center webview version
  * @param url   The url to open
  */
@@ -791,8 +759,9 @@
 
 /**
  * Request a splash screen
+ * @param type   The type of splashscreen to request
  */
-+(void)requestSplashScreen;
++(void)requestSplashScreen:(nullable NSString*)type;
 
 #pragma mark User data
 
@@ -807,108 +776,168 @@
 +(nullable NSString*)getExternalUserProvider;
 
 /**
- *  Set a custom user id for a specified service.
- *
- *  @param userId The social user id to use
- *  @param providerId The id of the service (e.g. facebook)
+ * Set a custom user id for a specified service.
+ * @param userId The social user id to use
+ * @param providerId The id of the service (e.g. facebook)
  */
 +(void)setExternalUserId:(nonnull NSString*)userId forProviderId:(nonnull NSString*)providerId;
 
 /**
- *  Set private game state data.
- *
- *  @param privateData The private data to store
+ * Set private game state data.
+ * @param privateData The private data to store
  */
 +(void)setPrivateGameState:(nonnull NSString*)privateData;
 
 /**
- *  Get private game state data.
- *
+ * Get private game state data.
  */
 +(nullable NSString*)getPrivateGameState;
 
 /**
- *  Set public game state data.
- *
- *  @param publicData The public data to store
+ * Set public game state data.
+ * @param publicData The public data to store
  */
 +(void)setPublicGameState:(nonnull NSString*)publicData;
 
 /**
- *  Get public game state data.
+ * Get public game state data.
  */
 +(nullable NSString*)getPublicGameState;
 
 /**
- *  Get the public game state data of other users, 
- *  based on the user id of a custom provider.
- *
- *  @param provider The provider to request the data from
- *  @param userIds The user ids
+ * Get the public game state data of other users, based on the user id of a custom provider.
+ * @param provider The provider to request the data from
+ * @param userIds The user ids
  */
 +(void)getOtherUsersGameState:(nonnull NSString*)provider userIds:(nonnull NSArray*)userIds;
 
 /**
- *  Request the private gamestate.
+ * NOTE: Depricated
+ * Request the private gamestate.
  */
 +(void)requestMyGameState;
 
 #pragma image cache
 
 /**
- *  Converts a web url to local file path
- *
- *  @param url The image url
- *
- *  Return the local image path, returns nil if their is no local file path for the url
+ * Converts a web url to local file path
+ * @param url The image url
+ * Return the local image path, returns nil if their is no local file path for the url
  */
 +(nullable NSString*)getImagePathForUrl:(nonnull NSString*)url;
 
 /**
- *  Requests an image based on the url provided
- *
- *  @param url The URL to load
- *  @param idx The id this image belongs to (optional)
- *  @param imageType The image type of this image (optional)
+ * Requests an image based on the url provided
+ * @param url The URL to load
+ * @param idx The id this image belongs to (optional)
+ * @param imageType The image type of this image (optional)
  */
 +(void)requestImage:(nonnull NSString*)url withId:(int)idx withImageType:(nullable NSString*)imageType;
 
 /**
- *  Removes all images from the disk cache
+ * Removes all images from the disk cache
  */
 +(void)clearDiskCache;
 
 /**
- *  Automatically preloads all images for all items and bundles
+ * Automatically preloads all images for all items and bundles
  */
 +(void)preloadItemAndBundleImages;
 
 #pragma live events
 
 /**
- *  Request the live event
+ * Request the live event
  */
 +(void)requestLiveEvent;
 
 /**
- *  Open the live event
+ * Open the live event
  */
 +(void)openLiveEvent;
 
 /**
- *  Request the live event start
+ * Request the live event start
  */
 +(int)getLiveEventStartDate;
 
 /**
- *  Request the live event end time
+ * Request the live event end time
  */
 +(int)getLiveEventEndDate;
 
 /**
- *  Request the live event config
+ * Request the live event config
  */
 +(nonnull NSDictionary*)getLiveEventConfig;
+
+#pragma user login
+
+/**
+ * Used to login, will automatically call setExternalUserId
+ * @param externalUserId The social user id to use
+ * @param externalProviderId The id of the service (e.g. facebook)
+ * @param externalToken The auth token provided by the external provider
+ */
++(void)loginWithExternalUserId:(nonnull NSString*)externalUserId externalProviderId:(nonnull NSString*)externalProviderId externalToken:(nonnull NSString*)externalToken;
+
+/**
+ * Returns the current login status
+ */
++(BOOL)isLoggedIn;
+
+/**
+ * Logout the user
+ */
++(void)logout:(BOOL)global;
+
+/**
+ * Logout the user and let him continue as guest
+ */
++(void)userPlayAsGuest;
+
+/**
+ * Will reset the gameconfig, packages/promotions, gamedata, playerdata & gamestate
+ */
++(void)resetData;
+
+/**
+ * Show the default auth error dialog
+ */
++(void)showAuthorizedDialog:(nonnull NSString*)title message:(nonnull NSString*)message loginButtonText:(nonnull NSString*)loginButtonText guestButtonText:(nonnull NSString*)guestButtonText;
+
+#pragma mark data syncing
+
+/**
+ * Get the device id
+ */
++(nonnull NSString*)getDeviceId;
+
+/**
+ * Request the current userdata, which includes the wallet, inventory and private gamestate
+ */
++(void)requestUserData;
+
+/**
+ * Used to merge resolve a merge conflict in the current userdata which is triggered by mergeConflict:remoteData: delegate
+ * @param mergedUserData The result of the merge
+ */
++(void)mergeUserData:(nonnull NSString*)mergedUserData mergeType:(nonnull NSString*)mergeType;
+
+/**
+ * Show the default merge error dialog
+ */
++(void)showMergeConflictDialog:(nonnull NSString*)title message:(nonnull NSString*)message localButtonText:(nonnull NSString*)localButtonText remoteButtonText:(nonnull NSString*)remoteButtonText mergeButtonText:(nonnull NSString*)mergeButtonText;
+
+/**
+ * Show the default merge error dialog
+ */
++(void)showSyncErrorDialog:(nonnull NSString*)title message:(nonnull NSString*)message mergeButtonText:(nonnull NSString*)mergeButtonText;
+
+/**
+ * Show the default user data merge failed dialog
+ */
++(void)showUserDataMergeFailedDialog:(nonnull NSString*)title withMessage:(nonnull NSString*)message retryButtonText:(nonnull NSString*)retryButton mergeData:(nonnull NSString*)mergeData mergeType:(nonnull NSString*)mergeType;
 
 #pragma test methods (dev)
 

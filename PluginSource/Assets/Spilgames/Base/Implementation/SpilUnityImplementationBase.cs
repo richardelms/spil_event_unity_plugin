@@ -8,13 +8,13 @@ using SpilGames.Unity.Base.SDK;
 using SpilGames.Unity.Helpers.IAPPackages;
 
 namespace SpilGames.Unity.Base.Implementations {
-    public abstract class SpilUnityImplementationBase {
+    public abstract class SpilUnityImplementationBase{
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.6.1";
+        public static string PluginVersion = "2.7.1";
 
-        public static string AndroidVersion = "2.6.1";
-        public static string iOSVersion = "2.6.1";
-        
+        public static string AndroidVersion = "2.7.1";
+        public static string iOSVersion = "2.7.1";
+
         #region Game config
 
         /// <summary>
@@ -40,10 +40,10 @@ namespace SpilGames.Unity.Base.Implementations {
         /// <returns>A packageshelper object filled with packages and promotions, will be empty if there are none. Returns null if no packages or promotions are present, which should only happen if the server has never been successfully queried for packages and promotions.</returns>
         public PackagesHelper GetPackagesAndPromotions() {
             string packagesString = GetAllPackages();
-            
-            if (packagesString == null) 
+
+            if (packagesString == null)
                 return null;
-            
+
             List<PackageData> packagesList = JsonHelper.getObjectFromJson<List<PackageData>>(packagesString);
             PackagesHelper helper = new PackagesHelper(packagesList);
             return helper;
@@ -589,7 +589,7 @@ namespace SpilGames.Unity.Base.Implementations {
 
             SendCustomEvent("timeElapLoad", dict);
         }
-        
+
         /// <summary>
         /// Sends the "timeoutDetected" event to the native Spil SDK which will send a request to the back-end.
         /// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
@@ -603,7 +603,7 @@ namespace SpilGames.Unity.Base.Implementations {
 
             SendCustomEvent("timeoutDetected", dict);
         }
-        
+
         /// <summary>
         /// Sends the "objectStateChanged" event to the native Spil SDK which will send a request to the back-end.
         /// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
@@ -612,7 +612,8 @@ namespace SpilGames.Unity.Base.Implementations {
         /// <param name="status">The new status the object is in.</param>
         /// <param name="reason">The reason for the state change.</param>
         /// <param name="changedProperties">The property/properties which have changed.</param>
-        public void TrackObjectStateChanged(string changedObject, string status, string reason = null, string changedProperties = null) {
+        public void TrackObjectStateChanged(string changedObject, string status, string reason = null,
+            string changedProperties = null) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict.Add("changedObject", changedObject);
             dict.Add("status", status);
@@ -624,7 +625,7 @@ namespace SpilGames.Unity.Base.Implementations {
             if (changedProperties != null) {
                 dict.Add("changedProperties", changedProperties);
             }
-            
+
             SendCustomEvent("objectStateChanged", dict);
         }
 
@@ -695,11 +696,9 @@ namespace SpilGames.Unity.Base.Implementations {
             enumAdType adType = enumAdType.Unknown;
             if (type.ToLower().Trim().Equals("rewardvideo")) {
                 adType = enumAdType.RewardVideo;
-            }
-            else if (type.ToLower().Trim().Equals("interstitial")) {
+            } else if (type.ToLower().Trim().Equals("interstitial")) {
                 adType = enumAdType.Interstitial;
-            }
-            else if (type.ToLower().Trim().Equals("moreapps")) {
+            } else if (type.ToLower().Trim().Equals("moreapps")) {
                 adType = enumAdType.MoreApps;
             }
             if (adType == enumAdType.Unknown) {
@@ -731,11 +730,9 @@ namespace SpilGames.Unity.Base.Implementations {
             enumAdType adType = enumAdType.Unknown;
             if (type.ToLower().Trim().Equals("rewardvideo")) {
                 adType = enumAdType.RewardVideo;
-            }
-            else if (type.ToLower().Trim().Equals("interstitial")) {
+            } else if (type.ToLower().Trim().Equals("interstitial")) {
                 adType = enumAdType.Interstitial;
-            }
-            else if (type.ToLower().Trim().Equals("moreapps")) {
+            } else if (type.ToLower().Trim().Equals("moreapps")) {
                 adType = enumAdType.MoreApps;
             }
             if (adType == enumAdType.Unknown) {
@@ -897,22 +894,6 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #region Player Data
 
-        public delegate void PlayerDataAvailable();
-
-        /// <summary>
-        /// This is fired by the native Spil SDK after player data has been received from the server.
-        /// The developer can subscribe to this event and then request the Player Data (Wallet & Inventory).
-        /// </summary>
-        public event PlayerDataAvailable OnPlayerDataAvailable;
-
-        public static void firePlayerDataAvailable() {
-            Debug.Log("SpilSDK-Unity Player Data is available");
-
-            if (Spil.Instance.OnPlayerDataAvailable != null) {
-                Spil.Instance.OnPlayerDataAvailable();
-            }
-        }
-
         public delegate void PlayerDataUpdated(string reason, PlayerDataUpdatedData updatedData);
 
         /// <summary>
@@ -952,24 +933,6 @@ namespace SpilGames.Unity.Base.Implementations {
             }
         }
 
-        public delegate void PlayerDataError(SpilErrorMessage errorMessage);
-
-        /// <summary>
-        /// This is fired by the native Spil SDK after player data has failed to be retrieved.
-        /// The developer can subscribe to this event and check the reason.
-        /// </summary>
-        public event PlayerDataError OnPlayerDataError;
-
-        public static void firePlayerDataError(string reason) {
-            Debug.Log("SpilSDK-Unity Player Data error with reason = " + reason);
-
-            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
-
-            if (Spil.Instance.OnPlayerDataError != null) {
-                Spil.Instance.OnPlayerDataError(errorMessage);
-            }
-        }
-
         public delegate void GameStateUpdated(string access);
 
         /// <summary>
@@ -1001,24 +964,6 @@ namespace SpilGames.Unity.Base.Implementations {
 
             if (Spil.Instance.OnOtherUsersGameStateDataLoaded != null) {
                 Spil.Instance.OnOtherUsersGameStateDataLoaded(data);
-            }
-        }
-
-        public delegate void GameStateError(SpilErrorMessage errorMessage);
-
-        /// <summary>
-        /// This is fired by the native Spil SDK when the game state has failed to be retrieved.
-        /// The developer can subscribe to this event and check the reason.
-        /// </summary>
-        public event GameStateError OnGameStateError;
-
-        public static void fireGameStateError(string reason) {
-            Debug.Log("SpilSDK-Unity Game State Data error with reason = " + reason);
-
-            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(reason);
-
-            if (Spil.Instance.OnGameStateError != null) {
-                Spil.Instance.OnGameStateError(errorMessage);
             }
         }
 
@@ -1523,7 +1468,7 @@ namespace SpilGames.Unity.Base.Implementations {
         public delegate void LiveEventError(SpilErrorMessage errorMessage);
 
         /// <summary>
-        /// This event indicates that the IAP has been validated with the SLOT backend.
+        /// This event indicates that the Live Event encountered an error.
         /// </summary>
         public event LiveEventError OnLiveEventError;
 
@@ -1597,6 +1542,236 @@ namespace SpilGames.Unity.Base.Implementations {
                 Spil.Instance.OnLiveEventCompleted();
             }
         }
+
+        #endregion
+
+        #region Social Login
+
+        public delegate void LoginSuccessful(bool resetData, string socialProvider, string socialId, bool isGuest);
+
+        /// <summary>
+        /// This event indicates that the Social Login was successful.
+        /// </summary>
+        public event LoginSuccessful OnLoginSuccessful;
+
+        public static void fireLoginSuccessful(string message) {
+            Debug.Log("SpilSDK-Unity fireLoginSuccessful with message: " + message);
+
+            JSONObject loginJSON = new JSONObject(message);
+            bool resetData = loginJSON.GetField("resetData").b;
+			string socialProvider = loginJSON.HasField("socialProvider") ? loginJSON.GetField("socialProvider").str : null;
+			string socialId = loginJSON.HasField ("socialId") ? loginJSON.GetField ("socialId").str : null;
+            bool isGuest = loginJSON.GetField("isGuest").b;
+            if (Spil.Instance.OnLoginSuccessful != null) {
+                Spil.Instance.OnLoginSuccessful(resetData, socialProvider, socialId, isGuest);
+            }
+        }
+
+        public delegate void LoginFailed(SpilErrorMessage errorMessage);
+
+        /// <summary>
+        /// This event indicates that the Social Login failed.
+        /// </summary>
+        public event LoginFailed OnLoginFailed;
+
+        public static void fireLoginFailed(string error) {
+            Debug.Log("SpilSDK-Unity fireLoginFailed with data: " + error);
+
+            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(error);
+            if (Spil.Instance.OnLoginFailed != null) {
+                Spil.Instance.OnLoginFailed(errorMessage);
+            }
+        }
+
+        public delegate void RequestLogin();
+
+        /// <summary>
+        /// This event indicates that the Social login should be requested again.
+        /// </summary>
+        public event RequestLogin OnRequestLogin;
+
+        public static void fireRequestLogin() {
+            Debug.Log("SpilSDK-Unity fireRequestLogin");
+
+            if (Spil.Instance.OnRequestLogin != null) {
+                Spil.Instance.OnRequestLogin();
+            }
+        }
+
+        public delegate void LogoutSuccessful();
+
+        /// <summary>
+        /// This event indicates that the Social Logout was successful.
+        /// </summary>
+        public event LogoutSuccessful OnLogoutSuccessful;
+
+        public static void fireLogoutSuccessful() {
+            Debug.Log("SpilSDK-Unity fireLogoutSuccessful");
+
+            if (Spil.Instance.OnLogoutSuccessful != null) {
+                Spil.Instance.OnLogoutSuccessful();
+            }
+        }
+
+        public delegate void LogoutFailed(SpilErrorMessage errorMessage);
+
+        /// <summary>
+        /// This event indicates that the Social Logout failed.
+        /// </summary>
+        public event LogoutFailed OnLogoutFailed;
+
+        public static void fireLogoutFailed(string error) {
+            Debug.Log("SpilSDK-Unity fireLogoutFailed with data: " + error);
+
+            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(error);
+            if (Spil.Instance.OnLogoutFailed != null) {
+                Spil.Instance.OnLogoutFailed(errorMessage);
+            }
+        }
+
+        public delegate void AuthenticationError(SpilErrorMessage errorMessage);
+
+        /// <summary>
+        /// This event indicates that the Social Logout failed.
+        /// </summary>
+        public event AuthenticationError OnAuthenticationError;
+
+        public static void fireAuthenticationError(string error) {
+            Debug.Log("SpilSDK-Unity fireAuthenticationError with data: " + error);
+
+            SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(error);
+            if (Spil.Instance.OnAuthenticationError != null) {
+                Spil.Instance.OnAuthenticationError(errorMessage);
+            }
+        }
+
+		public delegate void UserDataMergeConflict(MergeConflictData localDataMergeData, MergeConflictData remoteDataMergeData);
+
+		/// <summary>
+		/// This event indicates there was a merge conflict, the current local data and the conflicted remote data are passed.
+		/// </summary>
+		public event UserDataMergeConflict OnUserDataMergeConflict;
+
+		public static void fireUserDataMergeConflict(string data) {
+			Debug.Log("SpilSDK-Unity fireUserDataMergeConflict");
+
+			MergeConflict mergeConflict = JsonHelper.getObjectFromJson<MergeConflict>(data);
+
+			if (Spil.Instance.OnUserDataMergeConflict != null) {
+				Spil.Instance.OnUserDataMergeConflict(mergeConflict.localData, mergeConflict.remoteData);
+			}
+		}
+
+		public delegate void UserDataMergeSuccessful();
+
+		/// <summary>
+		/// This event indicates that the data was merged successfully.
+		/// </summary>
+		public event UserDataMergeSuccessful OnUserDataMergeSuccessful;
+
+		public static void fireUserDataMergeSuccessful() {
+			Debug.Log("SpilSDK-Unity fireUserDataMergeSuccessful");
+
+			if (Spil.Instance.OnUserDataMergeSuccessful != null) {
+				Spil.Instance.OnUserDataMergeSuccessful();
+			}
+		}
+
+		public delegate void UserDataMergeFailed(string mergeData, string mergeType);
+
+		/// <summary>
+		/// This event indicates that the user data merge failed, 
+		/// the mergeData and mergeType params can be used to retry.
+		/// </summary>
+		public event UserDataMergeFailed OnUserDataMergeFailed;
+
+		public static void fireUserDataMergeFailed(string data) {
+			Debug.Log("SpilSDK-Unity fireUserDataMergeFailed");
+
+		    JSONObject jsonData = new JSONObject(data);
+		    string mergeData = jsonData.HasField ("mergeData") ? jsonData.GetField ("mergeData").str : null;
+		    string mergeType = jsonData.HasField ("mergeType") ? jsonData.GetField ("mergeType").str : null;
+		    
+			if (Spil.Instance.OnUserDataMergeFailed != null) {
+				Spil.Instance.OnUserDataMergeFailed(mergeData, mergeType);
+			}
+		}
+
+		public delegate void UserDataHandleMerge(string mergeType);
+
+		/// <summary>
+		/// This event indicates that the user data merge has to be handled for the specified merge type.
+		/// </summary>
+		public event UserDataHandleMerge OnUserDataHandleMerge;
+
+		public static void fireUserDataHandleMerge(string mergeType) {
+			Debug.Log("SpilSDK-Unity fireUserDataHandleMerge");
+
+			if (Spil.Instance.OnUserDataHandleMerge != null) {
+				Spil.Instance.OnUserDataHandleMerge(mergeType);
+			}
+		}
+
+		public delegate void UserDataSyncError();
+
+		/// <summary>
+		/// This event indicates that there was a sync error.
+		/// </summary>
+		public event UserDataSyncError OnUserDataSyncError;
+
+		public static void fireUserDataSyncError() {
+			Debug.Log("SpilSDK-Unity fireUserDataSyncError");
+
+			if (Spil.Instance.OnUserDataSyncError != null) {
+				Spil.Instance.OnUserDataSyncError();
+			}
+		}
+
+		public delegate void UserDataLockError();
+
+		/// <summary>
+		/// This event indicates that there was a lock error.
+		/// </summary>
+		public event UserDataLockError OnUserDataLockError;
+
+		public static void fireUserDataLockError() {
+			Debug.Log("SpilSDK-Unity fireUserDataLockError");
+
+			if (Spil.Instance.OnUserDataLockError != null) {
+				Spil.Instance.OnUserDataLockError();
+			}
+		}
+
+		public delegate void UserDataError(SpilErrorMessage errorMessage);
+
+		/// <summary>
+		/// This event indicates that there was a general user data error.
+		/// </summary>
+		public event UserDataError OnUserDataError;
+
+		public static void fireUserDataError(string error) {
+			Debug.Log("SpilSDK-Unity fireUserDataError with data: " + error);
+
+			SpilErrorMessage errorMessage = JsonHelper.getObjectFromJson<SpilErrorMessage>(error);
+			if (Spil.Instance.OnUserDataError != null) {
+				Spil.Instance.OnUserDataError(errorMessage);
+			}
+		}
+
+		public delegate void UserDataAvailable();
+
+		/// <summary>
+		/// This event indicates that the user data is available.
+		/// </summary>
+		public event UserDataAvailable OnUserDataAvailable;
+
+		public static void fireUserDataAvailable() {
+			Debug.Log("SpilSDK-Unity fireUserDataAvailable");
+
+			if (Spil.Instance.OnUserDataAvailable != null) {
+				Spil.Instance.OnUserDataAvailable();
+			}
+		}
 
         #endregion
 
@@ -1734,6 +1909,12 @@ namespace SpilGames.Unity.Base.Implementations {
         public abstract string GetUserId();
 
         /// <summary>
+        /// Gets the device identifier.
+        /// </summary>
+        /// <returns>The user identifier.</returns>
+        public abstract string GetDeviceId();
+        
+        /// <summary>
         /// Sets the custom bundle identifier.
         /// Use this when the bundle id used to connect to our backend differs from the one used to build.
         /// </summary>
@@ -1748,13 +1929,82 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #endregion
 
-        #region Game State
+        #region Daily Bonus and Splash Screen
 
         /// <summary>
-        /// Request the users Private and Public Game State.
+        /// Requests the daily bonus screen.
         /// </summary>
-        public abstract void RequestMyGameState();
+        public abstract void RequestDailyBonus();
 
+        /// <summary>
+        /// Requests the splashscreen.
+        /// </summary>
+        public abstract void RequestSplashScreen(string type = null);
+
+        #endregion
+
+        #region Image Processing
+
+        /// <summary>
+        /// Used to get the image from the cache, based on the url provided.
+        /// </summary>
+        public abstract string GetImagePath(string url);
+
+        /// <summary>
+        /// Used to get the image from the cache, based on the url provided.ImageContext will be imageType = custom when it's not provided as parameter
+        /// </summary>
+        public abstract void RequestImage(string url, int id, string imageType);
+
+        /// <summary>
+        /// Clears the cache, useful in case when a lot of items have been updated.
+        /// </summary>
+        public abstract void ClearDiskCache();
+
+        /// <summary>
+        /// This method loops through all the items and bundles and adds urls to images (if any) to a download queue if those images have not yet been download and saved to local storage.
+        /// </summary>
+        public abstract void PreloadItemAndBundleImages();
+
+        #endregion
+
+        #region Game Data, Player Data and Game State
+
+        public abstract string GetSpilGameDataFromSdk();
+
+        /// <summary>
+        /// Request the users data from SLOT.
+        /// </summary>
+        public abstract void RequestUserData();
+
+        public abstract void MergeUserData(string mergeData, string mergeType);
+
+        public abstract void ShowMergeConflictDialog(string title, string message, string localButtonText, string remoteButtonText, string mergeButtonText = null);
+
+        public abstract void ShowSyncErrorDialog(string title, string message, string startMergeButtonText);
+
+		public abstract void ShowMergeFailedDialog(string title, string message, string retryButtonText, string mergeData, string mergeType);
+        
+        public abstract string GetWalletFromSdk();
+
+        public abstract string GetInvetoryFromSdk();
+
+        public abstract void AddCurrencyToWallet(int currencyId, int amount, string reason, string location,
+            string reasonDetails = null, string transactionId = null);
+
+        public abstract void SubtractCurrencyFromWallet(int currencyId, int amount, string reason, string location,
+            string reasonDetails = null, string transactionId = null);
+
+        public abstract void AddItemToInventory(int itemId, int amount, string reason, string location,
+            string reasonDetails = null, string transactionId = null);
+
+        public abstract void SubtractItemFromInventory(int itemId, int amount, string reason, string location,
+            string reasonDetails = null, string transactionId = null);
+
+        public abstract void BuyBundle(int bundleId, string reason, string location, string reasonDetails = null,
+            string transactionId = null);
+
+        public abstract void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null);
+        
         /// <summary>
         /// Sets the state of the private game.
         /// </summary>
@@ -1785,72 +2035,7 @@ namespace SpilGames.Unity.Base.Implementations {
         /// <param name="provider">Provider.</param>
         /// <param name="userIdsJsonArray">User identifiers json array.</param>
         public abstract void GetOtherUsersGameState(string provider, string userIdsJsonArray);
-
-        #endregion
-
-        #region Daily Bonus and Splash Screen
-
-        /// <summary>
-        /// Requests the daily bonus screen.
-        /// </summary>
-        public abstract void RequestDailyBonus();
-
-        /// <summary>
-        /// Requests the splashscreen.
-        /// </summary>
-        public abstract void RequestSplashScreen();
-
-        #endregion
-
-        #region Image Processing
-
-        /// <summary>
-        /// Used to get the image from the cache, based on the url provided.
-        /// </summary>
-        public abstract string GetImagePath(string url);
-
-        /// <summary>
-        /// Used to get the image from the cache, based on the url provided.ImageContext will be imageType = custom when it's not provided as parameter
-        /// </summary>
-        public abstract void RequestImage(string url, int id, string imageType);
-
-        /// <summary>
-        /// Clears the cache, useful in case when a lot of items have been updated.
-        /// </summary>
-        public abstract void ClearDiskCache();
-
-        /// <summary>
-        /// This method loops through all the items and bundles and adds urls to images (if any) to a download queue if those images have not yet been download and saved to local storage.
-        /// </summary>
-        public abstract void PreloadItemAndBundleImages();
-
-        #endregion
-
-        #region Player Data and Game Data
-
-        public abstract string GetSpilGameDataFromSdk();
-
-        public abstract string GetWalletFromSdk();
-
-        public abstract string GetInvetoryFromSdk();
-
-        public abstract void AddCurrencyToWallet(int currencyId, int amount, string reason, string location,
-            string reasonDetails = null, string transactionId = null);
-
-        public abstract void SubtractCurrencyFromWallet(int currencyId, int amount, string reason, string location,
-            string reasonDetails = null, string transactionId = null);
-
-        public abstract void AddItemToInventory(int itemId, int amount, string reason, string location,
-            string reasonDetails = null, string transactionId = null);
-
-        public abstract void SubtractItemFromInventory(int itemId, int amount, string reason, string location,
-            string reasonDetails = null, string transactionId = null);
-
-        public abstract void BuyBundle(int bundleId, string reason, string location, string reasonDetails = null,
-            string transactionId = null);
-
-        public abstract void OpenGacha(int gachaId, string reason, string location, string reasonDetails = null);
-
+        
         public abstract void ResetPlayerData();
 
         public abstract void ResetInventory();
@@ -1865,10 +2050,6 @@ namespace SpilGames.Unity.Base.Implementations {
         #endregion
 
         #region Customer Support
-
-        public abstract void ShowHelpCenter();
-
-        public abstract void ShowContactCenter();
 
         public abstract void ShowHelpCenterWebview(string url);
 
@@ -1899,6 +2080,25 @@ namespace SpilGames.Unity.Base.Implementations {
         public abstract long GetLiveEventEndDate();
 
         #endregion
+
+        #region Social Login
+
+        public abstract void UserLogin(string socialId, string socialProvider, string socialToken);
+
+        public abstract void UserLogout(bool global);
+
+        public abstract void UserPlayAsGuest();
+
+        public abstract void ShowUnauthorizedDialog(string title, string message, string loginText,
+            string playAsGuestText);
+
+        public abstract bool IsLoggedIn();
+
+        #endregion
+
+        public abstract void ResetData();
+
+        public abstract void ShowNativeDialog(string title, string message, string buttonText);
 
         #endregion
     }

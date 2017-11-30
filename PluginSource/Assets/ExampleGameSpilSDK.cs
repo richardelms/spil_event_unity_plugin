@@ -50,16 +50,16 @@ public class ExampleGameSpilSDK : MonoBehaviour
         Spil.Instance.OnAdFinished += AdFinishedHandler;
 
         // When the SpilSDK has retrieved playerdata from the back-end PlayerDataAvailable is called
-        Spil.Instance.OnPlayerDataAvailable -= PlayerDataAvailableHandler;
-        Spil.Instance.OnPlayerDataAvailable += PlayerDataAvailableHandler;
+        Spil.Instance.OnUserDataAvailable -= UserDataAvailableHandler;
+        Spil.Instance.OnUserDataAvailable += UserDataAvailableHandler;
 
         // When the player data (inventory or wallet) has been updated PlayerDataUpdated is called
         Spil.Instance.OnPlayerDataUpdated -= PlayerDataUpdatedHandler;
         Spil.Instance.OnPlayerDataUpdated += PlayerDataUpdatedHandler;
 
         // When something has gone wrong while retrieving or updating the player data OnPlayerDataError is called and contains information about the error
-        Spil.Instance.OnPlayerDataError -= PlayerDataErrorHandler;
-        Spil.Instance.OnPlayerDataError += PlayerDataErrorHandler;
+        Spil.Instance.OnUserDataError -= UserDataErrorHandler;
+        Spil.Instance.OnUserDataError += UserDataErrorHandler;
 
         // When tbe SpilSDK has retrieved game data (currencies, promotions, shop data) from the back-end SpilGameDataAvailable is called 
         Spil.Instance.OnSpilGameDataAvailable -= SpilGameDataAvailableHandler;
@@ -156,7 +156,7 @@ public class ExampleGameSpilSDK : MonoBehaviour
         }
     }
 
-    private void PlayerDataAvailableHandler()
+    private void UserDataAvailableHandler()
     {
         updateUI();
     }
@@ -172,7 +172,7 @@ public class ExampleGameSpilSDK : MonoBehaviour
         updateUI();
     }
 
-    private void PlayerDataErrorHandler(SpilErrorMessage errorMessage)
+    private void UserDataErrorHandler(SpilErrorMessage errorMessage)
     {
         txtErrorMessage.text = errorMessage.name + ": " + errorMessage.message;
         pnlErrorMessage.SetActive(true);

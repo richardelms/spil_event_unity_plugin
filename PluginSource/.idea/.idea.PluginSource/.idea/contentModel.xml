@@ -1,5 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2017.2/resharper-host/local/Transient/ReSharperHost/v10/SolutionCaches/_PluginSource.811942354.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="ExampleGameSpilSDK.cs" t="Include" />
+        <e p="link.xml" t="Include" />
+        <e p="Plugins" t="Include">
+          <e p="Android" t="Include">
+            <e p="AndroidManifest.xml" t="Include" />
+          </e>
+          <e p="Editor" t="Include">
+            <e p="JetBrains" t="Include">
+              <e p="Unity3DRider.cs" t="Include" />
+            </e>
+          </e>
+          <e p="iOS" t="Include">
+            <e p="Spil.framework" t="Include">
+              <e p="Version.txt" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Spilgames" t="Include">
+          <e p="Base" t="Include">
+            <e p="Implementation" t="Include">
+              <e p="SpilAndroidUnityImplementation.cs" t="Include" />
+              <e p="SpiliOSUnityImplementation.cs" t="Include" />
+              <e p="SpilUnityEditorImplementation.cs" t="Include" />
+              <e p="SpilUnityImplementationBase.cs" t="Include" />
+            </e>
+            <e p="SDK" t="Include">
+              <e p="Responses" t="Include">
+                <e p="AdvertisementResponse.cs" t="Include" />
+                <e p="GameDataResponse.cs" t="Include" />
+                <e p="GameStateResponse.cs" t="Include" />
+                <e p="IAPPackagesResponse.cs" t="Include" />
+                <e p="ImageResponse.cs" t="Include" />
+                <e p="MergeConflictResponse.cs" t="Include" />
+                <e p="PlayerDataResponse.cs" t="Include" />
+                <e p="RewardResponse.cs" t="Include" />
+              </e>
+              <e p="SpilResponse.cs" t="Include" />
+            </e>
+            <e p="UnityEditor" t="Include">
+              <e p="Managers" t="Include">
+                <e p="AdvertisementManager.cs" t="Include" />
+                <e p="ConfigManager.cs" t="Include" />
+                <e p="GameDataManager.cs" t="Include" />
+                <e p="GameStateManager.cs" t="Include" />
+                <e p="LiveEventManager.cs" t="Include" />
+                <e p="OverlayManager.cs" t="Include" />
+                <e p="PackagesManager.cs" t="Include" />
+                <e p="PlayerDataManager.cs" t="Include" />
+                <e p="RewardManager.cs" t="Include" />
+                <e p="SocialLoginManager.cs" t="Include" />
+                <e p="UserDataManager.cs" t="Include" />
+              </e>
+              <e p="ResponseEvent.cs" t="Include" />
+              <e p="SpilEvent.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Editor" t="Include">
+            <e p="Menu" t="Include">
+              <e p="SpilEditorConfig.cs" t="Include" />
+              <e p="SpilEditorDocumentation.cs" t="Include" />
+              <e p="SpilEditorReleases.cs" t="Include" />
+              <e p="SpilEditorReportIssue.cs" t="Include" />
+            </e>
+            <e p="PostBuild" t="Include">
+              <e p="SpilAndroidBuildPostProcess.cs" t="Include" />
+              <e p="SpilIOSBuildPostProcess.cs" t="Include" />
+              <e p="TVOSBuildPostProcess.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Helpers" t="Include">
+            <e p="GameData" t="Include">
+              <e p="Bundle.cs" t="Include" />
+              <e p="Currency.cs" t="Include" />
+              <e p="GachaContent.cs" t="Include" />
+              <e p="Item.cs" t="Include" />
+              <e p="Shop.cs" t="Include" />
+              <e p="SpilGameDataHelper.cs" t="Include" />
+              <e p="Tracking.cs" t="Include" />
+            </e>
+            <e p="IAPPackages" t="Include">
+              <e p="Package.cs" t="Include" />
+              <e p="PackagesHelper.cs" t="Include" />
+            </e>
+            <e p="PlayerData" t="Include">
+              <e p="Inventory.cs" t="Include" />
+              <e p="PlayerDataHelper.cs" t="Include" />
+              <e p="Wallet.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Json" t="Include">
+            <e p="JSONHelper.cs" t="Include" />
+            <e p="JSONObject.cs" t="Include" />
+          </e>
+          <e p="Spil.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="PluginSource.sln" t="IncludeFlat" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
   <component name="RiderRiderContentModelStore">
     <excludedPaths>
       <Path>Temp</Path>

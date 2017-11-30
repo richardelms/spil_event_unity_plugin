@@ -36,6 +36,8 @@ extern "C" {
     
     void requestServerTimeNative();
     
+    void showDialogNative(char* title, char* message, char* okButtonText);
+    
     // --- Event tracking ---
     
     void initEventTrackerWithOptions(const char* options);
@@ -102,6 +104,8 @@ extern "C" {
     
     // --- Config ---
     
+    void requestGameConfigNative();
+    
     char* getConfigNative();
     
     char* getConfigValueNative(const char* keyName);
@@ -162,17 +166,13 @@ extern "C" {
     
     // --- Customer support ---
     
-    void showHelpCenterNative();
-    
-    void showContactCenterNative();
-    
     void showHelpCenterWebviewNative(char* url);
     
     // --- Web ---
     
     void requestDailyBonusNative();
     
-    void requestSplashScreenNative();
+    void requestSplashScreenNative(const char* type);
     
     // --- User data ---
     
@@ -192,6 +192,7 @@ extern "C" {
 
     void getOtherUsersGameStateNative(const char* provider, const char* userIdsJsonArray);
     
+    // NOTE: This method will be depricated, use requestUserDataNative() instead.
     void requestMyGameStateNative();
     
     // --- Image cache ---
@@ -215,6 +216,34 @@ extern "C" {
     char* getLiveEventEndDateNative();
     
     char* getLiveEventConfigNative();
+    
+    // --- Login ---
+    
+    void loginNative(char* externalUserId, char* externalProviderId, char* externalToken);
+    
+    bool isLoggedInNative();
+    
+    void logoutNative(bool global);
+    
+    void userPlayAsGuestNative();
+    
+    void showAuthorizedDialogNative(char* title, char* message, char* loginButtonText, char* guestButtonText);
+    
+    void resetDataNative();
+    
+    // --- Data syncing ---
+    
+    char* getDeviceIdNative();
+    
+    void requestUserDataNative();
+    
+    void mergeUserDataNative(char* mergedUserData, char* mergeType);
+    
+    void showMergeConflictDialogNative(char* title, char* message, char* localButtonText, char* remoteButtonText, char* mergeButtonText);
+    
+    void showSyncErrorDialogNative(char* title, char* message, char* mergeButtonText);
+    
+    void showMergeFailedDialogNative(char* title, char* message, char* retryButtonText, char* mergeData, char* mergeType);
 }
 
 #endif

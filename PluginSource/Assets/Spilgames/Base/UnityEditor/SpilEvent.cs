@@ -10,7 +10,7 @@ using SpilGames.Unity.Helpers;
 using System.Collections;
 using System;
 using SpilGames.Unity.Json;
-using SpilGames.Unity.Base.UnityEditor.Responses;
+using SpilGames.Unity.Base.UnityEditor.Managers;
 
 namespace SpilGames.Unity.Base.UnityEditor {
     public class SpilEvent : MonoBehaviour {
@@ -55,7 +55,14 @@ namespace SpilGames.Unity.Base.UnityEditor {
                 requestForm.AddField("debugMode", Convert.ToString(spil.EditorDebugMode).ToLower());
             }
 
-            WWW request = new WWW("https://apptracker.spilgames.com/v1/native-events/event/" + platform + "/" + Spil.BundleIdEditor +"/" + eventName, requestForm);
+            if (SpilUnityEditorImplementation.spilToken != null) {
+                requestForm.AddField("spilToken", SpilUnityEditorImplementation.spilToken);
+            }
+            
+            WWW request =
+                new WWW(
+                    "https://apptracker.spilgames.com/v1/native-events/event/" + platform + "/" + Spil.BundleIdEditor +
+                    "/" + eventName, requestForm);
             yield return request;
 
             SpilLogging.Log("Sending event: " + "Name: " + eventName + " \nData: " + data + " \nCustom Data: " +
@@ -65,13 +72,23 @@ namespace SpilGames.Unity.Base.UnityEditor {
                 if (Spil.BundleIdEditor == null || Spil.BundleIdEditor.Equals("")) {
                     SpilLogging.Error(
                         "Spil Initialize might not have been called! Please make sure you call Spil.Initialize() at app start!");
-                }
-                else {
+                } else if (request.responseHeaders.Count > 0) {
+                    foreach (KeyValuePair<string, string> entry in request.responseHeaders) {
+                        if (entry.Key.Equals("STATUS")){
+                            if (entry.Value.Contains("401")) {
+                                SocialLoginManager.ProcessUnauthorizedResponse(request.text);
+                                SpilLogging.Error("Unauthorized 401 event! Error: " + request.text);
+                            } else {
+                                SpilLogging.Error("Error getting data: " + request.error);
+                                SpilLogging.Error("Error getting data: " + request.text);
+                            }
+                        }
+                    }
+                } else {
                     SpilLogging.Error("Error getting data: " + request.error);
                     SpilLogging.Error("Error getting data: " + request.text);
                 }
-            }
-            else {
+            } else {
                 JSONObject serverResponse = new JSONObject(request.text);
                 SpilLogging.Log("Data returned: \n" + serverResponse);
                 ResponseEvent.Build(serverResponse);
@@ -80,6 +97,7 @@ namespace SpilGames.Unity.Base.UnityEditor {
         }
 
         private void AddDefaultParameters() {
+            data.AddField("deviceId", SystemInfo.deviceUniqueIdentifier);
             data.AddField("uid", uid);
             data.AddField("locale", "en");
             data.AddField("appVersion", PlayerSettings.bundleVersion);
@@ -91,8 +109,7 @@ namespace SpilGames.Unity.Base.UnityEditor {
             data.AddField("tto", "200");
             if (platform.Equals("android")) {
                 data.AddField("packageName", bundleIdentifier);
-            }
-            else {
+            } else {
                 data.AddField("bundleId", bundleIdentifier);
             }
             data.AddField("sessionId", "deadbeef");

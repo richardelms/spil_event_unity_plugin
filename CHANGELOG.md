@@ -6,6 +6,37 @@ Full change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.7.1 *(30-11-2017)*
+----------------------------
+**IMPORTANT! For Android make sure to update your AndroidManifest.xml file to remove the WRITE_EXTERNAL_STORAGE permission!**
+
+Version 2.7.1 brings the Social Login & Cross-Device Syncing, removal of the WRITE_EXTERNAL_STORAGE dangerous permission, update of 3rd party libraries and several other improvements.
+
+**New Features**
+ * _Social Login & Cross-Device Sync_: These features can be combined to accomplish user data syncing across multiple devices and across multiple platforms using Facebook login. The Social Login feature can also be used without the data-syncing feature; however, this can result in a loss of data when the user starts to play on multiple devices. The User data-syncing feature cannot be used without also implementing the Social Login feature. The syncing is done on the Wallet, Inventory and Gamestate features.
+
+**Bug Fixes**
+ * iOS: Fixed an empty uid parameter for the first sessionStart event for MDS.
+ * iOS: Fixed the live events start date parameter.
+ * iOS: SLOT was not always updated correctly of the initial wallet/inventory state of the client.
+
+**Other**
+ * Android: Removed WRITE_EXTERNAL_STORAGE permission dependency and usage from the SDK. The user id will not be saved anymore in the Spilgames folder and it will be resetted on app install. For user who are updating the game the user id will stay the same.
+ * Android: Due to the removal of the WRITE_EXTERNAL_STORAGE permission, the enabling and disabling 'debugMode' will be done explicitly through the Sample App. Please contact a Spil representative if you need to install the application.
+ * Android/iOS: Added new 'deviceId' parameter which is sent with each event. This will have the same value across games from Spilgames played on the same device.
+ * Android/iOS: Removed automatic triggering of request events on startup (onCreate). You will need to explicitly call the init() method now in order to tell the SDK to retrieve SLOT data.
+ * Android/iOS: Changed the 'requestPlayerData' and 'requestMyGameState' to one call name 'requestUserData'. This change is due to the cross-device syncing feature.
+ * Android/iOS: Merged callbacks for PlayerData and GameState into combined UserData callbacks.
+ * Android/iOS: Removed Zendesk SDK and all it's components. Support for this feature has been discontinued.
+ * Android/iOS: Added extra parameter to the 'requestSplashScreen' request to define the type of Splash Screen.
+ * Android/iOS: All 3rd parties updated.
+ * Android/iOS: Added Facebook Audience Network to Fyber.
+ * Android/iOS: Removed Facebook Audience Network from DFP (the adapter is still included so if the game has the spilsdk-fyber module, Facebook interstitials will still work).
+ * Android/iOS: Added AdMob Network to Fyber.
+ * Android: Updated Google Play Services to 11.6.0.
+ * iOS: Minor Firebase deeplink improvements.
+
+
 Version 2.6.1 *(16-10-2017)*
 ----------------------------
 Version 2.6.1 brings Spil More Apps, ability to configure an image for the permission dialogs for Android, new event tracking implementation and bug fixes.

@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.6.1
+ * Version 2.7.1
  *
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -39,7 +39,7 @@ namespace SpilGames.Unity {
 
         [SerializeField] public string spilUserIdEditor;
 
-        public static string SpilUserIdEditor { get; private set; }
+        public static string SpilUserIdEditor { get; set; }
 
         [SerializeField] public string bundleIdEditor;
 
@@ -154,13 +154,6 @@ namespace SpilGames.Unity {
 		public static SpiliOSUnityImplementation Instance = new SpiliOSUnityImplementation();
 
 #endif
-
-//        public delegate void SpilSDKInitialized();
-//        
-//        /// <summary>
-//        /// This event indicates that the Spil SDK was initialised on Unity Side.
-//        /// </summary>
-//        public static event SpilSDKInitialized OnSpilSDKInitialized;
 
         void Awake() {
             if (initializeOnAwake) {
@@ -326,13 +319,6 @@ namespace SpilGames.Unity {
         /// <summary>
         /// This method is called by the native Spil SDK, it should not be used by developers.
         /// </summary>
-        public void PlayerDataAvailable() {
-            SpilUnityImplementationBase.firePlayerDataAvailable();
-        }
-
-        /// <summary>
-        /// This method is called by the native Spil SDK, it should not be used by developers.
-        /// </summary>
         public void PlayerDataUpdated(string data) {
             SpilUnityImplementationBase.firePlayerDataUpdated(data);
         }
@@ -347,13 +333,6 @@ namespace SpilGames.Unity {
         /// <summary>
         /// This method is called by the native Spil SDK, it should not be used by developers.
         /// </summary>
-        public void PlayerDataError(string reason) {
-            SpilUnityImplementationBase.firePlayerDataError(reason);
-        }
-
-        /// <summary>
-        /// This method is called by the native Spil SDK, it should not be used by developers.
-        /// </summary>
         public void GameStateUpdated(string access) {
             SpilUnityImplementationBase.fireGameStateUpdated(access);
         }
@@ -363,13 +342,6 @@ namespace SpilGames.Unity {
         /// </summary>
         public void OtherUsersGameStateLoaded(string message) {
             SpilUnityImplementationBase.fireOtherUsersGameStateLoaded(message);
-        }
-
-        /// <summary>
-        /// This method is called by the native Spil SDK, it should not be used by developers.
-        /// </summary>
-        public void GameStateError(string message) {
-            SpilUnityImplementationBase.fireGameStateError(message);
         }
 
         /// <summary>
@@ -595,6 +567,104 @@ namespace SpilGames.Unity {
         public void LiveEventCompleted() {
             SpilUnityImplementationBase.fireLiveEventCompleted();
         }
+
+        /// <summary>
+        /// This event indicates if the Social Login was completed by the user.
+        /// </summary>
+        public void LoginSuccessful(string message) {
+            SpilUnityImplementationBase.fireLoginSuccessful(message);
+        }
+
+        /// <summary>
+        /// This event indicates if the Social Login failed.
+        /// </summary>
+        public void LoginFailed(string error) {
+            SpilUnityImplementationBase.fireLoginFailed(error);
+        }
+
+        /// <summary>
+        /// This event indicates if Social Login should be initiated.
+        /// </summary>
+        public void RequestLogin() {
+            SpilUnityImplementationBase.fireRequestLogin();
+        }
+
+        /// <summary>
+        /// This event indicates if the Social Logout was completed by the user.
+        /// </summary>
+        public void LogoutSuccessful() {
+            SpilUnityImplementationBase.fireLogoutSuccessful();
+        }
+
+        /// <summary>
+        /// This event indicates if the Social Logout failed.
+        /// </summary>
+        public void LogoutFailed(string error) {
+            SpilUnityImplementationBase.fireLogoutFailed(error);
+        }
+
+        /// <summary>
+        /// This event indicates if an authentication error has occured on any event after the Social Login.
+        /// </summary>
+        public void AuthenticationError(string error) {
+            SpilUnityImplementationBase.fireAuthenticationError(error);
+        }
+
+		/// <summary>
+		/// This event indicates if a merge conflict occured
+		/// </summary>
+		public void UserDataMergeConflict(string data) {
+			SpilUnityImplementationBase.fireUserDataMergeConflict(data);
+		}
+
+		/// <summary>
+		/// This event indicates if a merge conflict was successfully resolved.
+		/// </summary>
+		public void UserDataMergeSuccessful() {
+			SpilUnityImplementationBase.fireUserDataMergeSuccessful();
+		}
+
+		/// <summary>
+		/// This event indicates if a merge conflict failed.
+		/// </summary>
+		public void UserDataMergeFailed(string data) {
+			SpilUnityImplementationBase.fireUserDataMergeFailed(data);
+		}
+
+		/// <summary>
+		/// This event indicates if a merge conflict needs to be handled for a certain type.
+		/// </summary>
+		public void UserDataHandleMerge(string mergeType) {
+			SpilUnityImplementationBase.fireUserDataHandleMerge(mergeType);
+		}
+
+		/// <summary>
+		/// This event indicates if a userdata sync error occured.
+		/// </summary>
+		public void UserDataSyncError() {
+			SpilUnityImplementationBase.fireUserDataSyncError();
+		}
+
+		/// <summary>
+		/// This event indicates if a userdata lock occured.
+		/// </summary>
+		public void UserDatalockError() {
+			SpilUnityImplementationBase.fireUserDataLockError();
+		}
+
+		/// <summary>
+		/// This event indicates if a general userdata error occured.
+		/// </summary>
+		public void UserDataError(string errorMessage) {
+			SpilUnityImplementationBase.fireUserDataError(errorMessage);
+		}
+
+		/// <summary>
+		/// This event indicates if an authentication error has occured on any event after the Social Login.
+		/// </summary>
+		public void UserDataAvailable() {
+			SpilUnityImplementationBase.fireUserDataAvailable();
+		}
 
 #if UNITY_ANDROID
         /// <summary>

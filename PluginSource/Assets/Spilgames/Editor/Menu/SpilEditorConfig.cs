@@ -514,11 +514,11 @@ public class SpilEditorConfig : EditorWindow {
         else {
             WWWForm form = GetFormData(EditorUserBuildSettings.activeBuildTarget.ToString().Trim().ToLower());
             form.AddField("name", type);
-
+	    string bundleIdentifier = null;
 #if UNITY_ANDROID
-            string bundleIdentifier = androidPackageName;
+            bundleIdentifier = androidPackageName;
 #elif UNITY_IPHONE || UNITY_TVOS
-            string bundleIdentifier = iosBundelId;
+            bundleIdentifier = iosBundelId;
 #endif
 
             WWW request =

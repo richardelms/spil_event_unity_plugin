@@ -5,6 +5,9 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
 ----------------------------
+Version 2.7.3 *(02-01-2018)*
+----------------------------
+Version 2.7.3 includes a fix for an issue on the iOS event queue which can cause a crash. It also improves playerdata/gamestate syncing on iOS.
 
 Version 2.7.1 *(30-11-2017)*
 ----------------------------

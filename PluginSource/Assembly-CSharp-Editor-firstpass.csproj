@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Editor\JetBrains\Unity3DRider.cs" />
-    <None Include="Assets\Plugins\iOS\Spil.framework\version.txt" />
+    <None Include="Assets\Plugins\iOS\Spil.framework\Version.txt" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <Reference Include="UnityEngine.UI">

@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.7.1
+ * Version 2.7.4
  *
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -21,11 +21,12 @@ namespace SpilGames.Unity {
 
         private PlayerDataHelper PlayerDataObject;
         public static PlayerDataHelper PlayerData;
-
+        
         [SerializeField] public bool initializeOnAwake = true;
-
-        [SerializeField] public int invokeSeconds = 1;
-
+        
+        [SerializeField] public bool checkPrivacyPolicy = true;
+        public static bool CheckPrivacyPolicy { get; private set; }
+        
         [Header("Android Settings")]
 #if UNITY_ANDROID || UNITY_EDITOR
         [SerializeField] public string ProjectId = "";
@@ -161,54 +162,60 @@ namespace SpilGames.Unity {
             }
         }
 
+        void OnValidate() {
+#if UNITY_EDITOR
+            UnityEditor.EditorPrefs.SetBool("gdprEnabled", checkPrivacyPolicy);
+#endif
+        }
+
         public void Initialize() {
             Debug.Log("SpilSDK-Unity Init");
 
-            Instance.SetPluginInformation(SpilUnityImplementationBase.PluginName,
-                SpilUnityImplementationBase.PluginVersion);
+            Instance.SetPluginInformation(SpilUnityImplementationBase.PluginName, SpilUnityImplementationBase.PluginVersion);
 
 #if UNITY_EDITOR
-
             InitEditor();
-
 #endif
 
 #if UNITY_IOS
-
 			if (!string.IsNullOrEmpty (CustomBundleId)) {
 				Instance.SetCustomBundleId (CustomBundleId);
 			}
-
-			#endif
+#endif
 
 #if UNITY_ANDROID
-
             //Check if Project Id is set
             if (ProjectId == null) {
                 throw new UnityException(
                     "Project ID not set!! Please set your Project Id with the id provided by the Spil representative!");
             }
-
 #endif
 
-            Instance.SpilInit();
+            CheckPrivacyPolicy = checkPrivacyPolicy;
+            
+            if (checkPrivacyPolicy) {
+                Instance.CheckPrivacyPolicy();
+            } else {
+                Instance.SpilInit(false);
+            }
+
             DontDestroyOnLoad(gameObject);
             gameObject.name = "SpilSDK";
 
 #if !UNITY_EDITOR
-
 			GameDataObject = new SpilGameDataHelper (Instance);
 			GameData = GameDataObject;
 
 			PlayerDataObject = new PlayerDataHelper (Instance);
 			PlayerData = PlayerDataObject;
-
 #endif
         }
 
         public void InitEditor() {
             if (string.IsNullOrEmpty(spilUserIdEditor)) {
                 spilUserIdEditor = Guid.NewGuid().ToString();
+            } else {
+                Debug.Log("Using a manually set user id. Social Login feature may not work properly!");
             }
             SpilUserIdEditor = spilUserIdEditor;
             Debug.Log("SpilSDK-Unity Using SpilUserIdEditor: " + SpilUserIdEditor);
@@ -666,6 +673,13 @@ namespace SpilGames.Unity {
 			SpilUnityImplementationBase.fireUserDataAvailable();
 		}
 
+        /// <summary>
+        /// This event indicates if the Privacy Policy was accepted by the user.
+        /// </summary>
+        public void PrivacyPolicyStatus(string accepted) {
+            SpilUnityImplementationBase.firePrivacyPolicyStatus(Convert.ToBoolean(accepted));
+        }
+        
 #if UNITY_ANDROID
         /// <summary>
         /// This event indicates the status of the permission request.

@@ -21,7 +21,7 @@ namespace SpilGames.Unity.Helpers.GameData {
         public Shop(List<SpilShopTabData> shop) {
             if (shop != null) {
                 foreach (SpilShopTabData tab in shop) {
-                    _Tabs.Add(new Tab(tab.name, tab.entries));
+                    _Tabs.Add(new Tab(tab.name, tab.entries, tab.imageEntries, tab.hasActivePromotions));
                 }
             }
         }
@@ -40,6 +40,8 @@ namespace SpilGames.Unity.Helpers.GameData {
 
         private string _Name;
 
+        
+        
         /// <summary>
         /// The Shop Entries as defined in SLOT
         /// </summary>
@@ -49,11 +51,36 @@ namespace SpilGames.Unity.Helpers.GameData {
 
         private List<Entry> _Entries = new List<Entry>();
 
-        public Tab(string name, List<SpilShopEntryData> entries) {
+        /// <summary>
+        /// The tab images. Can have multiple images.
+        /// </summary>
+        public List<ImageEntry> ImageEntries {
+            get { return _ImageEntries; }
+        }
+
+        private List<ImageEntry> _ImageEntries = new List<ImageEntry>();
+
+        public bool HasActivePromotions {
+            get { return _HasActivePromotions; }
+        }
+
+        private bool _HasActivePromotions;
+        
+        public Tab(string name, List<SpilShopEntryData> entries, List<SpilShopImageEntry> imageEntries, bool hasActivePromotions) {
             _Name = name;
+
+            if (imageEntries != null) {
+                foreach (SpilShopImageEntry spilShopImageEntry in imageEntries) {
+                    ImageEntry imageEntry = new ImageEntry(spilShopImageEntry.name, spilShopImageEntry.imageUrl);
+                    ImageEntries.Add(imageEntry);
+                }
+            }
+
+            _HasActivePromotions = hasActivePromotions;
+            
             if (entries != null) {
                 foreach (SpilShopEntryData entry in entries) {
-                    _Entries.Add(new Entry(entry.bundleId, entry.label, entry.position));
+                    _Entries.Add(new Entry(entry.bundleId, entry.label, entry.position, entry.imageEntries));
                 }
             }
         }
@@ -90,10 +117,25 @@ namespace SpilGames.Unity.Helpers.GameData {
 
         private int _Position;
 
-        public Entry(int bundleId, string label, int position) {
+        /// <summary>
+        /// The entry images. Can have multiple images.
+        /// </summary>
+        public List<ImageEntry> ImageEntries {
+            get { return _ImageEntries; }
+        }
+
+        private List<ImageEntry> _ImageEntries = new List<ImageEntry>();
+        
+        public Entry(int bundleId, string label, int position, List<SpilShopImageEntry> imageEntries) {
             _BundleId = bundleId;
             _Label = label;
             _Position = position;
+            
+            if (imageEntries != null) {
+                foreach (SpilShopImageEntry imageEntry in imageEntries) {
+                    _ImageEntries.Add(new ImageEntry(imageEntry.name, imageEntry.imageUrl));
+                }
+            }
         }
     }
 
@@ -155,7 +197,16 @@ namespace SpilGames.Unity.Helpers.GameData {
 
         private DateTime _EndDate;
 
-        public Promotion(int bundleId, int amount, List<SpilBundlePriceData> prices, string discount, DateTime startDate, DateTime endDate) {
+        /// <summary>
+        /// The promotion images. Can have multiple images.
+        /// </summary>
+        public List<ImageEntry> ImageEntries {
+            get { return _ImageEntries; }
+        }
+
+        private List<ImageEntry> _ImageEntries = new List<ImageEntry>();
+        
+        public Promotion(int bundleId, int amount, List<SpilBundlePriceData> prices, string discount, DateTime startDate, DateTime endDate, List<SpilShopImageEntry> imageEntries) {
             _BundleId = bundleId;
             _Amount = amount;
 
@@ -168,6 +219,33 @@ namespace SpilGames.Unity.Helpers.GameData {
             _Discount = discount;
             _StartDate = startDate;
             _EndDate = endDate;
+
+            if (imageEntries != null) {
+                foreach (SpilShopImageEntry imageEntry in imageEntries) {
+                    _ImageEntries.Add(new ImageEntry(imageEntry.name, imageEntry.imageUrl));
+                }
+            }
         }
+    }
+
+    public class ImageEntry {
+
+        public string Name {
+            get { return _Name; }
+        }
+
+        private string _Name;
+
+        public string ImageUrl {
+            get { return _ImageUrl; }
+        }
+
+        private string _ImageUrl;
+
+        public ImageEntry(string name, string imageUrl) {
+            _Name = name;
+            _ImageUrl = imageUrl;
+        }
+        
     }
 }

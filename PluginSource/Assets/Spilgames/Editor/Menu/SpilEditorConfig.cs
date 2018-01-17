@@ -101,6 +101,7 @@ public class SpilEditorConfig : EditorWindow {
     }
 
     private void DrawGeneral() {
+       
         GUILayout.Label("");
         GUILayout.Label(
             "WARNING: Please make sure to set your bundle ID in your player settings before getting your game data.\nPlease also note that this tool will only work if your build target is set to iOS or Android",
@@ -150,7 +151,14 @@ public class SpilEditorConfig : EditorWindow {
 
                 GUILayout.Label("Android", EditorStyles.boldLabel);
                 string androidConfig = android.Print(true);
-                GUILayout.Label(androidConfig, EditorStyles.wordWrappedLabel);
+                if (androidConfig.Length > 15000) {
+                    string message = "The displayed configuration has been truncated. If you want to view the full configuration please check SLOT!\n\n";
+                    string androidConfigPartial = androidConfig.Substring(0, 15000);
+                    GUILayout.Label(message + androidConfigPartial, EditorStyles.wordWrappedLabel);
+                } else {
+                    GUILayout.Label(androidConfig, EditorStyles.wordWrappedLabel);
+                }
+                
             }
             GUILayout.Label("");
             if (configJSON.HasField("iosSdkConfig")) {
@@ -160,7 +168,13 @@ public class SpilEditorConfig : EditorWindow {
 
                 GUILayout.Label("iOS", EditorStyles.boldLabel);
                 string iosConfig = ios.Print(true);
-                GUILayout.Label(iosConfig, EditorStyles.wordWrappedLabel);
+                if (iosConfig.Length > 15000) {
+                    string message = "The displayed configuration has been truncated. If you want to view the full configuration please check SLOT!\n\n";
+                    string androidConfigPartial = iosConfig.Substring(0, 15000);
+                    GUILayout.Label(message + androidConfigPartial, EditorStyles.wordWrappedLabel); 
+                } else {
+                    GUILayout.Label(iosConfig, EditorStyles.wordWrappedLabel);
+                }
             }
         }
     }
@@ -515,10 +529,11 @@ public class SpilEditorConfig : EditorWindow {
             WWWForm form = GetFormData(EditorUserBuildSettings.activeBuildTarget.ToString().Trim().ToLower());
             form.AddField("name", type);
 
+            string bundleIdentifier = null;
 #if UNITY_ANDROID
-            string bundleIdentifier = androidPackageName;
+            bundleIdentifier = androidPackageName;
 #elif UNITY_IPHONE || UNITY_TVOS
-            string bundleIdentifier = iosBundelId;
+            bundleIdentifier = iosBundelId;
 #endif
 
             WWW request =
@@ -624,12 +639,13 @@ public class SpilEditorConfig : EditorWindow {
             return;
         }
 
-        if (!(applicationNode.Attributes["android:name"].Value
-                .Equals("com.spilgames.spilsdk.activities.SpilSDKApplication")) && !(applicationNode
-                .Attributes["android:name"].Value
-                .Equals("com.spilgames.spilsdk.activities.SpilSDKApplicationWithFabric"))) {
-            SpilLogging.Error(
-                "The application name from your \"AndroidManifest.xml\" file is set incorrectly. Please set it to either \"com.spilgames.spilsdk.activities.SpilSDKApplication\" or \"com.spilgames.spilsdk.activities.SpilSDKApplicationWithFabric\" (if you are using Crashlytics) if you want for the Spil SDK to function correctly");
+        if (!applicationNode.Attributes["android:name"].Value.Equals("com.spilgames.spilsdk.activities.SpilSDKApplication")){
+            SpilLogging.Error("The application name from your \"AndroidManifest.xml\" file is set incorrectly. Please set it to either \"com.spilgames.spilsdk.activities.SpilSDKApplication\" if you want for the Spil SDK to function correctly");
+            isEverythingCorrect = false;
+        }
+
+        if (applicationNode.Attributes["android:name"].Value.Equals("com.spilgames.spilsdk.activities.SpilSDKApplicationWithFabric")) {
+            SpilLogging.Error("The application name found in your \"AndroidManifest.xml\" file is set incorrectly. The application name \"com.spilgames.spilsdk.activities.SpilSDKApplicationWithFabric\" has been removed from the Spil SDK. Please use the standard \"com.spilgames.spilsdk.activities.SpilSDKApplication\". The Fabric (Crashlytics functionality has been moved to this application name.");
             isEverythingCorrect = false;
         }
 

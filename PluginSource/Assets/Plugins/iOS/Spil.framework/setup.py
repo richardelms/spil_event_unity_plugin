@@ -146,11 +146,7 @@ addBundleResource(os.getcwd() + '/Spil.framework/FYBFacebookAudienceNetwork.h', 
 
 # add png/xib/der resources
 for file in os.listdir(os.getcwd() + '/Spil.framework'):
-<<<<<<< HEAD
-    if file.lower().endswith(".png") or file.lower().endswith(".xib") or file.lower().endswith(".der"):
-=======
     if file.lower().endswith(".png") or file.lower().endswith(".xib") or file.lower().endswith(".der") or file.lower().endswith(".storyboardc"):
->>>>>>> development
         addBundleResource(os.getcwd() + '/Spil.framework/' + file, os.getcwd() + '/' + file, bundles)
 
 # copy coredata model

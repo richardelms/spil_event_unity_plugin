@@ -9,12 +9,8 @@
 #import "HookBridge.h"
 #import "GAI.h"
 
-<<<<<<< HEAD
-#define SPIL_SDK_VERSION @"2.7.3"
-=======
 #define SPIL_SDK_VERSION @"2.7.4"
 #define GDPR_ENABLED true
->>>>>>> development
 
 @class ImageContext;
 @class Spil;

@@ -55,6 +55,7 @@
                 <e p="OverlayManager.cs" t="Include" />
                 <e p="PackagesManager.cs" t="Include" />
                 <e p="PlayerDataManager.cs" t="Include" />
+                <e p="PrivacyPolicyManager.cs" t="Include" />
                 <e p="RewardManager.cs" t="Include" />
                 <e p="SocialLoginManager.cs" t="Include" />
                 <e p="UserDataManager.cs" t="Include" />

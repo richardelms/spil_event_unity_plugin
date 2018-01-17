@@ -10,10 +10,10 @@ using SpilGames.Unity.Helpers.IAPPackages;
 namespace SpilGames.Unity.Base.Implementations {
     public abstract class SpilUnityImplementationBase{
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.7.1";
+        public static string PluginVersion = "2.7.4";
 
-        public static string AndroidVersion = "2.7.1";
-        public static string iOSVersion = "2.7.1";
+        public static string AndroidVersion = "2.7.4";
+        public static string iOSVersion = "2.7.4";
 
         #region Game config
 
@@ -1672,6 +1672,10 @@ namespace SpilGames.Unity.Base.Implementations {
 		public static void fireUserDataMergeSuccessful() {
 			Debug.Log("SpilSDK-Unity fireUserDataMergeSuccessful");
 
+		    if (Spil.PlayerData != null) {
+		        Spil.PlayerData.UpdatePlayerData();
+		    }
+		    
 			if (Spil.Instance.OnUserDataMergeSuccessful != null) {
 				Spil.Instance.OnUserDataMergeSuccessful();
 			}
@@ -1768,6 +1772,8 @@ namespace SpilGames.Unity.Base.Implementations {
 		public static void fireUserDataAvailable() {
 			Debug.Log("SpilSDK-Unity fireUserDataAvailable");
 
+		    Spil.PlayerData.UpdatePlayerData();
+		    
 			if (Spil.Instance.OnUserDataAvailable != null) {
 				Spil.Instance.OnUserDataAvailable();
 			}
@@ -1775,6 +1781,26 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #endregion
 
+        #region Privacy Policy
+
+        public delegate void PrivacyPolicyStatus(bool accepted);
+
+        public event PrivacyPolicyStatus OnPrivacyPolicyStatus;
+
+        public static void firePrivacyPolicyStatus(bool accepted) {
+            Debug.Log("SpilSDK-Unity firePrivacyPolicyStatus");
+
+            if (accepted) {
+                Spil.Instance.SpilInit(true);
+            }
+            
+            if (Spil.Instance.OnPrivacyPolicyStatus != null) {
+                Spil.Instance.OnPrivacyPolicyStatus(accepted);
+            }
+        }
+
+        #endregion
+        
 #if UNITY_ANDROID
 
         #region Permission
@@ -1782,16 +1808,8 @@ namespace SpilGames.Unity.Base.Implementations {
         public delegate void PermissionResponse(
             SpilAndroidUnityImplementation.PermissionResponseObject permissionResponse);
 
-        /// <summary>
-        /// This is fired by the native Spil SDK when the config was updated.
-        /// The developer can subscribe to this event and for instance re-enable the in-game sound.
-        /// </summary>
         public event PermissionResponse OnPermissionResponse;
 
-        /// <summary>
-        /// This is called by the native Spil SDK and will fire an ConfigUpdated event to which the developer 
-        /// can subscribe, it will only be called when the config values are different from the previous loaded config.
-        /// </summary>
         public static void firePermissionResponse(string message) {
             Debug.Log("SpilSDK-Unity Permission response with message: " + message);
 
@@ -1825,8 +1843,10 @@ namespace SpilGames.Unity.Base.Implementations {
         /// The Spil Unity SDK is not packaged as a seperate assembly yet so unfortunately this method is currently visible.
         /// Internal method names start with a lower case so you can easily recognise and avoid them.
         /// </summary>
-        internal abstract void SpilInit();
+        internal abstract void SpilInit(bool withPrivacyPolicy);
 
+        internal abstract void CheckPrivacyPolicy();
+        
         public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 
         #endregion

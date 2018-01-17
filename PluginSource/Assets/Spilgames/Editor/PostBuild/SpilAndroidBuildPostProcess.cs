@@ -71,7 +71,7 @@ public class SpilAndroidBuildPostProcess : MonoBehaviour {
         if (!File.Exists(androidFolder + spilSDKFyber)) {
             Debug.Log("The Spil SDK Fyber aar file is missing from your 'Assets/Plugins/Android/'. If you want to use the Spil SDK Fyber please make sure to included to that location");
         }
-
+        
         CheckSlotGameConifg();
         CheckSlotGameData();
     }

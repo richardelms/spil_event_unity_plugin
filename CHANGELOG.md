@@ -6,6 +6,31 @@ Full change logs for the native SDKs:
 
 ----------------------------
 
+Version 2.7.4 *(17-01-2018)*
+----------------------------
+**IMPORTANT! For Android the "SpilSDKApplicationWithFabric" has been removed. The Fabric functionality has been moved into the standard "SpilSDKApplication". Please make the necessary changes.**
+
+Version 2.7.4 brings the Privacy Policy (GDPR) functionality, Android Push Notification images, updates to the Unity Editor and several bug fixes.
+
+**New Features**
+ * _Privacy Policy (GDPR)_: This feature is turned on by default since it is mandatory by Google that a Privacy Policy message is shown to the user when the game starts the first time. The feature is strongly connected to the initialisation phase, not allowing the user to continue if the policy was not accepted. On the development side the only thing that has changed is the addition of an extra check box in the SpilSDK object. The SDK will internally handle the Privacy Policy popup and the initialisation. No additional calls are required and an additional callback (OnPrivacyPolicyStatus) has been added for initialising any components outside the Spil SDK.
+ * _Android Push Notification images_: It is now possible to attach images to a push notification. The image will be displayed when the user expands the push notification. Configuration for the image url is done in SLOT.
+
+**Bug Fixes**
+ * Android: Fixed issue with user data available callback not being called on update.
+ * Android: Fixed crash when processing a response that had corrupted data.
+ * Android: Fixed class cast exception crash when processing Game Data.
+ * Editor: Fixed initialisation issue where the UserDataAvailable was called twice.
+ * Editor: Fixed Reset Wallet/Inventory issue.
+ * iOS: Removed social login failure event to align with Android
+ * Android/iOS: Removed network error being thrown if the user was offline.
+
+**Other**
+ * Android: Added JSONArray parsing when sending an event with custom parameters
+ * Unity Editor: Replaced the debug screens (LiveEvent, DailyBonus, Ads, etc.) with prefabs for better visuals
+ * Android/iOS: Updated 3rd party libraries
+
+
 Version 2.7.1 *(30-11-2017)*
 ----------------------------
 **IMPORTANT! For Android make sure to update your AndroidManifest.xml file to remove the WRITE_EXTERNAL_STORAGE permission!**

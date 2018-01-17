@@ -86,17 +86,19 @@ namespace SpilGames.Unity.Base.Implementations {
         /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
         /// Internal method names start with a lower case so you can easily recognise and avoid them.
         /// </summary>
-        internal override void SpilInit() {
+        internal override void SpilInit(bool withPrivacyPolicy){
             gData = new GameDataManager();
             pData = new PlayerDataManager();
-
-            SetPluginInformation(PluginName, PluginVersion);
 
             RequestConfig();
             RequestGameData();
             RequestUserData();
             AdvertisementInit();
             UpdatePackagesAndPromotions();
+        }
+
+        internal override void CheckPrivacyPolicy() {
+            PrivacyPolicyManager.ShowPrivacyPolicy();
         }
 
         public override void ResetData() {
@@ -110,7 +112,7 @@ namespace SpilGames.Unity.Base.Implementations {
             GameStateManager.PrivateGameStateData = null;
             GameStateManager.PublicGameStateData = null;
 
-            SpilInit();
+            SpilInit(true);
         }
 
         public override void ShowNativeDialog(string title, string message, string buttonText) {
@@ -166,26 +168,6 @@ namespace SpilGames.Unity.Base.Implementations {
                     spilEvent.customData.AddField("trackingOnly", true);
                     dict.Remove("trackingOnly");
                 }
-//                foreach (KeyValuePair<string, object> dictValue in dict) {
-//                    if (dictValue.Key.Equals("wallet") || dictValue.Key.Equals("inventory")) {
-//                        JSONObject json = new JSONObject((string) dictValue.Value);
-//                        spilEvent.customData.AddField(dictValue.Key, json);
-//                    } else {
-//                        if (dictValue.Value is int) {
-//                            spilEvent.customData.AddField(dictValue.Key, (int) dictValue.Value);
-//                        } else if (dictValue.Value is string) {
-//                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
-//                        } else if (dictValue.Value is bool) {
-//                            spilEvent.customData.AddField(dictValue.Key, (bool) dictValue.Value);
-//                        } else if (dictValue.Value is float) {
-//                            spilEvent.customData.AddField(dictValue.Key, (float) dictValue.Value);
-//                        } else if (dictValue.Value is JSONObject) {
-//                            spilEvent.customData.AddField(dictValue.Key, (JSONObject) dictValue.Value);
-//                        } else {
-//                            spilEvent.customData.AddField(dictValue.Key, dictValue.Value.ToString());
-//                        }
-//                    }
-//                }
             }
 
             spilEvent.Send();

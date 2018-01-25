@@ -4,7 +4,10 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.1.0'
+	    //Use this if you are using Unity 2017.1/2
+	    classpath 'com.android.tools.build:gradle:2.1.0'
+	    //Use this if you are using Unity 2017.3
+		//classpath 'com.android.tools.build:gradle:2.3.0'
 	}
 }
 
@@ -43,6 +46,11 @@ android {
 	lintOptions {
 		abortOnError false
 	}
+
+	aaptOptions {
+		noCompress '.unity3d', '.ress', '.resource', '.obb'**STREAMING_ASSETS**
+	}
+
 **SIGN**
 	buildTypes {
   		debug {

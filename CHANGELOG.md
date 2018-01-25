@@ -4,10 +4,17 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
+
+Version 2.7.5 *(25-01-2018)*
 ----------------------------
-Version 2.7.3 *(02-01-2018)*
-----------------------------
-Version 2.7.3 includes a fix for an issue on the iOS event queue which can cause a crash. It also improves playerdata/gamestate syncing on iOS.
+Version 2.7.5 includes only critical bug fixes.
+
+**Bug Fixes**
+ * Android: Fixed issue with privacy policy message not being picked up if game updates
+ * Android: Fixed issue with privacy policy flow when switching from no popup to with popup
+ * Android: Fixed issue with bundle buy track event not picking up correct order of events
+ * iOS: Fixed an issue where some events are not always being triggered
+
 
 Version 2.7.4 *(17-01-2018)*
 ----------------------------
@@ -32,6 +39,11 @@ Version 2.7.4 brings the Privacy Policy (GDPR) functionality, Android Push Notif
  * Android: Added JSONArray parsing when sending an event with custom parameters
  * Unity Editor: Replaced the debug screens (LiveEvent, DailyBonus, Ads, etc.) with prefabs for better visuals
  * Android/iOS: Updated 3rd party libraries
+
+
+Version 2.7.3 *(02-01-2018)*
+----------------------------
+Version 2.7.3 includes a fix for an issue on the iOS event queue which can cause a crash. It also improves playerdata/gamestate syncing on iOS.
 
 
 Version 2.7.1 *(30-11-2017)*

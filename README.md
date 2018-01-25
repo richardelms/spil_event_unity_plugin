@@ -1,4 +1,4 @@
-<h1>Spil Games Unity Plugin (V2.7.4)</h1>
+<h1>Spil Games Unity Plugin (V2.7.5)</h1>
 
 The Spil Game Unity Plugin is designed to give developers access to Spil Games SLOT functions and communicate with the Spil backend. The plugin also provides developers with an easy way to connect to ad networks and implement features like video's, interstitials and tracking of users' behaviours.
 

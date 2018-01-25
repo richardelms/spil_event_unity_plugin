@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/Library/Caches/Rider2017.2/resharper-host/local/Transient/ReSharperHost/v10/SolutionCaches/_PluginSource.811942354.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2017.3/resharper-host/local/Transient/ReSharperHost/v11/SolutionCaches/_PluginSource.811942354.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
@@ -10,17 +10,9 @@
         <e p="ExampleGameSpilSDK.cs" t="Include" />
         <e p="link.xml" t="Include" />
         <e p="Plugins" t="Include">
-          <e p="Android" t="Include">
-            <e p="AndroidManifest.xml" t="Include" />
-          </e>
           <e p="Editor" t="Include">
             <e p="JetBrains" t="Include">
               <e p="Unity3DRider.cs" t="Include" />
-            </e>
-          </e>
-          <e p="iOS" t="Include">
-            <e p="Spil.framework" t="Include">
-              <e p="Version.txt" t="Include" />
             </e>
           </e>
         </e>

@@ -4,6 +4,28 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
+Version 2.8.0 *(15-02-2018)*
+----------------------------
+Version 2.8.0 includes mostly bug fixes.
+
+**New Features**
+ * _Local Price Support for Splashscreens_: This feature allows splash screens created through the SDK to display In-App Purchases with the local price and local currency.
+
+**Bug Fixes**
+ * Android/iOS: Fixed issue with wallet and inventory offsets overflowing and not picking up correctly the data from SLOT
+ * iOS: Removed gamestate error events to be aligned with Android.
+ * Android: Fixed issue with push notification image
+ * Android: Fixed issue with permission callback not always firing
+ * Android: Fixed rare crash in WebView activity
+ * Android: Fixed rare crash when retrieving device id
+
+**Other**
+ * Android/iOS: The privacy policy dialog now has different visual for the accept button
+ * Android/iOS: Updated all 3rd party & mediation libraries
+ * Unity: Changed functionality for the Spil object to better handle singleton creation
+ * Unity: Added option to choose per platform the privacy policy enabling
+ * Unity: Moved the Editor prefabs outside the Resources folder and optimised the Spil logo
+
 
 Version 2.7.5 *(25-01-2018)*
 ----------------------------

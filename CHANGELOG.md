@@ -4,6 +4,14 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
+Version 2.8.1 *(23-02-2018)*
+----------------------------
+Version 2.8.1 hotfix.
+
+**Bug Fixes**
+ * Android: Fixed an issue where some users received an ad timeout.
+ 
+
 Version 2.8.0 *(15-02-2018)*
 ----------------------------
 Version 2.8.0 includes mostly bug fixes.

@@ -10,10 +10,5 @@ Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
 ProjectVersion.txt
 PluginSource.sln
-*.meta
-
-*.meta
-
-*.meta
 
 PluginSource/.idea/.idea.PluginSource/.idea/workspace.xml

@@ -248,11 +248,9 @@ namespace SpilGames.Unity.Base.UnityEditor.Managers {
 
                     if (access == null || data == null) continue;
                     if (access.Equals("private")) {
-                        GameStateManager.PrivateGameStateData = data;
-                        SpilUnityImplementationBase.fireGameStateUpdated("private");
+                        GameStateManager.PrivateGameStateData = data;                    
                     } else if (access.Equals("public")) {
                         GameStateManager.PublicGameStateData = data;
-                        SpilUnityImplementationBase.fireGameStateUpdated("public");
                     }
                 }
 
@@ -462,7 +460,7 @@ namespace SpilGames.Unity.Base.UnityEditor.Managers {
                         }
                     }
 
-                    receivedWallet.offset = (int) walletJSON.GetField("offset").n;
+                    receivedWallet.offset = (long) walletJSON.GetField("offset").n;
                     receivedWallet.logic = walletJSON.GetField("logic").str;
                 }
 
@@ -487,7 +485,7 @@ namespace SpilGames.Unity.Base.UnityEditor.Managers {
                         }
                     }
 
-                    receivedInventory.offset = (int) inventoryJSON.GetField("offset").n;
+                    receivedInventory.offset = (long) inventoryJSON.GetField("offset").n;
                     receivedInventory.logic = inventoryJSON.GetField("logic").str;
                 }
             }

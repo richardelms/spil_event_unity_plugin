@@ -6,14 +6,16 @@ using System.Collections;
 using SpilGames.Unity.Json;
 using SpilGames.Unity.Base.SDK;
 using SpilGames.Unity.Helpers.IAPPackages;
+using SpilGames.Unity.Helpers.Promotions;
+using UnityEngine.Analytics;
 
-namespace SpilGames.Unity.Base.Implementations {
-    public abstract class SpilUnityImplementationBase{
+namespace SpilGames.Unity.Base.Implementations{
+    public abstract class SpilUnityImplementationBase : MonoBehaviour{
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.8.2";
+        public static string PluginVersion = "2.9.0";
 
-        public static string AndroidVersion = "2.8.0";
-        public static string iOSVersion = "2.8.2";
+        public static string AndroidVersion = "2.9.0";
+        public static string iOSVersion = "2.9.0";
 
         #region Game config
 
@@ -32,13 +34,13 @@ namespace SpilGames.Unity.Base.Implementations {
 
         #endregion
 
-        #region Packages and promotions
+        #region Packages
 
         /// <summary>
-        /// Fetch packages and promotions locally. Packages and promotions are requested from the server when the app starts and are cached.
+        /// Fetch packages locally. Packages are requested from the server when the app starts and are cached.
         /// </summary>
-        /// <returns>A packageshelper object filled with packages and promotions, will be empty if there are none. Returns null if no packages or promotions are present, which should only happen if the server has never been successfully queried for packages and promotions.</returns>
-        public PackagesHelper GetPackagesAndPromotions() {
+        /// <returns>A packageshelper object filled with packages, will be empty if there are none. Returns null if no packages are present, which should only happen if the server has never been successfully queried for packages.</returns>
+        public PackagesHelper GetPackages() {
             string packagesString = GetAllPackages();
 
             if (packagesString == null)
@@ -49,8 +51,108 @@ namespace SpilGames.Unity.Base.Implementations {
             return helper;
         }
 
+        public delegate void PackagesAvailable();
+
+        /// <summary>
+        /// This event indicates that the IAP packages can be retrieved.
+        /// </summary>
+        public event PackagesAvailable OnPackagesAvailable;
+
+        public static void firePackagesAvailable() {
+            Debug.Log("SpilSDK-Unity firePackagesAvailable");
+
+            if (Spil.Instance.OnPackagesAvailable != null) {
+                Spil.Instance.OnPackagesAvailable();
+            }
+        }
+        
+        public delegate void PackagesNotAvailable();
+
+        /// <summary>
+        /// This event indicates that the IAP packages are not available in the SDK.
+        /// </summary>
+        public event PackagesNotAvailable OnPackagesNotAvailable;
+
+        public static void firePackagesNotAvailable() {
+            Debug.Log("SpilSDK-Unity firePackagesNotAvailable");
+
+            if (Spil.Instance.OnPackagesNotAvailable != null) {
+                Spil.Instance.OnPackagesNotAvailable();
+            }
+        }
+        
         #endregion
 
+        #region Promotions
+
+        public PromotionsHelper GetPromotions() {
+            string promotionsString = GetAllPromotions();
+
+            if (promotionsString == null)
+                return null;
+
+            List<SpilPromotionData> promotionsList = JsonHelper.getObjectFromJson<List<SpilPromotionData>>(promotionsString);
+            PromotionsHelper helper = new PromotionsHelper(promotionsList);
+            return helper;
+        }
+
+        public delegate void PromotionsAvailable();
+
+        /// <summary>
+        /// This event indicates that the promotions for IAP and In-Game items can be retrieved.
+        /// </summary>
+        public event PromotionsAvailable OnPromotionsAvailable;
+
+        public static void firePromotionsAvailable() {
+            Debug.Log("SpilSDK-Unity firePromotionsAvailable");
+
+            if (Spil.GameData != null) {
+                Spil.GameData.SpilGameDataHandler();
+            }
+            
+            if (Spil.Instance.OnPromotionsAvailable != null) {
+                Spil.Instance.OnPromotionsAvailable();
+            }
+        }
+        
+        public delegate void PromotionsNotAvailable();
+
+        /// <summary>
+        /// This event indicates that the promotions for IAP and In-Game items are not available in the SDK.
+        /// </summary>
+        public event PromotionsNotAvailable OnPromotionsNotAvailable;
+
+        public static void firePromotionsNotAvailable() {
+            Debug.Log("SpilSDK-Unity firePromotionsNotAvailable");
+
+            if (Spil.Instance.OnPromotionsNotAvailable != null) {
+                Spil.Instance.OnPromotionsNotAvailable();
+            }
+        }
+
+
+        public delegate void PromotionAmountBought(int promotionId, int currentAmount, bool maxAmountReached);
+        
+        /// <summary>
+        /// This event informs the updated status of a promotion when something is bought.
+        /// </summary>
+        public event PromotionAmountBought OnPromotionAmountBought;
+        
+        public static void firePromotionAmountBought(string data) {
+            Debug.Log("SpilSDK-Unity firePromotionAmountBought with data: " + data);
+
+            JSONObject promotionInfo = new JSONObject(data);
+            int promotionId = (int) promotionInfo.GetField("promotionId").i;
+            int currentAmount = (int) promotionInfo.GetField("amountPurchased").i;
+            bool maxAmountReached = promotionInfo.GetField("maxAmountReached").b;
+            
+            if (Spil.Instance.OnPromotionAmountBought != null) {
+                Spil.Instance.OnPromotionAmountBought(promotionId, currentAmount, maxAmountReached);
+            }
+        }
+        
+        #endregion
+        
         #region Events
 
         #region Standard Spil events
@@ -409,7 +511,7 @@ namespace SpilGames.Unity.Base.Implementations {
         /// </summary>
         /// <param name="skuId">The product identifier of the item that was purchased</param>
         /// <param name="transactionId ">The transaction identifier of the item that was purchased (also called orderId)</param>
-        public void TrackIAPPurchasedEvent(string skuId, string transactionId, string token = "") {
+        public void TrackIAPPurchasedEvent(string skuId, string transactionId, string token = "", string reason = null, string location = null) {
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
             dictionary.Add("skuId", skuId);
             dictionary.Add("transactionId", transactionId);
@@ -420,6 +522,14 @@ namespace SpilGames.Unity.Base.Implementations {
                 dictionary.Add("token", token);
             }
 #endif
+
+            if (reason != null) {
+                dictionary.Add("reason", reason);
+            }
+
+            if (location != null) {
+                dictionary.Add("location", location);
+            }
 
             SendCustomEvent("iapPurchased", dictionary);
         }
@@ -1791,7 +1901,11 @@ namespace SpilGames.Unity.Base.Implementations {
             Debug.Log("SpilSDK-Unity firePrivacyPolicyStatus");
 
             if (accepted) {
-                Spil.Instance.SpilInit(true);
+                if (Spil.UseUnityPrefab) {
+                    Spil.Instance.SpilInit(false);
+                } else {
+                    Spil.Instance.SpilInit(true);
+                }
             }
             
             if (Spil.Instance.OnPrivacyPolicyStatus != null) {
@@ -1846,6 +1960,111 @@ namespace SpilGames.Unity.Base.Implementations {
         internal abstract void SpilInit(bool withPrivacyPolicy);
 
         internal abstract void CheckPrivacyPolicy();
+
+        public void CheckPrivacyPolicyUnity() {
+            #if UNITY_EDITOR
+            int isPrivacyPolicyAccepted = PlayerPrefs.GetInt(GetSpilUserId() + "-unityPrivacyPolicyStatus", 0);
+            #else
+            int isPrivacyPolicyAccepted = PlayerPrefs.GetInt("unityPrivacyPolicyStatus", 0);
+            #endif
+            
+            if (isPrivacyPolicyAccepted == 0) {
+                PrivacyPolicyHelper.PrivacyPolicyObject = (GameObject) Instantiate(Resources.Load("Spilgames/PrivacyPolicy/PrivacyPolicyUnity" + Spil.MonoInstance.PrefabOrientation));
+                PrivacyPolicyHelper.PrivacyPolicyObject.SetActive(true);
+                
+                PrivacyPolicyHelper.Instance.ShowMainScreen(0);
+            } else {
+                firePrivacyPolicyStatus(true);
+            }
+             
+        }
+
+        public abstract void ShowPrivacyPolicySettings();
+
+        internal void ShowAdsScreen() {
+            PrivacyPolicyHelper.PrivacyPolicyObject = (GameObject) Instantiate(Resources.Load("Spilgames/PrivacyPolicy/PrivacyPolicyUnity" + Spil.MonoInstance.PrefabOrientation));
+            PrivacyPolicyHelper.PrivacyPolicyObject.SetActive(true);
+            
+            PrivacyPolicyHelper.Instance.ShowAdsScreen(2);
+        }
+
+        public void TrackPrivacyPolicyChanged(bool withPersonalisedAds, bool withPersonalisedContent, string location, bool fromStartScreen) {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict.Add("personalizedAds", withPersonalisedAds);
+            dict.Add("personalizedContents", withPersonalisedContent);
+            dict.Add("location", location);
+
+            if (fromStartScreen) {
+                dict.Add("acceptGDPR", true);
+            }
+
+            TrackPrivacyPolicyChangedUnityAnalytics();
+            
+            SendCustomEvent("privacyChanged", dict);
+        }
+        
+        
+        // For Android we cannot reliably check if the Privacy policy was rejected
+        // because ApplicationQuit isn't always called when the app is closed.
+        // Instead track a "PrivacyPolicyAsked" event the first time the app is started
+        // and later send a "PrivacyPolicyAccepted" event if the user accepts.
+        public void TrackPrivacyPolicyAskedUnityAnalytics() {
+        
+            Debug.Log("SpilSDK-Unity PrivacyPolicyAsked");
+            
+            if(Spil.MonoInstance.sendPrivacyPolicyTrackingEvents) {
+                
+                // Only do this on the first app start.
+                if (Spil.CheckPrivacyPolicy && !PlayerPrefs.HasKey("PrivacyPolicyAskedUnityAnalytics")) {
+                
+                    PlayerPrefs.SetInt("PrivacyPolicyAskedUnityAnalytics", 1);
+                    
+                    string ipAddress = Network.player.ipAddress;
+                    int ipAddressAsHash = Animator.StringToHash(ipAddress);
+
+                    Analytics.CustomEvent("PrivacyPolicyAsked", new Dictionary<string, object> {{"hash", ipAddressAsHash}});
+                    Debug.Log("SpilSDK-Unity Sent PrivacyPolicyAsked tracking event for ip " + ipAddress + " with hash " + ipAddressAsHash);
+                }
+                else if (Spil.CheckPrivacyPolicy && PlayerPrefs.HasKey("PrivacyPolicyAskedUnityAnalytics")) {
+                    Debug.Log("SpilSDK-Unity PrivacyPolicyAsked tracking event already sent for this user, ignoring.");
+                }
+            }
+        }
+        
+        void TrackPrivacyPolicyChangedUnityAnalytics() {
+
+            if(Spil.MonoInstance.sendPrivacyPolicyTrackingEvents && Spil.CheckPrivacyPolicy) {
+                                
+                Dictionary<string, object> eventParams = new Dictionary<string, object>();
+                    
+                string ipAddress = Network.player.ipAddress;
+                int ipAddressAsHash = Animator.StringToHash(ipAddress);
+                eventParams.Add("hash", ipAddressAsHash);
+
+                // Get the user's choice (Personalised ads/content allowed or not).
+                int privValue = Spil.Instance.GetPrivValue();
+                eventParams.Add("priv", privValue);
+                
+                // If the privacy policy has been accepted for the first time send a PrivacyPolicyAccepted
+                // event via Unity Analytics, otherwise send PrivacyPolicyChanged.
+                // Unity Analytics is also used to track PrivacyPolicyAsked on app start.
+                if (!PlayerPrefs.HasKey("PrivacyPolicyAcceptedUnityAnalytics")) {
+                    
+                    PlayerPrefs.SetInt("PrivacyPolicyAcceptedUnityAnalytics", 1);
+                    
+                    Analytics.CustomEvent("PrivacyPolicyAccepted", eventParams);
+                    Debug.Log("SpilSDK-Unity Sent PrivacyPolicyAccepted tracking event for ip " + ipAddress + " with hash " + ipAddressAsHash + " and priv=" + privValue);
+                } else {
+                    
+                    Analytics.CustomEvent("PrivacyPolicyChanged", eventParams);
+                    Debug.Log("SpilSDK-Unity Sent PrivacyPolicyChanged tracking event for ip " + ipAddress + " with hash " + ipAddressAsHash + " and priv=" + privValue);           
+                }
+            }
+        }
+        
+        public abstract void SavePrivValue(int priv);
+
+        public abstract int GetPrivValue();
         
         public abstract void SetPluginInformation(string PluginName, string PluginVersion);
 
@@ -1893,15 +2112,8 @@ namespace SpilGames.Unity.Base.Implementations {
         //Method that returns a package based on key
         protected abstract string GetPackage(string key);
 
-        /// <summary>
-        /// This method is marked as internal and should not be exposed to developers.
-        /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
-        /// Internal method names start with a lower case so you can easily recognise and avoid them.
-        /// </summary>
-        internal abstract string GetPromotions(string key);
-
         // This is not essential so could be removed but might be handy for some developers so we left it in.
-        public abstract void UpdatePackagesAndPromotions();
+        public abstract void RequestPackages();
 
         #endregion
 
@@ -1991,6 +2203,16 @@ namespace SpilGames.Unity.Base.Implementations {
 
         public abstract string GetSpilGameDataFromSdk();
 
+        public abstract void RequestPromotions();
+
+        public abstract string GetAllPromotions();
+
+        public abstract string GetBundlePromotion(int bundleId);
+
+        public abstract string GetPackagePromotion(string packageId);
+
+        public abstract void ShowPromotionScreen(int promotionId);
+        
         /// <summary>
         /// Request the users data from SLOT.
         /// </summary>

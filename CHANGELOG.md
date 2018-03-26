@@ -4,6 +4,31 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
+Version 2.9.0 *(23-03-2018)*
+----------------------------
+Version 2.9.0 includes an improved version of the PrivacyPolicy (GDPR) popup, the Promotions and Stickers features as well as some bug fixes.
+
+**New Features**
+ * _Privacy Policy Version 2 (GDPR)_: Improvements to the Privacy Policy popups as well as more screens have been added with 2 options for the user to turn off. These options are the disabling of advertisement and SDK segmentation. The new screens that have been added next to the initial popup are the Settings, Ads and Info screens. There are two flavors to this implementation. One is native (showing a native popup that can only have the header image changed) and on is using the provided Unity prefabs found in Resources/Spilgames/PrivacyPolicy. The Unity flavor comes with two prebuilt prefabs (Landscape - Operate Now & Portrait - Mahjong). These prefabs can be customized however you please as long as the elements in them remain the same. Please double check with your Spil representative before making the changes.  
+ * _Promotions_: This feature give the ability to configure promotions for the Bundles and IAP packages. The promotions can be price reductions or extra items/currencies. The promotion can also have a maximum amount of purchases.
+ * _Shop Stickers_: This feature gives the possibility to have multiple images attached to a Shop entry. The image urls can be found in the ImageEntries list contained in the Entry object.
+ 
+**Bug fixes**
+ * Android: Fixed crash when merging User Data
+ * Android: Fixed issue where sessionStart and sessionStop were not tracked correctly in certain instances.
+ * Android/iOS: Fixed issue when resetting sdk data and losing internet connection. It is now enforced that you require internet connection if you logged in and try to reset data.
+ * iOS: Aligned certain error codes to be fired in the same way as Android
+ * iOS: Minor image caching improvements
+ * Editor: Fixed editor prefabs (ordering and click-through)
+ * Editor: Several bug fixes related to login/sync
+
+**Other**
+ * Unity: Enabled possibility to have IAP packages in the shop
+ * Unity: Added optional dropoff measurement for GDPR using Unity Analytics. This feature is disabled by default and should only be enabled if confirmed by your Spil representative.
+ * Android: In order to customise the Privacy Policy (GDPR) native banner, you will need to add an extra .aar file created using the provided project (NativeLibraries/Android/Resources/). The images that need to be replaced are found in the drawable folder. You should replace the "privacy_policy_landscape_custom.png" or "privacy_policy_portrait_custom.png" depending on your orientation. Also you must keep the same sizes for aspect ratio purposes.
+ * iOS: In order to customise the Privacy Policy (GDPR) native banner, you need to replace the "privacyPolicyHeader.png" image found in the /Plugins/iOS/Spil.framework/
+ 
+
 Version 2.8.2 *(27-02-2018)*
 ----------------------------
 Version 2.8.2 hotfix.

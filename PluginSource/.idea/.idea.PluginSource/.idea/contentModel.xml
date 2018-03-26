@@ -48,6 +48,7 @@
                 <e p="PackagesManager.cs" t="Include" />
                 <e p="PlayerDataManager.cs" t="Include" />
                 <e p="PrivacyPolicyManager.cs" t="Include" />
+                <e p="PromotionsManager.cs" t="Include" />
                 <e p="RewardManager.cs" t="Include" />
                 <e p="SocialLoginManager.cs" t="Include" />
                 <e p="UserDataManager.cs" t="Include" />
@@ -87,6 +88,13 @@
               <e p="Inventory.cs" t="Include" />
               <e p="PlayerDataHelper.cs" t="Include" />
               <e p="Wallet.cs" t="Include" />
+            </e>
+            <e p="PrivacyPolicy" t="Include">
+              <e p="PrivacyPolicyHelper.cs" t="Include" />
+            </e>
+            <e p="Promotions" t="Include">
+              <e p="Promotion.cs" t="Include" />
+              <e p="PromotionsHelper.cs" t="Include" />
             </e>
           </e>
           <e p="Json" t="Include">

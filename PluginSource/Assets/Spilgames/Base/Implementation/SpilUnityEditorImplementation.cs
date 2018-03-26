@@ -56,7 +56,7 @@ namespace SpilGames.Unity.Base.Implementations {
         /// This is called automatically by the Spil SDK when the game starts.
         /// This is not essential so could be removed but might be handy for some developers so we left it in.
         /// </summary>
-        public override void UpdatePackagesAndPromotions() {
+        public override void RequestPackages() {
             SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent>();
             spilEvent.eventName = "requestPackages";
             spilEvent.Send();
@@ -68,15 +68,6 @@ namespace SpilGames.Unity.Base.Implementations {
 
         protected override string GetPackage(string key) {
             return PackagesManager.getPackage(key);
-        }
-
-        /// <summary>
-        /// This method is marked as internal and should not be exposed to developers.
-        /// The Spil Unity SDK is not packaged as a seperate assembly yet so this method is currently visible, this will be fixed in the future.
-        /// Internal method names start with a lower case so you can easily recognise and avoid them.
-        /// </summary>
-        internal override string GetPromotions(string key) {
-            return PackagesManager.getPromotions(key);
         }
 
         #endregion
@@ -94,14 +85,40 @@ namespace SpilGames.Unity.Base.Implementations {
             RequestGameData();
             RequestUserData();
             AdvertisementInit();
-            UpdatePackagesAndPromotions();
+            RequestPackages();
+            RequestPromotions();
         }
 
         internal override void CheckPrivacyPolicy() {
             PrivacyPolicyManager.ShowPrivacyPolicy();
         }
 
-        public override void ResetData() {
+        public override void ShowPrivacyPolicySettings() {
+            if (!Spil.CheckPrivacyPolicy) {
+                Debug.Log("Privacy Policy not enabled. Will not show privacy policy settings screen");
+                return;
+            }
+            
+            if (Spil.UseUnityPrefab) {
+                PrivacyPolicyHelper.PrivacyPolicyObject = (GameObject) Instantiate(Resources.Load("Spilgames/PrivacyPolicy/PrivacyPolicyUnity" + Spil.MonoInstance.PrefabOrientation));
+                PrivacyPolicyHelper.PrivacyPolicyObject.SetActive(true);
+            
+                PrivacyPolicyHelper.Instance.ShowSettingsScreen(1);
+            } else {
+                PrivacyPolicyManager.ShowPrivacyPolicy();
+            }
+            
+        }
+
+        public override void SavePrivValue(int priv) {
+            EditorPrefs.SetInt(GetSpilUserId() + "-gdprStatusUnity", priv);
+        }
+
+        public override int GetPrivValue() {
+            return EditorPrefs.GetInt(GetSpilUserId() + "-gdprStatusUnity", -1);
+        }
+
+        public override void ResetData() {            
             gData = null;
             Spil.GameData = null;
             GameDataManager.updatedFromServer = false;
@@ -180,6 +197,13 @@ namespace SpilGames.Unity.Base.Implementations {
         /// If no video is available then nothing will happen.
         /// </summary>
         public override void PlayVideo(string location = null, string rewardType = null) {
+            int priv = Spil.Instance.GetPrivValue();
+
+            if (priv < 2 && priv > -1 && Spil.UseUnityPrefab) {
+                ShowAdsScreen();
+                return;
+            }
+            
             AdvertisementManager.PlayVideo();
         }
 
@@ -209,6 +233,13 @@ namespace SpilGames.Unity.Base.Implementations {
         /// See http://www.spilgames.com/developers/integration/unity/implementing-spil-sdk/spil-sdk-event-tracking/ for more information on events.
         /// </summary>
         public override void RequestRewardVideo(string location = null, string rewardType = null) {
+            int priv = Spil.Instance.GetPrivValue();
+
+            if (priv < 2 && priv > -1 && Spil.UseUnityPrefab) {
+                fireAdAvailableEvent("rewardVideo");
+                return;
+            }
+            
             SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent>();
             spilEvent.eventName = "requestRewardVideo";
 
@@ -243,7 +274,30 @@ namespace SpilGames.Unity.Base.Implementations {
         #region Spil Game Objects
 
         public override string GetSpilGameDataFromSdk() {
-            return gData.GetGameObjects();
+            return gData.GetGameData();
+        }
+
+        public override void RequestPromotions() {
+            SpilEvent spilEvent = Spil.MonoInstance.gameObject.AddComponent<SpilEvent>();
+            spilEvent.eventName = "requestPromotions";
+
+            spilEvent.Send();
+        }
+
+        public override string GetAllPromotions() {
+            return PromotionsManager.GetAllPromotions();
+        }
+
+        public override string GetBundlePromotion(int bundleId) {
+            return PromotionsManager.GetBundlePromotion(bundleId);
+        }
+
+        public override string GetPackagePromotion(string packageId) {
+            return PromotionsManager.GetPackagePromotion(packageId);
+        }
+
+        public override void ShowPromotionScreen(int promotionId) {
+            PromotionsManager.ShowPromotionScreen(promotionId);
         }
 
         #endregion

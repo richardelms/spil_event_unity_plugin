@@ -894,37 +894,37 @@ public class ExampleGameSpilSDK : MonoBehaviour
 
     public void btnShopItem1Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem2Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 1].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 1].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem3Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 2].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 2].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem4Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 3].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 3].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem5Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 4].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 4].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem6Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 5].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 5].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItem7Click()
     {
-        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 6].BundleId, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
+        Spil.PlayerData.BuyBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[pnlShopCurrentPage * 7 + 6].Id, PlayerDataUpdateReasons.ItemBought, "ExampleGame Shop Screen", "Pressed the buy bundle button", "IAPTransactionId");
     }
 
     public void btnShopItemUp()
@@ -1055,52 +1055,52 @@ public class ExampleGameSpilSDK : MonoBehaviour
                 {
                     if (i % 7 == 0)
                     {
-                        txtPnlShopItemId1.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId1.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem1.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount1.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency1.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount1.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency1.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 1)
                     {
-                        txtPnlShopItemId2.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId2.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem2.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount2.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency2.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount2.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency2.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 2)
                     {
-                        txtPnlShopItemId3.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId3.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem3.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount3.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency3.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount3.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency3.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 3)
                     {
-                        txtPnlShopItemId4.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId4.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem4.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount4.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency4.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount4.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency4.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 4)
                     {
-                        txtPnlShopItemId5.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId5.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem5.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount5.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency5.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount5.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency5.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 5)
                     {
-                        txtPnlShopItemId6.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId6.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem6.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount6.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency6.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount6.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency6.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                     if (i % 7 == 6)
                     {
-                        txtPnlShopItemId7.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId;
+                        txtPnlShopItemId7.text = "Id: " + Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id;
                         txtPnlShopItem7.text = Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Label;
-                        txtPnlShopItemAmount7.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].Value + "";
-                        txtPnlShopItemCurrency7.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].BundleId).Prices[0].CurrencyId).Name;
+                        txtPnlShopItemAmount7.text = Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].Value + "";
+                        txtPnlShopItemCurrency7.text = Spil.GameData.GetCurrency(Spil.GameData.GetBundle(Spil.GameData.Shop.Tabs[pnlShopCurrentTab].Entries[i].Id).Prices[0].CurrencyId).Name;
                     }
                 }
             }

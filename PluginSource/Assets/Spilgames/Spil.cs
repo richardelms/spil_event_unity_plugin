@@ -1,6 +1,6 @@
 /*
  * Spil Games Unity SDK 2016
- * Version 2.8.2
+ * Version 2.9.0
  *
  * If you have any questions, don't hesitate to e-mail us at info@spilgames.com
  * Be sure to check the github page for documentation and the latest updates
@@ -24,20 +24,45 @@ namespace SpilGames.Unity {
 
         [SerializeField] public bool initializeOnAwake = true;
 
+        [Header("Privacy Policy Settings")]
+        
         [SerializeField] private bool checkPrivacyPolicyAndroid = true;
 
         [SerializeField] private bool checkPrivacyPolicyIOS = true;
-
+        
         public static bool CheckPrivacyPolicy {
             get {
 #if UNITY_ANDROID
                 return MonoInstance.checkPrivacyPolicyAndroid;
 #else
-			return MonoInstance.checkPrivacyPolicyIOS;
+			    return MonoInstance.checkPrivacyPolicyIOS;
 #endif
             }
         }
 
+        [SerializeField] private bool useUnityPrefab;
+
+        public static bool UseUnityPrefab;
+
+        public enum PrivacyPolicyPrefabOrientationEnum {
+            Landscape,
+            Portrait
+        }
+
+        public PrivacyPolicyPrefabOrientationEnum PrefabOrientation;
+        
+        // Privacy policy dropoff tracking settings, don't include these in the SpilSDK
+        // inspector so that developers can't "accidentally" enable dropoff tracking.
+        public bool sendPrivacyPolicyTrackingEvents
+        {
+            get { return false; }
+        }
+
+        bool clearHistoryOnEditorModeStart
+        {
+            get { return true; }
+        }  
+        
         [Header("Android Settings")]
 #if UNITY_ANDROID || UNITY_EDITOR
         [SerializeField]
@@ -191,6 +216,15 @@ namespace SpilGames.Unity {
                 DontDestroyOnLoad (gameObject);
             }
             
+#if UNITY_EDITOR
+            if (clearHistoryOnEditorModeStart) {
+                PlayerPrefs.DeleteKey("PrivacyPolicyAskedUnityAnalytics");
+                PlayerPrefs.DeleteKey("PrivacyPolicyAcceptedUnityAnalytics");
+            }
+#endif
+            
+            Spil.Instance.TrackPrivacyPolicyAskedUnityAnalytics();
+            
             if (initializeOnAwake) {
                 Initialize();
             }
@@ -225,8 +259,14 @@ namespace SpilGames.Unity {
             }
 #endif
 
+            UseUnityPrefab = useUnityPrefab;
+            
             if (CheckPrivacyPolicy) {
-                Instance.CheckPrivacyPolicy();
+                if (useUnityPrefab) {
+                    Instance.CheckPrivacyPolicyUnity();
+                } else {
+                    Instance.CheckPrivacyPolicy();
+                }
             } else {
                 Instance.SpilInit(false);
             }
@@ -712,6 +752,38 @@ namespace SpilGames.Unity {
             SpilUnityImplementationBase.firePrivacyPolicyStatus(Convert.ToBoolean(accepted));
         }
 
+        /// <summary>
+        /// This event indicates if the Packages are available to be used by the game.
+        /// </summary>
+        public void PackagesAvailable() {
+            SpilUnityImplementationBase.firePackagesAvailable();
+        }
+        
+        /// <summary>
+        /// This event indicates if the Packages are not available to be used by the game.
+        /// </summary>
+        public void PackagesNotAvailable() {
+            SpilUnityImplementationBase.firePackagesNotAvailable();
+        }
+        
+        /// <summary>
+        /// This event indicates if the Promotions are available to be used by the game.
+        /// </summary>
+        public void PromotionsAvailable() {
+            SpilUnityImplementationBase.firePromotionsAvailable();
+        }
+        
+        /// <summary>
+        /// This event indicates if the Promotions are not available to be used by the game.
+        /// </summary>
+        public void PromotionsNotAvailable() {
+            SpilUnityImplementationBase.firePromotionsNotAvailable();
+        }
+
+        public void PromotionAmountBought(string data) {
+            SpilUnityImplementationBase.firePromotionAmountBought(data);
+        }
+        
 #if UNITY_ANDROID
         /// <summary>
         /// This event indicates the status of the permission request.

@@ -17,6 +17,7 @@ Version 2.9.0 includes an improved version of the PrivacyPolicy (GDPR) popup, th
  * Android: Fixed crash when merging User Data
  * Android: Fixed issue where sessionStart and sessionStop were not tracked correctly in certain instances.
  * Android/iOS: Fixed issue when resetting sdk data and losing internet connection. It is now enforced that you require internet connection if you logged in and try to reset data.
+ * Android: Fixed issue with debug mode crashing the application in certain conditions.
  * iOS: Aligned certain error codes to be fired in the same way as Android
  * iOS: Minor image caching improvements
  * Editor: Fixed editor prefabs (ordering and click-through)

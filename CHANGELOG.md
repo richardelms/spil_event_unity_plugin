@@ -4,6 +4,18 @@ Full change logs for the native SDKs:
 * <a href="https://github.com/spilgames/spil-ios-sdk/releases">iOS</a>
 * <a href="https://github.com/spilgames/spil-android-sdk/blob/master/CHANGELOG.md">Android</a>
 
+Version 2.9.1 *(29-03-2018)*
+----------------------------
+Version 2.9.1 includes only bug fixes.
+
+**Bug fixes**
+ * Android: Fixed bug with promotions saving information in the game data key
+ * Android: Fixed issue where the Splash Screen Error callback would not be fired if no internet connection is available
+ * iOS: Fixed a russian GDPR localization issue.
+ * iOS: Fixed an issue where privacyChanged wasn't always send to the backend.
+ * Editor: Spil.cs fixed OnValidate not finding the Spil object.
+
+
 Version 2.9.0 *(23-03-2018)*
 ----------------------------
 Version 2.9.0 includes an improved version of the PrivacyPolicy (GDPR) popup, the Promotions and Stickers features as well as some bug fixes.

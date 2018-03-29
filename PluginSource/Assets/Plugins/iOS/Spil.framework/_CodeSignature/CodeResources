@@ -10,19 +10,19 @@
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		15V81NMcBM9fuljErH8Xr+k6hJM=
+		fDVkJVaPXoZjBIJeqHpEznLjbLU=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<data>
-		pJgvN8s4G1JPMhO+QvtWQYpG29s=
+		WxAOR9okzWDRQN+MVsEgsCEHGY0=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		KLsSkuGWllURwbk9oxjY12ByS5Q=
+		d98Gf8KoDr38dj/6tQn+P7MjfSI=
 		</data>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<data>
-		0WYfmMpHy+a7CBaDcnoChAgzWFw=
+		3FCHIwbbXrMii9ZVYTyqMl8PoN4=
 		</data>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
 		<data>
@@ -158,7 +158,7 @@
 		</data>
 		<key>Headers/BundleItem.h</key>
 		<data>
-		WhyTmwA1CLZmJUdQOWSzaJeGILw=
+		9LkZNSfzsk09s15BW3fgDT5W3/Y=
 		</data>
 		<key>Headers/BundlePrice.h</key>
 		<data>
@@ -186,7 +186,7 @@
 		</data>
 		<key>Headers/GachaContent.h</key>
 		<data>
-		SsOD0bXt1qEDgxuITVBvvtpSOkM=
+		fijLOfzz3xrZAvZc9r1j0p/U8n8=
 		</data>
 		<key>Headers/GameAsset.h</key>
 		<data>
@@ -262,7 +262,7 @@
 		</data>
 		<key>Headers/Spil.h</key>
 		<data>
-		aRO36Rx3Bzkj7422idJV+qrAy+4=
+		eqpyr6y2rqc35yFU5l0A9Vifp18=
 		</data>
 		<key>Headers/SpilActionHandler.h</key>
 		<data>
@@ -302,131 +302,131 @@
 		</data>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		bz6mE2IKvkmW6Xrotz7pakyQPdg=
+		ICcNydWUBU69yFjlRKuJ3zYUS3A=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~ipad.nib/runtime.nib</key>
 		<data>
-		ZK+dVoU4W+tAF9/kcCQu25iEPg0=
+		/mDID2/6M0NAl3hea8D952O+5Zs=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		j6W27i/AcRmGSiNKohD0yID7k2s=
+		co5aG//5BtXbDIlrPuEIyRVf9+U=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~iphone.nib/runtime.nib</key>
 		<data>
-		RxPDfgYwOOUL5OQG4l8tLX9/yKk=
+		zItiKVJhF3qaMBIMwJPQrMVSPK8=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		kS/CueTiEkaUUOFQPycC/pldj2g=
+		C8eA5POWAZv/9JwkmC69vMta4v4=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~ipad.nib/runtime.nib</key>
 		<data>
-		ZVTMG5u1TQHrEZz7AHKYsaSKv+k=
+		7LONSYBXTjXSbXjKAjdchYcpRQA=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		MCOrwbfxjrpjc3xWVs/xKuD/9uc=
+		QwGeeJqGBmdm+pu34ac2mx5COzk=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~iphone.nib/runtime.nib</key>
 		<data>
-		lXjrHTMbg0OkzhC0eLIomIcjG4k=
+		ZZdcl3Wiqslt9qB/alBSk3Hj+yc=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		p1jbAmelqHmYAe/cukjh9+QklAo=
+		miTcqB01iepQWp5dWw0GqfjrRAE=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~ipad.nib/runtime.nib</key>
 		<data>
-		8MhtgvhWmeJl00lA/A/OeCF8e1g=
+		28j1T0ie23t+23dPFd1DGq3cM3w=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		xJWaIgUzxR55xRW+HZZ0sWUhCKw=
+		VKD0vnj0r9vi1dFOkNb4LDKiYM8=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~iphone.nib/runtime.nib</key>
 		<data>
-		tOYJWuX3FFJiUrTUdsC5dCUYogw=
+		w/xBdJA2+DF3EgkBo/bne3fG6Co=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		S/W56SeY5bMlS2cCcD68zDlZvZQ=
+		0OHyFWKjltE3su63GU6FDjpih7w=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~ipad.nib/runtime.nib</key>
 		<data>
-		ZsQBxa8IDOhBc2gM/S7nOUUa6rY=
+		2efaSIO9qkLGzjpjm8L3zUgBPYs=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		rIh6TS+pJXlby+C6cP9UEz9hwZo=
+		57nifN1Wlr8AOa/UhHqF+SYrwhU=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~iphone.nib/runtime.nib</key>
 		<data>
-		nl4ulNyoF6ZAziN+H0CFs/Peamc=
+		uOo2uTv2JoHyblmhdro2hGx4hiY=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		xm3KUJ7wIz/ehtM/3/TyIkZ5fUc=
+		/dvqvb/wmt+VRLttlxgiy2BnI24=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~ipad.nib/runtime.nib</key>
 		<data>
-		SFBNAXaLFkz+qd00WrDgv1DkDQg=
+		XxoPo4Gl39/OJJBgsPUVDv4fFcg=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		TXtVM0RptPW/g0Pqk2nFTyRbzpw=
+		W9hxulYMG9ntO5XvTfms79x43mE=
 		</data>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~iphone.nib/runtime.nib</key>
 		<data>
-		8KL40TkUeeUoywYvoMey+S1hAv8=
+		3AnRaiyJ959B8unbcGmGjnjROq4=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		d7j1hzVDKE8qJHsl1b10lGt32hE=
+		wNCSBtGm6pQnfBlEQDIvRIhMU0U=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~ipad.nib/runtime.nib</key>
 		<data>
-		NL4cu4ws81A+Szz1tgqvSLlWpy8=
+		SQsbZu9o8EiCo5BLYsQRubkP6wQ=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		+jd20PrAOvhx3UojII1f6QUSD1g=
+		qOO95mccEoFVdzsW8oHOT6MBr8s=
 		</data>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~iphone.nib/runtime.nib</key>
 		<data>
-		pfKj9lduobA+p7IaNNNCkMBm4nY=
+		dYgZQbbudEnQ+BN2F7CV/WjekRQ=
 		</data>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		X16kJAEq2/mkUbeYmOMTQtboK9M=
+		o/rKgfVMx+lD1GM79mL9J9DkjA0=
 		</data>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~ipad.nib/runtime.nib</key>
 		<data>
-		MyWvhqGEeVgQNpWVANujU6zx5Io=
+		dd1J+TVqNuIW7IYVCH5nNbBQCcA=
 		</data>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		rYnSlfN3uYyyV00qLX5dKLHi4jE=
+		0RGG8MMfB4Eqxl65tcOkprEdGmc=
 		</data>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~iphone.nib/runtime.nib</key>
 		<data>
-		JsG801IhD59R9wEf9l6YsAsuJgI=
+		oOCqDuop9FdZZW7+IgCS6A5vWm8=
 		</data>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		E/G+rXs3EEVWXqW/sP6l00EjjII=
+		4cCl8Ad2MuE6yzQKuNPzqQ3pOew=
 		</data>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~ipad.nib/runtime.nib</key>
 		<data>
-		k9tklCwDuSI99G6TVJJg+cHn6DE=
+		71RT8QUvaiUKDZU2OU+Rfw1rJYY=
 		</data>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		v1FO1/ViPR5SFsN60D+RbvQ7+24=
+		XGp3IqWy2wPH58fG2OLRv43A/mM=
 		</data>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~iphone.nib/runtime.nib</key>
 		<data>
-		FbRZ+143tm6lt2rkdRcOLNjzbOw=
+		zEpfKt7Mts+uq2uTHHPoRwzDii4=
 		</data>
 		<key>PrivacyPolicyAccept0.png</key>
 		<data>
@@ -462,7 +462,7 @@
 		</data>
 		<key>PrivacyPolicy~ipad.storyboardc/Info-8.0+.plist</key>
 		<data>
-		WJe+Syoe5HPdtsiYZ635T1++TeE=
+		//QS7X6T30BOOX18lYyakOQRh7s=
 		</data>
 		<key>PrivacyPolicy~ipad.storyboardc/Info.plist</key>
 		<data>
@@ -470,11 +470,11 @@
 		</data>
 		<key>PrivacyPolicy~iphone.storyboardc/Info-8.0+.plist</key>
 		<data>
-		WJe+Syoe5HPdtsiYZ635T1++TeE=
+		//QS7X6T30BOOX18lYyakOQRh7s=
 		</data>
 		<key>PrivacyPolicy~iphone.storyboardc/Info.plist</key>
 		<data>
-		WJe+Syoe5HPdtsiYZ635T1++TeE=
+		//QS7X6T30BOOX18lYyakOQRh7s=
 		</data>
 		<key>Settings.bundle/DebugMode.plist</key>
 		<data>
@@ -575,44 +575,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			15V81NMcBM9fuljErH8Xr+k6hJM=
+			fDVkJVaPXoZjBIJeqHpEznLjbLU=
 			</data>
 			<key>hash2</key>
 			<data>
-			G2QZKDekvD4vckDqlYOodkZwuFtXUAdjXaWM0MOJbiY=
+			93hfUDE64lCAAQlw38iVMdTdRAAT0KT3A0qHeb6wLBk=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pJgvN8s4G1JPMhO+QvtWQYpG29s=
+			WxAOR9okzWDRQN+MVsEgsCEHGY0=
 			</data>
 			<key>hash2</key>
 			<data>
-			A/NFuq4yKfQmONNUAPlLkp8ZSPZJn3VrvESC3Nf1hxA=
+			Nf4tHt3eYzuJ8x37MhQiJzltoOnhotsPVt8wVWrpY5s=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			KLsSkuGWllURwbk9oxjY12ByS5Q=
+			d98Gf8KoDr38dj/6tQn+P7MjfSI=
 			</data>
 			<key>hash2</key>
 			<data>
-			MWZ5VIQVgQDic0t12/Y7sHExSyoljbbi+mEEko8VuXE=
+			k8w8yNCtU9b7ECokJqOksH3KMy8Q9vfRUcwbesSu6x4=
 			</data>
 		</dict>
 		<key>FYBIntegrationAnalyzerViewController~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0WYfmMpHy+a7CBaDcnoChAgzWFw=
+			3FCHIwbbXrMii9ZVYTyqMl8PoN4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Rar0yT4LTWM6w0ZclHXhwX1a+gA8sbRw6YsEGDfvldw=
+			sViawghCYQ2Jer09OpHv8kXbyY+fkoVXg/mOmzGmJv8=
 			</data>
 		</dict>
 		<key>Frameworks/AdjustSdk.framework/AdjustSdk</key>
@@ -982,11 +982,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WhyTmwA1CLZmJUdQOWSzaJeGILw=
+			9LkZNSfzsk09s15BW3fgDT5W3/Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			6O+BeKK3xlwVsaOznm74zeGg1T/DkAuaqXRwNXU0HWo=
+			u72ynWuX4znIDeKd0kUeSE+/zwCwIXdWgTomyv154G0=
 			</data>
 		</dict>
 		<key>Headers/BundlePrice.h</key>
@@ -1059,11 +1059,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SsOD0bXt1qEDgxuITVBvvtpSOkM=
+			fijLOfzz3xrZAvZc9r1j0p/U8n8=
 			</data>
 			<key>hash2</key>
 			<data>
-			5fnaGHh8J7tNn3fq/f8ZkN4+K4jPZPFEkUaqu0TAgj8=
+			QKrxt6pQkuyV2Xjzehi1mjqPtBwRzoTDpaxDMcyHetA=
 			</data>
 		</dict>
 		<key>Headers/GameAsset.h</key>
@@ -1268,11 +1268,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aRO36Rx3Bzkj7422idJV+qrAy+4=
+			eqpyr6y2rqc35yFU5l0A9Vifp18=
 			</data>
 			<key>hash2</key>
 			<data>
-			OhrucJhzwgO5HAb4p15+dplayG4FMaTfRnxaQNe6KSs=
+			qLqyg+InTtaW4EY3XeqQKieks9CJxSSWKk0jVpuu20M=
 			</data>
 		</dict>
 		<key>Headers/SpilActionHandler.h</key>
@@ -1367,352 +1367,352 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bz6mE2IKvkmW6Xrotz7pakyQPdg=
+			ICcNydWUBU69yFjlRKuJ3zYUS3A=
 			</data>
 			<key>hash2</key>
 			<data>
-			+9RduNR4cxMf7lNtz9Kn4wZd+qA8QS/bojynvaoES5Y=
+			yiXKjzPm94pqLpQ1n4InTYmEtDfdeHy7enNbP1Wsv50=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ZK+dVoU4W+tAF9/kcCQu25iEPg0=
+			/mDID2/6M0NAl3hea8D952O+5Zs=
 			</data>
 			<key>hash2</key>
 			<data>
-			hMO0i7i9RwN/Gh5SbAjuT8zoKQogn0hTsudQVAhBs24=
+			vDaxYv7iFxBLfPdfBUIgYxzfQxGWlQrLl4i+9D/S9Uw=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j6W27i/AcRmGSiNKohD0yID7k2s=
+			co5aG//5BtXbDIlrPuEIyRVf9+U=
 			</data>
 			<key>hash2</key>
 			<data>
-			V2rYO1z1KdqHyBUGk8uzN9KLEjx1gzBQt05+Yfwuy0Y=
+			/4qb72adp/gj6c7TOUMsj3cdzuxHtIdLPbcaUpp/OZ4=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Di9-ad-Dnb-view-RSW-wP-VuY~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RxPDfgYwOOUL5OQG4l8tLX9/yKk=
+			zItiKVJhF3qaMBIMwJPQrMVSPK8=
 			</data>
 			<key>hash2</key>
 			<data>
-			hn9XAbWj6CzsZdyRREvLUOFEMdQiQEpBIvbF8NLkKJ0=
+			7R4bUWj2spl54NP9hRMThbZDAPZ1rWTkTlqiL1+MjQg=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			kS/CueTiEkaUUOFQPycC/pldj2g=
+			C8eA5POWAZv/9JwkmC69vMta4v4=
 			</data>
 			<key>hash2</key>
 			<data>
-			czdTKfPhnl0twx3sxxEtkiHRkuV9dPyJM2ryKrOUkjA=
+			153FshRU/LPZoSbfJoUf/QSx+xyUFpeJF1qtNR4r+kw=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ZVTMG5u1TQHrEZz7AHKYsaSKv+k=
+			7LONSYBXTjXSbXjKAjdchYcpRQA=
 			</data>
 			<key>hash2</key>
 			<data>
-			6dgzhwv8/+maDE5ksOH/rnoRvUiYrSIr/otHwBAY8HU=
+			z2jjzrlxkQFjAhoZVF6TwI+XmlLheG0fJP59bCVAcJw=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MCOrwbfxjrpjc3xWVs/xKuD/9uc=
+			QwGeeJqGBmdm+pu34ac2mx5COzk=
 			</data>
 			<key>hash2</key>
 			<data>
-			0j01pY1iv4pvcKIwvTJhZBJFOL5MfNlIaYmXCc+5wcc=
+			d3pSNNyQWfHeaqw98qdLKCLyKl3cH0J9+Mhx653JAmU=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyAdsVC~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			lXjrHTMbg0OkzhC0eLIomIcjG4k=
+			ZZdcl3Wiqslt9qB/alBSk3Hj+yc=
 			</data>
 			<key>hash2</key>
 			<data>
-			4tmcTXNrf5BSfWWHNrixnNObfC1fsa+jGjanKnd44A4=
+			6KTOVOnzrK1P9PwbH8z13VYRyIyBWGgP54JIooAzUVE=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			p1jbAmelqHmYAe/cukjh9+QklAo=
+			miTcqB01iepQWp5dWw0GqfjrRAE=
 			</data>
 			<key>hash2</key>
 			<data>
-			sox1zXru4vKPclolrluMiNpCtKAEm/EpH+vlrNdJkV4=
+			azMVMkSeaLsQ+jm9ZHk4Nkgmy9pJFLx2ZxiwjuQVFhk=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8MhtgvhWmeJl00lA/A/OeCF8e1g=
+			28j1T0ie23t+23dPFd1DGq3cM3w=
 			</data>
 			<key>hash2</key>
 			<data>
-			uI7rckFXJaUGVGI84AvJWYa3X15HCCWX9ttJbvIp9YE=
+			16EHOyvx5YwgKWAjFcD2Vqqm8TRqpFGa05Eg72znSrU=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xJWaIgUzxR55xRW+HZZ0sWUhCKw=
+			VKD0vnj0r9vi1dFOkNb4LDKiYM8=
 			</data>
 			<key>hash2</key>
 			<data>
-			Tg/6pTvNl7SKvbTC3Z4tz+bv+nVbR0CtBxWI9FYXSBw=
+			2GLqXcHJLUWKXOaaOW1GhuxUJIue8vXZvhTBUvgi930=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyInfoVC~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tOYJWuX3FFJiUrTUdsC5dCUYogw=
+			w/xBdJA2+DF3EgkBo/bne3fG6Co=
 			</data>
 			<key>hash2</key>
 			<data>
-			FEURE3YqlF0nPJIfLdofB/kXlM2cKWLeq+4y0b3B+KI=
+			aga6liSpVP2GZCIAPXOPu0J1TJbDbHtMs+dCNTeEu5Q=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S/W56SeY5bMlS2cCcD68zDlZvZQ=
+			0OHyFWKjltE3su63GU6FDjpih7w=
 			</data>
 			<key>hash2</key>
 			<data>
-			fXtD9BbLBfZZHFFkDh9aLGuOES71r8ByJqssBGeQTu4=
+			YOn227ha0lEHwYeuEHmLmvTj70jj5U3jQNmtaNcLbvg=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ZsQBxa8IDOhBc2gM/S7nOUUa6rY=
+			2efaSIO9qkLGzjpjm8L3zUgBPYs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ql1qUPSQmZtM7xZjYT3bdTdN+PhSfEZPbFwyHKz/tr8=
+			YzJlyzbptCVbgZZXKeZ0ogj+WIj9kuCJwXJQZBjX6jc=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rIh6TS+pJXlby+C6cP9UEz9hwZo=
+			57nifN1Wlr8AOa/UhHqF+SYrwhU=
 			</data>
 			<key>hash2</key>
 			<data>
-			rJHDEMEEkit6F37Aoa3yZHEZGeti/n85zj1PQBSMVgU=
+			+6LvgSyrVp0ZjZS6PnIGQfb/IxflKQl9O1fz4zhh1kg=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyMoreVC~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nl4ulNyoF6ZAziN+H0CFs/Peamc=
+			uOo2uTv2JoHyblmhdro2hGx4hiY=
 			</data>
 			<key>hash2</key>
 			<data>
-			hQeXsG0mmiFfhzwYtgPxEqkE8eY9gXnPo9kcyot5QsQ=
+			nVDGMpsZbFZgRrzylc467kXgDTh3r3LHQTaYxWl2jZY=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xm3KUJ7wIz/ehtM/3/TyIkZ5fUc=
+			/dvqvb/wmt+VRLttlxgiy2BnI24=
 			</data>
 			<key>hash2</key>
 			<data>
-			hYVcH/5Ro/geyrq4PS6rHmsLmVtruf6eRZjeUpe6dVY=
+			dDYokmZ3BNwFv6FmwMhjyYhurbByerhK/p+w/2mGRaM=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SFBNAXaLFkz+qd00WrDgv1DkDQg=
+			XxoPo4Gl39/OJJBgsPUVDv4fFcg=
 			</data>
 			<key>hash2</key>
 			<data>
-			WbRsTdJbhGUzZwelku/3MoH6EKUif6PiJ9eeWstxFyE=
+			9FlR2fhOykWySfXErdF78jATRSy7F4r/kliu399FhoQ=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TXtVM0RptPW/g0Pqk2nFTyRbzpw=
+			W9hxulYMG9ntO5XvTfms79x43mE=
 			</data>
 			<key>hash2</key>
 			<data>
-			D4N4EOLgh2PQa1j67qmSa7N6K6/nKFYwTho4ZggxM6c=
+			xLdJt0RjONHAOBYIvS22HGWHlwrlWhWlCku6LEhJy7s=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/PrivacyPolicyVC~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8KL40TkUeeUoywYvoMey+S1hAv8=
+			3AnRaiyJ959B8unbcGmGjnjROq4=
 			</data>
 			<key>hash2</key>
 			<data>
-			5IZf3lcb44/eacS4BNSlPNlwzGUGerZZ8/o/195pI80=
+			Ldf0UWPcdasxRZI2K9RWV4kVlstTEtFBQm/BtUP3az4=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			d7j1hzVDKE8qJHsl1b10lGt32hE=
+			wNCSBtGm6pQnfBlEQDIvRIhMU0U=
 			</data>
 			<key>hash2</key>
 			<data>
-			EnA24yN5ErMlnNCxFadqjeyelwWFMBG5K66ROYXLjaw=
+			tpf3m96ypTaRo0qNpFelBfg6KvdLG83cbru0j3zWzw4=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			NL4cu4ws81A+Szz1tgqvSLlWpy8=
+			SQsbZu9o8EiCo5BLYsQRubkP6wQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			IAiV1wNwhcYKbRnEAmUUN7KgRBJiTyQMD5+zf9zh6RE=
+			wMk6tFkmM1DyL5MdEKDB3vQ4iyd597yCwtLSo2/FdxI=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+jd20PrAOvhx3UojII1f6QUSD1g=
+			qOO95mccEoFVdzsW8oHOT6MBr8s=
 			</data>
 			<key>hash2</key>
 			<data>
-			QutJa+U7ou3pQuJfR7+nH8FFFO23ZeA2K5CL5HsN8m0=
+			84O8rEK3W8Jya9xc9ZCTPNzE5HTME+Me6SJRjM2ZVdg=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/Ukh-Lu-Agu-view-FgC-on-GoN~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pfKj9lduobA+p7IaNNNCkMBm4nY=
+			dYgZQbbudEnQ+BN2F7CV/WjekRQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			XSgDK8h4PzbSnHeMPJlgGG6XDo0hPczffLMX1lLqTu8=
+			7QtxpQzZnS1wXHlTA1+WqNhA5rCZtBkkPfdymwv8vNU=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			X16kJAEq2/mkUbeYmOMTQtboK9M=
+			o/rKgfVMx+lD1GM79mL9J9DkjA0=
 			</data>
 			<key>hash2</key>
 			<data>
-			zvCJEeRlWUO4D+4g3G5wBuOOvxRK1/e5qm1Xz4kpo4U=
+			x4NYQ+bnpzQU8Ci3Q303NVDl7lSCIj9+ZyTqpcCtcA8=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MyWvhqGEeVgQNpWVANujU6zx5Io=
+			dd1J+TVqNuIW7IYVCH5nNbBQCcA=
 			</data>
 			<key>hash2</key>
 			<data>
-			k80v7J99SiUg38Z2RdUqsjYeqUhMwDEfr0wVmir73bg=
+			6t7WgohIuWEfyFuE9yNet1CYiNh2Di6SGTWVkJHZYM0=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rYnSlfN3uYyyV00qLX5dKLHi4jE=
+			0RGG8MMfB4Eqxl65tcOkprEdGmc=
 			</data>
 			<key>hash2</key>
 			<data>
-			4prFH+MtkN/T22RgVLvhJI+9uuMyjtPrcjBiuBW2/Kk=
+			m9RT72CeOCRg3YTbrE+/rc9HucQ51Xj5FRxpMsZzU5g=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/WFO-CS-rdq-view-fnR-g2-iKa~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JsG801IhD59R9wEf9l6YsAsuJgI=
+			oOCqDuop9FdZZW7+IgCS6A5vWm8=
 			</data>
 			<key>hash2</key>
 			<data>
-			agZz6jar2y2kFGLhT9szrPa2u79tFHLeEBPv7XTA/M0=
+			D7YulTZwXVia/exy/U9ms9XIIB0cJ2bD2QlT0a1qRd8=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			E/G+rXs3EEVWXqW/sP6l00EjjII=
+			4cCl8Ad2MuE6yzQKuNPzqQ3pOew=
 			</data>
 			<key>hash2</key>
 			<data>
-			0Zu8SwQJHR5TZghKy+rsZDDR2Mzp+ot/4e/XqLzeeec=
+			N+odtQYIpoD897zA7e6DvJASKRIM5lMBjstHAY6qo2s=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			k9tklCwDuSI99G6TVJJg+cHn6DE=
+			71RT8QUvaiUKDZU2OU+Rfw1rJYY=
 			</data>
 			<key>hash2</key>
 			<data>
-			iFSPmyz/NaQBcdt8mZPC2PFRgp/DfOW7mbgp259IUgw=
+			GMm1dlLzvb3NAR+gXsD5cXYB+DZi1MuaO857YF9Ytsg=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			v1FO1/ViPR5SFsN60D+RbvQ7+24=
+			XGp3IqWy2wPH58fG2OLRv43A/mM=
 			</data>
 			<key>hash2</key>
 			<data>
-			ViX7P2QTWLGKatS3LNVfdZBzG27xwwIDMF6qBd18w58=
+			pO4/VRf5Uj0RZeOzkBSogmR+wAaxbFuuOxbfzXRM0qI=
 			</data>
 		</dict>
 		<key>PrivacyPolicy.storyboardc/a57-Hh-kro-view-9Wj-9M-N8e~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			FbRZ+143tm6lt2rkdRcOLNjzbOw=
+			zEpfKt7Mts+uq2uTHHPoRwzDii4=
 			</data>
 			<key>hash2</key>
 			<data>
-			v75GVGSPwOSOgQwUyJOSzRJFklGVb2fFp90rXyHI8kU=
+			jLlwLWjpDCbjA/JPeaLqCRv1WlxMbx9Ea6prHKaT3zU=
 			</data>
 		</dict>
 		<key>PrivacyPolicyAccept0.png</key>
@@ -1807,11 +1807,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WJe+Syoe5HPdtsiYZ635T1++TeE=
+			//QS7X6T30BOOX18lYyakOQRh7s=
 			</data>
 			<key>hash2</key>
 			<data>
-			iXZSMXDAaDTPvk4NcYdAA9tC9Ge9tIvk289haaL4FDk=
+			Mr9iJFWA5uMBSFslmEK/vXotEjptYEIZw5OFvHUbp5o=
 			</data>
 		</dict>
 		<key>PrivacyPolicy~ipad.storyboardc/Info.plist</key>
@@ -1829,22 +1829,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WJe+Syoe5HPdtsiYZ635T1++TeE=
+			//QS7X6T30BOOX18lYyakOQRh7s=
 			</data>
 			<key>hash2</key>
 			<data>
-			iXZSMXDAaDTPvk4NcYdAA9tC9Ge9tIvk289haaL4FDk=
+			Mr9iJFWA5uMBSFslmEK/vXotEjptYEIZw5OFvHUbp5o=
 			</data>
 		</dict>
 		<key>PrivacyPolicy~iphone.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WJe+Syoe5HPdtsiYZ635T1++TeE=
+			//QS7X6T30BOOX18lYyakOQRh7s=
 			</data>
 			<key>hash2</key>
 			<data>
-			iXZSMXDAaDTPvk4NcYdAA9tC9Ge9tIvk289haaL4FDk=
+			Mr9iJFWA5uMBSFslmEK/vXotEjptYEIZw5OFvHUbp5o=
 			</data>
 		</dict>
 		<key>Settings.bundle/DebugMode.plist</key>

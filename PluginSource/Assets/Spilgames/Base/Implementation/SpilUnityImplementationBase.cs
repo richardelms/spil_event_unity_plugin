@@ -13,10 +13,10 @@ using SpilGames.Unity.Helpers.EventParams;
 namespace SpilGames.Unity.Base.Implementations{
     public abstract class SpilUnityImplementationBase{
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.9.2";
+        public static string PluginVersion = "2.10.0";
 
-        public static string AndroidVersion = "2.9.2";
-        public static string iOSVersion = "2.9.2";
+        public static string AndroidVersion = "2.10.0";
+        public static string iOSVersion = "2.10.0";
 
         #region Game config
 

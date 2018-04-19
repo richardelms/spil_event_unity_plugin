@@ -8,14 +8,15 @@ using SpilGames.Unity.Base.SDK;
 using SpilGames.Unity.Helpers.IAPPackages;
 using SpilGames.Unity.Helpers.Promotions;
 using UnityEngine.Analytics;
+using SpilGames.Unity.Helpers.EventParams;
 
 namespace SpilGames.Unity.Base.Implementations{
     public abstract class SpilUnityImplementationBase{
         public static string PluginName = "Unity";
-        public static string PluginVersion = "2.9.1";
+        public static string PluginVersion = "2.9.2";
 
-        public static string AndroidVersion = "2.9.1";
-        public static string iOSVersion = "2.9.1";
+        public static string AndroidVersion = "2.9.2";
+        public static string iOSVersion = "2.9.2";
 
         #region Game config
 
@@ -213,7 +214,7 @@ namespace SpilGames.Unity.Base.Implementations{
         /// <param name="customCreated">If set to <c>true</c> custom created.</param>
         /// <param name="creatorId">Creator identifier.</param>
         public void TrackLevelCompleteEvent(string levelName, string difficulty = null, double score = 0, int stars = 0,
-            string speed = null, int moves = 0, int turns = 0, bool customCreated = false, string creatorId = null) {
+            string speed = null, int moves = 0, int turns = 0, bool customCreated = false, string creatorId = null, List<LevelCompleteObjectUsed> objectUsed = null) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict.Add("level", levelName);
 
@@ -249,6 +250,11 @@ namespace SpilGames.Unity.Base.Implementations{
                 dict.Add("creatorId", creatorId);
             }
 
+			if (objectUsed != null)
+			{
+				dict.Add("objectUsed", objectUsed);
+			}
+
             SendCustomEvent("levelComplete", dict);
         }
 
@@ -268,7 +274,7 @@ namespace SpilGames.Unity.Base.Implementations{
         /// <param name="creatorId">Creator identifier.</param>
         public void TrackLevelFailedEvent(string levelName, string difficulty = null, double score = 0,
             string speed = null, int moves = 0, int stars = 0, int turns = 0, string reason = null,
-            bool customCreated = false, string creatorId = null) {
+            bool customCreated = false, string creatorId = null, List<LevelCompleteObjectUsed> objectUsed = null) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict.Add("level", levelName);
 
@@ -307,6 +313,11 @@ namespace SpilGames.Unity.Base.Implementations{
             if (creatorId != null) {
                 dict.Add("creatorId", creatorId);
             }
+
+			if (objectUsed != null)
+			{
+				dict.Add("objectUsed", objectUsed);
+			}
 
             SendCustomEvent("levelFailed", dict);
         }
